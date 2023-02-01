@@ -99,6 +99,8 @@ group by
                 App::result('data',  $data );
                 App::result('success',true);
             }catch(\Exception $e){
+                
+                App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
         },['get','post'],true);
