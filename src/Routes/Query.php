@@ -80,11 +80,6 @@ group by
 
     public static function wzb($db,$data){
         foreach($data as &$item){
-            $item['username']="";
-            $item['pwhash']="";
-            $item['wahlscheinnnummer']="";
-            $item['passwort']="";
-            $item['password']="";
             $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$item);
         }
         return $data;
