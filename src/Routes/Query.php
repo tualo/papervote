@@ -83,7 +83,7 @@ group by
         }
         return $data;
     }
-    
+
     public static function register(){
         BasicRoute::add('/papervote/identnummer/(?P<barcode>[\w\-\_\d]+)',function($matches){
             try{
@@ -91,6 +91,7 @@ group by
                 App::contenttype('application/json');
                 $sql = str_replace('#search_field','wahlberechtigte_anlage.identnummer',Query::$querySQL);
                 $data = Query::wzb($db,$db->direct($sql,$matches));
+                App::result('data',  $data );
                 App::result('success',true);
             }catch(\Exception $e){
                 App::result('msg', $e->getMessage());
