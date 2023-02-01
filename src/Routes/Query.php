@@ -74,7 +74,31 @@ group by
 
     public static function prepareQuerySQL($db){
         $fld = $db->singleValue('select group_concat(concat(table_name,".",column_name) separator ",") fld from ds_column where table_name="wahlberechtigte_anlage"
-         and column_name not in ("stimmzettel","wahlscheinnnummer","pwhash","username","password","passwort") ',[],'fld');
+         and column_name not in (
+                "stimmzettel",
+                "wahlscheinnnummer",
+                "pwhash",
+                "username",
+                "password",
+                "passwort",
+                "wahlberechtigte_ridx",
+                "wahlschein_id",
+                "wahlschein_wahlscheinnummer",
+                "leerzeile",
+                "leerzeile2",
+                "leerzeile3",
+                "blocknumber",
+                "stimmzettel_name",
+                "stimmzettel_typtitel",
+                "wahlgruppe_name",
+                "wahlbezirk_name",
+                "wahlschein_ridx",
+                "abgabetyp",
+                "wahlscheinstatus",
+                "hstr",
+                "displ_stimmzettel_name"
+
+        ) ',[],'fld');
         return str_replace('wahlberechtigte_anlage.*',$fld,Query::$querySQL);
     }
 
