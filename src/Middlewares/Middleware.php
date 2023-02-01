@@ -14,7 +14,7 @@ class Middleware implements IMiddleware{
                 App::set('maintanceMode','on');
                 App::addError($e->getMessage());
             }
-        },-100);
         */
+        },-100);
     }
 }
