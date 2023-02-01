@@ -73,7 +73,7 @@ group by
     wahlschein.stimmzettel";
 
     public static function prepareQuerySQL($db){
-        $fld = $db->singleRow('select group_concat(column_name separator ",") fld from ds_column where table_name="wahlberechtigte_anlage"
+        $fld = $db->singleValue('select group_concat(column_name separator ",") fld from ds_column where table_name="wahlberechtigte_anlage"
          and column_name not in ("stimmzettel","wahlscheinnnummer","pwhash","username","password","passwort") ',[],'fld');
         return str_replace('wahlberechtigte_anlage.*',$fld,Query::$querySQL);
     }
@@ -99,7 +99,7 @@ group by
                 App::result('data',  $data );
                 App::result('success',true);
             }catch(\Exception $e){
-                
+
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
