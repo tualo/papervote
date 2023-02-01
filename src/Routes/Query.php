@@ -37,6 +37,7 @@ select
         )
     ) hstr,
 
+    wahlschein.stimmzettel,
     wahlschein.abgabetyp,
     wahlschein.wahlscheinstatus,
     
