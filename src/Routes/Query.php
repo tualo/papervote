@@ -72,6 +72,12 @@ group by
     wahlschein.id, 
     wahlschein.stimmzettel";
 
+    public static function prepareQuerySQL($db){
+        $fld = $db->singleRow('select group_concat(column_name seprator ",") fld from ds_column where table_name="wahlberechtigte_anlage"
+         and column_name not in ("stimmzettel","wahlscheinnnummer","pwhash","username","password","passwort") ',[],'fld');
+        return str_replace('wahlberechtigte_anlage.*',$fld,Query::$querySQL);
+    }
+
     public static function wzb($db,$data){
         foreach($data as &$item){
             $item['username']="";
@@ -85,11 +91,15 @@ group by
     }
 
     public static function register(){
-        BasicRoute::add('/papervote/identnummer/(?P<barcode>[\w\-\_\d]+)',function($matches){
+        BasicRoute::add('/papervote/(?P<type>(identnummer|wahlschein))/(?P<barcode>[\w\-\_\d]+)',function($matches){
             try{
                 $db = App::get('session')->getDB();
                 App::contenttype('application/json');
-                $sql = str_replace('#search_field','wahlberechtigte_anlage.identnummer',Query::$querySQL);
+                $sql = str_replace(
+                    '#search_field',
+                    ($matches['type']=='identnummer')?'wahlberechtigte_anlage.identnummer':'wahlschein.wahlscheinnummer',
+                    Query::prepareQuerySQL($db)
+                );
                 $data = Query::wzb($db,$db->direct($sql,$matches));
                 App::result('data',  $data );
                 App::result('success',true);
@@ -99,17 +109,5 @@ group by
         },['get','post'],true);
 
 
-        BasicRoute::add('/papervote/wahlschein/(?P<barcode>[\w\-\_\d]+)',function($matches){
-            try{
-                $db = App::get('session')->getDB();
-                App::contenttype('application/json');
-                $sql = str_replace('#search_field','wahlschein.wahlscheinnummer',Query::$querySQL);
-                $data = Query::wzb($db,$db->direct($sql,$matches));
-                App::result('data',  $data );
-                App::result('success',true);
-            }catch(\Exception $e){
-                App::result('msg', $e->getMessage());
-            }
-        },['get','post'],true);
     }
 }
