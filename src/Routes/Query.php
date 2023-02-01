@@ -38,7 +38,7 @@ select
     wahlschein.abgabetyp,
     wahlschein.wahlscheinstatus,
     
-    getBallotpaper(wahlschein.stimmzettel) displ_stimmzettel_name'
+    getBallotpaper(wahlschein.stimmzettel) displ_stimmzettel_name
 
 from
 
