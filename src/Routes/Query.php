@@ -10,6 +10,8 @@ class Query implements IRoute{
 select
     wahlberechtigte_anlage.*,
 
+
+    wahlberechtigte.ridx wahlberechtigte_ridx,
     wahlschein.id wahlschein_id, 
     wahlschein.wahlscheinnummer wahlschein_wahlscheinnummer,
     wahlschein.blocknumber,  					
@@ -89,7 +91,18 @@ group by
                 $db = App::get('session')->getDB();
                 App::contenttype('application/json');
                 $sql = str_replace('#search_field','wahlschein.wahlscheinnummer',Query::$querySQL);
-                App::result('data',  $db->direct($sql,$matches));
+
+                $data = $db->direct($sql,$matches);
+                foreach($data as &$item){
+                    $item['username']="";
+                    $item['pwhash']="";
+                    $item['wahlscheinnnummer']="";
+                    $item['passwort']="";
+                    $item['password']="";
+                    $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$item);
+                }
+                
+                App::result('data',  $data );
                 App::result('success',true);
             }catch(\Exception $e){
                 App::result('msg', $e->getMessage());
