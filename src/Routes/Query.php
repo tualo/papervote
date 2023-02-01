@@ -72,13 +72,25 @@ group by
     wahlschein.id, 
     wahlschein.stimmzettel";
 
+    public static function wzb($db,$data){
+        foreach($data as &$item){
+            $item['username']="";
+            $item['pwhash']="";
+            $item['wahlscheinnnummer']="";
+            $item['passwort']="";
+            $item['password']="";
+            $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$item);
+        }
+        return $data;
+    }
+    
     public static function register(){
         BasicRoute::add('/papervote/identnummer/(?P<barcode>[\w\-\_\d]+)',function($matches){
             try{
                 $db = App::get('session')->getDB();
                 App::contenttype('application/json');
                 $sql = str_replace('#search_field','wahlberechtigte_anlage.identnummer',Query::$querySQL);
-                App::result('data',  $db->direct($sql,$matches));
+                $data = Query::wzb($db,$db->direct($sql,$matches));
                 App::result('success',true);
             }catch(\Exception $e){
                 App::result('msg', $e->getMessage());
@@ -91,17 +103,7 @@ group by
                 $db = App::get('session')->getDB();
                 App::contenttype('application/json');
                 $sql = str_replace('#search_field','wahlschein.wahlscheinnummer',Query::$querySQL);
-
-                $data = $db->direct($sql,$matches);
-                foreach($data as &$item){
-                    $item['username']="";
-                    $item['pwhash']="";
-                    $item['wahlscheinnnummer']="";
-                    $item['passwort']="";
-                    $item['password']="";
-                    $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$item);
-                }
-                
+                $data = Query::wzb($db,$db->direct($sql,$matches));
                 App::result('data',  $data );
                 App::result('success',true);
             }catch(\Exception $e){
