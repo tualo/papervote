@@ -40,7 +40,8 @@ select
     wahlschein.stimmzettel,
     wahlschein.abgabetyp,
     wahlschein.wahlscheinstatus,
-    
+    wahltyp.ridx wahltyp_ridx,
+
     getBallotpaper(wahlschein.stimmzettel) displ_stimmzettel_name
 
 from
@@ -53,6 +54,8 @@ from
         and wahlschein.stimmzettel = wahlberechtigte_anlage.stimmzettel
     join stimmzettel 
         on stimmzettel.ridx = wahlschein.stimmzettel
+    join wahltyp 
+        on wahltyp.ridx = stimmzettel.wahltyp
     join wahlgruppe on wahlgruppe.ridx = stimmzettel.wahlgruppe
     join wahlbezirk on wahlbezirk.ridx = stimmzettel.wahlbezirk
     join (
@@ -97,7 +100,8 @@ group by
                 "abgabetyp",
                 "wahlscheinstatus",
                 "hstr",
-                "displ_stimmzettel_name"
+                "displ_stimmzettel_name",
+                "wahltyp_ridx"
 
         ) ',[],'fld');
         return str_replace('wahlberechtigte_anlage.*',$fld,Query::$querySQL);
