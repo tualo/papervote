@@ -37,12 +37,16 @@ select
         )
     ) hstr,
 
+    concat('<b>',wahlscheinstatus.name ,'</b>') last_state_text,
+
     wahlschein.stimmzettel,
     wahlschein.abgabetyp,
     wahlschein.wahlscheinstatus,
     wahltyp.ridx wahltyp_ridx,
 
-    getBallotpaper(wahlschein.stimmzettel) displ_stimmzettel_name
+    getBallotpaper(wahlschein.stimmzettel) displ_stimmzettel_name,
+    concat('<b>',getBallotpaper(wahlschein.stimmzettel) ,'</b>') displ_stimmzettel_name_bold,
+    concat('<b>',stimmzettel.typtitel ,'</b>') stimmzettel_typtitel_bold
 
 from
 
@@ -58,6 +62,8 @@ from
         on wahltyp.ridx = stimmzettel.wahltyp
     join wahlgruppe on wahlgruppe.ridx = stimmzettel.wahlgruppe
     join wahlbezirk on wahlbezirk.ridx = stimmzettel.wahlbezirk
+    join wahlscheinstatus 
+                on wahlschein.wahlscheinstatus = wahlscheinstatus.ridx
     join (
         select 
             wahlschein_hstr.*,
@@ -101,7 +107,10 @@ group by
                 "wahlscheinstatus",
                 "hstr",
                 "displ_stimmzettel_name",
-                "wahltyp_ridx"
+                "wahltyp_ridx",
+                "last_state_text",
+                "displ_stimmzettel_name_bold",
+                "stimmzettel_typtitel_bold"
 
         ) ',[],'fld');
         return str_replace('wahlberechtigte_anlage.*',$fld,Query::$querySQL);
