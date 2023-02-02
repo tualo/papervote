@@ -37,7 +37,7 @@ select
         )
     ) hstr,
 
-    concat('<b>',wahlscheinstatus.name ,'</b>') last_state_text,
+    concat('<b>Status: ',wahlscheinstatus.name ,'</b>') last_state_text,
 
     wahlschein.stimmzettel,
     wahlschein.abgabetyp,
