@@ -135,7 +135,9 @@ group by
                 );
                 $data = Query::wzb($db,$db->direct($sql,$matches));
                 App::result('data',  $data );
-                App::result('success',true);
+                App::result('success',count($data)>0);
+                App::result('msg',(count($data)==0)?'Der Wähler wurde nicht gefunden.':'');
+                
             }catch(\Exception $e){
 
                 App::result('last_sql', $db->last_sql);
