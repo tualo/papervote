@@ -17,7 +17,6 @@ class ApiUser implements IRoute{
                 App::result('data',  $data );
                 App::result('success',$data !== false);
                 App::result('msg',($data === false)?'Der Wähler wurde nicht gefunden.':'');
-             
             }catch(\Exception $e){
 
                 App::result('last_sql', $db->last_sql);
