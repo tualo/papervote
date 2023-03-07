@@ -10,7 +10,7 @@ class ApiUser implements IRoute{
     public static function register(){
         BasicRoute::add('/papervote/wmregister/(?P<username>[\w\-\_\d]+)',function($matches){
             try{
-                $sql='select * from view_wm_register_api where username={username}';
+                $sql='select * from view_voters_by_username_api where username={username}';
                 $db = App::get('session')->getDB();
                 App::contenttype('application/json');
                 $data = $db->singleRow($sql,$matches);
