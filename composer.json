@@ -17,6 +17,7 @@
     },
     "minimum-stability": "dev",
     "require": {
+        "ramsey/uuid": "*",
         "phpseclib/phpseclib": "^3.0"
     }
 }
