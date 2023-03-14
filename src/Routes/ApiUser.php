@@ -47,7 +47,7 @@ class ApiUser implements IRoute{
                             ) on duplicate key update token=values(token)
                             ',$hash);
                         }
-                        $ballotpaper['secret'] = TualoApplicationPGP::encrypt($keyData['publickey'],$hash['secret_token']);
+                        $ballotpaper['secret_token'] = TualoApplicationPGP::encrypt($keyData['publickey'],$hash['secret_token']);
                     }
                 }
 
