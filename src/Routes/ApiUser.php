@@ -27,13 +27,12 @@ class ApiUser implements IRoute{
 
                     
                     foreach( $data['possible_ballotpapers'] as &$ballotpaper){
+                        $hash = [
+                            'voter_id'=>$ballotpaper['voter_id'],
+                            'ballotpaper_ridx' => $ballotpaper['ballotpaper_id'].'|0',
+                            'secret_token' => Uuid::uuid4()->toString()
+                        ];
                         if ($ballotpaper['canvote']==1){
-                            $hash = [
-                                'voter_id'=>$ballotpaper['voter_id'],
-                                'ballotpaper_ridx' => $ballotpaper['ballotpaper_id'].'|0',
-                                'secret_token' => Uuid::uuid4()->toString()
-                            ];
-
                             $db->direct('
                             insert into wm_wahlschein_register (
                                 id,
@@ -47,10 +46,8 @@ class ApiUser implements IRoute{
                                 {secret_token}
                             ) on duplicate key update token=values(token)
                             ',$hash);
-    
                         }
-
-                        $ballotpaper['secret_token'] = TualoApplicationPGP::encrypt($keyData['publickey'],$hash['secret_token']);
+                        $ballotpaper['secret'] = TualoApplicationPGP::encrypt($keyData['publickey'],$hash['secret_token']);
                     }
                 }
 
