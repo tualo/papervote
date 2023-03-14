@@ -28,7 +28,7 @@ class ApiUser implements IRoute{
                         if ($ballotpaper['canvote']==1){
                             $hash = [
                                 'voter_id'=>$ballotpaper['voter_id'],
-                                'ballotpaper_ridx' => $ballotpaper['ballotpaper_id'],
+                                'ballotpaper_ridx' => $ballotpaper['ballotpaper_id'].'|0',
                                 'secret_token' => Uuid::uuid4()->toString()
                             ];
 
