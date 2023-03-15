@@ -35,7 +35,7 @@ class SetupHandshake implements IRoute{
                 $publickey = $keys['public'];
                 */
 
-                if ($ping_result = APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'/onlinevote/ping' )){
+                if ($ping_result = APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'onlinevote/ping' )){
                     if (
                         ($ping_result==false)||
                         (!isset($ping_result['success']))||
