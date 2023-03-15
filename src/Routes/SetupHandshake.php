@@ -19,7 +19,7 @@ class SetupHandshake implements IRoute{
 
         BasicRoute::add('/papervote/setuphandshake',function($matches){
             try{
-
+                App::contenttype('application/json');
                 
                 
                 if (!isset($_REQUEST['publickey'])) throw new \Exception("missing parameter");
