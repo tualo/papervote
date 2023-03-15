@@ -53,13 +53,10 @@ class SetupHandshake implements IRoute{
                     }else{
 
 
-                        $mesage_to_send = [
-                            'publickey' => $publickey,
-                            'token'     => $token,
-                            'message_public'   => TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)),
-                            'message_private'   => TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($privatekey,$token))
-                        ];
-                        App::result('data',  $mesage_to_send );
+                        App::result('publickey', $publickey);
+                        App::result('token', $token);
+                        App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)));
+                        App::result('message_private', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($privatekey,$token)));
                         App::result('success', true );
                     }
                 }
