@@ -8,7 +8,7 @@ use Tualo\Office\Basic\IRoute;
 use Tualo\Office\TualoPGP\TualoApplicationPGP;
 use Ramsey\Uuid\Uuid;
 use Tualo\Office\PaperVote\APIRequestHelper;
-use phpseclib3\Crypt\RSA;
+
 
 class Ping implements IRoute{
  
@@ -23,10 +23,9 @@ class Ping implements IRoute{
                     isset($_REQUEST['message'])
                 ){
                     $db = App::get('session')->getDB();
-                    $privatePEM = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'erp/privatekey'",[],'property');
-                    RSA::load($privatePEM)->getPublicKey()->verify($message, $signature);
+                    $pem = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'remote-erp/public'",[],'property');
                     App::result('success',true);
-                    App::result('signature_ok',true);
+                    App::result('signature_success',RSA::load($pem)->verify($message, $signature) );
                 }else{
                     App::result('success',true);
                 }
