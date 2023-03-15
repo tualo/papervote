@@ -25,7 +25,7 @@ class Ping implements IRoute{
                     $db = App::get('session')->getDB();
                     $pem = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'remote-erp/public'",[],'property');
                     App::result('success',true);
-                    App::result('signature_success',RSA::load($pem)->verify($message, $signature) );
+                    App::result('signature_success',RSA::load($pem)->verify($_REQUEST['message'], $_REQUEST['signature']) );
                 }else{
                     App::result('success',true);
                 }
