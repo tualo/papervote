@@ -19,10 +19,10 @@ class ApiUser implements IRoute{
 
                 $remote_public_key = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'remote-erp/public'",[],'property');
                 $local_private_key = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'erp/privatekey'",[],'property');
-                isset($_REQUEST['username']) ||  throw new Exception("username missed");
-                isset($_REQUEST['signature']) ||  throw new Exception("signature missed");
-                TualoApplicationPGP::verify($remote_public_key,$_REQUEST['username'], $_REQUEST['signature']) || throw new Exception("Verification failed");
-                
+                if(!isset($_REQUEST['username'])) throw new Exception("username missed");
+                if(!isset($_REQUEST['signature']))  throw new Exception("signature missed");
+                if(!TualoApplicationPGP::verify($remote_public_key,$_REQUEST['username'], $_REQUEST['signature'])) throw new Exception("Verification failed");
+
 
                 
                 $sql='select * from view_voters_by_username_api where username={username}';
