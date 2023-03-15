@@ -28,7 +28,7 @@ class SetupHandshake implements IRoute{
 
 
                 $keys = TualoApplicationPGP::keyGen(2048);
-                $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property})",[
+                $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
                     'system_settings_id'    => 'erp/privatekey',
                     'property'              => $keys['private']
                 ]);
@@ -39,6 +39,7 @@ class SetupHandshake implements IRoute{
                 ]);
 
                 $publickey = $keys['public'];
+                $privatekey = $keys['private'];
 
                 if ($ping_result = APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'/onlinevote/ping',[
 
@@ -55,7 +56,8 @@ class SetupHandshake implements IRoute{
                         $mesage_to_send = [
                             'publickey' => $publickey,
                             'token'     => $token,
-                            'message'   => TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token))
+                            'message_public'   => TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)),
+                            'message_private'   => TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($privatekey,$token))
                         ];
                         App::result('data',  $mesage_to_send );
                         App::result('success', true );
