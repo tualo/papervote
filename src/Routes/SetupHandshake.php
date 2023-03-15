@@ -27,19 +27,7 @@ class SetupHandshake implements IRoute{
                 $token = $_REQUEST['token'];
 
 
-                $keys = TualoApplicationPGP::keyGen(2048);
-                $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
-                    'system_settings_id'    => 'erp/privatekey',
-                    'property'              => $keys['private']
-                ]);
 
-                $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
-                    'system_settings_id'    => 'remote-erp/public',
-                    'property'              => $_REQUEST['publickey']
-                ]);
-
-                $publickey = $keys['public'];
-                $privatekey = $keys['private'];
 
                 if ($ping_result = APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'/onlinevote/ping',[
 
@@ -53,10 +41,30 @@ class SetupHandshake implements IRoute{
                     }else{
 
 
-                        App::result('publickey', $publickey);
+                        $keys = TualoApplicationPGP::keyGen(2048);
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                            'system_settings_id'    => 'erp/privatekey',
+                            'property'              => $keys['private']
+                        ]);
+        
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                            'system_settings_id'    => 'remote-erp/public',
+                            'property'              => $_REQUEST['publickey']
+                        ]);
+
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                            'system_settings_id'    => 'remote-erp/url',
+                            'property'              => $_REQUEST['uri']
+                        ]);
+
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                            'system_settings_id'    => 'remote-erp/token',
+                            'property'              => $_REQUEST['token']
+                        ]);
+        
+                        App::result('publickey', $keys['public']);
                         App::result('token', $token);
                         App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)));
-                        App::result('message_private', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($privatekey,$token)));
                         App::result('success', true );
                     }
                 }
