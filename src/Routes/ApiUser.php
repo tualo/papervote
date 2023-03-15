@@ -1,6 +1,7 @@
 <?php
 namespace Tualo\Office\PaperVote\Routes;
 
+use Exception;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
@@ -11,14 +12,23 @@ use Ramsey\Uuid\Uuid;
 class ApiUser implements IRoute{
  
     public static function register(){
-        BasicRoute::add('/papervote/get/(?P<username>[\w\-\_\d]+)',function($matches){
+        BasicRoute::add('/papervote/get',function( ){
+            App::contenttype('application/json');
             try{
                 $db = App::get('session')->getDB();
-                $keyData = $db->singleRow("select publickey from wm_pgp_pubkey where id=0 ",[]);
 
+                $remote_public_key = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'remote-erp/public'",[],'property');
+                $local_private_key = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'erp/privatekey'",[],'property');
+                isset($_REQUEST['username']) ||  throw new Exception("username missed");
+                isset($_REQUEST['signature']) ||  throw new Exception("signature missed");
+                TualoApplicationPGP::verify($remote_public_key,$_REQUEST['username'], $_REQUEST['signature']) || throw new Exception("Verification failed");
+                
+
+                
                 $sql='select * from view_voters_by_username_api where username={username}';
-                App::contenttype('application/json');
-                $data = $db->singleRow($sql,$matches);
+                $data = $db->singleRow($sql,[
+                    'username'=>$_REQUEST['username']
+                ]);
 
                 if ($data !== false){
                     if (is_string($data['possible_ballotpapers'])){
@@ -47,7 +57,7 @@ class ApiUser implements IRoute{
                             ) on duplicate key update token=values(token)
                             ',$hash);
                         }
-                        $ballotpaper['secret_token'] = TualoApplicationPGP::encrypt($keyData['publickey'],$hash['secret_token']);
+                        $ballotpaper['secret_token'] =  TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($remote_public_key,$hash['secret_token']));
                     }
                 }
 
@@ -59,7 +69,7 @@ class ApiUser implements IRoute{
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        },['get','post'],true);
+        },['post'],true);
 
 
         
