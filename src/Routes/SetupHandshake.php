@@ -15,7 +15,8 @@ class SetupHandshake implements IRoute{
 
         BasicRoute::add('/papervote/setuphandshake',function($matches){
             try{
-                $db = App::get('session')->getDB();
+                $session = App::get('session');
+                $db = $session->getDB();
                 App::contenttype('application/json');
                 
                 
