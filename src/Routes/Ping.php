@@ -8,6 +8,7 @@ use Tualo\Office\Basic\IRoute;
 use Tualo\Office\TualoPGP\TualoApplicationPGP;
 use Ramsey\Uuid\Uuid;
 use Tualo\Office\PaperVote\APIRequestHelper;
+use phpseclib3\Crypt\RSA;
 
 class Ping implements IRoute{
  
