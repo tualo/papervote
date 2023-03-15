@@ -24,9 +24,7 @@ class SetupHandshake implements IRoute{
                 if (!isset($_REQUEST['token'])) throw new \Exception("missing parameter");
                 if (!isset($_REQUEST['message'])) throw new \Exception("missing parameter");
 
-                $token = $_REQUEST['token'];
-
-
+                
 
 
                 if ($ping_result = APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'/onlinevote/ping',[
@@ -62,6 +60,14 @@ class SetupHandshake implements IRoute{
                             'property'              => $_REQUEST['token']
                         ]);
         
+                        $token = $session->registerOAuth(
+                                $params     =   [],
+                                $force      =   true,
+                                $anyclient  =   false,
+                                $path       =   '/papervote/*'
+                        );
+                        $session->oauthValidDays($token,365);
+                        
                         App::result('publickey', $keys['public']);
                         App::result('token', $token);
                         App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)));
