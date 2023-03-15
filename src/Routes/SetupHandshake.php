@@ -33,7 +33,7 @@ class SetupHandshake implements IRoute{
                     'property'              => $keys['private']
                 ]);
 
-                $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property})",[
+                $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
                     'system_settings_id'    => 'remote-erp/public',
                     'property'              => $_REQUEST['publickey']
                 ]);
