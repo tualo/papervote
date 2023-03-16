@@ -13,7 +13,7 @@ select
                 'ballotpaper_id', `stimmzettel`.`id`,
                 'canvote',
                 if(
-                    `wahlschein`.`wahlscheinstatus` = '1|0',
+                    `wahlschein`.`wahlscheinstatus` in (select wahlscheinstatus from wahlscheinstatus_online_erlaubt),
                     1,
                     0
                 )

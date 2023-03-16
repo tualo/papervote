@@ -24,17 +24,25 @@ class Set implements IRoute{
                 if(!isset($_REQUEST['ballotpaper_id']))  throw new Exception("ballotpaper_id missed");
                 if(!TualoApplicationPGP::verify($remote_public_key,$_REQUEST['voter_id'], $_REQUEST['signature'])) throw new Exception("Verification failed");
 
-                $sql='select * from wahlschein where id={voter_id} and stimmzettel in (select ridx from stimmzettel where id = {ballotpaper_id}) and wahlscheinstatus in ("1|0")';
-                $data = $db->singleRow($sql,$_REQUEST);
+                $stimmzettel_ridx = $db->singleValue('select ridx from stimmzettel where id = {ballotpaper_id}',$_REQUEST,'ridx');
+
+                $sql='select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and wahlscheinstatus in (select wahlscheinstatus from wahlscheinstatus_online_erlaubt)';
+                $data = $db->singleRow($sql,[
+                    'voter_id'      =>  $_REQUEST['voter_id'],
+                    'stimmzettel'   => $stimmzettel_ridx
+                ]);
 
                 if ($data!==false){
-                    $db->direct("update wahlschein set wahlscheinstatus='2|0', abgabetyp='2|0' where id={voter_id}  and stimmzettel={stimmzettel} ",[
+                    $db->direct("update wahlschein set wahlscheinstatus='2|0', abgabetyp='2|0' where id={voter_id}  and stimmzettel={stimmzettel} and wahlscheinstatus in (select wahlscheinstatus from wahlscheinstatus_online_erlaubt) ",[
                         'voter_id'      =>  $_REQUEST['voter_id'],
-                        'stimmzettel'   =>  $db->singleValue('select ridx from stimmzettel where id = {ballotpaper_id}',$_REQUEST,'ridx')
+                        'stimmzettel'   => $stimmzettel_ridx
                     ]);
 
-                    $sql='select * from wahlschein where id={voter_id} and stimmzettel in (select ridx from stimmzettel where id = {ballotpaper_id}) and wahlscheinstatus="2|0" and abgabetyp="2|0"';
-                    $data = $db->singleRow($sql,$_REQUEST);
+                    $sql='select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and wahlscheinstatus="2|0" and abgabetyp="2|0"';
+                    $data = $db->singleRow($sql,[
+                        'voter_id'      =>  $_REQUEST['voter_id'],
+                        'stimmzettel'   => $stimmzettel_ridx
+                    ]);
                     if ($data!==false) App::result('success', true);
                     
                 }else{

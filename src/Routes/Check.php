@@ -23,7 +23,12 @@ class Set implements IRoute{
                 if(!isset($_REQUEST['ballotpaper_id']))  throw new Exception("ballotpaper_id missed");
                 if(!TualoApplicationPGP::verify($remote_public_key,$_REQUEST['voter_id'], $_REQUEST['signature'])) throw new Exception("Verification failed");
 
-                $sql='select * from wahlschein where id={voter_id} and stimmzettel in (select ridx from stimmzettel where id = {ballotpaper_id}) and wahlscheinstatus in ("1|0")';
+                $sql='select * from 
+                    wahlschein 
+                where 
+                    id={voter_id} 
+                    and stimmzettel in (select ridx from stimmzettel where id = {ballotpaper_id}) 
+                    and wahlscheinstatus in (select wahlscheinstatus from wahlscheinstatus_online_erlaubt)';
                 $data = $db->singleRow($sql,$_REQUEST);
                 App::result('success',$data !== false);
                 App::result('msg',($data === false)?'Der Wähler wurde nicht gefunden.':'');
