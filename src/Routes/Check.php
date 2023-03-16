@@ -9,7 +9,7 @@ use Tualo\Office\TualoPGP\TualoApplicationPGP;
 
 use Ramsey\Uuid\Uuid;
 
-class Set implements IRoute{
+class Check implements IRoute{
  
     public static function register(){
         BasicRoute::add('/papervote/check',function( ){
