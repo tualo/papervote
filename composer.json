@@ -19,6 +19,6 @@
     "require": {
         "ramsey/uuid": "*",
         "tualo/tualopgp": "*",
-        "phpseclib/phpseclib": "^3.0"
+        "phpseclib/phpseclib": "*"
     }
 }
