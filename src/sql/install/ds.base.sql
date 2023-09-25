@@ -1,6 +1,6 @@
 delimiter ;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('abgabetyp','Abgabetyp','',0,'name','name','id',1,'Mit dem Abgabetyp wird festgelegt, auf welchem Weg der Wähler an der Wahl teilgenommen hat.','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('abgabetyp','Abgabetyp','',0,'name','name','id',1,'Mit dem Abgabetyp wird festgelegt, auf welchem Weg der Wähler an der Wahl teilgenommen hat.','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','abgabetyp',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('abgabetyp','aktiv','1',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
@@ -23,7 +23,7 @@ UNLOCK TABLES;
 LOCK TABLES `ds_column_form_label` WRITE;
 INSERT IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `field_path`, `position`, `hidden`, `active`, `allowempty`, `fieldgroup`, `flex`, `hint`) VALUES ('abgabetyp','aktiv','DE','Aktiv','checkbox','Allgemein',2,0,1,1,'',1.00,''),
 ('abgabetyp','id','DE','ID','displayfield','Allgemein',0,0,1,1,'',1.00,''),
-('abgabetyp','kostenstelle','DE','kostenstelle','displayfield','Allgemein',0,0,1,1,'',1.00,''),
+('abgabetyp','kostenstelle','DE','kostenstelle','displayfield','Allgemein',0,1,1,1,'',1.00,'\'\''),
 ('abgabetyp','name','DE','Name','textfield','Allgemein',1,0,1,1,'',1.00,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_dropdownfields` WRITE;
@@ -37,7 +37,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','abgabetyp',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlbezirk','Wahlbezirk','',0,'name','name','id',1,'','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlbezirk','Wahlbezirk','',0,'name','name','id',1,'','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','wahlbezirk',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahlbezirk','aktiv','1',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
@@ -82,7 +82,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlbezirk',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlgruppe','Wahlgruppe','',0,'name','name','zuweisungsschluessel',1,'','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlgruppe','Wahlgruppe','',0,'name','name','zuweisungsschluessel',1,'','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','wahlgruppe',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahlgruppe','aktiv','1',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
@@ -130,7 +130,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlgruppe',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('stimmzettel','Stimmzettel','',0,'name','name','',1,'','','','',0,'cellmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('stimmzettel','Stimmzettel','',0,'name','name','',1,'','','','',0,'cellmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','stimmzettel',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('stimmzettel','aktiv','1',100000,0,'',0,0,'','','YES','NO',1,'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
@@ -255,12 +255,18 @@ INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, 
 ('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
 ('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
 ('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
+('stimmzettel','wahlbezirk','{\"wahlbezirk\":\"ridx\"}','fk_stimmzettel_wahlbezirk',0,0,0,999,'',0,''),
+('stimmzettel','wahlgruppe','{\"wahlgruppe\":\"ridx\"}','fk_stimmzettel_wahlgruppe',0,0,0,999,'',0,''),
+('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
+('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
+('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
+('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
+('stimmzettel','wahlbezirk','{\"wahlbezirk\":\"ridx\"}','fk_stimmzettel_wahlbezirk',0,0,0,999,'',0,''),
+('stimmzettel','wahlgruppe','{\"wahlgruppe\":\"ridx\"}','fk_stimmzettel_wahlgruppe',0,0,0,999,'',0,''),
+('stimmzettel','wahlbezirk','{\"wahlbezirk\":\"ridx\"}','fk_stimmzettel_wahlbezirk',0,0,0,999,'',0,''),
+('stimmzettel','wahlgruppe','{\"wahlgruppe\":\"ridx\"}','fk_stimmzettel_wahlgruppe',0,0,0,999,'',0,''),
 ('stimmzettel','wahlbezirk','{\"wahlbezirk\":\"ridx\"}','fk_stimmzettel_wahlbezirk',0,0,0,999,'',1,''),
-('stimmzettel','wahlgruppe','{\"wahlgruppe\":\"ridx\"}','fk_stimmzettel_wahlgruppe',0,0,0,999,'',1,''),
-('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',1,''),
-('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',1,''),
-('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',1,''),
-('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',1,'');
+('stimmzettel','wahlgruppe','{\"wahlgruppe\":\"ridx\"}','fk_stimmzettel_wahlgruppe',0,0,0,999,'',1,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
@@ -268,7 +274,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','stimmzettel',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('stimmzettelgruppen','Stimmzettelgruppen','',0,'name','name','id',1,'','','','',0,'tualomultirowmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('stimmzettelgruppen','Stimmzettelgruppen','',0,'name','name','id',1,'','','','',0,'tualomultirowmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','stimmzettelgruppen',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('stimmzettelgruppen','id','',10000000,0,NULL,1,0,NULL,NULL,'NO','NO',1,'','int','PRI','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
@@ -301,20 +307,24 @@ LOCK TABLES `ds_dropdownfields` WRITE;
 INSERT IGNORE INTO `ds_dropdownfields` (`table_name`, `name`, `idfield`, `displayfield`, `filterconfig`) VALUES ('stimmzettelgruppen','ridx','ridx','name',NULL);
 UNLOCK TABLES;
 LOCK TABLES `ds_reference_tables` WRITE;
-INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',0,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,0,999,'',1,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',1,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',1,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',1,''),
-('stimmzettelgruppen','stimmzettel','{\"stimmzettelgruppen__stimmzettel\":\"stimmzettel__ridx\"}','fk_stimmzettelgruppen_stimmzettel',0,0,1,99999,'',1,'');
+INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,''),
+('stimmzettelgruppen','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_stimmzettelgruppen_stimmzettel',1,0,0,999,'',1,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
@@ -322,44 +332,48 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','stimmzettelgruppen',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('kandidaten','Kandidaten','',0,'anzeige_name','anzeige_name','barcode',1,'','1','0','',0,'tualomultirowmodel','',0,'1','','view_readtable_kandidaten','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('kandidaten','Kandidaten','',0,'anzeige_name','anzeige_name','barcode',1,'','1','0','',0,'tualomultirowmodel','',0,'1','','view_readtable_kandidaten','Wahlsystem','',1,'','','listview','XlsxWriter','kandidaten-{DATE}',0,10000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
-INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('kandidaten','aktiv','1',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','andrede','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(100)',100,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','barcode','{#serial}',100000,0,'',0,0,'','','YES','NO',1,'','varchar','','varchar(5)',5,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','branche','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','email','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','firma1','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','firma2','',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','firma3','',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','firma4','',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','firma_ort','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','firma_plz','',10000,0,'',0,0,'','','YES','NO',1,'\'\'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'\'\'',''),
-('kandidaten','firma_strasse','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','firmen_identnummer','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(15)',15,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','funktion1','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','funktion2','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','funktion3','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','geburtsdatum','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','date','','date',NULL,NULL,NULL,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','geburtsjahr','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(5)',5,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','geschlecht','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(5)',5,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','id','{#serial}',10000,1,'',1,0,NULL,NULL,'NO','NO',1,'','int','PRI','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','ist_gewaehlt','',10000000,0,NULL,0,0,NULL,NULL,'YES',NULL,1,'','tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','kooptiert','',10000000,0,NULL,0,0,NULL,NULL,'YES',NULL,1,'','tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','kostenstelle','0',0,0,'',1,0,NULL,NULL,'YES','NO',1,'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','losnummer','0',10000000,0,'',0,0,'','','YES','0',1,'\'\'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'\'\'',''),
-('kandidaten','losnummer_stimmzettelgruppe','0',10000000,0,'',0,0,'','','YES','0',1,'\'\'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'\'\'',''),
-('kandidaten','losung_verloren','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','nachname','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','nachruecker','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,0,'',''),
-('kandidaten','personen_identnummer','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(15)',15,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','ridx','null',0,0,'null',0,0,NULL,NULL,'YES','NO',1,'','varchar','UNI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','stimmzettelgruppen','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','MUL','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','telefon','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','titel','',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','vorname','',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('kandidaten','www','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'','');
+INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('kandidaten','aktiv','1',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','andrede','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(100)',100,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','anzeige_name',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'text','','text',65535,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','barcode','{#serial}',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(5)',5,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','branche','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','email','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firma1','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firma2','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firma3','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firma4','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firma_ort','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firma_plz','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firma_strasse','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','firmen_identnummer','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(15)',15,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','funktion1','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','funktion2','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','funktion3','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','geburtsdatum','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'date','','date',NULL,NULL,NULL,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','geburtsjahr','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(5)',5,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','geschlecht','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(5)',5,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','id','{#serial}',NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'int','PRI','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','ist_gewaehlt','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','kooptiert','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','kostenstelle','0',NULL,NULL,NULL,1,NULL,NULL,NULL,'YES',NULL,1,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','losnummer','0',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','losnummer_stimmzettelgruppe','0',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','losung_verloren','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','nachname','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','nachruecker','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','personen_identnummer','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(15)',15,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','ridx','null',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','UNI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','sitze',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','stimmzettelgruppen','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','MUL','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','stimmzettelgruppen_text',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','telefon','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','titel','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','vergeben',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'NO',NULL,0,NULL,'bigint','','bigint(21)',NULL,19,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','vorname','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','www','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_column_list_label` WRITE;
 INSERT IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('kandidaten','aktiv','DE','Aktiv','gridcolumn','',0,'','','',1,1,'',0,1.00,'ASC','left','',''),
@@ -436,8 +450,8 @@ INSERT IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `languag
 ('kandidaten','firma2','DE','Firma 2','textfield','Firma/Angaben',14,0,1,1,'',1.00,''),
 ('kandidaten','firma3','DE','Firma 3','textfield','Firma/Angaben',15,0,1,1,'',1.00,''),
 ('kandidaten','firma4','DE','Firma 4','textfield','Firma/Angaben',16,0,1,1,'',1.00,''),
-('kandidaten','firma_ort','DE','Ort','textfield','Firma/Angaben',19,0,1,1,'',1.00,''),
-('kandidaten','firma_plz','DE','PLZ','textfield','Firma/Angaben',18,0,1,1,'',1.00,''),
+('kandidaten','firma_ort','DE','Ort','textfield','Firma/Angaben',19,0,1,1,'ort',3.00,'\'\''),
+('kandidaten','firma_plz','DE','PLZ','textfield','Firma/Angaben',18,0,1,1,'ort',1.00,'\'\''),
 ('kandidaten','firma_strasse','DE','Straße','textfield','Firma/Angaben',17,0,1,1,'',1.00,''),
 ('kandidaten','firmen_identnummer','DE','Fa-Id.-Nr.','textfield','Firma/Angaben',24,0,1,1,'',1.00,''),
 ('kandidaten','foto','DE','Foto','textfield','Allgemein/Extra',48,0,0,1,'',1.00,''),
@@ -503,27 +517,31 @@ INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, 
 ('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',0,''),
 ('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',0,''),
 ('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',0,''),
-('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,0,999,'',1,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',1,''),
-('kandidaten','stimmzettelgruppen','{\"kandidaten__stimmzettelgruppen\":\"stimmzettelgruppen__ridx\"}','fk_kandidaten_stimmzettelgruppen',0,0,1,99999,'',1,'');
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\",\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',0,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,''),
+('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
@@ -531,7 +549,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','kandidaten',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlruecklauf_felder','wahlruecklauf_felder','pos',0,'name','name','name',1,'','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlruecklauf_felder','wahlruecklauf_felder','pos',0,'name','name','name',1,'','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','wahlruecklauffelder',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahlruecklauf_felder','aktiv','1',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
@@ -571,7 +589,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlruecklauf_felder',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlberechtigte','Wahlberechtigte','',0,'name','name','id',1,'','','','',0,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlberechtigte','Wahlberechtigte','',0,'identnummer','identnummer','id',1,'','','','',0,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','wahlberechtigte',0,10000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahlberechtigte','aktiv','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
@@ -639,7 +657,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlberechtigte',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlzeichnungsberechtigter','Zeichnungsberechtige','',0,'anzeige_name','anzeige_name','anzeige_name',1,'','','','',0,'cellmodel','',0,'','','view_readtable_wahlzeichnungsberechtigter','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlzeichnungsberechtigter','Zeichnungsberechtige','',0,'anzeige_name','anzeige_name','anzeige_name',1,'','','','',0,'cellmodel','',0,'','','view_readtable_wahlzeichnungsberechtigter','Wahlsystem','',1,'','','listview','XlsxWriter','wahlzeichnungsberechtigter',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahlzeichnungsberechtigter','aktiv','1',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
@@ -699,7 +717,10 @@ UNLOCK TABLES;
 LOCK TABLES `ds_dropdownfields` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_reference_tables` WRITE;
-INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('wahlzeichnungsberechtigter','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlzeichnungsberechtigter_wahlberechtigte',0,0,0,999,'',1,'');
+INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('wahlzeichnungsberechtigter','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlzeichnungsberechtigter_wahlberechtigte',0,0,0,999,'',0,''),
+('wahlzeichnungsberechtigter','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlzeichnungsberechtigter_wahlberechtigte',0,0,0,999,'',0,''),
+('wahlzeichnungsberechtigter','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlzeichnungsberechtigter_wahlberechtigte',0,0,0,999,'',0,''),
+('wahlzeichnungsberechtigter','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlzeichnungsberechtigter_wahlberechtigte',0,0,0,999,'',1,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
@@ -707,7 +728,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlzeichnungsberechtigter',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlschein','Wahlschein','',0,'name','name','',1,'','','','',0,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlschein','Wahlschein','',0,'name','name','',1,'','','','',0,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','wahlschein',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahlschein','abgabehash','',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
@@ -780,48 +801,58 @@ LOCK TABLES `ds_dropdownfields` WRITE;
 INSERT IGNORE INTO `ds_dropdownfields` (`table_name`, `name`, `idfield`, `displayfield`, `filterconfig`) VALUES ('wahlschein','RIDX','ridx','name',NULL);
 UNLOCK TABLES;
 LOCK TABLES `ds_reference_tables` WRITE;
-INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',0,''),
-('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',0,0,0,999,'',1,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',1,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',1,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',1,''),
-('wahlschein','stimmzettel','{\"wahlschein__stimmzettel\":\"stimmzettel__ridx\"}','fk_wahlschein_stimmzettel',0,0,1,99999,'',1,''),
+INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
+('wahlschein','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlschein_wahlberechtigte',0,0,0,999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlscheinstatus\":\"ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,0,999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
+('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
+('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
+('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
+('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
+('wahlschein','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlschein_wahlberechtigte',0,0,0,999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlscheinstatus\":\"ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,0,999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
+('wahlschein','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlschein_wahlberechtigte',0,0,0,999,'',0,''),
+('wahlschein','wahlscheinstatus','{\"wahlscheinstatus\":\"ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,0,999,'',0,''),
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,''),
 ('wahlschein','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlschein_wahlberechtigte',0,0,0,999,'',1,''),
-('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',1,''),
-('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',1,''),
-('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',1,''),
-('wahlschein','wahlberechtigte','{\"wahlschein__wahlberechtigte\":\"wahlberechtigte__ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',1,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',0,''),
 ('wahlschein','wahlscheinstatus','{\"wahlscheinstatus\":\"ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,0,999,'',1,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',1,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',1,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',1,''),
-('wahlschein','wahlscheinstatus','{\"wahlschein__wahlscheinstatus\":\"wahlscheinstatus__ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',1,'');
+('wahlschein','stimmzettel','{\"stimmzettel\":\"ridx\"}','fk_wahlschein_stimmzettel',1,0,0,999,'',1,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
@@ -829,7 +860,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlschein',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlberechtigte_anlage','Anlage von Wahlberechtigten','',0,'identnummer','identnummer','identnummer',1,'','','','',0,'cellmodel','',0,'',' ','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlberechtigte_anlage','Anlage von Wahlberechtigten','',0,'identnummer','identnummer','identnummer',1,'','','','',0,'cellmodel','',0,'',' ','','Wahlsystem','',1,'','','listview','XlsxWriter','wahlberechtigte_anlage',0,1000000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahlberechtigte_anlage','identnummer',NULL,10000000,0,NULL,1,0,NULL,NULL,'NO',NULL,1,'','varchar','PRI','varchar(20)',20,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
@@ -897,12 +928,12 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlberechtigte_anlage',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wm_tanboegen','Tanbögen','',0,'id','id','id',1,'','','','',0,'cellmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wm_tanboegen','Tanbögen','',0,'id','id','id',1,'','','','',0,'cellmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','tanbögen',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
-INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wm_tanboegen','datum','{DATE}',10000000,0,'',0,0,'','','YES','NO',1,'','date','','date',0,0,0,'','select,insert,update,references',1,0,'',''),
-('wm_tanboegen','id','{#serial}',10000000,0,'',1,0,'','','NO','NO',1,'','int','PRI','int(11)',0,10,0,'','select,insert,update,references',1,0,'',''),
-('wm_tanboegen','zeit','{TIME}',10000000,0,'',0,0,'','','YES','NO',1,'','time','','time',0,0,0,'','select,insert,update,references',1,0,'','');
+INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wm_tanboegen','datum','{DATE}',10000000,0,'',0,0,'','','YES','NO',1,'','date','','date',NULL,NULL,NULL,NULL,'select,insert,update,references',1,0,'',''),
+('wm_tanboegen','id','{#serial}',10000000,0,'',1,0,'','','NO','NO',1,'','int','PRI','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
+('wm_tanboegen','zeit','{TIME}',10000000,0,'',0,0,'','','YES','NO',1,'','time','','time',NULL,NULL,NULL,NULL,'select,insert,update,references',1,0,'','');
 UNLOCK TABLES;
 LOCK TABLES `ds_column_list_label` WRITE;
 INSERT IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('wm_tanboegen','datum','DE','Datum','gridcolumn',NULL,999,'','','',0,1,'',0,1.00,'ASC','left','',NULL),
@@ -924,7 +955,7 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wm_tanboegen',1,1,1,1,0);
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
-INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wm_tannummer','TAN','',0,'tannummer','tannummer','tannummer',1,'','','','',0,'cellmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','null',0,100,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
+INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wm_tannummer','TAN','',0,'tannummer','tannummer','tannummer',1,'','','','',0,'cellmodel','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','tannummern',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wm_tannummer','aktiv','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,'',''),
@@ -944,7 +975,11 @@ UNLOCK TABLES;
 LOCK TABLES `ds_dropdownfields` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_reference_tables` WRITE;
-INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('wm_tannummer','wm_tanboegen','{\"bogen\":\"id\"}','fk_wm_tanboegen_bogen',0,0,0,999,'',1,'');
+INSERT IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('wm_tannummer','wm_tanboegen','{\"bogen\":\"id\"}','fk_wm_tanboegen_bogen',1,0,0,999,'',0,''),
+('wm_tannummer','wm_tanboegen','{\"bogen\":\"id\"}','fk_wm_tanboegen_bogen',1,0,0,999,'',0,''),
+('wm_tannummer','wm_tanboegen','{\"bogen\":\"id\"}','fk_wm_tanboegen_bogen',0,0,0,999,'',0,''),
+('wm_tannummer','wm_tanboegen','{\"bogen\":\"id\"}','fk_wm_tanboegen_bogen',0,0,0,999,'',0,''),
+('wm_tannummer','wm_tanboegen','{\"bogen\":\"id\"}','fk_wm_tanboegen_bogen',0,0,0,999,'',1,'');
 UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
