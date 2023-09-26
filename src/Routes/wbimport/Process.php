@@ -316,10 +316,21 @@ class Process implements IRoute
                     on duplicate key update active=values(active), hidden=values(hidden)
                 ');
         
+                
+                $db->direct('INSERT IGNORE INTO `ds_listplugins` (`table_name`, `ptype`, `placement`) VALUES ("view_pwgen_wahlberechtigte_anlage","gridexporter","view");');
+                
                 $db->direct('update ds_column_form_label set active=1 where table_name="view_pwgen_wahlberechtigte_anlage"');
                 $db->direct('INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("view_pwgen_wahlberechtigte_anlage","pwgen_pw_command","toolbar",1,"Passwortgenerator",NULL);');
                 $db->direct('INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ("wahl_administration","view_pwgen_wahlberechtigte_anlage",1,0,0,0,0);');
 
+                $db->direct("call fill_ds('')");
+                $db->direct('call create_or_upgrade_hstr_table("wahlschein")');
+                $db->moreResults();
+                $db->direct('call create_or_upgrade_hstr_table("wahlberechtigte_anlage")');
+                $db->moreResults();
+                $db->direct('call create_or_upgrade_hstr_table("wahlberechtigte")');
+                $db->moreResults();
+                
                     
                 foreach($headerLabels as $headerLabelsRows){
                     $db->direct('update ds_column_list_label set label={label} where column_name={column_name} and table_name="view_pwgen_wahlberechtigte_anlage"',$headerLabelsRows);

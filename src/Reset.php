@@ -1,58 +1,81 @@
 <?php
+
 namespace Tualo\Office\PaperVote;
 
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\DS\DSTable;
+use Exception;
 
-class Reset {
+class Reset
+{
 
-    public static function Ruecklauf(){
+    public static function Ruecklauf()
+    {
         $db = App::get('session')->getDB();
 
-        $typen = DSTable::instance("wahltyp")->filter('aktiv','eq',1)->limit(1000);
+        $typen = DSTable::instance("wahltyp")->filter('aktiv', 'eq', 1)->limit(1000);
         if ($typen->empty()) return;
         $typen_liste = $typen->get();
-        foreach($typen_liste as $typ){
-            $sql='update wahlschein 
+        foreach ($typen_liste as $typ) {
+            $sql = 'update wahlschein 
                 set 
-                    '.$typ['feld'].'=\'1|0\',
-                    '.$typ['feld'].'_grund=\'\', 
+                    ' . $typ['feld'] . '=\'1|0\',
+                    ' . $typ['feld'] . '_grund=\'\', 
                     blocknumber =0, 
                     abgabetyp="1|0", 
                     usedate=null 
-                where '.$typ['feld'].'<>\'6|0\'';
+                where ' . $typ['feld'] . '<>\'6|0\'';
             $db->execute($sql);
         }
     }
 
-    public static function Tan(){
+    public static function Tan()
+    {
         $db = App::get('session')->getDB();
         $db->execute('update wm_tannummer set aktiv=1');
     }
 
-    public static function Wahlzeichnungsberechtigter(){
+    public static function Wahlzeichnungsberechtigter()
+    {
         $db = App::get('session')->getDB();
         $db->execute('delete from wahlzeichnungsberechtigter');
-        try{ $db->execute('delete from wahlzeichnungsberechtigter_hstr'); }catch(\Exception $e){}
+        try {
+            $db->execute('delete from wahlzeichnungsberechtigter_hstr');
+        } catch (\Exception $e) {
+        }
     }
 
 
-    public static function Wahlberechtigte(){
+    public static function Wahlberechtigte()
+    {
         $db = App::get('session')->getDB();
 
         $db->direct('delete from wahlschein');
-        try{ $db->direct('delete from wahlschein_hstr'); }catch(\Exception $e){}
+        try {
+            $db->direct('delete from wahlschein_hstr');
+        } catch (\Exception $e) {
+        }
 
         $db->direct('delete from wahlberechtigte');
-        try{ $db->direct('delete from wahlberechtigte_hstr'); }catch(\Exception $e){}
+        try {
+            $db->direct('delete from wahlberechtigte_hstr');
+        } catch (\Exception $e) {
+        }
 
         $db->direct('delete from wahlberechtigte_anlage');
-        try{ $db->direct('delete from wahlberechtigte_anlage_hstr'); }catch(\Exception $e){}
-        try{ $db->direct('delete from wahlberechtigte_anlage_hstr_last'); }catch(\Exception $e){}
+        try {
+            $db->direct('delete from wahlberechtigte_anlage_hstr');
+        } catch (\Exception $e) {
+        }
+        try {
+            $db->direct('delete from wahlberechtigte_anlage_hstr_last');
+        } catch (\Exception $e) {
+        }
     }
 
 
-    public static function WahlberechtigteCleanDS(){
+    public static function WahlberechtigteCleanDS()
+    {
         $db = App::get('session')->getDB();
         $db->direct('drop table if exists wahlberechtigte_anlage_hstr');
         $db->direct('drop table if exists wahlberechtigte_anlage_hstr_last');
@@ -61,16 +84,159 @@ class Reset {
         $db->direct('drop trigger if exists wahlberechtigte_anlage__au');
         $db->direct('drop trigger if exists wahlberechtigte_anlage__bd');
         $db->direct('drop trigger if exists before_insert_wahlberechtigte_anlage');
-        
-        
+
+
         $db->direct('drop table if exists wahlberechtigte_anlage');
-
-
-
     }
 
-    public static function WahlberechtigteAnlageCreateDS(){
+
+    public static function Zaehldaten()
+    {
         $db = App::get('session')->getDB();
+        $sql = 'delete from kandidaten1';
+        $db->execute($sql);
+        $sql = 'delete from stimmzettel1';
+        $db->execute($sql);
+        $sql = 'delete from stapel1';
+        $db->execute($sql);
+        $sql = 'delete from kisten1';
+        $db->execute($sql);
+
+        $sql = 'delete from kandidaten2';
+        $db->execute($sql);
+        $sql = 'delete from stimmzettel2';
+        $db->execute($sql);
+        $sql = 'delete from stapel2';
+        $db->execute($sql);
+        $sql = 'delete from kisten2';
+        $db->execute($sql);
+    }
+
+    public static function Kandidaten()
+    {
+        $db = App::get('session')->getDB();
+
+
+        $sql = 'delete from kandidaten  ';
+        $db->execute($sql);
+        try {
+            $sql = 'delete from kandidaten_doc  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from kandidaten_docdata  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from kandidaten_hstr  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+
+        try {
+            $sql = 'delete from kandidaten_anlage  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from kandidaten_anlage_doc  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from kandidaten_anlage_docdata  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from kandidaten_anlage_stimmzettel  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from kandidaten_anlage_stimmzettel_doc  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from kandidaten_anlage_stimmzettel_docdata  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+    }
+
+    public static function Onlinekandidaten()
+    {
+        $db = App::get('session')->getDB();
+        $sql = 'delete from onlinekandidaten  ';
+        $db->execute($sql);
+        $sql = 'delete from onlinekandidaten_doc  ';
+        $db->execute($sql);
+        $sql = 'delete from onlinekandidaten_docdata  ';
+        $db->execute($sql);
+    }
+
+
+    public static function WahlgruppenWahlbezirke()
+    {
+        $db = App::get('session')->getDB();
+
+        try {
+            $sql = 'delete from wahlgruppe  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from wahlgruppe_doc  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from wahlgruppe_docdata  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+
+
+        try {
+            $sql = 'delete from wahlbezirk  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from wahlbezirk_doc  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from wahlbezirk_docdata  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from stimmzettel  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from stimmzettel_doc  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+        try {
+            $sql = 'delete from stimmzettel_docdata  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+    }
+
+    public static function WahlberechtigteAnlageCreateDS()
+    {
+        $db = App::get('session')->getDB();
+        $db->direct("drop table if exists wahlberechtigte_anlage");
+
         $sql = 'CREATE TABLE IF NOT EXISTS `wahlberechtigte_anlage` (
             `identnummer` varchar(20) NOT NULL,
             `stimmzettel` varchar(12) NOT NULL,
@@ -85,11 +251,10 @@ class Reset {
         )';
         $db->direct($sql);
 
-        $db->direct("call create_or_upgrade_hstr_table('wahlberechtigte_anlage')");
-        $db->moreResults();
+        
 
 
-        $sql='create or replace view wahlschein_flatfile as
+        $sql = 'create or replace view wahlschein_flatfile as
         select
             wahlberechtigte_anlage.*,
             wahlschein.wahlscheinnummer wahlschein_wahlscheinnummer,
@@ -113,7 +278,7 @@ class Reset {
         $db->execute($sql);
 
 
-        $sql='CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
+        $sql = 'CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
         select 
             `wahlberechtigte_anlage`.*
         from 
@@ -134,18 +299,15 @@ class Reset {
         $db->execute('delete from ds_column where existsreal=0');
 
 
-        $filename = (__DIR__).'/sql/install/trigger.wahlberechtigte.anlage.sql';
+        $filename = (__DIR__) . '/sql/install/trigger.wahlberechtigte.anlage.sql';
         $sql = file_get_contents($filename);
         $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
         $sql = preg_replace('#^\s*\-\-.+$#m', '', $sql);
 
         $sinlgeStatements = $db->explode_by_delimiter($sql);
-        foreach($sinlgeStatements as $commandIndex => $statement){
+        foreach ($sinlgeStatements as $commandIndex => $statement) {
             $db->direct($statement);
             $db->moreResults();
         }
     }
-
-    
-
 }

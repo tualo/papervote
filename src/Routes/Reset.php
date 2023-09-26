@@ -18,6 +18,8 @@ class Reset implements IRoute{
                 try{
                     ResetClass::Ruecklauf();
                     App::result('success', true);
+                    App::result('msg', "Der Rücklauf ist zurückgesetzt");
+                    
 
                 }catch(\Exception $e){
                     App::result('msg', $e->getMessage());
@@ -32,9 +34,14 @@ class Reset implements IRoute{
             if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
                 try{
                     ResetClass::WahlberechtigteCleanDS();
+                    App::result('A', "A");
                     ResetClass::WahlberechtigteAnlageCreateDS();    
+                    App::result('B', "B");
 
                     App::result('success', true);
+
+                    App::result('msg', "Wahlberechtigte sind gelöscht");
+
                 }catch(\Exception $e){
                     App::result('msg', $e->getMessage());
                 }   
@@ -50,6 +57,7 @@ class Reset implements IRoute{
                 try{
                     ResetClass::Tan();
                     App::result('success', true);
+                    App::result('msg', "Tans sind zurückgesetzt");
 
                 }catch(\Exception $e){
                     App::result('msg', $e->getMessage());
@@ -59,6 +67,77 @@ class Reset implements IRoute{
             }
         },['get'],true);
 
+        BasicRoute::add('/papervote/reset/zaehldaten',function($matches){
+            App::contenttype('application/json');
+            if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
+                
+                try{
+                    ResetClass::Zaehldaten();
+                    App::result('success', true);
+                    App::result('msg', "Zähldaten sind gelöscht");
+
+                }catch(\Exception $e){
+                    App::result('msg', $e->getMessage());
+                }
+                
+            }else{
+                App::result('msg', 'Keine Berechtigung');
+            }
+        },['get'],true);
+
+        BasicRoute::add('/papervote/reset/kandidaten',function($matches){
+            App::contenttype('application/json');
+            if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
+                try{
+                    ResetClass::Kandidaten();
+                    App::result('success', true);
+                    App::result('msg', "Kandidaten sind gelöscht");
+
+                }catch(\Exception $e){
+                    App::result('msg', $e->getMessage());
+                }
+            }else{
+                App::result('msg', 'Keine Berechtigung');
+            }
+        },['get'],true);
+
+        BasicRoute::add('/papervote/reset/onlinekandidaten',function($matches){
+            App::contenttype('application/json');
+            if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
+                
+                try{
+                    ResetClass::Onlinekandidaten();
+                    App::result('success', true);
+                    App::result('msg', "Onlinekandidaten sind gelöscht");
+
+                }catch(\Exception $e){
+                    App::result('msg', $e->getMessage());
+                }
+                
+            }else{
+                App::result('msg', 'Keine Berechtigung');
+            }
+        },['get'],true);
+
+
+        BasicRoute::add('/papervote/reset/wahlgruppen',function($matches){
+            App::contenttype('application/json');
+            if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
+                
+                try{
+                    ResetClass::WahlgruppenWahlbezirke();
+                    App::result('success', true);
+                    App::result('msg', "Wahlgruppen und Bezirke sind gelöscht");
+                }catch(\Exception $e){
+                    App::result('msg', $e->getMessage());
+                }
+                
+            }else{
+                App::result('msg', 'Keine Berechtigung');
+            }
+        },['get'],true);
+
+
 
         BasicRoute::add('/papervote/reset/wahlzeichnungsberechtigter',function($matches){
             App::contenttype('application/json');
@@ -66,6 +145,7 @@ class Reset implements IRoute{
                 try{
                     ResetClass::Wahlzeichnungsberechtigter();
                     App::result('success', true);
+                    App::result('msg', "Die Wahlzeichnungsberechtigten sind gelöscht");
 
                 }catch(\Exception $e){
                     App::result('msg', $e->getMessage());

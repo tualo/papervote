@@ -54,7 +54,9 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       loadRecord: function(record,records,selectedrecords,parent){
         this.record = record;
         this.records = records;
-        this.list = parent.getComponent('card').getComponent('list');
+
+        this.list = Ext.getCmp(this.calleeId).getComponent('list')
+        
         this.selectedrecords = selectedrecords;
         let me = this;
       },
@@ -77,7 +79,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
         Tualo.Ajax.request({
             showWait: true,
             timeout: 10*60000,
-            url: './cmp_wm_ruecklauf/unique',
+            url: './pwgen/unique',
             params: {
               
             },
@@ -123,48 +125,48 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
 
 
 
-          //if(range[index].get('view_pwgen_wahlberechtigte_anlage__password')!=null){
+          //if(range[index].get('password')!=null){
             ws = me.plainPassword(8,me.passwordChars);
-            range[index].set('view_pwgen_wahlberechtigte_anlage__password',ws);
+            range[index].set('password',ws);
           //}
-          //if(range[index].get('view_pwgen_wahlberechtigte_anlage__wahlscheinnummer')!=null){
+          //if(range[index].get('wahlscheinnummer')!=null){
             ws = me.plainPassword(8,me.wahlscheinChars);
             while(typeof me.wahlschein[ws]!='undefined'){
                 ws = me.plainPassword(8,me.wahlscheinChars);
                 idx++;
                 if(idx>10000) throw Error('Zu lange');
             }
-            range[index].set('view_pwgen_wahlberechtigte_anlage__wahlscheinnummer',ws);
+            range[index].set('wahlscheinnummer',ws);
             me.wahlschein[ws]=ws; idx=0;
           //}
 
-          //if(range[index].get('view_pwgen_wahlberechtigte_anlage__username')!=null){
+          //if(range[index].get('username')!=null){
             ws = me.plainPassword(8,me.usernameChars);
             while(typeof me.username[ws]!='undefined'){
                 ws = me.plainPassword(8,me.usernameChars);
                 idx++;
                 if(idx>10000) throw Error('Zu lange');
             }
-            range[index].set('view_pwgen_wahlberechtigte_anlage__username',ws);
+            range[index].set('username',ws);
             me.username[ws]=ws; idx=0;
           //}
           /*
           co nsole.log({
             prefix: '',
-            password: range[index].get('view_pwgen_wahlberechtigte_anlage__password'),
-            username: range[index].get('view_pwgen_wahlberechtigte_anlage__username'),
-            id: range[index].get('view_pwgen_wahlberechtigte_anlage__id'),
-            wahlscheinnummer: range[index].get('view_pwgen_wahlberechtigte_anlage__wahlscheinnummer')
+            password: range[index].get('password'),
+            username: range[index].get('username'),
+            id: range[index].get('id'),
+            wahlscheinnummer: range[index].get('wahlscheinnummer')
           })
           */
 
           me.saving.push({
             prefix: '',
-            password: range[index].get('view_pwgen_wahlberechtigte_anlage__password'),
-            username: range[index].get('view_pwgen_wahlberechtigte_anlage__username'),
-            identnummer: range[index].get('view_pwgen_wahlberechtigte_anlage__identnummer'),
-            stimmzettel: range[index].get('view_pwgen_wahlberechtigte_anlage__stimmzettel'),
-            wahlscheinnummer: range[index].get('view_pwgen_wahlberechtigte_anlage__wahlscheinnummer')
+            password: range[index].get('password'),
+            username: range[index].get('username'),
+            identnummer: range[index].get('identnummer'),
+            stimmzettel: range[index].get('stimmzettel'),
+            wahlscheinnummer: range[index].get('wahlscheinnummer')
           });
 
           /*
@@ -309,7 +311,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
             Tualo.Ajax.request({
                 //showWait: true,
                 timeout: 10*60000,
-                url: './cmp_wm_ruecklauf/setpw',
+                url: './pwgen/setpw',
                 params: range[index],
                 json: function(o){
                     if (o.success){
@@ -353,13 +355,13 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
         {
           text: 'Schliessen',
           handler: function(btn){
-            btn.up('cmp_wm_ruecklauf_pwgen_pw_command').fireEvent('cancled');
+            btn.up('pwgen_pw_command').fireEvent('cancled');
           }
         },
         {
           text: 'Verarbeiten',
           handler: function(btn){
-            var me = btn.up('cmp_wm_ruecklauf_pwgen_pw_command');
+            var me = btn.up('pwgen_pw_command');
             me.run(me.list);
           }
         }

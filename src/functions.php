@@ -17,6 +17,7 @@ require_once "Routes/Check.php";
 
 require_once "Routes/Reset.php";
 
+require_once "Routes/BCrypt.php";
 
 require_once "Routes/counting/SkipStartBallotPaper.php";
 require_once "Routes/counting/Save.php";
@@ -25,6 +26,9 @@ require_once "Routes/pwgen/CreateColumns.php";
 require_once "Routes/pwgen/DS.php";
 require_once "Routes/pwgen/Import.php";
 require_once "Routes/pwgen/TestColumn.php";
+
+require_once "Routes/pwgen/Unique.php";
+require_once "Routes/pwgen/SetPW.php";
 
 require_once "Routes/wbimport/Upload.php";
 require_once "Routes/wbimport/Process.php";

@@ -41,6 +41,34 @@ Ext.define('Tualo.routes.PaperVote', {
             Ext.getApplication().addView('Tualo.PaperVote.lazy.counting.Viewport');
         },
         before: function (action) {
+            
+            action.resume();
+        }
+    }
+});
+
+
+
+Ext.define('Tualo.routes.PaperVote', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote_reset',
+                    path: '#papervote/reset'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/reset',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.Reset');
+        },
+        before: function (action) {
+
+            
             action.resume();
         }
     }
