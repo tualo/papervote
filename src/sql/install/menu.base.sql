@@ -4,7 +4,8 @@ INSERT IGNORE INTO SESSIONDB.`macc_groups` VALUES
 ('wahl_administration',1,NULL,'unkategorisiert'),
 ('wahl_auswertungen',1,NULL,'unkategorisiert'),
 ('wahl_auszaehlung',1,NULL,'unkategorisiert'),
-('wahl_ruecklauf',1,NULL,'unkategorisiert');
+('wahl_ruecklauf',1,NULL,'unkategorisiert'),
+('wahl_nachzaehlung',1,NULL,'unkategorisiert');
 
 
 -- MariaDB dump 10.19-11.0.2-MariaDB, for osx10.18 (arm64)
@@ -24,6 +25,7 @@ INSERT IGNORE INTO SESSIONDB.`macc_menu` VALUES
 
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('af999344-5c51-11ee-86a9-c6832147e485', 'Rücklauferfassung', '', null, '', 0, null, '', 0, 1, 'fa fa-envelope', '#papervote/return');
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e485', 'Auszählung', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/counting');
+INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e486', 'Nachzählung', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/rescan');
 
 
 -- MariaDB dump 10.19-11.0.2-MariaDB, for osx10.18 (arm64)
@@ -42,4 +44,5 @@ INSERT IGNORE INTO SESSIONDB.`rolle_menu` VALUES
 
 
 INSERT IGNORE INTO SESSIONDB.rolle_menu (id, rolle, typ) VALUES ('af999344-5c51-11ee-86a9-c6832147e485', 'wahl_ruecklauf', null);
-INSERT IGNORE INTO SESSIONDB.rolle_menu (id, rolle, typ) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e485', 'wahl_auszaehlung', null)
+INSERT IGNORE INTO SESSIONDB.rolle_menu (id, rolle, typ) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e485', 'wahl_auszaehlung', null);
+INSERT IGNORE INTO SESSIONDB.rolle_menu (id, rolle, typ) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e486', 'wahl_nachzaehlung', null);

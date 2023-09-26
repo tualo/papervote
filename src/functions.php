@@ -32,3 +32,6 @@ require_once "Routes/pwgen/SetPW.php";
 
 require_once "Routes/wbimport/Upload.php";
 require_once "Routes/wbimport/Process.php";
+
+
+require_once "Routes/rescan/Insert.php";
