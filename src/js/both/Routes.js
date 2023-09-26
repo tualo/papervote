@@ -1,10 +1,10 @@
 
-Ext.define('Tualo.routes.PaperVote', {
+Ext.define('Tualo.routes.PaperVoteReturn', {
     statics: {
         load: async function() {
             return [
                 {
-                    name: 'papervote_return',
+                    name: 'papervote/return',
                     path: '#papervote/return'
                 }
             ]
@@ -23,12 +23,12 @@ Ext.define('Tualo.routes.PaperVote', {
 });
 
 
-Ext.define('Tualo.routes.PaperVote', {
+Ext.define('Tualo.routes.PaperVoteCounting', {
     statics: {
         load: async function() {
             return [
                 {
-                    name: 'papervote_counting',
+                    name: 'papervote/counting',
                     path: '#papervote/counting'
                 }
             ]
@@ -49,12 +49,12 @@ Ext.define('Tualo.routes.PaperVote', {
 
 
 
-Ext.define('Tualo.routes.PaperVote', {
+Ext.define('Tualo.routes.PaperVoteReset', {
     statics: {
         load: async function() {
             return [
                 {
-                    name: 'papervote_reset',
+                    name: 'papervote/reset',
                     path: '#papervote/reset'
                 }
             ]
