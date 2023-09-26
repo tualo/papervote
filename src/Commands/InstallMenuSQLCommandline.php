@@ -49,7 +49,7 @@ class InstallMenuSQLCommandline implements ICommandline{
         foreach($files as $file=>$msg){
             $installSQL = function(string $file){
 
-                $filename = basename(__DIR__).'/sql/install/'.$file.'.sql';
+                $filename = dirname(__DIR__).'/sql/install/'.$file.'.sql';
 
 
                 exec('cat '.$filename.' | sed -E \'s#SESSIONDB#'.App::get('session')->db->dbname.'#g\' | sed -E \'s#DBNAME#'.App::get('clientDB')->dbname.'#g\' | mysql --force=true -D '.App::get('clientDB')->dbname.' ',$res,$err);
