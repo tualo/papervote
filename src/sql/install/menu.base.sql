@@ -1,3 +1,4 @@
+delimiter ;
 -- MariaDB dump 10.19-11.0.2-MariaDB, for osx10.18 (arm64)
 INSERT IGNORE INTO SESSIONDB.`macc_groups` VALUES
 ('wahl_administration',1,NULL,'unkategorisiert'),
