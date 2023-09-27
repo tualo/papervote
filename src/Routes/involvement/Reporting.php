@@ -15,8 +15,8 @@ class Reporting implements IRoute
     {
         $db = App::get('session')->getDB();
 
-        $abgabetyp = ((isset($_REQUEST['abgabetyp'])) ? (" and ws.abgabetyp = '" . $_REQUEST['abgabetyp'] . "|0' ") : "");
-        $testdaten = (isset($_REQUEST['testdaten'])) ? intval($_REQUEST['testdaten']) : 0;
+        $abgabetyp = ((isset($_REQUEST['abgabetyp'])&&$_REQUEST['abgabetyp']!='') ? (" and ws.abgabetyp = '" . $_REQUEST['abgabetyp'] . "|0' ") : "");
+        $testdaten = (isset($_REQUEST['testdaten'])&&$_REQUEST['testdaten']!='') ? intval($_REQUEST['testdaten']) : 0;
 
 
 
@@ -272,6 +272,7 @@ class Reporting implements IRoute
 
         //$sql = 'select abc.*,'.implode($formeln,',').' from ('.$sql.') abc';
         //echo $sql;
+        App::result('sql', $sql);
         $data = $db->direct($sql);
         error_reporting(E_ERROR);
 
