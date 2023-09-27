@@ -69,5 +69,6 @@ UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_access` WRITE;
-INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('wahl_administration','view_stimmenanzahl_ranking_los_monitor_list',1,0,0,0,0);
+INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) 
+VALUES ('wahl_administration','view_stimmenanzahl_ranking_los_monitor_list',1,0,0,0 );
 UNLOCK TABLES;

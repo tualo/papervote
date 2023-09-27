@@ -1,7 +1,8 @@
 DELIMITER ;
 
 LOCK TABLES `ds` WRITE;
-INSERT INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `read_table`, `existsreal`, `class_name`, `special_add_panel`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `allowForm`, `alternativeformxtype`, `character_set_name`, `default_pagesize`, `listviewbaseclass`, `showactionbtn`) VALUES ('ruecklauffelder','Rücklauffelder','reihenfolge',0,'column_name','column_name','reihenfolge',1,'',NULL,NULL,'',0,NULL,NULL,0,NULL,'',1,'Wahlsystem',NULL,NULL,'listview','XlsxWriter','{GUID}',0,1,'','',100,'Tualo.DataSets.ListView',1)
+INSERT INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `read_table`, `existsreal`, `class_name`, `special_add_panel`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `allowForm`, `alternativeformxtype`, `character_set_name`, `default_pagesize`, `listviewbaseclass`, `showactionbtn`) 
+VALUES ('ruecklauffelder','Rücklauffelder','reihenfolge',0,'column_name','column_name','reihenfolge',1,'',NULL,NULL,'',0,NULL,NULL,0,NULL,'',1,'Wahlsystem',NULL,NULL,'listview','XlsxWriter','{GUID}',0,1,'','',100,'Tualo.DataSets.ListView',1)
 
 ON DUPLICATE KEY UPDATE
                     `title`=VALUES(`title`),
@@ -21,7 +22,7 @@ ON DUPLICATE KEY UPDATE
                     `syncable`=VALUES(`syncable`),
                     `cssstyle`=VALUES(`cssstyle`),
                     `alternativeformxtype`=VALUES(`alternativeformxtype`),
-                    `read_table`=   "view_pwgen_wahlberechtigte_anlage",
+                    `read_table`=   values(`read_table`),
                     `class_name`=VALUES(`class_name`),
                     `special_add_panel`=VALUES(`special_add_panel`),
                     `existsreal`=VALUES(`existsreal`),
@@ -61,5 +62,5 @@ UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_access` WRITE;
-INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('wahl_administration','ruecklauffelder',0,1,1,1,1);
+INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) VALUES ('wahl_administration','ruecklauffelder',1,0,0,0 );
 UNLOCK TABLES;

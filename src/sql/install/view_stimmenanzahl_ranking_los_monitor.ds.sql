@@ -18,7 +18,7 @@ ON DUPLICATE KEY UPDATE
                     `syncable`=VALUES(`syncable`),
                     `cssstyle`=VALUES(`cssstyle`),
                     `alternativeformxtype`=VALUES(`alternativeformxtype`),
-                    `read_table`=   "view_pwgen_wahlberechtigte_anlage",
+                                        `read_table`=   values(`read_table`),
                     `class_name`=VALUES(`class_name`),
                     `special_add_panel`=VALUES(`special_add_panel`),
                     `existsreal`=VALUES(`existsreal`),
@@ -88,5 +88,6 @@ UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_access` WRITE;
-INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('wahl_administration','view_stimmenanzahl_ranking_los_monitor',1,0,0,0,0);
+INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) 
+VALUES ('wahl_administration','view_stimmenanzahl_ranking_los_monitor',1,0,0,0 );
 UNLOCK TABLES;

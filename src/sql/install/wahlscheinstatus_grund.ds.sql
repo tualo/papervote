@@ -71,5 +71,6 @@ UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_access` WRITE;
-INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlscheinstatus_grund',0,1,1,1,1);
+INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) 
+VALUES ('wahl_administration','wahlscheinstatus_grund',1,0,0,0,1);
 UNLOCK TABLES;
