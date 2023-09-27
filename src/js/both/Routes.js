@@ -127,3 +127,30 @@ Ext.define('Tualo.routes.PaperVoteMonitor', {
         }
     }
 });
+
+
+
+Ext.define('Tualo.routes.PaperVoteUsers', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/users',
+                    path: '#papervote/users'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/users',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.users.Viewport');
+        },
+        before: function (action) {
+
+            
+            action.resume();
+        }
+    }
+});

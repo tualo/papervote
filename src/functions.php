@@ -42,3 +42,6 @@ require_once "Routes/rescan/Insert.php";
 require_once "Routes/return/Setup.php";
 require_once "Routes/return/Tan.php";
 require_once "Routes/return/Save.php";
+
+
+require_once "Routes/users/Reporting.php";
