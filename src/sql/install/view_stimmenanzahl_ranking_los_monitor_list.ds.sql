@@ -1,5 +1,8 @@
+DELIMITER ;
+
 LOCK TABLES `ds` WRITE;
-INSERT INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `read_table`, `existsreal`, `class_name`, `special_add_panel`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `allowForm`, `alternativeformxtype`, `character_set_name`, `default_pagesize`, `listviewbaseclass`, `showactionbtn`) VALUES ('view_stimmenanzahl_ranking_los_monitor_list','Ranking-Monitor-Liste','',0,'stimmzettelgruppen_name','stimmzettelgruppen_name','id',1,'','','','',0,'tualomultirowmodel','',0,'','',1,'Wahlsystem','','','listview','XlsxWriter','{GUID}',0,0,'','',100,'Tualo.DataSets.ListView',1)
+INSERT INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `read_table`, `existsreal`, `class_name`, `special_add_panel`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `allowForm`, `alternativeformxtype`, `character_set_name`, `default_pagesize`, `listviewbaseclass`, `showactionbtn`) 
+VALUES ('view_stimmenanzahl_ranking_los_monitor_list','Ranking-Monitor-Liste','',0,'stimmzettelgruppen_name','stimmzettelgruppen_name','id',1,'','','','',0,'tualomultirowmodel','',0,'','',1,'Wahlsystem','','','listview','XlsxWriter','{GUID}',0,0,'','',100,'Tualo.DataSets.ListView',1)
 ON DUPLICATE KEY UPDATE
                     `title`=VALUES(`title`),
                     `reorderfield`=VALUES(`reorderfield`),
@@ -18,7 +21,7 @@ ON DUPLICATE KEY UPDATE
                     `syncable`=VALUES(`syncable`),
                     `cssstyle`=VALUES(`cssstyle`),
                     `alternativeformxtype`=VALUES(`alternativeformxtype`),
-                    `read_table`=   "view_pwgen_wahlberechtigte_anlage",
+                    `read_table`=  VALUES(`read_table`),
                     `class_name`=VALUES(`class_name`),
                     `special_add_panel`=VALUES(`special_add_panel`),
                     `existsreal`=VALUES(`existsreal`),
@@ -37,7 +40,8 @@ ON DUPLICATE KEY UPDATE
 
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
-INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `is_primary`, `update_value`, `is_nullable`, `is_referenced`, `referenced_table`, `referenced_column_name`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `writeable`, `note`, `hint`) VALUES ('view_stimmenanzahl_ranking_los_monitor_list','erwartet','',10000000,0,0,'','NO','NO','','','bigint','','bigint(21)',NULL,19,0,NULL,'select,insert,update,references',1,0,1,'',''),
+INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `is_primary`, `update_value`, `is_nullable`, `is_referenced`, `referenced_table`, `referenced_column_name`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `writeable`, `note`, `hint`) 
+VALUES ('view_stimmenanzahl_ranking_los_monitor_list','erwartet','',10000000,0,0,'','NO','NO','','','bigint','','bigint(21)',NULL,19,0,NULL,'select,insert,update,references',1,0,1,'',''),
 ('view_stimmenanzahl_ranking_los_monitor_list','gescannt','',10000000,0,0,'','NO','NO','','','bigint','','bigint(21)',NULL,19,0,NULL,'select,insert,update,references',1,0,1,'',''),
 ('view_stimmenanzahl_ranking_los_monitor_list','id','',10000000,0,0,NULL,'NO','NO',NULL,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,0,1,'',''),
 ('view_stimmenanzahl_ranking_los_monitor_list','kontrolle','',10000000,0,0,NULL,'NO','NO',NULL,NULL,'bigint','','bigint(23)',NULL,19,0,NULL,'select,insert,update,references',1,0,1,'',''),

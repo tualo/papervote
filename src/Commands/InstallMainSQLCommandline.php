@@ -50,6 +50,12 @@ class InstallMainSQLCommandline implements ICommandline{
             'ds.base' => 'setup base ds definition ',
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
 
+            'onlinestimmzettel' => 'setup onlinestimmzettel',
+            'onlinestimmzettel.ds' => 'setup onlinestimmzettel.ds',
+
+            'onlinekandidaten' => 'setup onlinekandidaten',
+            'onlinekandidaten.ds' => 'setup onlinekandidaten.ds',
+
             'ruecklauffelder' => 'setup ruecklauffelder',
             'ruecklauffelder.ds' => 'setup ruecklauffelder.ds',
 
@@ -65,7 +71,6 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_stimmenanzahl_ranking_los_monitor' => 'setup monitor',
             'view_stimmenanzahl_ranking_los_monitor.ds' => 'setup monitor ds'
         ];
-
 
 
         foreach($files as $file=>$msg){

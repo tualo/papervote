@@ -1,4 +1,6 @@
-CREATE OR VIEW `view_gezaehlte_stimmzettel` AS
+DELIMITER ;
+
+CREATE OR REPLACE VIEW `view_gezaehlte_stimmzettel` AS
 select
     `x`.`stimmzettel` AS `stimmzettel`,
     sum(`x`.`gezaehlte_stimmzettel`) AS `gezaehlte_stimmzettel`
@@ -40,7 +42,7 @@ from
 group by
     `x`.`stimmzettel`;
 
-CREATE OR VIEW `view_ddl_kandidaten_json` AS
+CREATE OR REPLACE VIEW `view_ddl_kandidaten_json` AS
 select
     `kandidaten`.`id` AS `id`,
     `kandidaten`.`ridx` AS `ridx`,
@@ -52,8 +54,6 @@ select
         `kandidaten`.`andrede`,
         'barcode',
         `kandidaten`.`barcode`,
-        'barcodebild',
-        `kandidaten`.`barcodebild`,
         'branche',
         `kandidaten`.`branche`,
         'firma1',
@@ -74,10 +74,6 @@ select
         `kandidaten`.`geburtsjahr`,
         'id',
         `kandidaten`.`id`,
-        'id_ihk',
-        `kandidaten`.`id_ihk`,
-        'kandidaten_bild',
-        `kandidaten`.`kandidaten_bild`,
         'kostenstelle',
         `kandidaten`.`kostenstelle`,
         'losung_verloren',
@@ -86,14 +82,8 @@ select
         `kandidaten`.`nachname`,
         'nachruecker',
         `kandidaten`.`nachruecker`,
-        'portaitbild',
-        `kandidaten`.`portaitbild`,
         'ridx',
         `kandidaten`.`ridx`,
-        'statement',
-        `kandidaten`.`statement`,
-        'statement_freigabe',
-        `kandidaten`.`statement_freigabe`,
         'stimmzettelgruppen',
         `kandidaten`.`stimmzettelgruppen`,
         'titel',
@@ -104,7 +94,7 @@ select
 from
     `kandidaten`;
 
-CREATE OR VIEW `view_stimmenanzahl` AS
+CREATE OR REPLACE VIEW `view_stimmenanzahl` AS
 select
     `view_readtable_kandidaten`.`barcode` AS `barcode`,
     `view_readtable_kandidaten`.`anzeige_name` AS `anzeige_name`,
@@ -179,7 +169,7 @@ group by
 order by
     count(distinct `kandidaten2`.`ridx`) + ifnull(`onlinekandidaten`.`anzahl`, 0) desc;
 
-CREATE OR VIEW `view_stimmenanzahl_ranking` AS
+CREATE OR REPLACE VIEW `view_stimmenanzahl_ranking` AS
 select
     `view_stimmenanzahl`.`barcode` AS `barcode`,
     `view_stimmenanzahl`.`anzeige_name` AS `anzeige_name`,
@@ -228,7 +218,7 @@ select
 from
     `view_stimmenanzahl`;
 
-CREATE OR VIEW `view_stimmenanzahl_ranking_los` AS
+CREATE OR REPLACE VIEW `view_stimmenanzahl_ranking_los` AS
 select
     `view_stimmenanzahl_ranking`.`barcode` AS `barcode`,
     `view_stimmenanzahl_ranking`.`anzeige_name` AS `anzeige_name`,
@@ -263,7 +253,7 @@ select
 from
     `view_stimmenanzahl_ranking`;
 
-CREATE OR VIEW `view_stimmenanzahl_ranking_los_monitor` AS
+CREATE OR REPLACE VIEW `view_stimmenanzahl_ranking_los_monitor` AS
 select
     `view_stimmenanzahl_ranking_los`.`barcode` AS `barcode`,
     `view_stimmenanzahl_ranking_los`.`anzeige_name` AS `anzeige_name`,

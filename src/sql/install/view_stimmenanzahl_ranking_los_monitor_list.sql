@@ -1,4 +1,4 @@
-delimiter ;
+DELIMITER ;
 
 CREATE OR REPLACE VIEW `view_stimmenanzahl_ranking_los_monitor_list_gescannt` AS
 select
