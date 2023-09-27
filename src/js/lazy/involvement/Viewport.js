@@ -1,10 +1,9 @@
-Ext.define('Tualo.PaperVote.lazy.users.Viewport', {
+Ext.define('Tualo.PaperVote.lazy.involvement.Viewport', {
     extend: 'Ext.panel.Panel',
     requires: [
-        'Ext.panel.Panel',
-        'Tualo.PaperVote.lazy.users.ManualGrid',
-        'Tualo.PaperVote.lazy.users.models.Viewport',
-        'Tualo.PaperVote.lazy.users.controller.Viewport'
+        //'Tualo.PaperVote.lazy.involvement.ManualGrid',
+        'Tualo.PaperVote.lazy.involvement.models.Viewport',
+        'Tualo.PaperVote.lazy.involvement.controller.Viewport'
 
     ],
     layout: 'fit',

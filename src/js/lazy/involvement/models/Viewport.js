@@ -1,4 +1,4 @@
-Ext.define('Tualo.PaperVote.lazy.users.models.Viewport', {
+Ext.define('Tualo.PaperVote.lazy.involvement.models.Viewport', {
   extend: 'Ext.app.ViewModel',
   alias: 'viewmodel.cmp_wm_beteiligung_viewport',
   data: {

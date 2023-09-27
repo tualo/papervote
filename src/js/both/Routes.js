@@ -130,24 +130,71 @@ Ext.define('Tualo.routes.PaperVoteMonitor', {
 
 
 
-Ext.define('Tualo.routes.PaperVoteUsers', {
+Ext.define('Tualo.routes.PaperVoteInvolvement', {
     statics: {
         load: async function() {
             return [
                 {
-                    name: 'papervote/users',
-                    path: '#papervote/users'
+                    name: 'papervote/involvement',
+                    path: '#papervote/involvement'
                 }
             ]
         }
     }, 
-    url: 'papervote/users',
+    url: 'papervote/involvement',
     handler: {
         action: function () {
             
-            Ext.getApplication().addView('Tualo.PaperVote.lazy.users.Viewport');
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.involvement.Viewport');
         },
         before: function (action) {
+
+            
+            action.resume();
+        }
+    }
+});
+
+
+
+Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
+    statics: {
+        load: async function() {
+            let list = [];
+
+            let wahltyp = await Tualo.Fetch.post('ds/wahltyp/read',{limit:10000});
+            let abgabetyp = await Tualo.Fetch.post('ds/abgabetyp/read',{limit:10000});
+
+            if (
+                (wahltyp.success==true)
+                &&
+                (abgabetyp.success==true)
+            ){
+                wahltyp.data.forEach(function(wahltyp){
+                    abgabetyp.data.forEach(function(abgabetyp){
+                        list.push({
+                            name: wahltyp.title + ' ('+abgabetyp.title+')',
+                            path: '#papervote/involvement/'+wahltyp.id+'/'+abgabetyp.id+'/0'
+                        });
+                    });
+                });
+
+            }
+            return list;
+            
+        }
+    }, 
+    url: 'papervote/involvement/:typ/:abgabetyp/:testdaten',
+    handler: {
+        action: function (typ,abgabetyp,testdaten) {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.involvement.Viewport',{
+                typ: typ,
+                abgabetyp: abgabetyp,
+                testdaten: testdaten
+            });
+        },
+        before: function (typ,abgabetyp,testdaten,action) {
 
             
             action.resume();

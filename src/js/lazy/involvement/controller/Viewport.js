@@ -1,4 +1,4 @@
-Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
+Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.cmp_wm_beteiligung_viewport',
   onWahlbeteiligungBerichtLoad:  function(store,records){
@@ -12,11 +12,12 @@ Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
     this.createGrid();
   },
   onWahltypLoad: function(store,records){
-    var me = this;
-    if (this.view.request.typ){
-      me.typ = this.view.request.typ;
+    var me = this,
+        view = this.getView(),
+        typ = (view.typ)?view.typ:1;
+
       records.forEach(function(record){
-        if (me.typ==record.get('id')){
+        if (typ==record.get('id')){
 
           me.getViewModel().set('ridx',record.get('ridx'));
           me.getViewModel().set('typ_name',record.get('name'));
@@ -26,30 +27,21 @@ Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
           me.getViewModel().getStore('wahlbeteiligung_bericht').load({params: {
             filters: "[{\"aktiv\":\"1\"}]"
           }});
-          /*
-
-          me.getViewModel().getStore('output').load({params: {typ: record.get('ridx')}});
-          me.getViewModel().getStore('inconsitent').load({params: {typ: record.get('ridx')}});
-          me.getViewModel().getStore('open').load({params: {typ: record.get('ridx')}});
-          */
         }
       });
-    }else{
-
-    }
+    
   },
   onBoxReady: function(){
-    var me = this;
+    let me = this,
+        view = me.getView(),
+        abgabetyp = (view.abgabetyp)?view.abgabetyp:null,
+        testdaten = (view.testdaten)?view.testdaten:null,
+        base = (view.base)?view.base:null
+    ;
     me.getViewModel().getStore('wahltyp').load();
-    if (this.view.request.base){
-      this.getViewModel().set('base',this.view.request.base);
-    }
-    if (this.view.request.abgabetyp){
-      this.getViewModel().set('abgabetyp',this.view.request.abgabetyp);
-    }
-    if (this.view.request.testdaten){
-      this.getViewModel().set('testdaten',this.view.request.testdaten);
-    }
+    if (base) this.getViewModel().set('base', base);
+    if (abgabetyp) this.getViewModel().set('abgabetyp', abgabetyp);
+    if (testdaten) this.getViewModel().set('testdaten', testdaten);
 
   },
   onFlatFileClick: function(){
@@ -59,15 +51,12 @@ Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
             url: './index.php',
             timeout: 600000,
             params: {
-                TEMPLATE: 'NO',
-                sid: sid,
-                cmp: 'cmp_wm_beteiligung',
-                typ: this.getViewModel().get('ridx'),
-                base: this.getViewModel().get('base'),//request.base,
-                abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
-                testdaten: this.getViewModel().get('testdaten'),//request.base,
-                join_fld: '',//request.join_fld,
-                p: 'ajax/flatfile'
+              typ: this.getViewModel().get('ridx'),
+              base: this.getViewModel().get('base'),//request.base,
+              abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
+              testdaten: this.getViewModel().get('testdaten'),//request.base,
+              join_fld: '',//request.join_fld,
+              p: 'ajax/flatfile'
             },
             success: function(f, a){
                 Ext.MessageBox.hide();
@@ -85,6 +74,7 @@ Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
         });
   },
   onCodePDFClick: function(){
+    /*
       window.open('./index.php?'+'sid='+sid+'&p=ajax/statuscodes&cmp=cmp_wm_ruecklauf&TEMPLATE=NO');
       if (false){
           Ext.MessageBox.wait('Bitte warten...','Bericht wird erstellt');
@@ -113,6 +103,7 @@ Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
               }
           });
       }
+    */
   },
   onOhneWBClick: function(){
       var me = this;
@@ -146,7 +137,7 @@ Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
   onExcelClick: function(){
     Ext.MessageBox.wait('Bitte warten...','Bericht wird erstellt');
     Ext.Ajax.request({
-        url: './papervote/users/reporting/export',
+        url: './papervote/involvement/reporting/export',
         params: {
             typ: this.getViewModel().get('ridx'),
             base: this.getViewModel().get('base'),//request.base,
@@ -233,7 +224,7 @@ Ext.define('Tualo.PaperVote.lazy.users.controller.Viewport', {
         pageSize: 500,
         proxy: {
             type: 'ajax',
-            url: './papervote/users/reporting',
+            url: './papervote/involvement/reporting',
 
             extraParams: {
                 typ: this.getViewModel().get('ridx'),

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tualo\Office\PaperVote\Routes\users;
+namespace Tualo\Office\PaperVote\Routes\involvement;
 
 use Exception;
 use Tualo\Office\Basic\TualoApplication as App;
@@ -318,7 +318,7 @@ class Reporting implements IRoute
 
     public static function register()
     {
-        BasicRoute::add('/papervote/users/reporting', function () {
+        BasicRoute::add('/papervote/involvement/reporting', function () {
             $db = App::get('session')->getDB();
             try {
                 App::result('data',Reporting::getData());

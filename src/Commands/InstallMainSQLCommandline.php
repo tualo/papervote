@@ -65,6 +65,23 @@ class InstallMainSQLCommandline implements ICommandline{
             'wzbruecklauffelder' => 'setup wzbruecklauffelder',
             'wzbruecklauffelder.ds' => 'setup wzbruecklauffelder.ds',
 
+            'wahlbeteiligung_bericht'=> 'setup wahlbeteiligung_bericht',
+            'wahlbeteiligung_bericht.ds'=> 'setup wahlbeteiligung_bericht.ds',
+
+            'wahlbeteiligung_bericht_status'=> 'setup wahlbeteiligung_bericht_status',
+            'wahlbeteiligung_bericht_status.ds'=> 'setup wahlbeteiligung_bericht_status.ds',
+            
+            'wahlbeteiligung_bericht_formel'=> 'setup wahlbeteiligung_bericht_formel',
+            'wahlbeteiligung_bericht_formel.ds'=> 'setup wahlbeteiligung_bericht_formel.ds',
+
+            'wahlbeteiligung_bericht_formel_nenner'=> 'setup wahlbeteiligung_bericht_formel_nenner',
+            'wahlbeteiligung_bericht_formel_nenner.ds'=> 'setup wahlbeteiligung_bericht_formel_nenner.ds',
+
+            'wahlbeteiligung_bericht_formel_teiler'=> 'setup wahlbeteiligung_bericht_formel_teiler',
+            'wahlbeteiligung_bericht_formel_teiler.ds'=> 'setup wahlbeteiligung_bericht_formel_teiler.ds',
+
+            'ohne_wahlberechtigten'=> 'setup ohne_wahlberechtigten',
+            'ohne_wahlberechtigten.ds'=> 'setup ohne_wahlberechtigten.ds',
 
             'view_stimmenanzahl_ranking_los_monitor_list' => 'setup monitor list',
             'view_stimmenanzahl_ranking_los_monitor_list.ds' => 'setup monitor list ds',

@@ -1,4 +1,4 @@
-DELIMITER;
+DELIMITER ;
 
 insert
     ignore into ds_class (class_name)
@@ -1271,10 +1271,17 @@ create table if not exists wahlschein_blocknumbers (
     lastinsert datetime
 );
 
-create table wm_tualo_api_logfile (
+create table if not exists wm_tualo_api_logfile (
     id varchar(36) primary key,
     type varchar(10),
     createtime timestamp,
     uri varchar(255),
     data longtext
 );
+
+create or replace view stimmzettel_default as
+select
+    stimmzettel.*,
+    stimmzettel.ridx group_ridx
+from
+stimmzettel;
