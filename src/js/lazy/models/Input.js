@@ -15,7 +15,7 @@ Ext.define('Tualo.PaperVote.lazy.models.Input', {
       }
     },
     stores: {
-        /*
+        
       wahlscheinstatus: {
         autoLoad: false,
         type: 'wahlscheinstatus_store',
@@ -53,7 +53,7 @@ Ext.define('Tualo.PaperVote.lazy.models.Input', {
           load: 'onRuecklauffelderLoad'
         }
       }
-      */
+      
     }
   });
   

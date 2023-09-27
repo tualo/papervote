@@ -57,7 +57,12 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'wzbruecklauffelder' => 'setup wzbruecklauffelder',
             'wzbruecklauffelder.ds' => 'setup wzbruecklauffelder.ds',
-            
+
+
+            'view_stimmenanzahl_ranking_los_monitor_list' => 'setup monitor list',
+            'view_stimmenanzahl_ranking_los_monitor_list.ds' => 'setup monitor list',
+            'view_stimmenanzahl_ranking_los_monitor' => 'setup monitor',
+            'view_stimmenanzahl_ranking_los_monitor.ds' => 'setup monitor'
         ];
 
         foreach($files as $file=>$msg){
