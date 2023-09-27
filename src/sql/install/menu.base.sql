@@ -23,9 +23,11 @@ INSERT IGNORE INTO SESSIONDB.`macc_menu` VALUES
 
 ;
 
+
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('af999344-5c51-11ee-86a9-c6832147e485', 'Rücklauferfassung', '', null, '', 0, null, '', 0, 1, 'fa fa-envelope', '#papervote/return');
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e485', 'Auszählung', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/counting');
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e486', 'Nachzählung', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/rescan');
+INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('8a75dfea-5d38-11ee-86a9-c6832147e485', 'Monitor', '', null, '', 5, null, '', 0, 1, 'fa fa-bar-chart', '#papervote/monitor');
 
 
 -- MariaDB dump 10.19-11.0.2-MariaDB, for osx10.18 (arm64)
@@ -42,6 +44,7 @@ INSERT IGNORE INTO SESSIONDB.`rolle_menu` VALUES
 ('f7d51756-5b83-11ee-86a9-c6832147e485','wahl_administration',NULL),
 ('f7d51756-5b83-11ee-86a9-c6832147e485','wahl_administration',NULL);
 
+INSERT IGNORE INTO SESSIONDB.rolle_menu (id, rolle, typ) VALUES ('8a75dfea-5d38-11ee-86a9-c6832147e485', 'wahl_administration', null);
 
 INSERT IGNORE INTO SESSIONDB.rolle_menu (id, rolle, typ) VALUES ('af999344-5c51-11ee-86a9-c6832147e485', 'wahl_ruecklauf', null);
 INSERT IGNORE INTO SESSIONDB.rolle_menu (id, rolle, typ) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e485', 'wahl_auszaehlung', null);
