@@ -77,15 +77,15 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
       //console.log(this.lookupReference('chart'));
       if (records!=null)
       if (records.length>0){
-        this.lookupReference('chart').captions.title.setText(records[0].get('view_stimmenanzahl_ranking_los_monitor__stimmzettel_name'));
+        this.lookupReference('chart').captions.title.setText(records[0].get('stimmzettel_name'));
         this.lookupReference('chart').captions.subtitle.setText(
-          //  records[0].get('view_stimmenanzahl_ranking_los_monitor__sitze')
+          //  records[0].get('sitze')
           [
             'Sitze: ',
-            records[0].get('view_stimmenanzahl_ranking_los_monitor__sitze'),
+            records[0].get('sitze'),
             ''
-            //record.get('view_stimmenanzahl_ranking_los_monitor_list__gescannt'),
-            //record.get('view_stimmenanzahl_ranking_los_monitor_list__erwartet')
+            //record.get('gescannt'),
+            //record.get('erwartet')
           ].join(' ')
   
           );
@@ -94,7 +94,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
 
     barRenderer: function (sprite, config, rendererData, index) {
         try{
-            if (rendererData.store.getAt(index).get('view_stimmenanzahl_ranking_los_monitor__gewaehlt')==1){
+            if (rendererData.store.getAt(index).get('gewaehlt')==1){
             return { fillOpacity : 0.75 };
             }
         }catch(e){
@@ -106,7 +106,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
 
 
     onStimmzettelSelect: function(rm, record, index, eOpts) {
-        this.sitze = record.get('view_stimmenanzahl_ranking_los_monitor_list__sitze');
+        this.sitze = record.get('sitze');
 
         
         console.log(record.data);
@@ -114,27 +114,27 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
 
 
         this.lookupReference('chart').captions.credits.setText(
-          //  records[0].get('view_stimmenanzahl_ranking_los_monitor__sitze')
+          //  records[0].get('sitze')
           [
             'Quote: ',
             Ext.util.Format.number(
               (
                 (
-                  record.get('view_stimmenanzahl_ranking_los_monitor_list__gescannt') + 
-                  record.get('view_stimmenanzahl_ranking_los_monitor_list__ungueltig') 
+                  record.get('gescannt') + 
+                  record.get('ungueltig') 
                 )/
-              record.get('view_stimmenanzahl_ranking_los_monitor_list__erwartet'))*100,
+              record.get('erwartet'))*100,
             '0.000,00/i'),
             '%'
-            //record.get('view_stimmenanzahl_ranking_los_monitor_list__gescannt'),
-            //record.get('view_stimmenanzahl_ranking_los_monitor_list__erwartet')
+            //record.get('gescannt'),
+            //record.get('erwartet')
           ].join(' ')
   
           );
 
         this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').sort([
             {
-                property: 'view_stimmenanzahl_ranking_los_monitor__stimmenanzahl',
+                property: 'stimmenanzahl',
                 direction: 'asc'
             }
         ]);
@@ -142,17 +142,17 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
         /*
         this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').filter([
             {
-                property: 'view_stimmenanzahl_ranking_los_monitor__stimmzettelgruppen_ridx',
+                property: 'stimmzettelgruppen_ridx',
                 operator: 'eq',
-                value:  record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettelgruppen_ridx')
+                value:  record.get('stimmzettelgruppen_ridx')
             }
         ]);
         */
         this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').filter([
           {
-              property: 'view_stimmenanzahl_ranking_los_monitor__stimmzettel_ridx',
+              property: 'stimmzettel_ridx',
               operator: 'eq',
-              value:  record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')
+              value:  record.get('stimmzettel_ridx')
           }
         ]);
 
@@ -167,29 +167,29 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
       onItemEditTooltipRender: function (tooltip, item, target, e) {
           var formatString = '0',
               record = item.record;
-          tooltip.setHtml(record.get('view_stimmenanzahl_ranking_los_monitor__anzeige_name') + ': ' +  Ext.util.Format.number(target.yValue, formatString));
+          tooltip.setHtml(record.get('anzeige_name') + ': ' +  Ext.util.Format.number(target.yValue, formatString));
       },
     
       onSeriesTooltipRender: function(tooltip, record, item) {
           var formatString = '0 (Stimmen)';
     
-          if (record.get('view_stimmenanzahl_ranking_los_monitor__offline')+record.get('view_stimmenanzahl_ranking_los_monitor__online')!=0){
+          if (record.get('offline')+record.get('online')!=0){
             formatString = '0 (Stimmen)';
             tooltip.setHtml(
-              record.get('view_stimmenanzahl_ranking_los_monitor__anzeige_name') + ': ' + 
-              Ext.util.Format.number(record.get('view_stimmenanzahl_ranking_los_monitor__stimmenanzahl'), 
+              record.get('anzeige_name') + ': ' + 
+              Ext.util.Format.number(record.get('stimmenanzahl'), 
               formatString)
             );
 
             //+"<br>"+ Ext.util.Format.number(record.get('voted_oc')+record.get('notvoted_oc'), '0 Online')+"<br>"+ Ext.util.Format.number(record.get('voted_c')+record.get('notvoted_c'), '0 Brief') );
           }else{
-            tooltip.setHtml(record.get('view_stimmenanzahl_ranking_los_monitor__anzeige_name') + ': ' +
-                Ext.util.Format.number(record.get('view_stimmenanzahl_ranking_los_monitor__stimmenanzahl'), formatString));
+            tooltip.setHtml(record.get('anzeige_name') + ': ' +
+                Ext.util.Format.number(record.get('stimmenanzahl'), formatString));
           }
       },
       onAxisLabelRender: function (axis, label, layoutContext) {
         var store = this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor');
-        var max_val = store.max('view_stimmenanzahl_ranking_los_monitor__stimmenanzahl');
+        var max_val = store.max('stimmenanzahl');
         return Ext.util.Format.number(label, '0,000');
         //return Ext.util.Format.number(label*max_val*2, '0,000');
       },
@@ -197,10 +197,10 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
       onCategoryRenderer: function(axis,label,layout,lastlabel){
         
         var store = this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor');
-        var rec = store.findRecord('view_stimmenanzahl_ranking_los_monitor__anzeige_name',label,0,false,false,true);
+        var rec = store.findRecord('anzeige_name',label,0,false,false,true);
         //console.log( label, rec,layout,lastlabel,axis);
         
-        if (rec.get('view_stimmenanzahl_ranking_los_monitor__gewaehlt')==1){
+        if (rec.get('gewaehlt')==1){
           return ""+label+"   ";
         }
         return label+"   ";

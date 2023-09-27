@@ -68,13 +68,13 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 //enableGroupingMenu: false
             }],
             columns: [{
-                dataIndex: 'view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_name',
+                dataIndex: 'stimmzettel_name',
                 width: 300,
                 sortable: true,
                 hidden: false,
                 header: 'Stimmzettel'
             },{
-                dataIndex: 'view_stimmenanzahl_ranking_los_monitor_list__stimmzettelgruppen_name',
+                dataIndex: 'stimmzettelgruppen_name',
                 width: 300,
                 sortable: true,
                 hidden: true,
@@ -82,7 +82,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
             
                 header: 'Stimmzettelgruppe'
             },{
-                dataIndex: 'view_stimmenanzahl_ranking_los_monitor_list__erwartet',
+                dataIndex: 'erwartet',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -95,8 +95,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')]=='undefined'){
-                            total += group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')] = record.get('view_stimmenanzahl_ranking_los_monitor_list__erwartet');
+                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
+                            total += group[record.get('stimmzettel_ridx')] = record.get('erwartet');
                         }
                     }
                     return total;
@@ -105,7 +105,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             },{
-                dataIndex: 'view_stimmenanzahl_ranking_los_monitor_list__gescannt',
+                dataIndex: 'gescannt',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -118,8 +118,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')]=='undefined'){
-                            total += group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')] = record.get('view_stimmenanzahl_ranking_los_monitor_list__gescannt');
+                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
+                            total += group[record.get('stimmzettel_ridx')] = record.get('gescannt');
                         }
                     }
                     return total;
@@ -127,7 +127,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             },{
-                dataIndex: 'view_stimmenanzahl_ranking_los_monitor_list__ungueltig',
+                dataIndex: 'ungueltig',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -140,8 +140,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')]=='undefined'){
-                            total +=group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')] = 1*record.get('view_stimmenanzahl_ranking_los_monitor_list__ungueltig');
+                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
+                            total +=group[record.get('stimmzettel_ridx')] = 1*record.get('ungueltig');
                         }
                     }
                     return total;
@@ -150,7 +150,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             },{
-                dataIndex: 'view_stimmenanzahl_ranking_los_monitor_list__kontrolle',
+                dataIndex: 'kontrolle',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -163,8 +163,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')]=='undefined'){
-                            total += group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')] = 1*record.get('view_stimmenanzahl_ranking_los_monitor_list__kontrolle');
+                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
+                            total += group[record.get('stimmzettel_ridx')] = 1*record.get('kontrolle');
                         }
                     }
                     return total;
@@ -174,7 +174,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             },{
-                dataIndex: 'view_stimmenanzahl_ranking_los_monitor_list__quote',
+                dataIndex: 'quote',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -188,10 +188,10 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')]=='undefined'){
-                            total_a += group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')] = 1*record.get('view_stimmenanzahl_ranking_los_monitor_list__ungueltig');
-                            total_a += group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')] = 1*record.get('view_stimmenanzahl_ranking_los_monitor_list__gescannt');
-                            total_b += group[record.get('view_stimmenanzahl_ranking_los_monitor_list__stimmzettel_ridx')] = 1*record.get('view_stimmenanzahl_ranking_los_monitor_list__erwartet');
+                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
+                            total_a += group[record.get('stimmzettel_ridx')] = 1*record.get('ungueltig');
+                            total_a += group[record.get('stimmzettel_ridx')] = 1*record.get('gescannt');
+                            total_b += group[record.get('stimmzettel_ridx')] = 1*record.get('erwartet');
                         }
                     }
                     total = total_a/total_b;
@@ -249,7 +249,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         type: 'numeric',
                         position: 'bottom',
                 
-                        fields: ['view_stimmenanzahl_ranking_los_monitor__offline','view_stimmenanzahl_ranking_los_monitor__online'],
+                        fields: ['offline','online'],
                         grid: true,
                         minimum: 0,
                         //maximum: 300,
@@ -260,7 +260,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                     {
                         type: 'category',
                         position: 'left',
-                        fields: 'view_stimmenanzahl_ranking_los_monitor__anzeige_name',
+                        fields: 'anzeige_name',
                         grid: true,
                         renderer: 'onCategoryRenderer',
                         label: {
@@ -273,9 +273,9 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
             },
             series: [{
               type: 'bar',
-              xField: 'view_stimmenanzahl_ranking_los_monitor__anzeige_name',
+              xField: 'anzeige_name',
               title: [ 'Briefwahl', 'Onlinewahl' ],
-              yField: ['view_stimmenanzahl_ranking_los_monitor__offline','view_stimmenanzahl_ranking_los_monitor__online'],
+              yField: ['offline','online'],
               style: {
                 opacity: 0.80,
                 minGapWidth: 10
@@ -285,7 +285,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 radius: 0
               },
               label: {
-                field: ['view_stimmenanzahl_ranking_los_monitor__offline','view_stimmenanzahl_ranking_los_monitor__online'],
+                field: ['offline','online'],
                 display: 'insideStart',
                 renderer: 'onSeriesLabelRender'
               },
