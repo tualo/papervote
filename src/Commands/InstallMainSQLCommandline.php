@@ -49,6 +49,15 @@ class InstallMainSQLCommandline implements ICommandline{
             'base.view' => 'setup base view ',
             'ds.base' => 'setup base ds definition ',
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
+            'ruecklauffelder' => 'setup ruecklauffelder',
+            'ruecklauffelder.ds' => 'setup ruecklauffelder.ds',
+
+            'wahlscheinstatus_grund' => 'setup wahlscheinstatus_grund',
+            'wahlscheinstatus_grund.ds' => 'setup wahlscheinstatus_grund.ds',
+
+            'wzbruecklauffelder' => 'setup wzbruecklauffelder',
+            'wzbruecklauffelder.ds' => 'setup wzbruecklauffelder.ds',
+            
         ];
 
         foreach($files as $file=>$msg){
