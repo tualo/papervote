@@ -50,7 +50,7 @@ class Save implements IRoute
                     foreach ($status as $val) {
                         if (($ws[''.$val['feld']] == '6|0')) throw new Exception("Der Status darf nicht überschrieben werden.");
 
-                        if ($ws[''.$val['feld']] == '1|0') { 
+                        if ( in_array($ws[''.$val['feld']],['1|0','-1|0']) ) { 
                             // nimmt nicht teil kann nicht überschrieben werden!
                             $ws[''.$val['feld']] = $val['status'];
                             $ws[''.$val['feld'].'_grund'] = isset($val['grund']) ? $val['grund'] : '';
