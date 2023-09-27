@@ -1,4 +1,4 @@
-delimiter;
+DELIMITER;
 
 insert
     ignore into ds_class (class_name)
@@ -1261,4 +1261,20 @@ CREATE TABLE IF NOT EXISTS nachzaehlung(
     id varchar(20) primary key,
     login varchar(50),
     ctime datetime
+);
+
+create table if not exists wahlschein_blocknumbers (
+    blocknumber varchar(30) primary key,
+    login varchar(94),
+    lastlogin varchar(94),
+    createtime datetime,
+    lastinsert datetime
+);
+
+create table wm_tualo_api_logfile (
+    id varchar(36) primary key,
+    type varchar(10),
+    createtime timestamp,
+    uri varchar(255),
+    data longtext
 );

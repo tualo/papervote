@@ -66,6 +66,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_stimmenanzahl_ranking_los_monitor.ds' => 'setup monitor ds'
         ];
 
+
+
         foreach($files as $file=>$msg){
             $installSQL = function(string $file){
 

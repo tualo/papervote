@@ -19,6 +19,8 @@ require_once "Routes/Reset.php";
 
 require_once "Routes/BCrypt.php";
 
+require_once "Routes/Sounds.php";
+
 require_once "Routes/counting/SkipStartBallotPaper.php";
 require_once "Routes/counting/Save.php";
 
@@ -35,3 +37,8 @@ require_once "Routes/wbimport/Process.php";
 
 
 require_once "Routes/rescan/Insert.php";
+
+
+require_once "Routes/return/Setup.php";
+require_once "Routes/return/Tan.php";
+require_once "Routes/return/Save.php";

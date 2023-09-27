@@ -118,6 +118,17 @@ group by
         return str_replace('wahlberechtigte_anlage.*',$fld,Query::$querySQL);
     }
 
+    public static function get(string $type,string $id):array{
+        $db = App::get('session')->getDB();
+        $sql = str_replace(
+            '#search_field',
+            ($type=='identnummer')?'wahlberechtigte_anlage.identnummer':'wahlschein.wahlscheinnummer',
+            Query::prepareQuerySQL($db)
+        );
+        $data = Query::wzb($db,$db->direct($sql,['barcode'=>$id]));
+        return $data;
+    }
+
     public static function wzb($db,$data){
         foreach($data as &$item){
             $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$item);
@@ -130,12 +141,8 @@ group by
             try{
                 $db = App::get('session')->getDB();
                 App::contenttype('application/json');
-                $sql = str_replace(
-                    '#search_field',
-                    ($matches['type']=='identnummer')?'wahlberechtigte_anlage.identnummer':'wahlschein.wahlscheinnummer',
-                    Query::prepareQuerySQL($db)
-                );
-                $data = Query::wzb($db,$db->direct($sql,$matches));
+        
+                $data = Query::get($matches['type'],$matches['barcode']);
                 App::result('data',  $data );
                 App::result('success',count($data)>0);
                 App::result('msg',(count($data)==0)?'Der Wähler wurde nicht gefunden.':'');

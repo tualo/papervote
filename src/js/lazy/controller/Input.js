@@ -175,7 +175,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
           ampel.setStyle("background-color","red");
           me.disableButtons(true);
           try{
-            var audio = new Audio('./cmp/cmp_wm_ruecklauf/sounds/sms-alert-2-daniel_simon.mp3');
+            var audio = new Audio('./papervote/sounds/sms-alert-2-daniel_simon.mp3');
             audio.play();
           }catch(e){}
         }
@@ -183,7 +183,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
           ampel.setStyle("background-color","rgb(255,99,71)");
           me.disableButtons(true);
           try{
-            var audio = new Audio('./cmp/cmp_wm_ruecklauf/sounds/sms-alert-1-daniel_simon.mp3');
+            var audio = new Audio('./papervote/sounds/sms-alert-1-daniel_simon.mp3');
             audio.play();
           }catch(e){}
         }

@@ -654,7 +654,7 @@ UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_access` WRITE;
-INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append ) VALUES ('wahl_administration','wahlberechtigte',1,1,1,1 );
+INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) VALUES ('wahl_administration','wahlberechtigte',1,1,1,1 );
 UNLOCK TABLES;
 LOCK TABLES `ds` WRITE;
 INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahlzeichnungsberechtigter','Zeichnungsberechtige','',0,'anzeige_name','anzeige_name','anzeige_name',1,'','','','',0,'cellmodel','',0,'','','view_readtable_wahlzeichnungsberechtigter','Wahlsystem','',1,'','','listview','XlsxWriter','wahlzeichnungsberechtigter',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic');

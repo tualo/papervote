@@ -1,3 +1,4 @@
+/*
 Ext.define('Ext.ActionSheet', {
     title: 'Grund',
     extend: 'Ext.window.Window',
@@ -10,14 +11,14 @@ Ext.define('Ext.ActionSheet', {
         align: 'stretch'
     },
 
-    /*items: {  // Let's put an empty grid in just to illustrate fit layout
+    / *items: {  // Let's put an empty grid in just to illustrate fit layout
         xtype: 'grid',
         border: false,
         columns: [{header: 'World'}],                 // One header just for show. There's no data,
         store: Ext.create('Ext.data.ArrayStore', {}) // A dummy empty data store
-    }*/
+    }* /
 });
-
+*/
 Ext.define('Tualo.PaperVote.lazy.Logic', {
     extend: 'Ext.Component',
     //mixins: ['Ext.mixin.Observable'],
@@ -59,7 +60,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         }
     },
     lese: function(scope) {
-        return function() {
+        return async function() {
             var values = scope.form.getValues();
 
             if (scope.checkReload(values._read_barcode)) {
@@ -76,42 +77,29 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
                     }else{
 
-                        //
-                        let url = (scope.useident===true)?('./papervote/identnummer/'+values._read_barcode):('./papervote/wahlschein/'+values._read_barcode);
-
-                        Ext.Ajax.request({
-                            url: url,
-                            success: function(response) {
-                                var text = response.responseText;
-                                // process server response here
-                                try {
-                                    var o = Ext.JSON.decode(text);
-                                    if (o.success) {
-                                        var _x=JSON.stringify(o),dataindex=0;
-                                        o.data.forEach(function(itm){
-                                            var _xo = JSON.parse(_x);
-                                            _xo.data=itm;
-                                            scope.successRead(_xo,++dataindex,o.data.length);
-                                        });
-                                    } else {
-                                        o.data.forEach(function(itm){
-                                            scope.wbliste=[itm.wahlschein_ridx].concat(scope.wbliste);
-                                            scope.wbhash[itm.wahlschein_ridx]=itm;
-                                        });
-                                        scope.fireEvent('loaded', scope, '',o.data[0]);
-                                        scope.last_message = o.msg;
-                                        scope.transit('WBFehler');
-                                    }
-                                } catch (e) {
-                                    scope.last_message = e;
-                                    scope.transit('WBFehler');
-                                }
-                            },
-                            failure: function(response) {
-                                scope.last_message = "Abbruch vom Server";
+                            try{
+                            let url = (scope.useident===true)?('./papervote/identnummer/'+values._read_barcode):('./papervote/wahlschein/'+values._read_barcode);
+                            let o = await (await fetch(url)).json()
+                            if (o.success) {
+                                var _x=JSON.stringify(o),dataindex=0;
+                                o.data.forEach(function(itm){
+                                    var _xo = JSON.parse(_x);
+                                    _xo.data=itm;
+                                    scope.successRead(_xo,++dataindex,o.data.length);
+                                });
+                            } else {
+                                o.data.forEach(function(itm){
+                                    scope.wbliste=[itm.wahlschein_ridx].concat(scope.wbliste);
+                                    scope.wbhash[itm.wahlschein_ridx]=itm;
+                                });
+                                scope.fireEvent('loaded', scope, '',o.data[0]);
+                                scope.last_message = o.msg;
                                 scope.transit('WBFehler');
                             }
-                        });
+                        } catch (e) {
+                            scope.last_message = e;
+                            scope.transit('WBFehler');
+                        }
                     }
                 }
             }
@@ -134,24 +122,24 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
         typen.forEach(function(record) {
             
-            if ( o.data.hasOwnProperty(record.get('wahltyp__feld'))  
-                && (o.data.wahltyp_ridx == record.get('wahltyp__ridx'))
+            if ( o.data.hasOwnProperty(record.get('feld'))  
+                && (o.data.wahltyp_ridx == record.get('ridx'))
             ){
             
 
-            console.log(record.get('wahltyp__name'),record.get('wahltyp__feld'));
+            console.log(record.get('name'),record.get('feld'));
             
 
-              if (!Ext.isEmpty(o.data[record.get('wahltyp__stimmzettelfeld')])){
-                var st = o.data[record.get('wahltyp__feld')];
-                if ((st != '1|0') && (st != '6|0')) {
+              if (!Ext.isEmpty(o.data[record.get('stimmzettelfeld')])){
+                var st = o.data[record.get('feld')];
+                if ((st != '-1|0') && (st != '1|0') && (st != '6|0')) {
                     reset = true;
                 }
 
                 me.typen.push({
-                    ridx: record.get('wahltyp__ridx'),
-                    feld: record.get('wahltyp__feld'),
-                    name: record.get('wahltyp__name')
+                    ridx: record.get('ridx'),
+                    feld: record.get('feld'),
+                    name: record.get('name')
                 });
                 status.forEach(function(statusRecord) {
                     if (st == statusRecord.get('ridx')) {
@@ -227,16 +215,16 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         var text = [];
         try{
             typen.forEach(function(rec){
-                if (!Ext.isEmpty(o[rec.get('wahltyp__stimmzettelfeld')])
-                && (o.wahltyp_ridx == rec.get('wahltyp__ridx'))
+                if (!Ext.isEmpty(o[rec.get('stimmzettelfeld')])
+                && (o.wahltyp_ridx == rec.get('ridx'))
                 ){
-                    var txt = status.findRecord('wahlscheinstatus__ridx',o[rec.get('wahltyp__feld')],0,false,false,true);
+                    var txt = status.findRecord('ridx',o[rec.get('feld')],0,false,false,true);
                     if (Ext.isEmpty(txt)){
-                        txt = 'unbekannter Statuscode ('+o[rec.get('wahltyp__feld')]+') ';
+                        txt = 'unbekannter Statuscode ('+o[rec.get('feld')]+') ';
                     }else{
-                        txt = txt.get('wahlscheinstatus__name');
+                        txt = txt.get('name');
                     }
-                    text.push(rec.get('wahltyp__name')+': '+txt);
+                    text.push(rec.get('name')+': '+txt);
                 }
             });
         }catch(e){
@@ -257,32 +245,25 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
       //  window.document.location.reload();
     },
     tan: function(scope) {
-        return function() {
+        return async function() {
             var values = scope.form.getValues();
             if (scope.checkReload(values._read_barcode)) {
-                Ext.Ajax.request({
-                    url: './index.php?sid=' + sid + '&cmp=' + 'cmp_wm_ruecklauf' + '&TEMPLATE=NO&p=ajax/tan&ridx=' + scope.wbliste[0] + '&id=' + values._read_barcode,
-                    success: function(response) {
-                        var text = response.responseText;
-                        // process server response here
-                        try {
-                            var o = Ext.JSON.decode(text);
-                            if (o.success) {
-                                scope.transit('warteAufStatus');
-                            } else {
-                                scope.last_message = o.msg;
-                                scope.transit('warteAufTAN');
-                            }
-                        } catch (e) {
-                            scope.last_message = e;
-                            scope.transit('WBFehler');
-                        }
-                    },
-                    failure: function(response) {
-                        scope.last_message = "Abbruch vom Server";
-                        scope.transit('WBFehler');
+
+                try {
+                    let url = './papervote/return/tan/'+scope.wbliste[0]+'/'+values._read_barcode;
+                    let o = await (await fetch(url)).json();
+                    if (o.success) {
+                        scope.transit('warteAufStatus');
+                    } else {
+                        scope.last_message = o.msg;
+                        scope.transit('warteAufTAN');
                     }
-                });
+                } catch (e) {
+                    scope.last_message = e;
+                    scope.transit('WBFehler');
+                }
+
+                
             }
         }
     },
@@ -301,7 +282,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
       if (scope.checkReload(values._read_barcode)) {
           var statusItem;
           status.forEach(function(statusRecord){
-            if (values._read_barcode == statusRecord.get('wahlscheinstatus__barcode')) {
+            if (values._read_barcode == statusRecord.get('barcode')) {
               statusItem = statusRecord;
             }
           });
@@ -312,9 +293,9 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
           } else {
               scope.dataSet.push({
                   feld: scope.typen[scope.typen_index].feld,
-                  status: statusItem.get('wahlscheinstatus__ridx')
+                  status: statusItem.get('ridx')
               });
-              scope.lastsavesatte = statusItem.get('wahlscheinstatus__name');
+              scope.lastsavesatte = statusItem.get('name');
 
               var list = [];
               var d = list.length;
@@ -344,11 +325,11 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                               t.setValue('');
 
                               status_grund.forEach(function(statusgrundRecord){
-                                if (statusgrundRecord.get('wahlscheinstatus_grund__barcode')==bc){
+                                if (statusgrundRecord.get('barcode')==bc){
                                   try {
                                       var o = {};
-                                      o[scope.typen[scope.typen_index].feld] = statusItem.get('wahlscheinstatus__name') + ' (' + statusgrundRecord.get('wahlscheinstatus_grund__name') + ')';
-                                      scope.dataSet[scope.typen_index].grund = statusgrundRecord.get('wahlscheinstatus_grund__ridx');
+                                      o[scope.typen[scope.typen_index].feld] = statusItem.get('name') + ' (' + statusgrundRecord.get('name') + ')';
+                                      scope.dataSet[scope.typen_index].grund = statusgrundRecord.get('ridx');
                                       scope.btnActionSheet.hide();
                                       scope._nextStatus()
                                   } catch (e) {
@@ -369,10 +350,10 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
               var d = list.length;
 
               status_grund.forEach(function(statusgrundRecord){
-                  if (statusgrundRecord.get('wahlscheinstatus_grund__wahlscheinstatus') === statusItem.get('wahlscheinstatus__ridx')) {
+                  if (statusgrundRecord.get('wahlscheinstatus') === statusItem.get('ridx')) {
                       list.push({
-                          text: statusgrundRecord.get('wahlscheinstatus_grund__name'),
-                          idx:  statusgrundRecord.get('wahlscheinstatus_grund__ridx'),
+                          text: statusgrundRecord.get('name'),
+                          idx:  statusgrundRecord.get('ridx'),
                           xtype: 'button',
                           scope: scope,
                           handler: function(grund, status) {
@@ -380,10 +361,10 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                                   try {
                                     //alert(b);
                                       var o = {};
-                                      o[me.typen[this.typen_index].feld] = status.get('wahlscheinstatus__name') + ' (' + grund.get('wahlscheinstatus_grund__ridx') + ')';
+                                      o[me.typen[this.typen_index].feld] = status.get('name') + ' (' + grund.get('ridx') + ')';
                                       //this.form.setValues(o);
 
-                                      this.dataSet[this.typen_index].grund = grund.get('wahlscheinstatus_grund__ridx');
+                                      this.dataSet[this.typen_index].grund = grund.get('ridx');
                                       this.btnActionSheet.hide();
                                       this._nextStatus()
                                   } catch (e) {
@@ -423,7 +404,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         var text = [];
         try{
             this.lastdataSet.forEach(function(statusrec){
-                text.push(/*typen.findRecord('wahltyp__feld',statusrec['feld'],0,false,false,true).get('wahltyp__name')+': '+*/status.findRecord('wahlscheinstatus__ridx',statusrec['status'],0,false,false,true).get('wahlscheinstatus__name'))
+                text.push(/*typen.findRecord('feld',statusrec['feld'],0,false,false,true).get('name')+': '+*/status.findRecord('ridx',statusrec['status'],0,false,false,true).get('name'))
             });
         }catch(e){
             console.log(e);
@@ -431,7 +412,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         return text;
 
     },
-    _nextStatus: function() {
+    _nextStatus: async function() {
         var scope = this;
         scope.typen_index++;
         /*
@@ -442,80 +423,62 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             */
             scope.typen_index = 0;
             scope.last_message = '';
-      
 
-            Ext.Ajax.request({
-                url: './index.php?sid=' + sid + '&cmp=' + 'cmp_wm_ruecklauf' + '&TEMPLATE=NO&p=ajax/save',
-                params: {
-                    status: Ext.JSON.encode(scope.dataSet),
-                    liste: Ext.JSON.encode(scope.wbliste),
-                    blocknumber: scope.blocknumber,
-                    useident: (scope.useident===true)?'1':'0'
-                },
-                success: function(response) {
-                    var text = response.responseText;
-                    // process server response here
-                    scope.lastwbliste = scope.wbliste;
-                    scope.lastdataSet = scope.dataSet;
+            let url = './papervote/return/save';
+            let params = {
+                status: Ext.JSON.encode(scope.dataSet),
+                liste: Ext.JSON.encode(scope.wbliste),
+                blocknumber: scope.blocknumber,
+                useident: (scope.useident===true)?'1':'0'
+            };
+            try{
+                let o = await (await fetch(url,{
+                    method: 'POST',
+                    body: JSON.stringify(params)
+                })).json();
 
+                if (o.success) {
                     try {
-                        var o = Ext.JSON.decode(text);
-
-                        if (o.success) {
-                            try {
-                              scope.wbliste=[];
-                              scope.wbhash={};
-//                              scope.fireEvent('loaded', scope, '',{});
-                              scope.transit('warteAufWB');
-                            } catch (e) {
-
-                            }
-                        } else {
-                            scope.last_message = o.msg;
-                            scope.transit('WBFehler');
-                        }
+                    scope.wbliste=[];
+                    scope.wbhash={};
+    //                              scope.fireEvent('loaded', scope, '',{});
+                    scope.transit('warteAufWB');
                     } catch (e) {
 
-                        scope.last_message = e;
-                        scope.transit('WBFehler');
                     }
-                },
-                failure: function(response) {
-                    scope.last_message = "Abbruch vom Server";
+                } else {
+                    scope.last_message = o.msg;
                     scope.transit('WBFehler');
                 }
-            });
-        //}
+            } catch (e) {
+
+                scope.last_message = e;
+                scope.transit('WBFehler');
+            }
+
+            
     },
 
-    initLogic: function(size) {
+    initLogic: async function(size) {
         var me = this;
         this.list_length = size;
 
-        this.FSM = Ext.create('FSM', {
+        this.FSM = Ext.create('Tualo.PaperVote.lazy.ReturnFSM', {
             startingState: this.startingState
         });
 
-
-        Ext.Ajax.request({
-            url: './index.php?sid=' + sid + '&cmp=' + 'cmp_wm_ruecklauf' + '&TEMPLATE=NO&p=ajax/setup',
-            success: function(response) {
-                var text = response.responseText;
-                try {
-                    var o = Ext.JSON.decode(text);
-                    if (!Ext.isEmpty(o.data.FORCEBLOCKCODE)){
-                        if(o.data.FORCEBLOCKCODE.daten=='1'){
-                            me.FORCEBLOCKCODE = true;
-                        }
-                    }
-                } catch (e) {
-                     
-                }
-            },
-            failure: function(response) {
-                
+        let res = await (await fetch('./papervote/return/setup')).json();
+        if ( res.success === false){
+            scope.fireEvent('message', scope, res.msg + ' Scannen Sie *Leeren*.');
+            scope.fireEvent('refocus', scope, '');
+            scope.fireEvent('state', scope, 'error');
+            return;
+        }
+        if (!Ext.isEmpty(res.data.FORCEBLOCKCODE)){
+            if(res.data.FORCEBLOCKCODE.daten=='1'){
+                me.FORCEBLOCKCODE = true;
             }
-        });
+        }
 
         this.allowTransit('einlesen => WBFehler', null, function(scope) {
             return function() {
