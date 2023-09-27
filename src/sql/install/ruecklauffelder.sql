@@ -1,4 +1,5 @@
 delimiter ;
+
 CREATE TABLE IF NOT EXISTS `ruecklauffelder` (
   `column_name` varchar(50) NOT NULL,
   `aktiv` tinyint(4) DEFAULT 1,
@@ -20,4 +21,3 @@ INSERT IGNORE INTO `ruecklauffelder` VALUES
 ('post_name3',1,3),
 ('post_name4',1,4),
 ('post_strasse',1,5);
-
