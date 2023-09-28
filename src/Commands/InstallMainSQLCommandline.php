@@ -50,6 +50,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'ds.base' => 'setup base ds definition ',
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
 
+            'counting.ddl' => 'setup counting base ddl',
+
             'onlinestimmzettel' => 'setup onlinestimmzettel',
             'onlinestimmzettel.ds' => 'setup onlinestimmzettel.ds',
 
@@ -86,7 +88,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_stimmenanzahl_ranking_los_monitor_list' => 'setup monitor list',
             'view_stimmenanzahl_ranking_los_monitor_list.ds' => 'setup monitor list ds',
             'view_stimmenanzahl_ranking_los_monitor' => 'setup monitor',
-            'view_stimmenanzahl_ranking_los_monitor.ds' => 'setup monitor ds'
+            'view_stimmenanzahl_ranking_los_monitor.ds' => 'setup monitor ds',
+            'view_gezaehlte_stimmzettel' => 'setup stimmzettel view'
         ];
 
 
