@@ -64,6 +64,23 @@ class InstallMainSQLCommandline implements ICommandline{
             'wahlscheinstatus_grund' => 'setup wahlscheinstatus_grund',
             'wahlscheinstatus_grund.ds' => 'setup wahlscheinstatus_grund.ds',
 
+            'wm_berichte' => 'setup wm_berichte',
+            'wm_berichte.ds' => 'setup wm_berichte.ds',
+
+
+            'view_stimmenanzahl_ranking_los_monitor_list_stand' => 'setup view_stimmenanzahl_ranking_los_monitor_list_stand',
+            'view_stimmenanzahl_ranking_los_monitor_list_stand.ds' => 'setup view_stimmenanzahl_ranking_los_monitor_list_stand.ds',
+
+            'briefwahlkandidaten' => 'setup briefwahlkandidaten',
+            'briefwahlkandidaten.ds' => 'setup briefwahlkandidaten.ds',
+
+            'kandidaten_stimmenanzahl' => 'setup kandidaten_stimmenanzahl',
+            'kandidaten_stimmenanzahl.ds' => 'setup kandidaten_stimmenanzahl.ds',
+
+
+            'kandidaten_stimmenanzahl_rank' => 'setup kandidaten_stimmenanzahl_rank',
+            'kandidaten_stimmenanzahl_rank.ds' => 'setup kandidaten_stimmenanzahl_rank.ds',
+
             'wzbruecklauffelder' => 'setup wzbruecklauffelder',
             'wzbruecklauffelder.ds' => 'setup wzbruecklauffelder.ds',
 
@@ -89,7 +106,46 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_stimmenanzahl_ranking_los_monitor_list.ds' => 'setup monitor list ds',
             'view_stimmenanzahl_ranking_los_monitor' => 'setup monitor',
             'view_stimmenanzahl_ranking_los_monitor.ds' => 'setup monitor ds',
-            'view_gezaehlte_stimmzettel' => 'setup stimmzettel view'
+            'view_gezaehlte_stimmzettel' => 'setup stimmzettel view',
+
+            
+
+            'view_wm_bekanntmachung_kandidaten_liste' => 'setup view_wm_bekanntmachung_kandidaten_liste',
+            'view_wm_bekanntmachung_kandidaten_liste.ds' => 'setup view_wm_bekanntmachung_kandidaten_liste.ds',
+
+            'view_wm_bekanntmachung_kandidaten_liste_wm_bekanntmachung' => 'setup view_wm_bekanntmachung_kandidaten_liste_wm_bekanntmachung',
+            'view_wm_bekanntmachung_kandidaten_liste_wm_bekanntmachung.ds' => 'setup view_wm_bekanntmachung_kandidaten_liste_wm_bekanntmachung.ds',
+
+            'view_wm_bekanntmachung' => 'setup view_wm_bekanntmachung',
+            'view_wm_bekanntmachung.ds' => 'setup view_wm_bekanntmachung.ds',
+
+            
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_config' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_config',
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_config.ds' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_config.ds',
+
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel',
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel.ds' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel.ds',
+            
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht',
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht.ds' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht.ds',
+            
+
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenliste' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenliste',
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenliste.ds' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenliste.ds',
+
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel_object' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel_object',
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel_object.ds' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_formel_object.ds',
+
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_config_object' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_config_object',
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_config_object.ds' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_config_object.ds',
+
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject',
+            'view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject.ds' => 'setup view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject.ds'
+
+            
+            
+            
+            
         ];
 
 
