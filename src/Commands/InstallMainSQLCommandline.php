@@ -64,6 +64,14 @@ class InstallMainSQLCommandline implements ICommandline{
             'wahlscheinstatus_grund' => 'setup wahlscheinstatus_grund',
             'wahlscheinstatus_grund.ds' => 'setup wahlscheinstatus_grund.ds',
 
+
+            'wm_tanboegen' => 'setup wm_tanboegen',
+            'wm_tanboegen.ds' => 'setup wm_tanboegen.ds',
+
+            'wm_tannummer' => 'setup wm_tannummer',
+            'wm_tannummer.ds' => 'setup wm_tannummer.ds',
+
+
             'wm_berichte' => 'setup wm_berichte',
             'wm_berichte.ds' => 'setup wm_berichte.ds',
 
@@ -144,8 +152,11 @@ class InstallMainSQLCommandline implements ICommandline{
 
             
             'view_stimmenanzahl_ranking_los' => 'setup view_stimmenanzahl_ranking_los',
-            'view_stimmenanzahl_ranking_los.ds' => 'setup view_stimmenanzahl_ranking_los.ds'
+            'view_stimmenanzahl_ranking_los.ds' => 'setup view_stimmenanzahl_ranking_los.ds',
             
+            'pug_tan' => 'setup pug_tan',
+            'pug_css' => 'setup pug_css',
+            'pug_css_assign' => 'setup pug_css'
             
         ];
 
