@@ -61,6 +61,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'wahlbezirk' => 'setup wahlbezirk ',
             'wahlbezirk.ds' => 'setup wahlbezirk.ds ',
   
+            'wb_wg.fix.aktiv' => 'setup wb_wg.fix.aktiv ',
             
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
 

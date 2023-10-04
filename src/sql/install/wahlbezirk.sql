@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `wahlbezirk` (
   `id` int(11) NOT NULL DEFAULT 0,
   `kostenstelle` int(11) NOT NULL DEFAULT 0,
   `name` varchar(255) DEFAULT NULL,
-  `aktiv` int(11) DEFAULT 1,
+  `aktiv` tinyint DEFAULT 1,
   `insert_date` date NOT NULL,
   `update_date` date NOT NULL,
   `login` varchar(255) NOT NULL,
