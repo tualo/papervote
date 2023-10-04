@@ -1,0 +1,43 @@
+DELIMITER ;
+INSERT INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('wahltyp','Wahltyp','',0,'name','name','id',1,'Der Wahltyp gibt die Art der Wahlunterlage an. Z.Bsp. \"Vollversammlungswahl\".','','','',1,'','',0,'','','','Wahlsystem','',1,'','','listview','XlsxWriter','wahltyp',0,1000,0,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic') ON DUPLICATE KEY UPDATE title=VALUES(title), reorderfield=VALUES(reorderfield), use_history=VALUES(use_history), searchfield=VALUES(searchfield), displayfield=VALUES(displayfield), sortfield=VALUES(sortfield), searchany=VALUES(searchany), hint=VALUES(hint), overview_tpl=VALUES(overview_tpl), sync_table=VALUES(sync_table), writetable=VALUES(writetable), globalsearch=VALUES(globalsearch), listselectionmodel=VALUES(listselectionmodel), sync_view=VALUES(sync_view), syncable=VALUES(syncable), cssstyle=VALUES(cssstyle), alternativeformxtype=VALUES(alternativeformxtype), read_table=   VALUES(read_table), class_name=VALUES(class_name), special_add_panel=VALUES(special_add_panel), existsreal=VALUES(existsreal), character_set_name=VALUES(character_set_name), read_filter=VALUES(read_filter), listxtypeprefix=VALUES(listxtypeprefix), phpexporter=VALUES(phpexporter), phpexporterfilename=VALUES(phpexporterfilename), combined=VALUES(combined), default_pagesize=VALUES(default_pagesize), allowForm=VALUES(allowForm), listviewbaseclass=VALUES(listviewbaseclass), showactionbtn=VALUES(showactionbtn), modelbaseclass=VALUES(modelbaseclass);
+INSERT  IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('wahltyp','aktiv',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','feld',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','id',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'int','PRI','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','import_field',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(25)',25,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','insert_date',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'NO',NULL,1,NULL,'date','','date',NULL,NULL,NULL,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','insert_time',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'time','','time',NULL,NULL,NULL,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','kostenstelle',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'int','PRI','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','login',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'NO',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','name',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','ridx',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','UNI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','stimmzettelfeld',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','update_date',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'NO',NULL,1,NULL,'date','','date',NULL,NULL,NULL,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('wahltyp','update_time',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,1,NULL,'time','','time',NULL,NULL,NULL,NULL,'select,insert,update,references',1,NULL,NULL,'');
+INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('wahltyp','aktiv','DE','Aktiv','booleancolumn','',3,'','','',0,1,'',0,1.00,'','','',''),
+('wahltyp','feld','DE','Statusfeld','gridcolumn','',6,'','','',0,1,'',0,1.00,'','','',''),
+('wahltyp','id','DE','ID','gridcolumn','',9,'','','',0,1,'',0,1.00,'','','',''),
+('wahltyp','import_field','DE','Importspalte','gridcolumn','',10,'','','',0,1,'',0,1.00,'','','',''),
+('wahltyp','insert_date','DE','insert_date','gridcolumn','',1,'','','',1,0,'',0,1.00,'','','',''),
+('wahltyp','insert_time','DE','insert_time','gridcolumn','',5,'','','',1,0,'',0,1.00,'','','',''),
+('wahltyp','kostenstelle','DE','kostenstelle','gridcolumn','',0,'','','',0,1,'',0,1.00,'ASC','left','',''),
+('wahltyp','login','DE','login','gridcolumn','',12,'','','',1,0,'',0,1.00,'','','',''),
+('wahltyp','name','DE','Name','gridcolumn','',4,'','','',0,1,'',0,1.00,'','','',''),
+('wahltyp','ridx','DE','ridx','gridcolumn','',8,'','','',1,1,'',0,0.00,'','','','\'\''),
+('wahltyp','stimmzettelfeld','DE','Stimmzettelfeld','gridcolumn','',7,'','','',0,1,'',0,1.00,'','','',''),
+('wahltyp','update_date','DE','update_date','gridcolumn','',11,'','','',1,0,'',0,1.00,'','','',''),
+('wahltyp','update_time','DE','update_time','gridcolumn','',2,'','','',1,0,'',0,1.00,'','','','');
+INSERT  IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `field_path`, `position`, `hidden`, `active`, `allowempty`, `fieldgroup`, `flex`, `hint`) VALUES ('wahltyp','aktiv','DE','Aktiv','checkbox','Allgemein',1,0,1,1,'',1.00,''),
+('wahltyp','feld','DE','Statusfeld','textfield','Allgemein',5,0,1,1,'',1.00,''),
+('wahltyp','id','DE','ID','displayfield','Allgemein',2,0,1,1,'',1.00,''),
+('wahltyp','import_field','DE','Importspalte','textfield','Allgemein',6,0,1,1,'',1.00,''),
+('wahltyp','insert_date','DE','insert_date','displayfield','Allgemein',9,1,0,0,'',1.00,''),
+('wahltyp','insert_time','DE','insert_time','displayfield','Allgemein',7,1,0,0,'',1.00,''),
+('wahltyp','kostenstelle','DE','kostenstelle','displayfield','Allgemein',0,0,1,1,'',1.00,''),
+('wahltyp','login','DE','login','displayfield','Allgemein',11,1,0,0,'',1.00,''),
+('wahltyp','name','DE','Name','textfield','Allgemein',3,0,1,1,'',1.00,''),
+('wahltyp','ridx','DE','ridx','displayfield','Allgemein',8,1,0,0,'',1.00,''),
+('wahltyp','stimmzettelfeld','DE','Stimmzettelfeld','textfield','Allgemein',4,0,1,1,'',1.00,''),
+('wahltyp','update_date','DE','update_date','displayfield','Allgemein',12,1,0,0,'',1.00,''),
+('wahltyp','update_time','DE','update_time','displayfield','Allgemein',10,1,0,0,'',1.00,'');
+INSERT  IGNORE INTO `ds_dropdownfields` (`table_name`, `name`, `idfield`, `displayfield`, `filterconfig`) VALUES ('wahltyp','RIDX','ridx','name',NULL);
+INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahltyp',1,1,1,1,1);

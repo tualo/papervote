@@ -48,6 +48,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'base.ddl' => 'setup base ddl ',
             'base.view' => 'setup base view ',
             'ds.base' => 'setup base ds definition ',
+            'wahltyp' => 'setup wahltyp ',
+            'wahltyp.ds' => 'setup wahltyp.ds ',
+            
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
 
             'counting.ddl' => 'setup counting base ddl',
