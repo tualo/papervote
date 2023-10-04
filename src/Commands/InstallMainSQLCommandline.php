@@ -53,7 +53,14 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'wahlscheinstatus' => 'setup wahlscheinstatus ',
             'wahlscheinstatus.ds' => 'setup wahlscheinstatus.ds ',
-            
+
+            'wahlgruppe' => 'setup wahlgruppe ',
+            'wahlgruppe.ds' => 'setup wahlgruppe.ds ',
+
+
+            'wahlbezirk' => 'setup wahlbezirk ',
+            'wahlbezirk.ds' => 'setup wahlbezirk.ds ',
+  
             
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
 
