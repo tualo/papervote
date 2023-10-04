@@ -84,6 +84,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'kandidaten_bilder_typen.ds' => 'setup kandidaten_bilder_typen.ds ',
             
 
+
             'wb_wg.fix.aktiv' => 'setup wb_wg.fix.aktiv ',
             
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',

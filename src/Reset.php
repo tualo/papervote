@@ -298,6 +298,8 @@ class Reset
         $db->moreResults();
         $db->execute('delete from ds_column where existsreal=0');
 
+        $db->direct('INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("wahlberechtigte_anlage","wm_wb_importcmd","toolbar",1,"Importieren",NULL);');
+
 
         $filename = (__DIR__) . '/sql/install/trigger.wahlberechtigte.anlage.sql';
         $sql = file_get_contents($filename);
