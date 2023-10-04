@@ -26,7 +26,9 @@ select
         `kandidaten`.`nachname`,
         ', ',
         `kandidaten`.`vorname`
-    ) AS `anzeige_name`
+    ) AS `anzeige_name`,
+    concat('./dsfiles/kandidaten_bilder/',kandidaten_bilder.file_id)   AS portrait_url
+
 from
     (
         (
@@ -37,5 +39,9 @@ from
         )
         left join `view_kandidaten_sitze_vergeben` on(
             `view_kandidaten_sitze_vergeben`.`ridx` = `stimmzettelgruppen`.`ridx`
+        )
+
+        left join kandidaten_bilder on(
+            kandidaten_bilder.kandidat = kandidaten.ridx
         )
     )
