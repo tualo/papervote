@@ -9,7 +9,8 @@ class Middleware implements IMiddleware{
         App::use('PaperVote',function(){
             
             try{
-                // App::javascript('papervote_bcrypt', './papervotelibrary/bcrypt.js',[],0);
+                // require.config({ paths: { 'bcrypt': './papervotelibrary/bcrypt.js' }});
+                //App::javascript('papervote_bcrypt', './papervotelibrary/bcrypt.js',[],0);
             }catch(\Exception $e){
                 App::set('maintanceMode','on');
                 App::addError($e->getMessage());
