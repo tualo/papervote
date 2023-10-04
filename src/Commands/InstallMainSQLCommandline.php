@@ -71,6 +71,15 @@ class InstallMainSQLCommandline implements ICommandline{
             'stimmzettelgruppen' => 'setup stimmzettelgruppen ',
             'stimmzettelgruppen.ds' => 'setup stimmzettelgruppen.ds ',
 
+
+
+            'kandidaten' => 'setup kandidaten ',
+            'kandidaten.ds' => 'setup kandidaten.ds ',
+
+            'kandidaten_bilder' => 'setup kandidaten_bilder ',
+            'kandidaten_bilder.ds' => 'setup kandidaten_bilder.ds ',
+            
+
             'wb_wg.fix.aktiv' => 'setup wb_wg.fix.aktiv ',
             
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
