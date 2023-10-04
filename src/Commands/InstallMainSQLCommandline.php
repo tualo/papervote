@@ -51,6 +51,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'wahltyp' => 'setup wahltyp ',
             'wahltyp.ds' => 'setup wahltyp.ds ',
 
+            'abgabetyp' => 'setup abgabetyp ',
+            'abgabetyp.ds' => 'setup abgabetyp.ds ',
+
             'wahlscheinstatus' => 'setup wahlscheinstatus ',
             'wahlscheinstatus.ds' => 'setup wahlscheinstatus.ds ',
 
