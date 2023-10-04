@@ -50,6 +50,10 @@ class InstallMainSQLCommandline implements ICommandline{
             'ds.base' => 'setup base ds definition ',
             'wahltyp' => 'setup wahltyp ',
             'wahltyp.ds' => 'setup wahltyp.ds ',
+
+            'wahlscheinstatus' => 'setup wahlscheinstatus ',
+            'wahlscheinstatus.ds' => 'setup wahlscheinstatus.ds ',
+            
             
             'trigger.wahlberechtigte.anlage' => 'setup trigger wahlberechtigte anlage',
 
