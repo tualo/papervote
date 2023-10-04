@@ -120,6 +120,12 @@ class Reset
         $sql = 'delete from kandidaten  ';
         $db->execute($sql);
         try {
+            $sql = 'delete from kandidaten_bilder  ';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
+
+        try {
             $sql = 'delete from kandidaten_doc  ';
             $db->execute($sql);
         } catch (Exception $e) {
