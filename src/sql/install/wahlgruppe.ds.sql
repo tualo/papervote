@@ -13,6 +13,7 @@ REPLACE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default
 ('wahlgruppe','update_date','{DATE}',0,0,'null',0,0,'','','NO','NO',1,'','date','','date',NULL,NULL,NULL,NULL,'select,insert,update,references',1,0,'',''),
 ('wahlgruppe','update_time','{TIME}',0,0,'null',0,0,'','','YES','NO',1,'','time','','time',NULL,NULL,NULL,NULL,'select,insert,update,references',1,0,'',''),
 ('wahlgruppe','zuweisungsschluessel','0',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'','');
+
 INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('wahlgruppe','aktiv','DE','Aktiv','booleancolumn','',999,NULL,'',NULL,0,1,'',0,1.00,'ASC','left','',''),
 ('wahlgruppe','id','DE','ID','gridcolumn','',999,NULL,'',NULL,0,1,'',0,1.00,'ASC','left','',''),
 ('wahlgruppe','kostenstelle','DE','kostenstelle','gridcolumn','',999,'','','',1,1,'',0,1.00,'ASC','left','',''),
