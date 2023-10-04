@@ -157,10 +157,13 @@ class Process implements IRoute
                 $db->execute($sql);
         
                 App::result('pwgen_sql', $sql);
-        
-        
                 App::result('header', $header);
-                $db->direct('call fill_ds("")');
+
+                sleep(10);
+
+                $db->direct('call fill_ds("view_pwgen_wahlberechtigte_anlage")');
+                $db->moreResults();
+                $db->direct('call fill_ds_column("view_pwgen_wahlberechtigte_anlage")');
                 $db->moreResults();
         
                 $g = glob(App::get('basePath').'/cache/'.$db->dbname.'*');
