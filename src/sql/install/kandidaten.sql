@@ -39,4 +39,4 @@ CREATE TABLE IF NOT EXISTS `kandidaten` (
   UNIQUE KEY `uidx_kandidaten_ridx` (`ridx`),
   KEY `fk_kandidaten_stimmzettelgruppen` (`stimmzettelgruppen`),
   CONSTRAINT `fk_kandidaten_stimmzettelgruppen` FOREIGN KEY (`stimmzettelgruppen`) REFERENCES `stimmzettelgruppen` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+);

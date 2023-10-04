@@ -75,6 +75,7 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'kandidaten' => 'setup kandidaten ',
             'kandidaten.preview' => 'setup kandidaten.preview ',
+            'kandidaten.ridx.trigger' => 'setup kandidaten.ridx.trigger ',
             'kandidaten.ds' => 'setup kandidaten.ds ',
 
             'kandidaten_bilder' => 'setup kandidaten_bilder ',
