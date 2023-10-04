@@ -200,7 +200,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'reporting/wm_berichte.pug' => 'setup wm_berichte.pug' ,
             'wm_berichte.data' => 'setup wm_berichte.data' ,
 
-            'kandidaten_bilder.upd'=> 'setup kandidaten_bilder.upd'
+            'kandidaten_bilder.upd'=> 'setup kandidaten_bilder.upd' ,
+
+            'addcommand'=> 'setup addcommand'
 
         ];
 
