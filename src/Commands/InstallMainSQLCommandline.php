@@ -47,7 +47,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'base.tanboegen' => 'setup tanboegen ddl ',
             'base.ddl' => 'setup base ddl ',
             'base.view' => 'setup base view ',
-            'ds.base' => 'setup base ds definition ',
+           //  'ds.base' => 'setup base ds definition ',
+           
             'wahltyp' => 'setup wahltyp ',
             'wahltyp.ds' => 'setup wahltyp.ds ',
 
