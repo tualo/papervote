@@ -7,7 +7,7 @@ REPLACE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default
 ('kandidaten_bilder','kandidat',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'varchar','PRI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten_bilder','mtime',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'datetime','','datetime',NULL,NULL,NULL,NULL,'select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten_bilder','path',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
-('kandidaten_bilder','typ',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'varchar','PRI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten_bilder','typ',1,NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'varchar','PRI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten_bilder','__file_data',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'NO',NULL,0,NULL,'char','','char(0)',0,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten_bilder','__file_id',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'varchar','','varchar(36)',36,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten_bilder','__file_name',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
