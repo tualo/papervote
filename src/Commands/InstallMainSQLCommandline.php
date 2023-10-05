@@ -76,7 +76,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'kandidaten' => 'setup kandidaten ',
             'kandidaten.preview' => 'setup kandidaten.preview ',
             'kandidaten.ridx.trigger' => 'setup kandidaten.ridx.trigger ',
-            
+
             'kandidaten.ds' => 'setup kandidaten.ds ',
 
             'kandidaten_bilder' => 'setup kandidaten_bilder ',
@@ -204,8 +204,10 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'kandidaten_bilder.upd'=> 'setup kandidaten_bilder.upd' ,
 
-            'addcommand'=> 'setup addcommand'
+            'addcommand'=> 'setup addcommand',
 
+
+            'fix_aktiv'=> 'patch active column types'
         ];
 
 

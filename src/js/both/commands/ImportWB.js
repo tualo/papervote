@@ -18,7 +18,7 @@ Ext.define('Tualo.PaperVote.commands.ImportWB', {
     alias: ['widget.wm_wb_importcmd'],
     layout: 'fit',
     loadRecord: function (record, records, selectedrecords) {
-
+        
     },
     layout: 'card',
     bodyPadding: '24px',

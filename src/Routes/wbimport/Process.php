@@ -221,7 +221,7 @@ class Process implements IRoute
                         "",
                         "",
                         "",
-                        "",
+                        "wahlschein",
                         0,
                         "rowmodel",
                         "",
@@ -324,7 +324,7 @@ class Process implements IRoute
                 
                 $db->direct('update ds_column_form_label set active=1 where table_name="view_pwgen_wahlberechtigte_anlage"');
                 $db->direct('INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("view_pwgen_wahlberechtigte_anlage","pwgen_pw_command","toolbar",1,"Passwortgenerator",NULL);');
-                $db->direct('INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ("wahl_administration","view_pwgen_wahlberechtigte_anlage",1,0,0,0,0);');
+                $db->direct('INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ("wahl_administration","view_pwgen_wahlberechtigte_anlage",1,1,0,0,0);');
 
                 $db->direct("call fill_ds('')");
                 $db->direct('call create_or_upgrade_hstr_table("wahlschein")');
