@@ -116,6 +116,11 @@ class InstallMainSQLCommandline implements ICommandline{
             'wm_berichte' => 'setup wm_berichte',
             'wm_berichte.ds' => 'setup wm_berichte.ds',
 
+            'wahlschein' => 'setup wahlschein',
+            'wahlschein.ds' => 'setup wahlschein.ds',
+
+            'wahlschein_hstr' => 'setup wahlschein_hstr',
+            'wahlschein_hstr.ds' => 'setup wahlschein_hstr.ds',
 
             'view_stimmenanzahl_ranking_los_monitor_list_stand' => 'setup view_stimmenanzahl_ranking_los_monitor_list_stand',
             'view_stimmenanzahl_ranking_los_monitor_list_stand.ds' => 'setup view_stimmenanzahl_ranking_los_monitor_list_stand.ds',
