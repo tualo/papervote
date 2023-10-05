@@ -13,6 +13,7 @@ REPLACE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default
 ('kandidaten_bilder','__file_name',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten_bilder','__file_size',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten_bilder','__file_type',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,'');
+
 INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('kandidaten_bilder','bild','DE','bild','gridcolumn','',6,'','','',1,1,'',0,1.00,'','left','','NULL'),
 ('kandidaten_bilder','ctime','DE','Anlage','gridcolumn',NULL,4,'','','',0,1,'',0,1.00,'ASC','left','',NULL),
 ('kandidaten_bilder','file_id','DE','file_id','gridcolumn','',12,'','','',1,1,'',0,1.00,'','left','','NULL'),
