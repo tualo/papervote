@@ -30,7 +30,7 @@ class BCrypt implements IRoute
                 foreach($input['passwords'] as &$item){
                     set_time_limit(30);
                     $options = [
-                        'cost' => 8,
+                        'cost' => App::configuration('votemanager','bcrypt_cost',8)
                     ];
                     $item['pwhash'] =   password_hash($item['password'], PASSWORD_BCRYPT, $options);
                     // unset($item['password']);

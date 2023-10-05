@@ -84,15 +84,25 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     console.log(o);
     progressbar_unique.reset();
     progressbar_unique.updateProgress(1);
-    progressbar_unique.updateText('Done!');
+    progressbar_unique.updateText(' ');
     me.wahlschein = o.wahlschein;
     me.username = o.username;
 
-    me.loopPWRange(0);
-
+    await me.gatteringData(0);
+    await me.loopPWHashRange(0);
+    me.saveExcel();
+    return true;
 
   },
-  loopPWRange: function (index) {
+
+  gatteringData: function () {
+    let me = this;
+    return new Promise((resolve) => {
+      me.loopPWRange(0, resolve);
+    })
+  },
+
+  loopPWRange: function (index, cb) {
     let me = this,
       progressbar_unique = me.getComponent('form').getComponent('progressbar_unique'),
       progressbar_data = me.getComponent('form').getComponent('progressbar_data'),
@@ -133,11 +143,12 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
 
       setTimeout(function () {
         //c onsole.log('setTimeout',index);
-        me.loopPWRange(++index);
+        me.loopPWRange(++index, cb);
       }, 1);
 
     } else {
-      me.saveExcel();
+      cb();
+      //me.saveExcel();
     }
   },
   passwordChars: 'ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789',
@@ -160,7 +171,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       fileName: 'Datenexport' + '.' + (btncfg.ext || btncfg.type)
     }, btncfg);
     me.list.saveDocumentAs(cfg);
-    me.loopPWHashRange(0);
+
 
 
   },
@@ -168,10 +179,10 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     let me = this,
       block_size = 250,
       progressbar_save = me.getComponent('form').getComponent('progressbar_save')
-    ;
-    if (index < me.records.length) {
-      progressbar_save.updateProgress((index + 1) / me.records.length);
-      try {
+      ;
+    try {
+      while (index < me.records.length) {
+        progressbar_save.updateProgress((index + 1) / me.records.length);
         let pw_list = me.records.slice(index, index + block_size);
         let pws_list = pw_list.map((item) => {
           return {
@@ -189,27 +200,27 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
             passwords: pws_list
           })
         })).json();
+        
         r.data.forEach((item) => {
           let rec = me.store.findRecord('__id', item.id);
           rec.set('pwhash', item.pwhash);
           rec.set('wahlscheinstatus', '1|0');
 
         });
-        me.loopPWHashRange(index + block_size);
-      } catch (e) {
-        console.log(e);
-        Ext.toast({
-          html: "Es ist ein Fehler aufgetreten: ",
-          title: 'Fehler',
-          width: 400,
-          align: 't',
-          iconCls: 'fa fa-warning'
-        });
+        index += block_size;
       }
-    } else {
-      progressbar_save.updateProgress(1);
-      alert('done');
+    } catch (e) {
+      console.log(e);
+      Ext.toast({
+        html: "Es ist ein Fehler aufgetreten: ",
+        title: 'Fehler',
+        width: 400,
+        align: 't',
+        iconCls: 'fa fa-warning'
+      });
     }
+
+    progressbar_save.updateProgress(1);
   },
 
   loopSaveRange: async function (index) {
@@ -292,7 +303,11 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     return result;
   },
 
+  getNextText: function () {
+    return 'Erzeugen';
+  },
 
+  /*
   buttons: [
     {
       text: 'Schliessen',
@@ -307,5 +322,5 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
         me.run(me.list);
       }
     }
-  ]
+  ]*/
 });
