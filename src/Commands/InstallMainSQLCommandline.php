@@ -105,6 +105,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'wahlscheinstatus_grund' => 'setup wahlscheinstatus_grund',
             'wahlscheinstatus_grund.ds' => 'setup wahlscheinstatus_grund.ds',
 
+            'wahlberechtigte' => 'setup wahlberechtigte',
+            'wahlberechtigte.ds' => 'setup wahlberechtigte.ds',
+
 
             'wm_tanboegen' => 'setup wm_tanboegen',
             'wm_tanboegen.ds' => 'setup wm_tanboegen.ds',
