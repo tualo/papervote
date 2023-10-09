@@ -229,6 +229,13 @@ class InstallMainSQLCommandline implements ICommandline{
             'system_settings_user_access'    => 'setup system_settings_user_access',
             'system_settings_user_access.ds'    => 'setup system_settings_user_access.ds',
             
+
+            'install/stimmzettel_fusstexte'    => 'setup stimmzettel_fusstexte',
+            'install/stimmzettel_fusstexte.ds'    => 'setup stimmzettel_fusstexte.ds',
+            
+            'install/stimmzettel_stimmzettel_fusstexte'    => 'setup stimmzettel_stimmzettel_fusstexte',
+            'install/stimmzettel_stimmzettel_fusstexte.ds'    => 'setup stimmzettel_stimmzettel_fusstexte.ds',
+            
         ];
 
 

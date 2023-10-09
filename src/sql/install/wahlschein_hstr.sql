@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `wahlschein_hstr` (
   `wahlscheinnummer` varchar(255) DEFAULT NULL,
   `wahlscheinstatus` varchar(12) DEFAULT NULL,
   `wahlscheinstatus_grund` varchar(255) DEFAULT NULL,
-  `xwn` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`hstr_revision`),
   KEY `idx_pri_wahlschein_hstr` (`id`,`stimmzettel`)
 );
