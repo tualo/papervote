@@ -33,6 +33,7 @@ class Reset implements IRoute{
             App::contenttype('application/json');
             if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
                 try{
+                    ResetClass::Wahlberechtigte();
                     ResetClass::WahlberechtigteCleanDS();
                     App::result('A', "A");
                     ResetClass::WahlberechtigteAnlageCreateDS();    
