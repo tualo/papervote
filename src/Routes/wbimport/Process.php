@@ -329,10 +329,6 @@ class Process implements IRoute
                 $db->direct("call fill_ds('')");
                 $db->direct('call create_or_upgrade_hstr_table("wahlschein")');
                 $db->moreResults();
-                $db->direct('call create_or_upgrade_hstr_table("wahlberechtigte_anlage")');
-                $db->moreResults();
-                $db->direct('call create_or_upgrade_hstr_table("wahlberechtigte")');
-                $db->moreResults();
                 
                     
                 foreach($headerLabels as $headerLabelsRows){
