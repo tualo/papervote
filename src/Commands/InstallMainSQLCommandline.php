@@ -244,6 +244,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'ds_files_data'    => 'setup ds_files_data',
             'ds_files_data.ds'    => 'setup ds_files_data.ds',
 
+            'voterCredential'    => 'setup voterCredential',
+            
         ];
 
 
