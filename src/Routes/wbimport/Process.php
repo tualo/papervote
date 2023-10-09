@@ -140,7 +140,7 @@ class Process implements IRoute
                     '. implode(',',$wahlberechtigte_anlage).',
 
                     `wahlschein`.`id`,
-                    `wahlschein`.`stimmzettel`,
+
                     `wahlschein`.`username`,
                     `wahlschein`.`wahlscheinnummer`,
                     `wahlschein`.`wahlscheinstatus`,
