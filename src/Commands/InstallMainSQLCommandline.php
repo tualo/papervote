@@ -215,7 +215,20 @@ class InstallMainSQLCommandline implements ICommandline{
             'addcommand'=> 'setup addcommand',
 
 
-            'fix_aktiv'=> 'patch active column types'
+            'fix_aktiv'=> 'patch active column types',
+
+
+
+            'install/canChangeValue'    => 'setup canChangeValue',
+            'install/system_settings_suggestion'    => 'setup system_settings_suggestion',
+            'install/system_settings_suggestion.ds'    => 'setup system_settings_suggestion.ds',
+
+            'install/system_settings'    => 'setup system_settings',
+            'install/system_settings.ds'    => 'setup system_settings.ds',
+
+            'install/system_settings_user_access'    => 'setup system_settings_user_access',
+            'install/system_settings_user_access.ds'    => 'setup system_settings_user_access.ds',
+            
         ];
 
 
