@@ -1,4 +1,13 @@
 DELIMITER //
+create or replace view voter_credentials as
+select 
+  wahlschein.id,
+  stimmzettel.id ballotpaper_id,
+  wahlschein.username,
+  wahlschein.pwhash
+from wahlschein join stimmzettel on wahlschein.stimmzettel = stimmzettel.ridx
+
+//
 
 CREATE OR REPLACE FUNCTION `voterCredential`(usern varchar(36)) RETURNS JSON 
     DETERMINISTIC

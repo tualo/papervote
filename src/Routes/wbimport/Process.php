@@ -340,7 +340,7 @@ class Process implements IRoute
                     $db->direct('update ds_column_list_label set label={label} where column_name={column_name} and table_name="wahlberechtigte_anlage"',$headerLabelsRows);
                 }
                 $db->direct("update ds_column set is_primary=0 where table_name='view_pwgen_wahlberechtigte_anlage'   ");
-                $db->direct("update ds_column set is_primary=1 where table_name='view_pwgen_wahlberechtigte_anlage' and column_name in ('identnummer','stimmzettel') ");
+                $db->direct("update ds_column set is_primary=1 where table_name='view_pwgen_wahlberechtigte_anlage' and column_name in ('id','stimmzettel') ");
 
                 App::result('success', true);
         
