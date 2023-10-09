@@ -138,8 +138,12 @@ class Process implements IRoute
                 $sql='CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
                 select 
                     '. implode(',',$wahlberechtigte_anlage).',
+
+                    `wahlschein`.`id`,
+                    `wahlschein`.`stimmzettel`,
                     `wahlschein`.`username`,
                     `wahlschein`.`wahlscheinnummer`,
+                    `wahlschein`.`wahlscheinstatus`,
                     `wahlschein`.`pwhash`,
                     "" `password`
                 from 
