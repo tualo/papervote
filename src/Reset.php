@@ -50,25 +50,25 @@ class Reset
     {
         $db = App::get('session')->getDB();
 
-        $db->direct('delete from wahlschein');
+        $db->execute('delete from wahlschein');
         try {
-            $db->direct('delete from wahlschein_hstr');
+            $db->execute('delete from wahlschein_hstr');
         } catch (\Exception $e) {
         }
 
-        $db->direct('delete from wahlberechtigte');
+        $db->execute('delete from wahlberechtigte');
         try {
-            $db->direct('delete from wahlberechtigte_hstr');
+            $db->execute('delete from wahlberechtigte_hstr');
         } catch (\Exception $e) {
         }
 
-        $db->direct('delete from wahlberechtigte_anlage');
+        $db->execute('delete from wahlberechtigte_anlage');
         try {
-            $db->direct('delete from wahlberechtigte_anlage_hstr');
+            $db->execute('delete from wahlberechtigte_anlage_hstr');
         } catch (\Exception $e) {
         }
         try {
-            $db->direct('delete from wahlberechtigte_anlage_hstr_last');
+            $db->execute('delete from wahlberechtigte_anlage_hstr_last');
         } catch (\Exception $e) {
         }
     }
@@ -77,16 +77,16 @@ class Reset
     public static function WahlberechtigteCleanDS()
     {
         $db = App::get('session')->getDB();
-        $db->direct('drop table if exists wahlberechtigte_anlage_hstr');
-        $db->direct('drop table if exists wahlberechtigte_anlage_hstr_last');
+        $db->execute('drop table if exists wahlberechtigte_anlage_hstr');
+        $db->execute('drop table if exists wahlberechtigte_anlage_hstr_last');
 
-        $db->direct('drop trigger if exists wahlberechtigte_anlage__ai');
-        $db->direct('drop trigger if exists wahlberechtigte_anlage__au');
-        $db->direct('drop trigger if exists wahlberechtigte_anlage__bd');
-        $db->direct('drop trigger if exists before_insert_wahlberechtigte_anlage');
+        $db->execute('drop trigger if exists wahlberechtigte_anlage__ai');
+        $db->execute('drop trigger if exists wahlberechtigte_anlage__au');
+        $db->execute('drop trigger if exists wahlberechtigte_anlage__bd');
+        $db->execute('drop trigger if exists before_insert_wahlberechtigte_anlage');
 
 
-        $db->direct('drop table if exists wahlberechtigte_anlage');
+        $db->execute('drop table if exists wahlberechtigte_anlage');
     }
 
 
