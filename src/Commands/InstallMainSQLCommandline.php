@@ -246,6 +246,8 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'voterCredential'    => 'setup voterCredential',
             
+            'wm_wahlschein_register'=> 'setup wm_wahlschein_register',
+            'wm_wahlschein_register.ds'=> 'setup wm_wahlschein_register.ds',
         ];
 
 
