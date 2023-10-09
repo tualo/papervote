@@ -4,4 +4,4 @@ CREATE TABLE IF NOT EXISTS `ds_files_data` (
   `data` longtext NOT NULL,
   PRIMARY KEY (`file_id`),
   CONSTRAINT `fk_ds_files_data_file_id` FOREIGN KEY (`file_id`) REFERENCES `ds_files` (`file_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+);

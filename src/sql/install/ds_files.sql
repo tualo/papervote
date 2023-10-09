@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS `ds_files` (
   KEY `idx_ds_files_table_name` (`table_name`),
   KEY `idx_ds_files_hash` (`hash`),
   KEY `idx_ds_files_login` (`login`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+)  ;
