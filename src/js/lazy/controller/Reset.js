@@ -52,6 +52,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Reset', {
       if (btn=='yes'){
         Tualo.Ajax.request({
           showWait: true,
+          timeout: 600000,
           url: './papervote/reset/wahlberechtigte',
 
           json: function(o){
