@@ -23,7 +23,6 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
   `blocknumber` varchar(30) DEFAULT '0',
   `kostenstelle` int(11) NOT NULL DEFAULT 0,
   `defered` tinyint(4) DEFAULT 0,
-  `xwn` varchar(10) DEFAULT NULL,
   `secret` varchar(500) DEFAULT NULL,
   `onlinecheck` tinyint(4) DEFAULT 0,
   `testdaten` tinyint(4) DEFAULT 0,

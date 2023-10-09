@@ -757,8 +757,7 @@ INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `d
 ('wahlschein','wahlberechtigte','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','MUL','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
 ('wahlschein','wahlscheinnummer','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','MUL','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
 ('wahlschein','wahlscheinstatus','1|0',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','MUL','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('wahlschein','wahlscheinstatus_grund','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','MUL','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('wahlschein','xwn','NULL',0,0,'',0,0,'','','YES','NO',1,'','varchar','','varchar(10)',10,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'','');
+('wahlschein','wahlscheinstatus_grund','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','MUL','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'','');
 UNLOCK TABLES;
 LOCK TABLES `ds_column_list_label` WRITE;
 INSERT IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('wahlschein','abgabetyp','DE','Abgabetyp','column_abgabetyp_ridx','',13,'','','',0,1,'',0,1.00,'ASC','left','',''),
