@@ -77,7 +77,8 @@ BEGIN
           `pwhash`,
           `username`,
           `abgabehash`,
-          `sendtotmg`
+          `sendtotmg`,
+          `kombiniert`
 
         ) VALUES (
           concat(prefix,lpad(NEW.identnummer,8,'0')),
@@ -100,7 +101,8 @@ BEGIN
           NEW.pwhash,
           NEW.username,
           '',
-          0
+          0,
+          if(ifnull(new.kombiniert,'')='' is null,concat(prefix,lpad(NEW.identnummer,8,'0')),new.kombiniert)
         ) ON DUPLICATE KEY UPDATE id=values(ID);
       ELSE
         set msg = concat("Der Stimmzettel-Typ existiert nicht ",ifnull(set_stimmzettel,""));
