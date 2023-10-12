@@ -1113,8 +1113,7 @@ create table IF NOT EXISTS kandidaten_bilder (
     primary key (kandidat, typ)
 );
 
-CREATE
-OR REPLACE VIEW `view_readtable_kandidaten_bilder` AS
+CREATE VIEW  if not exists `view_readtable_kandidaten_bilder` AS
 select
     `kandidaten_bilder`.`id` AS `id`,
     `kandidaten_bilder`.`kandidat` AS `kandidat`,
@@ -1279,7 +1278,7 @@ create table if not exists wm_tualo_api_logfile (
     data longtext
 );
 
-create or replace view stimmzettel_default as
+create   view if not exists stimmzettel_default as
 select
     stimmzettel.*,
     stimmzettel.ridx group_ridx
