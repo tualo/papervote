@@ -32,7 +32,7 @@ from
             )
         group by
             `stimmzettelgruppen`.`stimmzettel`
-        union
+        union all
         select
             `onlinestimmzettel`.`stimmzettel` AS `stimmzettel`,
             `onlinestimmzettel`.`anzahl` AS `gezaehlte_stimmzettel`
