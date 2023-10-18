@@ -25,7 +25,7 @@ BEGIN
         and existsreal = 1;
 
 
-    SET @SQL = '
+    SET @SQL = concat('
     CREATE OR REPLACE VIEW `view_voters_by_username_api` AS
     select
         `q`.`username` AS `username`,
@@ -83,7 +83,7 @@ BEGIN
         )
     group by
         `q`.`username`
-    ';
+    ');
      PREPARE stmt1 FROM @SQL;
     execute stmt1;
     DEALLOCATE PREPARE stmt1;

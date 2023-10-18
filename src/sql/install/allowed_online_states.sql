@@ -8,4 +8,4 @@ create table wahlscheinstatus_online_erlaubt (
     on delete cascade
 );
 
-insert into wahlscheinstatus_online_erlaubt(wahlscheinstatus) values ('1|0');
+insert ignore into wahlscheinstatus_online_erlaubt(wahlscheinstatus) values ('1|0');
