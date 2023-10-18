@@ -1,3 +1,4 @@
+delimiter ; 
 create table wahlscheinstatus_online_erlaubt (
     wahlscheinstatus varchar(12) primary key,
     constraint fk_wahlscheinstatus_online_erlaubt_wahlscheinstatus

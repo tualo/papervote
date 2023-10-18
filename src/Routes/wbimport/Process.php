@@ -164,6 +164,9 @@ class Process implements IRoute
                 App::result('header', $header);
 
                 sleep(10);
+                
+                $db->direct('call rebuild_view_voters_by_username_api()');
+                $db->moreResults();
 
                 $db->direct('call fill_ds("view_pwgen_wahlberechtigte_anlage")');
                 $db->moreResults();
