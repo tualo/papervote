@@ -1,5 +1,5 @@
 delimiter ; 
-create table wahlscheinstatus_online_erlaubt (
+create table if not exists wahlscheinstatus_online_erlaubt (
     wahlscheinstatus varchar(12) primary key,
     constraint fk_wahlscheinstatus_online_erlaubt_wahlscheinstatus
     foreign key (wahlscheinstatus)
