@@ -1220,6 +1220,7 @@ CREATE TABLE IF NOT EXISTS wahlschein (
     secret VARCHAR(500),
     onlinecheck TINYINT DEFAULT 0,
     testdaten TINYINT DEFAULT 0,
+    kombiniert bigint,
     usedate DATE,
     PRIMARY KEY (id, stimmzettel),
     CONSTRAINT fk_wahlschein_stimmzettel FOREIGN KEY (stimmzettel) REFERENCES `stimmzettel` (`ridx`) ON 
@@ -1242,6 +1243,10 @@ CREATE TABLE IF NOT EXISTS wahlschein (
     INDEX idx_wahlschein_blocknumber (blocknumber),
     CONSTRAINT `fk_wahlschein_wahlberechtigte` FOREIGN KEY (`wahlberechtigte`) REFERENCES `wahlberechtigte` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
+call addFieldIfNotExists('wahlschein','kombiniert','bigint');
+
 
 CREATE TABLE IF NOT EXISTS wahlberechtigte_anlage (
     identnummer VARCHAR(20) NOT NULL,
