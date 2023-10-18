@@ -26,11 +26,16 @@ class SetupHandshake implements IRoute{
                 if (!isset($_REQUEST['message'])) throw new \Exception("missing parameter");
 
                 
+                $ping_result = false;
+                if ($_REQUEST['domain'] == 'localhost'){
+                    $ping_result = [
+                        'success' => true
+                    ];
+                }
 
-
-                if ($ping_result = APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'/onlinevote/ping',[
-
-                ] )){
+                if (
+                    $ping_result = $ping_result || APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'/onlinevote/ping',[] )
+                ){
                     if (
                         ($ping_result==false)||
                         (!isset($ping_result['success']))||
@@ -74,6 +79,8 @@ class SetupHandshake implements IRoute{
                         App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)));
                         App::result('success', true );
                     }
+                }else{
+                    throw new \Exception("Das Onlinewahlsystem kann nicht angepingt werden. (2) ");
                 }
                 
                 
