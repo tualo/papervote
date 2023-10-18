@@ -26,15 +26,13 @@ BEGIN
 
 
     SET @SQL = '
-
-    CREATE
-    OR REPLACE VIEW `view_voters_by_username_api` AS
+    CREATE OR REPLACE VIEW `view_voters_by_username_api` AS
     select
         `q`.`username` AS `username`,
         `q`.`pwhash` AS `pwhash`,
         `q`.`id` AS `id`,
         concat(
-            '[',
+            "[",
             group_concat(
                 json_object(
                     "state",
@@ -59,7 +57,7 @@ BEGIN
                     "voter_data",',@FLDS,'
                 ) separator ","
             ),
-            ']'
+            "]"
         ) AS `possible_ballotpapers`
     from
         (
