@@ -39,8 +39,7 @@ require_once "Routes/wbimport/Process.php";
 
 require_once "Routes/rescan/Insert.php";
 
-require_once "Routes/images/BarcodeImages.php";
-
+require_once "Routes/images/BarcodeImage.php";
 
 require_once "Routes/return/Setup.php";
 require_once "Routes/return/Tan.php";
