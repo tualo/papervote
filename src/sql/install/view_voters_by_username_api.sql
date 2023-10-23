@@ -4,6 +4,9 @@ CREATE OR REPLACE PROCEDURE `rebuild_view_voters_by_username_api`()
     MODIFIES SQL DATA
 BEGIN
 
+    call fill_ds('wahlberechtigte_anlage');
+    call fill_ds_column('wahlberechtigte_anlage');
+    
     select
         concat(
             'JSON_OBJECT(',
