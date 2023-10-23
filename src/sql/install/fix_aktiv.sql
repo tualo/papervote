@@ -2,6 +2,10 @@ delimiter ;
 
 alter table abgabetyp modify aktiv tinyint default 1;
 
+alter table wahltyp modify aktiv tinyint default 1;
+alter table wahlgruppe modify aktiv tinyint default 1;
+alter table wahlbezirk modify aktiv tinyint default 1;
+
 alter table kandidaten1 modify aktiv tinyint default 1;
 alter table kandidaten2 modify aktiv tinyint default 1;
 alter table kisten1 modify aktiv tinyint default 1;
