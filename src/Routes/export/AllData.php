@@ -88,7 +88,7 @@ class AllData implements IRoute
                 $zip->close();
 
                 App::result('success', true);
-                App::result('filename', basename($zipName));
+                App::result('file', basename($zipName));
                 
 
 

@@ -1,6 +1,6 @@
 Ext.define('Tualo.PaperVote.commands.Export', {
     statics: {
-      glyph: 'magic',
+      glyph: 'file-archive',
       title: 'Export',
       tooltip: 'Export'
     },
