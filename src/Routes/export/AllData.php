@@ -40,7 +40,7 @@ class AllData implements IRoute
 
                 $zip = new ZipArchive;
                 $zipName = $temporary_folder.'/'.Uuid::uuid4()->toString().'.zip';
-                if ($zip->open($zipName) !== TRUE) throw new \Exception('Could not create zip file');
+                if ($zip->open($zipName,ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) throw new \Exception('Could not create zip file');
 
                 $tablename = 'kandidaten';
 
@@ -60,7 +60,7 @@ class AllData implements IRoute
                     kandidaten.ridx,
                     kandidaten.barcode,
                     kandidaten_bilder_typen.name typ_name,
-                    SUBSTRING_INDEX(ds_files.name,'.',-1) extension,
+                    SUBSTRING_INDEX(ds_files.name,".",-1) extension,
                     ds_files_data.data 
                 from 
                     kandidaten
