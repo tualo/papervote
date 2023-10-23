@@ -27,7 +27,17 @@ select
         ', ',
         `kandidaten`.`vorname`
     ) AS `anzeige_name`,
-    concat('./dsfiles/kandidaten_bilder/',kandidaten_bilder.file_id)   AS portrait_url
+    
+    
+    concat(
+    './dsfiles/kandidaten_bilder/',
+    `kandidaten_bilder`.`file_id`
+) AS `portrait_url`,
+concat(
+    './dsfiles/kandidaten_bilder/',
+    `bc`.`file_id`
+) AS `barcode_url`
+
 
 from
     (
@@ -41,7 +51,13 @@ from
             `view_kandidaten_sitze_vergeben`.`ridx` = `stimmzettelgruppen`.`ridx`
         )
 
-        left join kandidaten_bilder on(
-            kandidaten_bilder.kandidat = kandidaten.ridx
+        
+        left join `kandidaten_bilder` on(
+            `kandidaten_bilder`.`kandidat` = `kandidaten`.`ridx`
+            and kandidaten_bilder.typ=1
         )
-    )
+        left join `kandidaten_bilder` bc on(
+            `bc`.`kandidat` = `kandidaten`.`ridx`
+            and kandidaten_bilder.typ=0
+        )
+    );

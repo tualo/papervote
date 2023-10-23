@@ -31,7 +31,7 @@ Ext.define('Tualo.PaperVote.commands.BarcodeImages', {
       return 'Erzeugen';
     },
     run: async function () {
-        let url = './images/createbarcodeimages';
+        let url = './papervote/images/createbarcodeimages';
         let o = await (await fetch(url)).json()
       return null;
     }
