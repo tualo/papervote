@@ -252,7 +252,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'allowed_online_states'=> 'setup allowed_online_states',
             'view_voters_by_username_api'=> 'setup view_voters_by_username_api',
             
-            'getBallotpaper'=> 'setup getBallotpaper',
+            'getBallotPaper'=> 'setup getBallotpaper',
         ];
 
 
