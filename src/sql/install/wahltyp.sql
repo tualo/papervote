@@ -14,6 +14,5 @@ CREATE TABLE IF NOT EXISTS `wahltyp` (
   `stimmzettelfeld` varchar(255) DEFAULT NULL,
   `import_field` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id`,`kostenstelle`),
-  UNIQUE KEY `idx_wahltyp` (`ridx`),
   UNIQUE KEY `idx_wahltyp_ridx` (`ridx`)
 );
