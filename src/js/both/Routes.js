@@ -227,3 +227,31 @@ Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
         }
     }
 });
+
+
+
+
+Ext.define('Tualo.routes.PaperVoteFindIdent', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/findident',
+                    path: '#papervote/findident'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/findident',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.stacks.FindIdentnummer');
+        },
+        before: function (action) {
+
+            
+            action.resume();
+        }
+    }
+});

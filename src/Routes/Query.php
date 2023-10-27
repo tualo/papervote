@@ -144,6 +144,7 @@ group by
         
                 $data = Query::get($matches['type'],$matches['barcode']);
                 App::result('data',  $data );
+                App::result('last_sql', $db->last_sql);
                 App::result('success',count($data)>0);
                 App::result('msg',(count($data)==0)?'Der Wähler wurde nicht gefunden.':'');
                 
