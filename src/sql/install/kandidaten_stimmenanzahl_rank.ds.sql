@@ -47,3 +47,9 @@ INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `langua
 ('kandidaten_stimmenanzahl_rank','up_vote','DE','up_vote','gridcolumn','',9,'','',0,1,'','',1.00,'','',0,'','NULL'),
 ('kandidaten_stimmenanzahl_rank','xrank','DE','xrank','gridcolumn','',1,'','',0,1,'','',1.00,'','',0,'','NULL');
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','kandidaten_stimmenanzahl_rank',1,1,0,0,1);
+
+
+update `ds_column` set `is_primary`=1 where 
+`table_name`='kandidaten_stimmenanzahl_rank' and `column_name`='id'
+and (select sum(`is_primary`) from `ds_column` where `table_name`='kandidaten_stimmenanzahl_rank')=0;
+

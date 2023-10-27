@@ -57,3 +57,8 @@ INSERT  IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `langua
 ('view_stimmenanzahl_ranking_los','stimmzettel_name','DE','Stimmzettel','displayfield','Allgemein/Angaben',3,0,1,1,''),
 ('view_stimmenanzahl_ranking_los','stimmzettel_ridx','DE','Stimmzettel (RIDX)','displayfield','Allgemein/Angaben',16,0,1,1,'');
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('_default_','view_stimmenanzahl_ranking_los',1,0,0,0,1);
+
+
+update `ds_column` set `is_primary`=1 where 
+`table_name`='view_stimmenanzahl_ranking_los' and `column_name`='id'
+and (select sum(`is_primary`) from `ds_column` where `table_name`='view_stimmenanzahl_ranking_los')=0;

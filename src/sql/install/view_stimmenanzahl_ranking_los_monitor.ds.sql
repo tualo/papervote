@@ -94,3 +94,8 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) 
 VALUES ('wahl_administration','view_stimmenanzahl_ranking_los_monitor',1,0,0,0 );
 UNLOCK TABLES;
+
+
+update `ds_column` set `is_primary`=1 where 
+`table_name`='view_stimmenanzahl_ranking_los_monitor' and `column_name`='id'
+and (select sum(`is_primary`) from `ds_column` where `table_name`='view_stimmenanzahl_ranking_los_monitor')=0;

@@ -120,28 +120,18 @@ class Process implements IRoute
         
                 $wahlberechtigte_anlage=[];
                 
+                $exclude =[ 'id','password','username','wahlscheinnummer','pwhash','wahlscheinstatus','password'];
                 foreach($allfields as $c){
-                    if ($c=='id'){ 
-                        // $wahlberechtigte_anlage[]= '`wahlschein`.`id`';
-                    }else if ($c=='password'){
-        
-                    }else if ($c=='username'){
-        
-                    }else if ($c=='wahlscheinnummer'){
-        
-                    }else if ($c=='pwhash'){
-        
-                    }else{
+                    if (!in_array($c,$exclude)){
                         $wahlberechtigte_anlage[]='`wahlberechtigte_anlage`.`'.$c.'`';
-                    } 
+                    }
                 }
-                $wahlberechtigte_anlage[]= '`wahlschein`.`id`';
-               
+                
                 $sql='CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
                 select 
                     '. implode(',',$wahlberechtigte_anlage).',
 
-                    
+                    `wahlschein`.`id`,
                     `wahlschein`.`username`,
                     `wahlschein`.`wahlscheinnummer`,
                     `wahlschein`.`wahlscheinstatus`,

@@ -17,3 +17,9 @@ INSERT  IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `
 ('kandidaten_stimmenanzahl','stimmzettel_rang','',10000000,0,0,NULL,'NO',NULL,NULL,NULL,'bigint','','bigint(21)',NULL,19,0,NULL,'select,insert,update,references',1,0,1,'',''),
 ('kandidaten_stimmenanzahl','stimmzettel_ridx','',10000000,0,0,NULL,'YES',NULL,NULL,NULL,'varchar','','varchar(12)',12,NULL,NULL,'utf8mb3','select,insert,update,references',1,0,1,'',''),
 ('kandidaten_stimmenanzahl','stimmzettel_sitze','',10000000,0,0,NULL,'YES',NULL,NULL,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb3','select,insert,update,references',1,0,1,'','');
+
+
+update `ds_column` set `is_primary`=1 where 
+`table_name`='kandidaten_stimmenanzahl' and `column_name`='id'
+and (select sum(`is_primary`) from `ds_column` where `table_name`='kandidaten_stimmenanzahl')=0;
+

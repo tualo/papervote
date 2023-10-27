@@ -5,3 +5,8 @@ INSERT  IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `
 INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `summarytype`, `hidden`, `active`, `renderer`, `filterstore`, `flex`, `direction`, `align`, `grouped`, `listfiltertype`, `hint`) VALUES ('view_stimmenanzahl_ranking_los_monitor_list_stand','heute','DE','heute','gridcolumn','',999,'','',0,1,'','',1.00,'','',0,'','NULL'),
 ('view_stimmenanzahl_ranking_los_monitor_list_stand','mx','DE','mx','gridcolumn','',999,'','',0,1,'','',1.00,'ASC','left',0,'','');
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('_default_','view_stimmenanzahl_ranking_los_monitor_list_stand',1,0,0,0,1);
+
+
+update `ds_column` set `is_primary`=1 where 
+`table_name`='view_stimmenanzahl_ranking_los_monitor_list_stand' and `column_name`='id'
+and (select sum(`is_primary`) from `ds_column` where `table_name`='view_stimmenanzahl_ranking_los_monitor_list_stand')=0;

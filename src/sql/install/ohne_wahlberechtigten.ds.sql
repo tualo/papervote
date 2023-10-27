@@ -62,3 +62,9 @@ LOCK TABLES `ds_access` WRITE;
 INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) 
 VALUES ('wahl_administration','ohne_wahlberechtigten',1,0,0,0);
 UNLOCK TABLES;
+
+
+update `ds_column` set `is_primary`=1 where 
+`table_name`='ohne_wahlberechtigten' and `column_name`='id'
+and (select sum(`is_primary`) from `ds_column` where `table_name`='ohne_wahlberechtigten')=0;
+

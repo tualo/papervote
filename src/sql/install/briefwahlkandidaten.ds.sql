@@ -5,3 +5,8 @@ INSERT  IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `
 ('briefwahlkandidaten','stimmzettelgruppen','',10000000,0,0,NULL,'YES',NULL,NULL,NULL,'varchar','','varchar(12)',12,NULL,NULL,'utf8mb3','select,insert,update,references',1,0,1,'',''),
 ('briefwahlkandidaten','zaehlung_barcode','',10000000,0,0,NULL,'YES',NULL,NULL,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb3','select,insert,update,references',1,0,1,'',''),
 ('briefwahlkandidaten','zaehlung_stimmzettel','',10000000,0,0,NULL,'YES',NULL,NULL,NULL,'varchar','','varchar(12)',12,NULL,NULL,'utf8mb3','select,insert,update,references',1,0,1,'','');
+
+update `ds_column` set `is_primary`=1 where 
+`table_name`='briefwahlkandidaten' and `column_name`='id'
+and (select sum(`is_primary`) from `ds_column` where `table_name`='briefwahlkandidaten')=0;
+
