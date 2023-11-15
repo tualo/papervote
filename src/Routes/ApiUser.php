@@ -6,6 +6,7 @@ use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
 use Tualo\Office\TualoPGP\TualoApplicationPGP;
+use Tualo\Office\PaperVote\Routes\Query;
 
 use Ramsey\Uuid\Uuid;
 
@@ -63,6 +64,10 @@ class ApiUser implements IRoute{
                         }
                         $ballotpaper['secret_token'] =  TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($remote_public_key,$hash['secret_token']));
                     }
+                    try{
+                        $data = Query::wzb($db,$data);
+                    }catch(Exception $e){}
+
                 }
 
                 App::result('data',  $data );
