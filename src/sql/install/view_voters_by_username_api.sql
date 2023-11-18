@@ -34,6 +34,7 @@ BEGIN
         `q`.`username` AS `username`,
         `q`.`pwhash` AS `pwhash`,
         `q`.`id` AS `id`,
+        `wahlberechtigte`.`ridx` as `wahlberechtigte_ridx`,
         concat(
             "[",
             group_concat(
