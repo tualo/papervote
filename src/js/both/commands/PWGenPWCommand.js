@@ -113,7 +113,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       
         if (index < range.length) {
           range[0].store.suspendEvents(true);
-          while(i<50 && index < range.length){
+          while(i<250 && index < range.length){
             range[index].set('password',me.password[index].val);
             range[index].set('wahlscheinnummer',me.wahlschein[index].val);
             range[index].set('username',me.username[index].val);
