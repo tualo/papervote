@@ -108,23 +108,27 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
   loopPWRange: function (index, cb) {
     let me = this,
         range = me.records,
+        subindex = 0,
         progressbar_data = me.getComponent('form').getComponent('progressbar_data');
       
-        if (index < range.length) {
+        while ((index < range.length)&&(subindex<100)) {
           range[index].set('password',me.password[index]);
           range[index].set('wahlscheinnummer',me.wahlschein[index]);
           range[index].set('username',me.username[index]);
           progressbar_data.updateProgress((index + 1) / range.length);
-
-          setTimeout(function () {
-            //c onsole.log('setTimeout',index);
-            me.loopPWRange(++index, cb);
-          }, 1);
-        } else {
+          index++;
+          subindex++;
+          
+        } 
+        if (!(index < range.length)) {
           cb();
           //me.saveExcel();
+        }else{
+          setTimeout(function () {
+            //c onsole.log('setTimeout',index);
+            me.loopPWRange(index, cb);
+          }, 1);
         }
-        index++;
   },
 
   /*
