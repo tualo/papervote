@@ -106,7 +106,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       
         if (me.current < range.length) {
           range[0].store.suspendEvents(true);
-          while(i<me.blocksize && index < range.length){
+          while(i<me.blocksize && me.current < range.length){
             range[me.current].set('password',me.password[me.current].val);
             range[me.current].set('wahlscheinnummer',me.wahlschein[me.current].val);
             range[me.current].set('username',me.username[me.current].val);
@@ -129,7 +129,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       progressbar_save = me.getComponent('form').getComponent('progressbar_save')
       ;
     try {
-      while (index < me.records.length) {
+      while (me.current < me.records.length) {
         progressbar_save.updateProgress((me.current + 1) / me.records.length);
         let pw_list = me.store.getModifiedRecords();;
         let pws_list = pw_list.map((item) => {
