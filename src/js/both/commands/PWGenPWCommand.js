@@ -113,9 +113,9 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       
         if (index < range.length) {
           while(i<10 && index < range.length){
-            range[index].set('password',me.password[index]);
-            range[index].set('wahlscheinnummer',me.wahlschein[index]);
-            range[index].set('username',me.username[index]);
+            range[index].set('password',me.password[index].val);
+            range[index].set('wahlscheinnummer',me.wahlschein[index].val);
+            range[index].set('username',me.username[index].val);
             index++;
           }
 
@@ -245,7 +245,9 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
           rec.set('wahlscheinstatus', '1|0');
 
         });
-        me.records.store.sync();
+
+        me.records[0].store.sync();
+        
         index += block_size;
       }
     } catch (e) {
