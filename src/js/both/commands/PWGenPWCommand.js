@@ -216,6 +216,18 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
 
 
   },
+
+  singleSync: function(){
+    let me = this,
+      range = me.records,
+      index = 0;
+    return new Promise((resolve) => {
+      range.store.sync({
+        callback: resolve
+      });
+    })
+  },
+
   loopPWHashRange: async function (index) {
     let me = this,
       block_size = 250,
@@ -249,7 +261,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
 
         });
 
-        me.records[0].store.sync();
+        await me.singleSync();
 
         index += block_size;
       }
@@ -292,6 +304,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
             password: range[index].password
           })
         })).json();
+
         range[index].pwhash = r.pwhash;
         me.loopSaveRange(++index);
       } catch (e) {
