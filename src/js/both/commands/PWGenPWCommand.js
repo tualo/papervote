@@ -100,7 +100,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       range = me.records,
       index = 0;
     return new Promise((resolve) => {
-      loopPWRange(0, resolve);
+      me.loopPWRange(0, resolve);
 //      resolve();
     })
   },
