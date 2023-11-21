@@ -13,8 +13,8 @@ begin
     RETURN @returnStr;
 END //
 
-call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_username','username');
-call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_wahlscheinnummer','wahlscheinnummer');
+call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_username','username') //
+call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_wahlscheinnummer','wahlscheinnummer') //
 
 CREATE OR REPLACE PROCEDURE `createRandomList`(
     in randomLength SMALLINT(3),
