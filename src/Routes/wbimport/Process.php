@@ -325,6 +325,7 @@ class Process implements IRoute
                 $db->direct('REPLACE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ("wahl_administration","view_pwgen_wahlberechtigte_anlage",1,1,0,0,0);');
 
                 $db->direct("call fill_ds('')");
+                $db->moreResults();
                 $db->direct('call create_or_upgrade_hstr_table("wahlschein")');
                 $db->moreResults();
                 
@@ -338,7 +339,9 @@ class Process implements IRoute
 
 
                 $db->direct("call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_username','username');");
+                $db->moreResults();
                 $db->direct("call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_wahlscheinnummer','wahlscheinnummer');");
+                $db->moreResults();
 
 
                 App::result('success', true);
