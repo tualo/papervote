@@ -158,7 +158,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
 
         });
 
-        await me.singleSync();
+        await me.set();
         pw_list.forEach((item) => {
           item.commit();
         });
@@ -196,6 +196,29 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     me.list.saveDocumentAs(cfg);
 
 
+
+  },
+
+  set: async function(){
+    let me = this;
+      let pw_list = me.store.getModifiedRecords(),
+          data = pw_list.map((item) => {
+            return {
+              id: item.get('id'),
+              stimmzettel: item.get('stimmzettel'),
+              wahlscheinnummer: item.get('wahlscheinnummer'),
+              wahlscheinstatus: item.get('wahlscheinstatus'),
+              pwhash: item.get('pwhash')
+            }
+          });
+
+      let r = await (await fetch('./pwgen/set', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })).json();
 
   },
 
