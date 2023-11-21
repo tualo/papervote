@@ -112,7 +112,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
         progressbar_data = me.getComponent('form').getComponent('progressbar_data');
       
         if (index < range.length) {
-          while(i<10 && index < range.length){
+          while(i<50 && index < range.length){
             range[index].set('password',me.password[index].val);
             range[index].set('wahlscheinnummer',me.wahlschein[index].val);
             range[index].set('username',me.username[index].val);
