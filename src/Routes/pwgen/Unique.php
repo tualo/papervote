@@ -21,6 +21,7 @@ class Unique implements IRoute
             $session = App::get('session');
             $db = $session->getDB();
             App::contenttype('application/json');
+            set_time_limit(120);
             try{
                 App::result('wahlschein',[]);
                 App::result('username',[]);
@@ -31,13 +32,16 @@ class Unique implements IRoute
                 $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"wahlscheinnummer")',$c);
                 $db->moreResults();
                 App::result('wahlschein',$db->direct('select * from temp_random_list',[]));
+                set_time_limit(120);
 
                 $db->direct('call createRandomList(8,"1234567890",{c},"username")',$c);
                 $db->moreResults();
                 App::result('username',$db->direct('select * from temp_random_list',[]));
+                set_time_limit(120);
 
                 $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"pw")',$c);
                 $db->moreResults();
+                set_time_limit(120);
                 App::result('password',$db->direct('select * from temp_random_list',[]));
                 App::result('success', true);
 
