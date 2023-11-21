@@ -196,7 +196,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
   singleSync: function(){
     let me = this;
     return new Promise((resolve) => {
-      range.store.sync({
+      me.store.sync({
         callback: resolve
       });
     })
