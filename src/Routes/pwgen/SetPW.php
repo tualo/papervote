@@ -18,6 +18,29 @@ class SetPW implements IRoute
 
     public static function register()
     {
+        BasicRoute::add('/pwgen/set', function () {
+            try{
+                $postdata = file_get_contents("php://input");
+                $session = App::get('session');
+                $db = $session->getDB();
+                if (isset($postdata)) {
+                    $postdata = json_decode($postdata,true);
+                }
+                foreach($postdata as $row){
+                    $sql = 'update wahlschein set pwhash={pwhash},username={username},wahlscheinnummer={wahlscheinnummer},wahlscheinstatus="1|0" where 
+                        id = {id}
+                        and stimmzettel={stimmzettel}
+                        and wahlscheinstatus in ("16|0","17|0")';
+                    $db->direct($sql,$row);
+                }
+                App::result('success', true);
+
+            } catch (Exception $e) {
+                App::result('msg', $e->getMessage());
+            }
+            App::contenttype('application/json');
+        }, ['post', 'get']);
+
         BasicRoute::add('/pwgen/setpw', function () {
             $session = App::get('session');
             $db = $session->getDB();

@@ -29,20 +29,20 @@ class Unique implements IRoute
                 $c = $db->singleRow('select count(*) as c,database() d from wahlschein',[]);
                 if ($c['c']==0) $c['c']=1000;
 
-                $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"wahlscheinnummer")',$c);
+                $db->direct('call createRandomList(8,"1234567890",{c},"wahlscheinnummer")',$c);
                 $db->moreResults();
-                App::result('wahlschein',$db->direct('select * from temp_random_list',[]));
+                App::result('wahlschein',$db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r',[]));
                 set_time_limit(120);
 
-                $db->direct('call createRandomList(8,"1234567890",{c},"username")',$c);
+                $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"username")',$c);
                 $db->moreResults();
-                App::result('username',$db->direct('select * from temp_random_list',[]));
+                App::result('username',$db->direct('select temp_random_list.*,rand() r from temp_random_list order by r',[]));
                 set_time_limit(120);
 
                 $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"pw")',$c);
                 $db->moreResults();
                 set_time_limit(120);
-                App::result('password',$db->direct('select * from temp_random_list',[]));
+                App::result('password',$db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r',[]));
                 App::result('success', true);
 
             }catch(Exception $e){

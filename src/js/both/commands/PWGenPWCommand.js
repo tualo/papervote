@@ -1,4 +1,3 @@
-
 Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
   statics: {
     glyph: 'cogs',
@@ -90,8 +89,10 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     me.password = o.password;
     me.current = 0;
     me.blocksize = 250;
-    await me.loopPWRange();
-    
+    console.log(me.current, range.length);
+    while( (await me.loopPWRange())==false){
+
+    } ;
     
     return true;
 
@@ -109,7 +110,9 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
           while(i<me.blocksize && me.current < range.length){
             range[me.current].set('password',me.password[me.current].val);
             range[me.current].set('wahlscheinnummer',me.wahlschein[me.current].val);
+            range[me.current].set('wahlscheinstatus','1|0');
             range[me.current].set('username',me.username[me.current].val);
+            console.log(range[me.current].data);
             me.current++;
             i++;
           }
@@ -118,20 +121,19 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
           progressbar_data.updateProgress((me.current + 1) / range.length);
 
           await me.loopPWHashRange();
-          await me.loopPWRange();
+          return false;
         } else {
+          return true;
         }
   },
 
   loopPWHashRange: async function () {
     let me = this,
-      block_size = 250,
       progressbar_save = me.getComponent('form').getComponent('progressbar_save')
       ;
     try {
-      while (me.current < me.records.length) {
-        progressbar_save.updateProgress((me.current + 1) / me.records.length);
-        let pw_list = me.store.getModifiedRecords();;
+      // while (me.current < me.records.length) {
+        let pw_list = me.store.getModifiedRecords();
         let pws_list = pw_list.map((item) => {
           return {
             id: item.get('__id'),
@@ -157,7 +159,8 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
         });
 
         await me.singleSync();
-      }
+        progressbar_save.updateProgress((me.current + 1) / me.records.length);
+      // }
     } catch (e) {
       console.log(e);
       Ext.toast({
