@@ -159,6 +159,9 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
         });
 
         await me.singleSync();
+        pw_list.forEach((item) => {
+          item.commit();
+        });
         progressbar_save.updateProgress((me.current + 1) / me.records.length);
       // }
     } catch (e) {
