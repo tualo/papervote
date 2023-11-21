@@ -80,13 +80,14 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       }
     });
 
-    let o = await (await fetch('./pwgen/unique')).json();
+    let o = await (await fetch('./pwgen/new_unique')).json();
     console.log(o);
     progressbar_unique.reset();
     progressbar_unique.updateProgress(1);
     progressbar_unique.updateText(' ');
     me.wahlschein = o.wahlschein;
     me.username = o.username;
+    me.password = o.password;
 
     await me.gatteringData(0);
     await me.loopPWHashRange(0);
@@ -94,7 +95,22 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     return true;
 
   },
+  gatteringData: function(){
+    let me = this,
+      range = me.records,
+      index = 0;
+    return new Promise((resolve) => {
+      range.forEach((item)=>{
+        item.set('password',me.password[index]);
+        item.set('wahlscheinnummer',me.wahlschein[index]);
+        item.set('username',me.username[index]);
+        index++;
+      });
+      resolve();
+    })
+  },
 
+  /*
   gatteringData: function () {
     let me = this;
     return new Promise((resolve) => {
@@ -154,7 +170,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
   passwordChars: 'ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789',
   usernameChars: 'ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789',
   wahlscheinChars: '1234567890',
-
+  */
   saveExcel: function () {
     let me = this;
 
@@ -207,6 +223,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
           rec.set('wahlscheinstatus', '1|0');
 
         });
+        me.records.store.sync();
         index += block_size;
       }
     } catch (e) {

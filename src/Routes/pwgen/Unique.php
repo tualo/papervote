@@ -17,9 +17,39 @@ class Unique implements IRoute
 
     public static function register()
     {
+        BasicRoute::add('/pwgen/new_unique', function () {
+            $session = App::get('session');
+            $db = $session->getDB();
+            App::contenttype('application/json');
+            try{
+                App::result('wahlschein',[]);
+                App::result('username',[]);
+                App::result('password',[]);
+                $c = $db->singleRow('select count(*) as c,database() d from wahlschein',[]);
+                if ($c['c']==0) $c['c']=1000;
+
+                $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"wahlscheinnummer")',$c);
+                $db->moreResults();
+                App::result('wahlschein',$db->direct('select * from temp_random_list',[]));
+
+                $db->direct('call createRandomList(8,"1234567890",{c},"username")',$c);
+                $db->moreResults();
+                App::result('username',$db->direct('select * from temp_random_list',[]));
+
+                $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"pw")',$c);
+                $db->moreResults();
+                App::result('password',$db->direct('select * from temp_random_list',[]));
+                App::result('success', true);
+
+            }catch(Exception $e){
+                App::result('msg', $e->getMessage());
+            }
+        },['post','get']);
+
         BasicRoute::add('/pwgen/unique', function () {
             $session = App::get('session');
             $db = $session->getDB();
+            
             try{
                 App::result('wahlschein',[]);
                 App::result('username',[]);
