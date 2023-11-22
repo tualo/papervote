@@ -1,5 +1,7 @@
 DELIMITER ;
 
+call create_index(database(),'wahlbeteiligung_bericht','idx_wahlbeteiligung_bericht_ridx','ridx') ;
+
 CREATE TABLE IF NOT EXISTS `wahlbeteiligung_bericht_status` (
   `id` int(11) NOT NULL,
   `kostenstelle` int(11) NOT NULL DEFAULT 0,
@@ -9,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `wahlbeteiligung_bericht_status` (
   `login` varchar(255) DEFAULT NULL,
   `insert_time` time DEFAULT NULL,
   `update_time` time DEFAULT NULL,
-  `aktiv` varchar(255) DEFAULT NULL,
+  `aktiv` tinyint DEFAULT 0,
   `name` varchar(255) DEFAULT NULL,
   `wahlbeteiligung_bericht` varchar(255) DEFAULT NULL,
   `wahlscheinstatus` varchar(255) DEFAULT NULL,
