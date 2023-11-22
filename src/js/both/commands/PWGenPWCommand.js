@@ -88,7 +88,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     me.username = o.username;
     me.password = o.password;
     me.current = 0;
-    me.blocksize = 1000;
+    me.blocksize = 2000;
     console.log(me.current, range.length);
     while( (await me.loopPWRange())==false){
 
@@ -208,8 +208,10 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
             return {
               id: item.get('id'),
               stimmzettel: item.get('stimmzettel'),
+
               wahlscheinnummer: item.get('wahlscheinnummer'),
               wahlscheinstatus: item.get('wahlscheinstatus'),
+              username: item.get('username'),
               pwhash: item.get('pwhash')
             }
           });
