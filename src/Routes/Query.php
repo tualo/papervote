@@ -31,8 +31,9 @@ select
 
     concat('<br/><h4>Historie</h4><br/>',
         group_concat(
-            concat(wahlschein_hstr.hstr_datetime,' - ',wahlschein_hstr.wahlscheinstatus_name,' - ',wahlschein_hstr.hstr_sessionuser)
-            order by hstr_datetime
+            concat(substring(hstr.ts,1,19),' - ',hstr.wahlscheinstatus_name,' - ',hstr.login)
+            order by hstr.ts
+
             separator '<br/>'
         )
     ) hstr,
@@ -66,15 +67,15 @@ from
                 on wahlschein.wahlscheinstatus = wahlscheinstatus.ridx
     join (
         select 
-            wahlschein_hstr.*,
+            hstr.*,
             wahlscheinstatus.name wahlscheinstatus_name
         from 
-            wahlschein_hstr 
+            wahlschein  FOR SYSTEM_TIME ALL  hstr
             join wahlscheinstatus 
-                on wahlschein_hstr.wahlscheinstatus = wahlscheinstatus.ridx
-    ) wahlschein_hstr 
-        on wahlschein_hstr.id = wahlschein.id
-        and wahlschein_hstr.stimmzettel = wahlschein.stimmzettel
+                on hstr.wahlscheinstatus = wahlscheinstatus.ridx
+    ) hstr 
+        on hstr.id = wahlschein.id
+        and hstr.stimmzettel = wahlschein.stimmzettel
 
 where 
     #search_field={barcode}
