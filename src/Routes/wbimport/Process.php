@@ -344,6 +344,16 @@ class Process implements IRoute
                 $db->moreResults();
 
 
+                /*
+                drop trigger if exists wahlschein__ai;
+                drop trigger if exists wahlschein__au;
+                drop trigger if exists wahlschein__bd;
+
+                ALTER TABLE wahlschein ADD COLUMN ts TIMESTAMP(6) GENERATED ALWAYS AS ROW START,
+              ADD COLUMN te TIMESTAMP(6) GENERATED ALWAYS AS ROW END,
+              ADD PERIOD FOR SYSTEM_TIME(ts, te),
+              ADD SYSTEM VERSIONING;
+                */
                 App::result('success', true);
         
                 App::result('newfields', $newfields);

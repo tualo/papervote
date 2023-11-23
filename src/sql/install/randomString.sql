@@ -43,10 +43,12 @@ begin
 
         if (fieldToUnique='username') then
             delete from temp_random_list where val in (select username from wahlschein_hstr);
+            delete from temp_random_list where val in (select username from wahlschein FOR SYSTEM_TIME ALL);
         end if;
 
         if (fieldToUnique='wahlscheinnummer') then
             delete from temp_random_list where val in (select wahlscheinnummer from wahlschein_hstr);
+            delete from temp_random_list where val in (select wahlscheinnummer from wahlschein  FOR SYSTEM_TIME ALL);
         end if;
 
         set c = (select count(*)x from temp_random_list);

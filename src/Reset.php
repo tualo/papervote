@@ -51,6 +51,8 @@ class Reset
         $db = App::get('session')->getDB();
 
         $db->execute('delete from wahlschein');
+        $db->execute('DELETE HISTORY FROM wahlschein');
+
         try {
             $db->execute('delete from wahlschein_hstr');
         } catch (\Exception $e) {

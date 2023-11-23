@@ -122,8 +122,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'wahlschein' => 'setup wahlschein',
             'wahlschein.ds' => 'setup wahlschein.ds',
 
-            'wahlschein_hstr' => 'setup wahlschein_hstr',
-            'wahlschein_hstr.ds' => 'setup wahlschein_hstr.ds',
+            'wahlschein.versioned' => 'setup wahlschein.versioned',
+            
 
             'view_stimmenanzahl_ranking_los_monitor_list_stand' => 'setup view_stimmenanzahl_ranking_los_monitor_list_stand',
             'view_stimmenanzahl_ranking_los_monitor_list_stand.ds' => 'setup view_stimmenanzahl_ranking_los_monitor_list_stand.ds',

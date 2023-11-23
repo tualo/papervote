@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
   `insert_time` time DEFAULT NULL,
   `update_date` date NOT NULL,
   `update_time` time DEFAULT NULL,
+  
   `login` varchar(255) NOT NULL,
   `stimmzettel` varchar(12) NOT NULL,
   `wahlscheinnummer` varchar(255) DEFAULT NULL,
@@ -46,6 +47,7 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
 );
 
 
+
 call fill_ds('wahlschein');
 call fill_ds_column('wahlschein');
-call create_or_upgrade_hstr_table('wahlschein');
+

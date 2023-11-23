@@ -108,13 +108,13 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
         progressbar_data = me.getComponent('form').getComponent('progressbar_data');
       
         if (me.current < range.length) {
-          range[0].store.suspendEvents(true);
+          range[0].store.suspendEvents() // true);
           while(i<me.blocksize && me.current < range.length){
             range[me.current].set('password',me.password[me.current].val);
             range[me.current].set('wahlscheinnummer',me.wahlschein[me.current].val);
             range[me.current].set('wahlscheinstatus','1|0');
             range[me.current].set('username',me.username[me.current].val);
-            console.log(range[me.current].data);
+            // console.log(range[me.current].data);
             me.current++;
             i++;
           }
@@ -153,12 +153,14 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
           })
         })).json();
         
+        me.store.suspendEvents();
         r.data.forEach((item) => {
           let rec = me.store.findRecord('__id', item.id);
           rec.set('pwhash', item.pwhash);
           rec.set('wahlscheinstatus', '1|0');
 
         });
+        me.store.resumeEvents();
 
         await me.set();
         pw_list.forEach((item) => {
