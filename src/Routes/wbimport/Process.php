@@ -337,11 +337,12 @@ class Process implements IRoute
                 $db->direct("update ds_column set is_primary=0 where table_name='view_pwgen_wahlberechtigte_anlage'   ");
                 $db->direct("update ds_column set is_primary=1 where table_name='view_pwgen_wahlberechtigte_anlage' and column_name in ('id','stimmzettel') ");
 
-
-                $db->direct("call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_username','username');");
+                /*
+                $db->direct("call create_index(database(),'wahlsc hein_hstr','idx_wahlsch ein_hstr_username','username');");
                 $db->moreResults();
-                $db->direct("call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_wahlscheinnummer','wahlscheinnummer');");
+                $db->direct("call create_index(database(),'wahlsch ein_hstr','idx_wahlsch ein_hstr_wahlscheinnummer','wahlscheinnummer');");
                 $db->moreResults();
+                */
 
 
                 /*

@@ -13,8 +13,6 @@ begin
     RETURN @returnStr;
 END //
 
-call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_username','username') //
-call create_index(database(),'wahlschein_hstr','idx_wahlschein_hstr_wahlscheinnummer','wahlscheinnummer') //
 
 CREATE OR REPLACE PROCEDURE `createRandomList`(
     in randomLength SMALLINT(3),
@@ -42,12 +40,10 @@ begin
         DEALLOCATE PREPARE stmt;
 
         if (fieldToUnique='username') then
-            delete from temp_random_list where val in (select username from wahlschein_hstr);
             delete from temp_random_list where val in (select username from wahlschein FOR SYSTEM_TIME ALL);
         end if;
 
         if (fieldToUnique='wahlscheinnummer') then
-            delete from temp_random_list where val in (select wahlscheinnummer from wahlschein_hstr);
             delete from temp_random_list where val in (select wahlscheinnummer from wahlschein  FOR SYSTEM_TIME ALL);
         end if;
 

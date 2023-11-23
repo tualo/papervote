@@ -27,7 +27,7 @@ alter table wahlruecklauf_felder modify aktiv tinyint default 1;
 
 alter table wahlscheinstatus modify aktiv tinyint default 1;
 alter table wahlscheinstatus_grund modify aktiv tinyint default 1;
-alter table wahlschein_hstr modify aktiv tinyint default 1;
+
 alter table wahltyp modify aktiv tinyint default 1;
 alter table wahlzeichnungsberechtigter modify aktiv tinyint default 1;
 alter table wm_tannummer modify aktiv tinyint default 1;
@@ -62,7 +62,8 @@ call fill_ds_column('wahlruecklauf_felder');
 call fill_ds_column('wahlschein');
 call fill_ds_column('wahlscheinstatus');
 call fill_ds_column('wahlscheinstatus_grund');
-call fill_ds_column('wahlschein_hstr');
+
+
 call fill_ds_column('wahltyp');
 call fill_ds_column('wahlzeichnungsberechtigter');
 call fill_ds_column('wm_tannummer');

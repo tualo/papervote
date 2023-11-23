@@ -62,14 +62,15 @@ class Unique implements IRoute
                     App::result('wahlschein', $db->direct('select wahlscheinnummer from wahlschein FOR SYSTEM_TIME ALL',[],'wahlscheinnummer'));
                     App::result('username', $db->direct('select username from wahlschein FOR SYSTEM_TIME ALL',[],'username'));
                 }catch(Exception $e){
+                    /*
                     // für ältere system gedacht
                     // neu mit versionierung
                     try{
-                        App::result('wahlschein', $db->direct('select wahlscheinnummer from wahlschein_hstr',[],'wahlscheinnummer'));
-                        App::result('username', $db->direct('select username from wahlschein_hstr',[],'username'));
+                        App::result('wahlschein', $db->direct('select wahlscheinnummer from wahls chein_hstr',[],'wahlscheinnummer'));
+                        App::result('username', $db->direct('select username from wahlsche in_hstr',[],'username'));
                     }catch(Exception $e){
                         App::result('msg', $e->getMessage());
-                    }
+                    }*/
                 }
                 App::result('success', true);
             }catch(Exception $e){
