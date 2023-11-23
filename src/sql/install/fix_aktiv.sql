@@ -24,7 +24,7 @@ alter table wahlbeteiligung_bericht_status modify aktiv tinyint default 1;
 alter table wahlbezirk modify aktiv tinyint default 1;
 alter table wahlgruppe modify aktiv tinyint default 1;
 alter table wahlruecklauf_felder modify aktiv tinyint default 1;
-alter table wahlschein modify aktiv tinyint default 1;
+
 alter table wahlscheinstatus modify aktiv tinyint default 1;
 alter table wahlscheinstatus_grund modify aktiv tinyint default 1;
 alter table wahlschein_hstr modify aktiv tinyint default 1;
