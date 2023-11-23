@@ -3,12 +3,12 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
   `ridx` varchar(12) DEFAULT NULL,
   `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `aktiv` int(11) DEFAULT 1,
+  `aktiv` tinyint DEFAULT 1,
   `insert_date` date NOT NULL,
   `insert_time` time DEFAULT NULL,
   `update_date` date NOT NULL,
   `update_time` time DEFAULT NULL,
-  
+
   `login` varchar(255) NOT NULL,
   `stimmzettel` varchar(12) NOT NULL,
   `wahlscheinnummer` varchar(255) DEFAULT NULL,
