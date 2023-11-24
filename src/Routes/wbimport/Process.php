@@ -21,7 +21,7 @@ class Process implements IRoute
         BasicRoute::add('/papervote/wahlberechtigte/process', function () {
             ini_set("memory_limit", "4096M");
             set_time_limit(600 );
-            
+
             $db = App::get('session')->getDB();
             try{
                 @session_start();
@@ -329,8 +329,8 @@ class Process implements IRoute
 
                 $db->direct("call fill_ds('')");
                 $db->moreResults();
-                $db->direct('call create_or_upgrade_hstr_table("wahlschein")');
-                $db->moreResults();
+                //$db->direct('call create_or_upgrade_ hstr_table("wahlschein")');
+                //$db->moreResults();
                 
                     
                 foreach($headerLabels as $headerLabelsRows){
