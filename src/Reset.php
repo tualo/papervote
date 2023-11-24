@@ -59,6 +59,7 @@ class Reset
         }
 
         $db->execute('delete from wahlberechtigte');
+        $db->execute('DELETE HISTORY FROM wahlberechtigte');
         try {
             $db->execute('delete from wahlberechtigte_hstr');
         } catch (\Exception $e) {

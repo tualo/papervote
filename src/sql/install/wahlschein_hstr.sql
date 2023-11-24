@@ -35,5 +35,4 @@ CREATE TABLE IF NOT EXISTS `wahlschein_hstr` (
   KEY `idx_pri_wahlschein_hstr` (`id`,`stimmzettel`)
 );
 
-call create_or_upgrade_hstr_table('wahlschein');
 
