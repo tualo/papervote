@@ -19,6 +19,7 @@ class Process implements IRoute
     public static function register()
     {
         BasicRoute::add('/papervote/wahlberechtigte/process', function () {
+            ini_set("memory_limit", "4096M");
             $db = App::get('session')->getDB();
             try{
                 @session_start();
