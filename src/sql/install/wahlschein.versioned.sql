@@ -2,7 +2,7 @@ DELIMITER //
 
 CREATE OR REPLACE PROCEDURE `setupWahlscheinVersioning`()
 BEGIN
-    IF not exists(select * from information_schema.tables where table_name='wahlschein' and table_type='SYSTEM VERSIONED') THEN
+    IF not exists(select * from information_schema.tables where table_schema=database() and table_name='wahlschein' and table_type='SYSTEM VERSIONED') THEN
             drop trigger if exists wahlschein__ai;
             drop trigger if exists wahlschein__au;
             drop trigger if exists wahlschein__bd;
