@@ -50,7 +50,7 @@ call fill_ds_column('stimmzettel1');
 call fill_ds_column('stimmzettel2');
 call fill_ds_column('stimmzettel_default');
 call fill_ds_column('view_readtable_kandidaten');
-call fill_ds_column('wahlberechtigte');
+
 call fill_ds_column('wahlbeteiligung_bericht');
 call fill_ds_column('wahlbeteiligung_bericht_formel');
 call fill_ds_column('wahlbeteiligung_bericht_formel_nenner');
