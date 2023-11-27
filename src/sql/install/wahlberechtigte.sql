@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `wahlberechtigte` (
   `login` varchar(255) DEFAULT NULL,
   `insert_time` time DEFAULT NULL,
   `update_time` time DEFAULT NULL,
-  `aktiv` varchar(255) DEFAULT NULL,
+  `aktiv` tinyint DEFAULT 0,
   `identnummer` varchar(255) DEFAULT NULL,
   `identkurz` int(11) DEFAULT 0,
   PRIMARY KEY (`id`,`kostenstelle`),
