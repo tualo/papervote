@@ -14,30 +14,10 @@ where
     or `wahlschein`.`testdaten` = 1
 ;
 
-insert into `ds`
-                    (`table_name`)
-                    values
-                    ('blocked_voters')
-                    on duplicate key update `table_name`=values(`table_name`);
-update `ds` set `title`='blocked_voters',`reorderfield`='',`use_history`='0',`searchfield`='voter_id',`displayfield`='voter_id',`sortfield`='voter_id',`searchany`='1',`hint`='',`overview_tpl`='',`sync_table`='',`writetable`='',`globalsearch`='0',`listselectionmodel`='cellmodel',`sync_view`='',`syncable`='0',`cssstyle`='',`read_table`='',`existsreal`='1',`class_name`='Unklassifiziert',`special_add_panel`='',`read_filter`='',`listxtypeprefix`='listview',`phpexporter`='XlsxWriter',`phpexporterfilename`='{GUID}',`combined`='0',`allowForm`= 0 ,`alternativeformxtype`='',`character_set_name`='',`default_pagesize`='100',`listviewbaseclass`='Tualo.DataSets.ListView',`showactionbtn`='1' where `table_name`='blocked_voters';
-insert into `ds_column`
-                    (`table_name`,`column_name`)
-                    values
-                    ('blocked_voters','voter_id')
-                    on duplicate key update `table_name`=values(`table_name`),`column_name`=values(`column_name`);
-update `ds_column` set `default_value`='',`default_max_value`='10000000',`default_min_value`='0',`is_primary`='1',`update_value`='',`is_nullable`='NO',`is_referenced`='0',`referenced_table`='',`referenced_column_name`='',`data_type`='bigint',`column_key`='',`column_type`='bigint(20)',`character_maximum_length`='0',`numeric_precision`='19',`numeric_scale`='0',`character_set_name`='',`privileges`='select,insert,update,references',`existsreal`='1',`deferedload`='0',`writeable`='1',`note`='\'\'',`hint`='' where `table_name`='blocked_voters' and `column_name`='voter_id';
-insert into `ds_access`
-                    (`role`,`table_name`)
-                    values
-                    ('administration','blocked_voters')
-                    on duplicate key update `role`=values(`role`),`table_name`=values(`table_name`);
-update `ds_access` set `read`='1',`write`='0',`delete`='0',`append`='0',`existsreal`='0' where `role`='administration' and `table_name`='blocked_voters';
-insert into `ds_column_list_label`
-                    (`table_name`,`column_name`,`language`,`label`)
-                    values
-                    ('blocked_voters','voter_id','DE','voter_id')
-                    on duplicate key update `table_name`=values(`table_name`),`column_name`=values(`column_name`),`language`=values(`language`),`label`=values(`label`);
-update `ds_column_list_label` set `xtype`='gridcolumn',`editor`='',`position`='999',`summaryrenderer`='',`summarytype`='',`hidden`='0',`active`='1',`renderer`='',`filterstore`='',`flex`='1.00',`direction`='',`align`='',`grouped`='0',`listfiltertype`='',`hint`='' where `table_name`='blocked_voters' and `column_name`='voter_id' and `language`='DE';
--- END DS blocked_voters
+INSERT INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `searchfield`, `displayfield`, `sortfield`, `searchany`, `hint`, `overview_tpl`, `sync_table`, `writetable`, `globalsearch`, `listselectionmodel`, `sync_view`, `syncable`, `cssstyle`, `alternativeformxtype`, `read_table`, `class_name`, `special_add_panel`, `existsreal`, `character_set_name`, `read_filter`, `listxtypeprefix`, `phpexporter`, `phpexporterfilename`, `combined`, `default_pagesize`, `allowForm`, `listviewbaseclass`, `showactionbtn`, `modelbaseclass`) VALUES ('blocked_voters','Blocked Voters',NULL,NULL,'voter_id','voter_id','voter_id',NULL,NULL,NULL,NULL,NULL,NULL,'rowmodel',NULL,NULL,NULL,NULL,NULL,'Wahlsystem',NULL,1,NULL,NULL,NULL,'XlsxWriter','blocked_voters {DATE} {TIME}',0,10000000,1,'Tualo.DataSets.ListView',1,'Tualo.DataSets.model.Basic') ON DUPLICATE KEY UPDATE title=VALUES(title), reorderfield=VALUES(reorderfield), use_history=VALUES(use_history), searchfield=VALUES(searchfield), displayfield=VALUES(displayfield), sortfield=VALUES(sortfield), searchany=VALUES(searchany), hint=VALUES(hint), overview_tpl=VALUES(overview_tpl), sync_table=VALUES(sync_table), writetable=VALUES(writetable), globalsearch=VALUES(globalsearch), listselectionmodel=VALUES(listselectionmodel), sync_view=VALUES(sync_view), syncable=VALUES(syncable), cssstyle=VALUES(cssstyle), alternativeformxtype=VALUES(alternativeformxtype), read_table=   VALUES(read_table), class_name=VALUES(class_name), special_add_panel=VALUES(special_add_panel), existsreal=VALUES(existsreal), character_set_name=VALUES(character_set_name), read_filter=VALUES(read_filter), listxtypeprefix=VALUES(listxtypeprefix), phpexporter=VALUES(phpexporter), phpexporterfilename=VALUES(phpexporterfilename), combined=VALUES(combined), default_pagesize=VALUES(default_pagesize), allowForm=VALUES(allowForm), listviewbaseclass=VALUES(listviewbaseclass), showactionbtn=VALUES(showactionbtn), modelbaseclass=VALUES(modelbaseclass);
+INSERT  IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('blocked_voters','stimmzettel',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'varchar','PRI','varchar(36)',36,NULL,NULL,'utf8mb3','select,insert,update,references',1,NULL,NULL,''),('blocked_voters','voter_id',NULL,NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'varchar','PRI','varchar(36)',36,NULL,NULL,'utf8mb3','select,insert,update,references',1,NULL,NULL,'');
+INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('blocked_voters','stimmzettel','DE','','gridcolumn',NULL,0,NULL,NULL,NULL,0,1,NULL,0,NULL,NULL,NULL,NULL,'NULL'),('blocked_voters','voter_id','DE','','gridcolumn',NULL,0,NULL,NULL,NULL,0,1,NULL,0,NULL,NULL,NULL,NULL,'NULL');
+INSERT  IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `field_path`, `position`, `hidden`, `active`, `allowempty`, `fieldgroup`, `flex`, `hint`) VALUES ('blocked_voters','stimmzettel','DE','{column_name}','displayfield','Allgemein',0,0,1,NULL,NULL,NULL,'\'\''),('blocked_voters','voter_id','DE','{column_name}','displayfield','Allgemein',0,0,1,NULL,NULL,NULL,'\'\'');
+INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) VALUES ('administration','blocked_voters',1,1,1,1);
 
 

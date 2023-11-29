@@ -256,7 +256,7 @@ class InstallMainSQLCommandline implements ICommandline{
             
             'getBallotPaper'=> 'setup getBallotpaper',
 
-            'blocked_voters'=> 'setup blocked_voters',
+            'blocked_voters'=> 'setup blocked_voters'
         ];
 
 
