@@ -14,8 +14,8 @@ class Reset
         $db = App::get('session')->getDB();
 
         $typen = DSTable::instance("wahltyp")->filter('aktiv', 'eq', 1)->limit(1000);
-        if ($typen->empty()) return;
         $typen_liste = $typen->get();
+        if ($typen->empty()) return;
         foreach ($typen_liste as $typ) {
             $sql = 'update wahlschein 
                 set 
