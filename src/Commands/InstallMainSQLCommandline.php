@@ -255,6 +255,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_voters_by_username_api'=> 'setup view_voters_by_username_api',
             
             'getBallotPaper'=> 'setup getBallotpaper',
+
+            'blocked_voters'=> 'setup blocked_voters',
         ];
 
 
