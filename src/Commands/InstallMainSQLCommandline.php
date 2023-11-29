@@ -215,7 +215,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'addcommand'=> 'setup addcommand',
 
 
-            'fix_aktiv'=> 'patch active column types',
+            // 'fix_aktiv'=> 'patch active column types',
 
             'randomString'=> 'randomString',
 
