@@ -25,7 +25,7 @@ insert into `ds_column`
                     values
                     ('blocked_voters','voter_id')
                     on duplicate key update `table_name`=values(`table_name`),`column_name`=values(`column_name`);
-update `ds_column` set `default_value`='',`default_max_value`='10000000',`default_min_value`='0',`is_primary`='1',`use_autom_bank_account`='0',`syncable`='0',`update_value`='',`is_nullable`='NO',`is_referenced`='0',`referenced_table`='',`referenced_column_name`='',`data_type`='bigint',`column_key`='',`column_type`='bigint(20)',`character_maximum_length`='0',`numeric_precision`='19',`numeric_scale`='0',`character_set_name`='',`privileges`='select,insert,update,references',`existsreal`='1',`deferedload`='0',`writeable`='1',`note`='\'\'',`hint`='' where `table_name`='blocked_voters' and `column_name`='voter_id';
+update `ds_column` set `default_value`='',`default_max_value`='10000000',`default_min_value`='0',`is_primary`='1',`update_value`='',`is_nullable`='NO',`is_referenced`='0',`referenced_table`='',`referenced_column_name`='',`data_type`='bigint',`column_key`='',`column_type`='bigint(20)',`character_maximum_length`='0',`numeric_precision`='19',`numeric_scale`='0',`character_set_name`='',`privileges`='select,insert,update,references',`existsreal`='1',`deferedload`='0',`writeable`='1',`note`='\'\'',`hint`='' where `table_name`='blocked_voters' and `column_name`='voter_id';
 insert into `ds_access`
                     (`role`,`table_name`)
                     values
