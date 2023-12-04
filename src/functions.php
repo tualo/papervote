@@ -4,6 +4,8 @@ require_once "Compiler.php";
 require_once "Commands/InstallMainSQLCommandline.php";
 require_once "Commands/InstallMenuSQLCommandline.php";
 
+require_once "Checks/Tables.php";
+require_once "Checks/StoredProcedures.php";
 
 require_once "Middlewares/Middleware.php";
 require_once "Routes/JsLoader.php";
