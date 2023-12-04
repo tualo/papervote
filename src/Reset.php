@@ -86,7 +86,7 @@ class Reset
         $db->execute('drop trigger if exists wahlberechtigte_anlage__ai');
         $db->execute('drop trigger if exists wahlberechtigte_anlage__au');
         $db->execute('drop trigger if exists wahlberechtigte_anlage__bd');
-        $db->execute('drop trigger if exists before_insert_wahlberechtigte_anlage');
+        //$db->execute('drop trigger if exists before_insert_wahlberechtigte_anlage');
 
 
         $db->execute('drop table if exists wahlberechtigte_anlage');
