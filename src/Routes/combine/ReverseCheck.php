@@ -35,6 +35,6 @@ class ReverseCheck implements IRoute
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        }, ['post'], true);
+        }, ['get'], true);
     }
 }
