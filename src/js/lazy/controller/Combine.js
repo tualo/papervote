@@ -163,11 +163,13 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
             }).then( (response) => response.json() );
             if (res.success){
                 alert('Die Kombination wurde erfolgreich gespeichert!');
+                next = 0;
             }else{
                 alert('Die Kombination konnte nicht gespeichert werden!');
+                return;
             }
 
-            return;
+            // 
         }
 
         l.setActiveItem(next);
