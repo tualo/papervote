@@ -93,26 +93,32 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
         });
 
         identListStore.getRange().forEach(async function(rec){
-            let res = await fetch('./papervote/identnummer/'+rec.get('identnummer')).then( (response) => response.json() );
+            let res = await fetch('./papervote/combine/reversecheck/'+rec.get('identnummer')).then( (response) => response.json() );
             if (res.success){
-                dataItem = res.data[0];
-                let html = me.getNameHtml(dataItem);
-                rec.set('name',html);
-                if(
-                    (dataItem.wahlschein_kombiniert == rec.get('identnummer')) &&
-                    (dataItem.wahlscheinstatus=='1|0')
-                ){
-                    rec.set('status',true);
-                    
+                res = await fetch('./papervote/identnummer/'+rec.get('identnummer')).then( (response) => response.json() );
+                if (res.success){
+                    dataItem = res.data[0];
+                    let html = me.getNameHtml(dataItem);
+                    rec.set('name',html);
+                    if(
+                        (dataItem.wahlschein_kombiniert == rec.get('identnummer')) &&
+                        (dataItem.wahlscheinstatus=='1|0')
+                    ){
+                        rec.set('status',true);
+                        
 
-                }else if (dataItem.wahlschein_kombiniert != rec.get('identnummer'))
-                {
+                    }else if (dataItem.wahlschein_kombiniert != rec.get('identnummer'))
+                    {
+                        rec.set('status',false);
+                        rec.set('message','Die Identnummer ist bereits kombiniert!');
+                    }else if (dataItem.wahlscheinstatus=='1|0')
+                    {
+                        rec.set('status',false);
+                        rec.set('message','Die Identnummer hat bereits einen Status ungleich unbekannt!');
+                    }
+                }else{
                     rec.set('status',false);
-                    rec.set('message','Die Identnummer ist bereits kombiniert!');
-                }else if (dataItem.wahlscheinstatus=='1|0')
-                {
-                    rec.set('status',false);
-                    rec.set('message','Die Identnummer hat bereits einen Status ungleich unbekannt!');
+                    rec.set('message',res.msg);
                 }
             }else{
                 rec.set('status',false);
