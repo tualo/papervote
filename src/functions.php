@@ -28,6 +28,7 @@ require_once "Routes/counting/Save.php";
 
 require_once "Routes/combine/Save.php";
 require_once "Routes/combine/ReverseCheck.php";
+require_once "Routes/combine/Reset.php";
 
 require_once "Routes/pwgen/CreateColumns.php";
 require_once "Routes/pwgen/DS.php";
