@@ -20,6 +20,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
         me.checkIdent(newValue);
         
     },
+
     checkIdent: async function(identnummer){
         let me = this,
             vm = me.getViewModel(),
@@ -62,6 +63,34 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
         }finally{
             vm.set('inProgress',false);
         }
+    },
+
+    onListIdentChange: function(field, newValue, oldValue, eOpts){
+        let me = this,
+            vm = me.getViewModel(),
+            list = newValue.replace(/[^0-9]/g,' ').split(''),
+            identListStore = vm.getStore('identList');
+            
+        identListStore.removeAll();
+        list.forEach(function(identnummer){
+            identListStore.add({identnummer:identnummer,status:false});
+        });
+
+        identListStore.getRange().forEach(function(rec){
+            let res =await fetch('./papervote/identnummer/'+rec.get('identnummer')).then( (response) => response.json() );
+            if (res.success){
+                dataItem = res.data[0];
+                if(
+                    (dataItem.kombinert != identnummer) &&
+                    (dataItem.wahlscheinstatus=='1|0')
+                ){
+                    rec.set('status',true);
+                }
+            }else{
+                rec.set('status',false);
+            }
+        });
+        
     },
 
     showNext: function () {

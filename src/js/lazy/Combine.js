@@ -90,7 +90,7 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                     name: 'identnummern',
                     allowBlank: false,
                     listeners: {
-                        change: 'onIdentChange'
+                        change: 'onListIdentChange'
                     },
                     bind: {
                         value: '{identnummern}'
