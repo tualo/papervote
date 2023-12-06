@@ -1,4 +1,4 @@
-Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
+Ext.define('Tualo.PaperVote.lazy.controller.ResetCombine', {
     extend: 'Ext.app.ViewController',
     alias: 'controller.papervote_resetcombine',
     onBoxReady: function(){

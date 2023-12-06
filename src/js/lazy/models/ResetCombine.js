@@ -1,4 +1,4 @@
-Ext.define('Tualo.PaperVote.lazy.models.Combine', {
+Ext.define('Tualo.PaperVote.lazy.models.ResetCombine', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.papervote_resetcombine',
     data:{
