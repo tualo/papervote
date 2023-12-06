@@ -31,13 +31,16 @@ class Save implements IRoute
                     throw new Exception('missing parameter');
                 }
                 $list = $data['identnummern'];
-                $list[] = $data['primaryIdentnummer'];
-
                 foreach($list as $index=>$value){
                     $list[$index]=preg_replace('/[^0-9]/','',$value);
                 }
-                $data['primaryIdentnummer']=preg_replace('/[^0-9]/','',$data['primaryIdentnummer']);
+                $savelist = $list;
 
+                $data['primaryIdentnummer']=preg_replace('/[^0-9]/','',$data['primaryIdentnummer']);
+                $list[] = $data['primaryIdentnummer'];
+
+                
+                
                 $sql = '
                 select 
                     count(distinct  wahlschein.wahlscheinstatus) as c
@@ -69,9 +72,10 @@ class Save implements IRoute
                     wahlschein
                 set
                     kombiniert = {primaryIdentnummer},
+                    pwhash = "-",
                     login = getSessionUser()
                 where
-                    wahlberechtigte in (select ridx from wahlberechtigte where identnummer in ("'.implode('","', $list).'"))
+                    wahlberechtigte in (select ridx from wahlberechtigte where identnummer in ("'.implode('","', $savelist).'"))
                     and wahlschein.wahlscheinstatus="1|0"
                 ';
                 $db->direct($sql, ['primaryIdentnummer'=>$data['primaryIdentnummer']  ]);
