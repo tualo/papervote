@@ -50,7 +50,7 @@ class Reset implements IRoute
                 update 
                     wahlschein
                 set
-                    kombiniert = wahlschein.identnummer,
+                    kombiniert = {barcode},
                     wahlscheinstatus = "16|0",
                     login = getSessionUser()
                 where
