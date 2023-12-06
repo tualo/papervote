@@ -26,7 +26,6 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
             vm = me.getViewModel(),
             ruecklauffelderStore = vm.getStore('ruecklauffelder');
         ruecklauffelderStore.getRange().forEach(function(ruecklauffeld){
-            ruecklauffeld.set('value',res.data[ruecklauffeld.get('ident')]);
             if (Ext.isEmpty(dataItem[ruecklauffeld.get('column_name')])){
                 html += '<br/>';
               }else{
