@@ -76,7 +76,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
     onListIdentChange: function(field, newValue, oldValue, eOpts){
         let me = this;
         if (me.deferredListIdentChange) clearTimeout(me.tmr_deferredListIdentChange);
-        
+
         me.tmr_deferredListIdentChange = setTimeout(function(){
             me.deferredListIdentChange(field, newValue, oldValue, eOpts);
         },1000);
@@ -86,7 +86,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
             vm = me.getViewModel(),
             list = newValue.replace(/[^0-9]/g,' ').replace(/\s\s/g,' ').split(' '),
             identListStore = vm.getStore('identList');
-            
+        console.log('deferredListIdentChange',list);
         identListStore.removeAll();
         list.forEach(function(identnummer){
             identListStore.add({identnummer:identnummer,status:false});
@@ -132,7 +132,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
         for(let i=0;i<range.length;i++){
             if (range[i].get('status')==false) return false;
         }
-        vm.set('listOk',false);
+        vm.set('listOk',true);
     },
     showNext: function () {
         this.doCardNavigation(1);

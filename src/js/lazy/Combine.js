@@ -77,6 +77,10 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
         {
             id: 'card-2',
             xtype: 'form',
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            },
             items: [
                 {
                     xtype: 'panel',
@@ -98,7 +102,8 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                 },
                 {
                     xtype: 'grid',
-                    height: 300,
+                    //height: 300,
+                    flex: 1,
                     bind: {
                         store: '{identList}'
                     },

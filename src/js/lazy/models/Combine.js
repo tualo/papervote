@@ -20,7 +20,7 @@ Ext.define('Tualo.PaperVote.lazy.models.Combine', {
         },
         nextDisabled: function(get){
             if ((get('currentCardIndex')==1) && ( Ext.isEmpty( get('initial_ident') ) )) return true;
-            if ((get('currentCardIndex')==2) && ( Ext.isEmpty( get('listOk') ) )) return true;
+            if ((get('currentCardIndex')==2) && ( !get('listOk') )) return true;
             if (get('hasError')) return true;
             if (get('inProgress')) return true;
 
