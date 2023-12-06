@@ -23,6 +23,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
 
     getNameHtml: function(dataItem){
         let me = this,
+            html = '',
             vm = me.getViewModel(),
             ruecklauffelderStore = vm.getStore('ruecklauffelder');
         ruecklauffelderStore.getRange().forEach(function(ruecklauffeld){
@@ -41,8 +42,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
             vm = me.getViewModel(),
             res = null,
             dataItem = null,
-            html = '',
-            ruecklauffelderStore = vm.getStore('ruecklauffelder');
+            html = '';
         try{
             vm.set('inProgress',true);
             res =await fetch('./papervote/identnummer/'+identnummer).then( (response) => response.json() );
