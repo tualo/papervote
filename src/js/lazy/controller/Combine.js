@@ -4,10 +4,37 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
     onBoxReady: function(){
         
     },
-    onInitialIdentChange: async function(field, newValue, oldValue, eOpts){
+    onInitialIdentChange: function(field, newValue, oldValue, eOpts){
+        let me = this,
+            vm = me.getViewModel();
         console.log('onInitialIdentChange',field, newValue, oldValue, eOpts);
-        let res =await fetch('/papervote/identnummer/'+newValue).then( (response) => response.json() );
-        console.log(res);
+        me.checkIdent(newValue);
+        
+    },
+    checkIdent: async function(identnummer){
+        let me = this,
+            vm = me.getViewModel(),
+            res = null;
+        console.log('onInitialIdentChange',field, newValue, oldValue, eOpts);
+        try{
+            vm.set('inProgress',true);
+            res =await fetch('./papervote/identnummer/'+identnummer).then( (response) => response.json() );
+            if (res.success){
+                vm.set('initial_ident',identnummer);
+                vm.set('voterData',res.data);
+                vm.set('hasError',false);
+                vm.set('errorMessage','');
+            }else{
+                vm.set('voterData',null);
+                vm.set('hasError',true);
+                vm.set('errorMessage',res.message);
+            }
+        }catch(e){
+            vm.set('hasError',true);
+            vm.set('errorMessage',e.message);
+        }finally{
+            vm.set('inProgress',false);
+        }
     },
 
     showNext: function () {
