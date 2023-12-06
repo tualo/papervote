@@ -31,7 +31,7 @@ Ext.define('Tualo.PaperVote.lazy.models.Combine', {
             if (get('hasError')){
                 return '<span style="color:red">'+get('errorMessage')+'</span>';
             }else{
-                if (get('voterData').wahlscheinstatus=='1|0') return '<span style="color:green"><i class="fas fa-check-circle"></i></span>';
+                if (!Ext.isEmpty(get('voterData')) && get('voterData').wahlscheinstatus=='1|0') return '<span style="color:green"><i class="fas fa-check-circle"></i></span>';
                 return '<span style="color:red"><i class="fas fa-hand-paper"></i></span>';
             }
         }
