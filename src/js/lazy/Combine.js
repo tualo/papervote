@@ -47,6 +47,8 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                 },
                 {
                     xtype: 'textfield',
+                    labelAlign: 'top',
+                    width: '100%',
                     fieldLabel: 'führende Identnummer',
                     name: 'initial_ident',
                     allowBlank: false,
