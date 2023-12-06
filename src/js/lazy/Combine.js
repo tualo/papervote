@@ -59,7 +59,19 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                     bind: {
                         value: '{initial_ident}'
                     }
-                }
+                },
+                {
+                    xtype: 'panel',
+                    bind: {
+                        html: '<h3>Wähler</h3>{voterHtml}'
+                    }
+                },
+                {
+                    xtype: 'panel',
+                    bind: {
+                        html: '{voterStatusHtml}'
+                    }
+                },
             ]
         },
     ]
