@@ -44,7 +44,7 @@ class Reset implements IRoute
                 ) a
                 ';
                 $wsCount = $db->singleValue($sql, $matches,'c');
-                if ($wsCount !=0 ) { throw new Exception('Für diesen Wähler nicht erlaubt'); }
+                if ($wsCount !=1 ) { throw new Exception('Für diesen Wähler nicht erlaubt'); }
 
                 $sql = '
                 update 
