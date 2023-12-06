@@ -8,6 +8,7 @@ Ext.define('Tualo.PaperVote.lazy.models.Combine', {
         voterData: null,
         hasError: false,
         inProgress: false,
+        listOk : false,
         errorMessage: '',
     },
     formulas: {
@@ -19,6 +20,7 @@ Ext.define('Tualo.PaperVote.lazy.models.Combine', {
         },
         nextDisabled: function(get){
             if ((get('currentCardIndex')==1) && ( Ext.isEmpty( get('initial_ident') ) )) return true;
+            if ((get('currentCardIndex')==2) && ( Ext.isEmpty( get('listOk') ) )) return true;
             if (get('hasError')) return true;
             if (get('inProgress')) return true;
 

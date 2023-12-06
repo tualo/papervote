@@ -91,13 +91,13 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
                 let html = me.getNameHtml(dataItem);
                 rec.set('name',html);
                 if(
-                    (dataItem.kombiniert == identnummer) &&
+                    (dataItem.kombiniert == rec.get('identnummer')) &&
                     (dataItem.wahlscheinstatus=='1|0')
                 ){
                     rec.set('status',true);
                     
 
-                }else if (dataItem.kombiniert != identnummer)
+                }else if (dataItem.kombiniert != rec.get('identnummer'))
                 {
                     rec.set('status',false);
                     rec.set('message','Die Identnummer ist bereits kombiniert!');
@@ -110,10 +110,22 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
                 rec.set('status',false);
                 rec.set('message',res.msg);
             }
+            me.checkListOk();
         });
         
     },
+    checkListOk: function(){
+        let me = this,
+        vm = me.getViewModel(),
+        identListStore = vm.getStore('identList'),
+        range=identListStore.getRange();
 
+        vm.set('listOk',false);
+        for(let i=0;i<range.length;i++){
+            if (range[i].get('status')==false) return false;
+        }
+        vm.set('listOk',false);
+    },
     showNext: function () {
         this.doCardNavigation(1);
     },
