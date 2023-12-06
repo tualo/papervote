@@ -71,6 +71,7 @@ class Save implements IRoute
                 $db->direct($sql, ['list' => '"'.implode('","', $list)."'" ]);
 
                 App::result('success', true);
+                App::result('sql', $db->last_sql);
                 $db->execute('commit');
                 $db->commit();
                 // $db->rollback();
