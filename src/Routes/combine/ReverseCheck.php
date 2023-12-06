@@ -10,7 +10,7 @@ use Tualo\Office\TualoPGP\TualoApplicationPGP;
 
 use Ramsey\Uuid\Uuid;
 
-class Reversecheck implements IRoute
+class ReverseCheck implements IRoute
 {
     public static function register()
     {
