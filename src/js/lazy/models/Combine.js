@@ -4,6 +4,7 @@ Ext.define('Tualo.PaperVote.lazy.models.Combine', {
     data:{
         currentCardIndex: 0,
         initial_ident: null,
+        identnummern: null,
         voterData: null,
         hasError: false,
         inProgress: false,

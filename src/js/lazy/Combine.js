@@ -74,5 +74,29 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                 },
             ]
         },
+        {
+            id: 'card-2',
+            xtype: 'form',
+            items: [
+                {
+                    xtype: 'panel',
+                    html: '<h2>Wählerkombinationen erstellen</h2><p>Fügen Sie nun alle Identnummern ein, welche mit der führenden Identnummer kombiniert werden sollen.</p>'
+                },
+                {
+                    xtype: 'textarea',
+                    labelAlign: 'top',
+                    width: '100%',
+                    fieldLabel: 'Identnummern',
+                    name: 'identnummern',
+                    allowBlank: false,
+                    listeners: {
+                        change: 'onIdentChange'
+                    },
+                    bind: {
+                        value: '{identnummern}'
+                    }
+                }
+            ]
+        },
     ]
 });
