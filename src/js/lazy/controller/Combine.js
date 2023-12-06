@@ -45,6 +45,10 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
                       }
 
                 });
+                if(dataItem.kombinert != identnummer){
+                    vm.set('hasError',true);
+                    vm.set('errorMessage','Die Identnummer ist bereits kombiniert!');
+                }
                 vm.set('voterHtml',html);
             }else{
                 vm.set('voterHtml','nicht gefunden!');
