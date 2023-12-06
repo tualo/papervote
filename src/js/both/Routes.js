@@ -283,3 +283,30 @@ Ext.define('Tualo.routes.Combine', {
         }
     }
 });
+
+
+
+Ext.define('Tualo.routes.ResetCombine', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/resetcombine',
+                    path: '#papervote/resetcombine'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/resetcombine',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.ResetCombine');
+        },
+        before: function (action) {
+
+            
+            action.resume();
+        }
+    }
+});
