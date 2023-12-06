@@ -62,7 +62,7 @@ class Save implements IRoute
                     and wahlberechtigte.identnummer=wahlschein.kombiniert
                 ';
                 $wsCount = $db->singleValue($sql, [ ],'c');
-                if ($wsCount !=0 ) { throw new Exception('Es sind bereits Kombinationen vorhanden'); }
+                if ($wsCount !=1 ) { throw new Exception('Es sind bereits Kombinationen vorhanden'); }
 
                 $sql = '
                 update 
