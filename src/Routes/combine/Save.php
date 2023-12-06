@@ -68,7 +68,7 @@ class Save implements IRoute
                     wahlberechtigte in (select ridx from wahlberechtigte where identnummer in ({list}))
                     and wahlschein.wahlscheinstatus="1|0"
                 ';
-                $db->direct($sql, ['list' => '"'.implode('","', $list)."'" ]);
+                $db->direct($sql, ['primaryIdentnummer'=>$data['primaryIdentnummer'],'list' => '"'.implode('","', $list)."'" ]);
 
                 App::result('success', true);
                 App::result('sql', $db->last_sql);
