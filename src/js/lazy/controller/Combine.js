@@ -68,7 +68,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
     onListIdentChange: function(field, newValue, oldValue, eOpts){
         let me = this,
             vm = me.getViewModel(),
-            list = newValue.replace(/[^0-9]/g,' ').split(''),
+            list = newValue.replace(/[^0-9]/g,' ').replace(/\s\s/g,' ').split(' '),
             identListStore = vm.getStore('identList');
             
         identListStore.removeAll();
