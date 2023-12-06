@@ -33,6 +33,11 @@ class Save implements IRoute
                 $list = $data['identnummern'];
                 $list[] = $data['primaryIdentnummer'];
 
+                foreach($list as $index=>$value){
+                    $list[$index]=preg_replace('/[^0-9]/','',$value);
+                }
+                $data['primaryIdentnummer']=preg_replace('/[^0-9]/','',$data['primaryIdentnummer']);
+
                 $sql = '
                 select 
                     count(distinct  wahlschein.wahlscheinstatus) as c
@@ -40,7 +45,7 @@ class Save implements IRoute
                     wahlberechtigte join wahlschein 
                         on wahlberechtigte.ridx = wahlschein.wahlberechtigte 
                 where 
-                    wahlberechtigte.identnummer in ({list})
+                    wahlberechtigte.identnummer in ("'.implode('","', $list).'")
                     and wahlschein.wahlscheinstatus<>"1|0"
                 ';
                 $wsCount = $db->singleValue($sql, ['list' => '"'.implode('","', $list )."'" ],'c');
@@ -53,10 +58,10 @@ class Save implements IRoute
                     wahlberechtigte join wahlschein 
                         on wahlberechtigte.ridx = wahlschein.wahlberechtigte 
                 where 
-                    wahlberechtigte.identnummer in ({list})
+                    wahlberechtigte.identnummer in ("'.implode('","', $list).'")
                     and wahlberechtigte.identnummer=wahlschein.kombiniert
                 ';
-                $wsCount = $db->singleValue($sql, ['list' => '"'.implode('","', $list)."'" ],'c');
+                $wsCount = $db->singleValue($sql, [ ],'c');
                 if ($wsCount !=0 ) { throw new Exception('Es sind bereits Kombinationen vorhanden'); }
 
                 $sql = '
@@ -65,10 +70,10 @@ class Save implements IRoute
                 set
                     kombiniert = {primaryIdentnummer}
                 where
-                    wahlberechtigte in (select ridx from wahlberechtigte where identnummer in ({list}))
+                    wahlberechtigte in (select ridx from wahlberechtigte where identnummer in ("'.implode('","', $list).'"))
                     and wahlschein.wahlscheinstatus="1|0"
                 ';
-                $db->direct($sql, ['primaryIdentnummer'=>$data['primaryIdentnummer'],'list' => '"'.implode('","', $list)."'" ]);
+                $db->direct($sql, ['primaryIdentnummer'=>$data['primaryIdentnummer']  ]);
 
                 App::result('success', true);
                 App::result('sql', $db->last_sql);
