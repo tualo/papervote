@@ -34,6 +34,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
               }
 
         });
+        return html;
     },
 
 
