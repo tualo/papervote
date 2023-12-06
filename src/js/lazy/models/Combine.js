@@ -14,8 +14,8 @@ Ext.define('Tualo.PaperVote.lazy.models.Combine', {
     formulas: {
         nextText: function(get){
             if (get('currentCardIndex')==0) return 'Weiter &raquo;';
-            if (get('currentCardIndex')==1) return 'Kombinieren &raquo;';
-            if (get('currentCardIndex')==2) return 'Fertig &raquo;';
+            if (get('currentCardIndex')==1) return 'Weiter &raquo;';
+            if (get('currentCardIndex')==2) return 'Kombinieren &raquo;';
         },
         prevDisabled: function(get){
             if (get('currentCardIndex')==0) return true;
