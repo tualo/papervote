@@ -57,6 +57,14 @@ Ext.define('Tualo.PaperVote.lazy.models.Combine', {
                 name: 'status',
                 type: 'boolean',
                 defaultValue: false
+            },
+            {
+                name: 'name',
+                type: 'string'
+            },
+            {
+                name: 'message',
+                type: 'string'
             }
         ]
       },

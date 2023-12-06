@@ -95,6 +95,41 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                     bind: {
                         value: '{identnummern}'
                     }
+                },
+                {
+                    xtype: 'grid',
+                    bind: {
+                        store: '{identList}'
+                    },
+                    columns: [
+                        {
+                            text: 'Identnummer',
+                            dataIndex: 'identnummer',
+                            flex: 1
+                        },
+                        {
+                            text: 'Name',
+                            dataIndex: 'name',
+                            flex: 1
+                        },
+                        {
+                            text: 'Status',
+                            dataIndex: 'status',
+                            flex: 1,
+                            renderer: function(value,metaData,record){
+                                if (value){
+                                    return '<span style="color:green"><i class="fas fa-check-circle"></i></span>';
+                                }else{
+                                    return '<span style="color:red"><i class="fas fa-hand-paper"></i></span>';
+                                }
+                            }
+                        },
+                        {
+                            text: 'Hinweis',
+                            dataIndex: 'message',
+                            flex: 1
+                        }
+                    ]
                 }
             ]
         },

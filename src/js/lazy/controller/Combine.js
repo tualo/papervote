@@ -21,6 +21,22 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
         
     },
 
+    getNameHtml: function(dataItem){
+        let me = this,
+            vm = me.getViewModel(),
+            ruecklauffelderStore = vm.getStore('ruecklauffelder');
+        ruecklauffelderStore.getRange().forEach(function(ruecklauffeld){
+            ruecklauffeld.set('value',res.data[ruecklauffeld.get('ident')]);
+            if (Ext.isEmpty(dataItem[ruecklauffeld.get('column_name')])){
+                html += '<br/>';
+              }else{
+                html += '<span>'+dataItem[ruecklauffeld.get('column_name')]+'</span><br/>';
+              }
+
+        });
+    },
+
+
     checkIdent: async function(identnummer){
         let me = this,
             vm = me.getViewModel(),
@@ -37,15 +53,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
                 vm.set('voterData',dataItem);
                 vm.set('hasError',false);
                 vm.set('errorMessage','');
-                ruecklauffelderStore.getRange().forEach(function(ruecklauffeld){
-                    ruecklauffeld.set('value',res.data[ruecklauffeld.get('ident')]);
-                    if (Ext.isEmpty(dataItem[ruecklauffeld.get('column_name')])){
-                        html += '<br/>';
-                      }else{
-                        html += '<span>'+dataItem[ruecklauffeld.get('column_name')]+'</span><br/>';
-                      }
-
-                });
+                html = me.getNameHtml(dataItem);
                 if(dataItem.kombiniert != identnummer){
                     vm.set('hasError',true);
                     vm.set('errorMessage','Die Identnummer ist bereits kombiniert!');
@@ -80,14 +88,27 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
             let res = await fetch('./papervote/identnummer/'+rec.get('identnummer')).then( (response) => response.json() );
             if (res.success){
                 dataItem = res.data[0];
+                let html = me.getNameHtml(dataItem);
+                rec.set('name',html);
                 if(
-                    (dataItem.kombiniert != identnummer) &&
+                    (dataItem.kombiniert == identnummer) &&
                     (dataItem.wahlscheinstatus=='1|0')
                 ){
                     rec.set('status',true);
+                    
+
+                }else if (dataItem.kombiniert != identnummer)
+                {
+                    rec.set('status',false);
+                    rec.set('message','Die Identnummer ist bereits kombiniert!');
+                }else if (dataItem.wahlscheinstatus=='1|0')
+                {
+                    rec.set('status',false);
+                    rec.set('message','Die Identnummer hat bereits einen Status ungleich unbekannt!');
                 }
             }else{
                 rec.set('status',false);
+                rec.set('message',res.msg);
             }
         });
         
