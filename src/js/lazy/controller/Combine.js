@@ -76,8 +76,8 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
             identListStore.add({identnummer:identnummer,status:false});
         });
 
-        identListStore.getRange().forEach(function(rec){
-            let res =await fetch('./papervote/identnummer/'+rec.get('identnummer')).then( (response) => response.json() );
+        identListStore.getRange().forEach(async function(rec){
+            let res = await fetch('./papervote/identnummer/'+rec.get('identnummer')).then( (response) => response.json() );
             if (res.success){
                 dataItem = res.data[0];
                 if(
