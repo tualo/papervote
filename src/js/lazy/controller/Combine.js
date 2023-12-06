@@ -74,6 +74,14 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
     },
 
     onListIdentChange: function(field, newValue, oldValue, eOpts){
+        let me = this;
+        if (me.deferredListIdentChange) clearTimeout(me.tmr_deferredListIdentChange);
+        
+        me.tmr_deferredListIdentChange = setTimeout(function(){
+            me.deferredListIdentChange(field, newValue, oldValue, eOpts);
+        },1000);
+    },
+    deferredListIdentChange: function(field, newValue, oldValue, eOpts){
         let me = this,
             vm = me.getViewModel(),
             list = newValue.replace(/[^0-9]/g,' ').replace(/\s\s/g,' ').split(' '),
