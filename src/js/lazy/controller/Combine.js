@@ -142,12 +142,33 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
         this.doCardNavigation(-1);
     },
 
-    doCardNavigation: function (incr) {
+    doCardNavigation: async function (incr) {
         let me = this,
             l = me.getView().getLayout(),
             i = l.activeItem.id.split('card-')[1],
             next = parseInt(i, 10) + incr,
             vm = me.getViewModel();
+
+        if (next==3){ 
+            let res = await fetch('./papervote/combine/save',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    primaryIdentnummer: vm.get('initial_ident'),
+                    identnummern: vm.getStore('identList').getRange().map(function(rec){return rec.get('identnummer');})
+                })
+            
+            }).then( (response) => response.json() );
+            if (res.success){
+                alert('Die Kombination wurde erfolgreich gespeichert!');
+            }else{
+                alert('Die Kombination konnte nicht gespeichert werden!');
+            }
+
+            return;
+        }
 
         l.setActiveItem(next);
         vm.set('currentCardIndex', next );

@@ -25,9 +25,10 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
         },
         {
             itemId: 'card-next',
-            text: 'Weiter &raquo;',
+            
             handler: 'showNext',
             bind:{
+                text: '{nextText}',
                 disabled: '{nextDisabled}'
             }
         }
