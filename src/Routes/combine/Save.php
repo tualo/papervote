@@ -68,7 +68,8 @@ class Save implements IRoute
                 update 
                     wahlschein
                 set
-                    kombiniert = {primaryIdentnummer}
+                    kombiniert = {primaryIdentnummer},
+                    login = getSessionUser()
                 where
                     wahlberechtigte in (select ridx from wahlberechtigte where identnummer in ("'.implode('","', $list).'"))
                     and wahlschein.wahlscheinstatus="1|0"
