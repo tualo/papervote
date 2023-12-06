@@ -98,6 +98,7 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                 },
                 {
                     xtype: 'grid',
+                    height: 300,
                     bind: {
                         store: '{identList}'
                     },
