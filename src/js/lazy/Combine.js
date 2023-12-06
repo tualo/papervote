@@ -13,6 +13,7 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
         boxready: 'onBoxReady'
     },
     layout: 'card',
+    bodyPadding: 25,
     bbar: ['->',
         {
             itemId: 'card-prev',
@@ -52,7 +53,7 @@ Ext.define('Tualo.PaperVote.lazy.Combine', {
                     listeners: {
                         change: 'onInitialIdentChange'
                     },
-                    
+
                     bind: {
                         value: '{initial_ident}'
                     }
