@@ -15,7 +15,6 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
         let me = this,
             vm = me.getViewModel(),
             res = null;
-        console.log('onInitialIdentChange',field, newValue, oldValue, eOpts);
         try{
             vm.set('inProgress',true);
             res =await fetch('./papervote/identnummer/'+identnummer).then( (response) => response.json() );
