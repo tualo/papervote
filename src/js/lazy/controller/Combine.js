@@ -54,7 +54,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
                 vm.set('hasError',false);
                 vm.set('errorMessage','');
                 html = me.getNameHtml(dataItem);
-                if(dataItem.kombiniert != identnummer){
+                if(dataItem.wahlschein_kombiniert != identnummer){
                     vm.set('hasError',true);
                     vm.set('errorMessage','Die Identnummer ist bereits kombiniert!');
                 }
@@ -91,13 +91,13 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
                 let html = me.getNameHtml(dataItem);
                 rec.set('name',html);
                 if(
-                    (dataItem.kombiniert == rec.get('identnummer')) &&
+                    (dataItem.wahlschein_kombiniert == rec.get('identnummer')) &&
                     (dataItem.wahlscheinstatus=='1|0')
                 ){
                     rec.set('status',true);
                     
 
-                }else if (dataItem.kombiniert != rec.get('identnummer'))
+                }else if (dataItem.wahlschein_kombiniert != rec.get('identnummer'))
                 {
                     rec.set('status',false);
                     rec.set('message','Die Identnummer ist bereits kombiniert!');

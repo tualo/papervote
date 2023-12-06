@@ -13,6 +13,7 @@ select
 
     wahlberechtigte.ridx wahlberechtigte_ridx,
     wahlschein.id wahlschein_id, 
+    wahlschein.kombiniert wahlschein_kombiniert, 
     wahlschein.wahlscheinnummer wahlschein_wahlscheinnummer,
     wahlschein.blocknumber,  					
 
