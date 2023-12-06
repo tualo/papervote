@@ -255,3 +255,31 @@ Ext.define('Tualo.routes.PaperVoteFindIdent', {
         }
     }
 });
+
+
+
+
+Ext.define('Tualo.routes.Combine', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/combine',
+                    path: '#papervote/combine'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/combine',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.Combine');
+        },
+        before: function (action) {
+
+            
+            action.resume();
+        }
+    }
+});
