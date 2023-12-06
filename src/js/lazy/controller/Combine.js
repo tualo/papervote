@@ -20,7 +20,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
 
     doCardNavigation: function (incr) {
         let me = this,
-            l = me.getLayout(),
+            l = me.getView().getLayout(),
             i = l.activeItem.id.split('card-')[1],
             next = parseInt(i, 10) + incr,
             vm = me.getViewModel();
