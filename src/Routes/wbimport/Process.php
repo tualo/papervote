@@ -50,13 +50,23 @@ class Process implements IRoute
                     FALSE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
                     FALSE         // Should the array be indexed by cell row and cell column
                 );
+
+
+                foreach($header[1] as $index=>$val){
+                    $finds=[];
+                    if (preg_match("/[^A-Za-z0-9_]/",$val, $finds)){
+                        throw new Exception('Ungültiger Spaltenname: '.$val);
+                    }
+                }
+
         
                 $newfields = [];
                 $allfields = [];
                 $headerLabels = [];
                 foreach($header[1] as $index=>$val){
                     $isnew = true;
-                    $cname = strtolower( preg_replace('/[[:^ascii:]]|\s/', '_', $val) );
+                    //$cname = strtolower( preg_replace('/[[:^ascii:]]|\s/', '_', $val) );
+                    $cname = strtolower( $val );
         
                     foreach($coulumndata as $col){
                         if (strtolower($col['field'])==$cname){
@@ -157,7 +167,7 @@ class Process implements IRoute
                 App::result('pwgen_sql', $sql);
                 App::result('header', $header);
 
-                sleep(10);
+                sleep(2);
                 
                 $db->direct('call rebuild_view_voters_by_username_api()');
                 $db->moreResults();

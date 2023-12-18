@@ -65,7 +65,7 @@ class ApiUser implements IRoute{
                         $ballotpaper['secret_token'] =  TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($remote_public_key,$hash['secret_token']));
                     }
                     try{
-                        $data['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$data);
+                        $data['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where aktiv=1 and wahlberechtigte = {wahlberechtigte_ridx}',$data);
 
                     }catch(Exception $e){}
 
