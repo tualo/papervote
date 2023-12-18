@@ -46,12 +46,16 @@ class Set implements IRoute{
                     if ($data!==false) App::result('success', true);
 
                     try{
+                        $formdata = json_encode($_REQUEST);
+                        unset($_REQUEST['signature']);
+                        unset($_REQUEST['voter_id']);
+                        unset($_REQUEST['ballotpaper_id']);
                         // alter table wm_wahlschein_register add formdata json default null
                         $sql = 'update wm_wahlschein_register set formdata={formdata} where id={voter_id} and stimmzettel={stimmzettel}';
                         $db->direct($sql,[
                             'voter_id'      =>  $_REQUEST['voter_id'],
                             'stimmzettel'   => $stimmzettel_ridx,
-                            'formdata'      => json_encode($_REQUEST)
+                            'formdata'      => json_encode($formdata)
                         ]);
                     }catch(\Exception $e){
                     }

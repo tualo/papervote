@@ -18,3 +18,6 @@ CREATE TABLE IF NOT EXISTS `wm_wahlschein_register` (
   constraint fk_wm_wahlschein_register_stimmzettel foreign key (stimmzettel) references stimmzettel (ridx) on delete cascade on update cascade
 
 ) ;
+
+
+call addFieldIfNotExists('wm_wahlschein_register','formdata','json default null');
