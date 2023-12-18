@@ -44,6 +44,17 @@ class Set implements IRoute{
                         'stimmzettel'   => $stimmzettel_ridx
                     ]);
                     if ($data!==false) App::result('success', true);
+
+                    try{
+                        // alter table wm_wahlschein_register add formdata json default null
+                        $sql = 'update wm_wahlschein_register set formdata={formdata} where id={voter_id} and stimmzettel={stimmzettel}';
+                        $db->direct($sql,[
+                            'voter_id'      =>  $_REQUEST['voter_id'],
+                            'stimmzettel'   => $stimmzettel_ridx,
+                            'formdata'      => json_encode($_REQUEST)
+                        ]);
+                    }catch(\Exception $e){
+                    }
                     
                 }else{
                     App::result('success', false);
