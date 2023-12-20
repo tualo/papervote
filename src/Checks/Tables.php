@@ -17,6 +17,20 @@ class Tables  extends PostCheck {
                     'table_name'=>'varchar(128)'
                 ]
             ],
+            'view_readtable_kandidaten_bilder'=>[
+                'id'=>'varchar(36)',
+                'kandidat'=>'varchar(12)',
+                'typ'=>'varchar(12)',
+                '__file_name'=>'varchar(255)',
+                'path'=>'varchar(255)',
+                '__file_size'=>'int(11)',
+                'mtime'=>'datetime',
+                'ctime'=>'datetime',
+                '__file_type'=>'varchar(255)',
+                '__file_id'=>'varchar(36)',
+                'hash'=>'varchar(36)',
+                '__file_data'=>'char(0)'
+            ],
             'wahlberechtigte'=>[],
             'wahlberechtigte_anlage'=>[],
             'wahlschein'=>[],
