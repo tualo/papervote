@@ -1118,6 +1118,7 @@ select
     `kandidaten_bilder`.`id` AS `id`,
     `kandidaten_bilder`.`kandidat` AS `kandidat`,
     `kandidaten_bilder`.`typ` AS `typ`,
+    `kandidaten_bilder`.`file_id`,
     `ds_files`.`name` AS `__file_name`,
     `ds_files`.`path` AS `path`,
     `ds_files`.`size` AS `__file_size`,
