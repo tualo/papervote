@@ -20,6 +20,7 @@ class Tables  extends PostCheck {
             'view_readtable_kandidaten_bilder'=>[
                 'columns'=>[
                     'id'=>'varchar(36)',
+                    'file_id'=>'varchar(36)',
                     'kandidat'=>'varchar(12)',
                     'typ'=>'varchar(12)',
                     '__file_name'=>'varchar(255)',
