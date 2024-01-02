@@ -71,7 +71,9 @@ BEGIN
                     `wahlschein`.`stimmzettel` = `stimmzettel`.`ridx`
                 )
                 join wahlberechtigte on wahlschein.wahlberechtigte = wahlberechtigte.ridx
-                join wahlberechtigte_anlage on wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer
+                join wahlberechtigte_anlage on 
+                    wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer
+                    and wahlberechtigte_anlage.stimmzettel = stimmzettel.ridx
             )
             join (
                 select

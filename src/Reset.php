@@ -9,6 +9,25 @@ use Exception;
 class Reset
 {
 
+    public static function Testdatenreset(){
+        $sql = "select 
+
+        concat(
+            'delete from wahlschein where id = ',
+            concat(stimmzettel.id,lpad(wahlberechtigte_anlage.identnummer,8,'0')),
+            ' ',char(59),
+            ' delete from wahlberechtigte where id = ',wahlberechtigte_anlage.identnummer, char(59),
+            ' delete from wahlberechtigte_anlage where stimmzettel=\"',stimmzettel.ridx,'\" and  identnummer = \"',wahlberechtigte_anlage.identnummer,'\"', char(59)
+        ) x
+        
+         from wahlberechtigte_anlage join stimmzettel on wahlberechtigte_anlage.stimmzettel = stimmzettel.ridx
+        
+        where wahlberechtigte_anlage.testdaten=1";
+        $db = App::get('session')->getDB();
+        $db->execute($sql);
+
+    }
+
     public static function Ruecklauf()
     {
         $db = App::get('session')->getDB();
