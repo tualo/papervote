@@ -1,3 +1,4 @@
+delimiter ;
 CREATE OR REPLACE VIEW `view_double_voter` AS 
 
 
