@@ -281,7 +281,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
       var buttonDock = me.lookupReference('buttonDock');
       me.ctrls=[];
   
-  
+      buttonDock.removeAll();
       Ext.util.CSS.createStyleSheet('.mbutton span{ color: #fff; font-weight: bold; text-shadow: 0px 0px 1px #000; }');
       records.forEach(function(item){
         if (item.get('wahlscheinstatus__aktiv')=='1'){
