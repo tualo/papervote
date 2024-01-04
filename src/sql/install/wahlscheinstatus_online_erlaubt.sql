@@ -7,6 +7,7 @@ BEGIN
   end if;
 END //
 call check_wahlscheinstatus_online_erlaubt() //
+
 CREATE TABLE IF NOT EXISTS `wahlscheinstatus_online_erlaubt` (
 
   `wahlscheinstatus` varchar(12) NOT NULL,

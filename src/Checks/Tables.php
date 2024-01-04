@@ -44,7 +44,6 @@ class Tables  extends PostCheck {
             'wahlberechtigte_anlage'=>[],
             'wahlschein'=>[],
             'abgabetyp'=>[],
-            'wahlscheinstatus_online_erlaubt'=>[],
             'blocked_voters'=>[],
             'wm_tanboegen'=>[],
             'briefwahlkandidaten'=>[],
