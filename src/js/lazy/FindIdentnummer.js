@@ -55,6 +55,7 @@ Ext.define('Tualo.PaperVote.lazy.FindIdentnummer', {
           },
           {
             xtype: 'panel',
+            itemId: 'display',
             reference: 'display',
             region: 'center',
             html: ''
