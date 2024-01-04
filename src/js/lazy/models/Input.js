@@ -18,8 +18,8 @@ Ext.define('Tualo.PaperVote.lazy.models.Input', {
           typ= 'Rücklauf per Identnummer';
         }
         
-        if (get('list_length')>1) txt=' - Listenerfassung ';
-        return typ+txt+' ('+get('count')+') | Aktueller Block: '+get('blocknumber');
+        if (get('list_length')>1) txt=' - Listenerfassung '+' ('+get('count')+')';
+        return typ+txt+' | Aktueller Block: '+get('blocknumber');
       }
     },
     stores: {
