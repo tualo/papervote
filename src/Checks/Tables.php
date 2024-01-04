@@ -59,6 +59,7 @@ class Tables  extends PostCheck {
             'stimmzettel_stimmzettel_fusstexte' => [],
             'stimmzettel_fusstexte' => [],
             'stimmzettelgruppen' => [],
+            'reportfiles'=>[],
         ];
         self::tableCheck('ds',$tables,
             "please run the following command: `./tm install-sql-papervote --client ".$clientdb->dbname."`",
