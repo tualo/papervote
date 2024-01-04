@@ -251,7 +251,11 @@ class InstallMainSQLCommandline implements ICommandline{
             'wm_wahlschein_register'=> 'setup wm_wahlschein_register',
             'wm_wahlschein_register.ds'=> 'setup wm_wahlschein_register.ds',
 
-            'allowed_online_states'=> 'setup allowed_online_states',
+            // 'allowed_online_states'=> 'setup allowed_online_states',
+
+            'wahlscheinstatus_online_erlaubt'=> 'setup wahlscheinstatus_online_erlaubt',
+            'wahlscheinstatus_online_erlaubt.ds'=> 'setup wahlscheinstatus_online_erlaubt.ds',
+
             'view_voters_by_username_api'=> 'setup view_voters_by_username_api',
             
             'getBallotPaper'=> 'setup getBallotpaper',

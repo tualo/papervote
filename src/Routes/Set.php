@@ -27,14 +27,14 @@ class Set implements IRoute{
 
                 $stimmzettel_ridx = $db->singleValue('select ridx from stimmzettel where id = {ballotpaper_id}',$_REQUEST,'ridx');
 
-                $sql='select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and wahlscheinstatus in (select wahlscheinstatus from wahlscheinstatus_online_erlaubt)';
+                $sql='select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt)';
                 $data = $db->singleRow($sql,[
                     'voter_id'      =>  $_REQUEST['voter_id'],
                     'stimmzettel'   => $stimmzettel_ridx
                 ]);
 
                 if ($data!==false){
-                    $db->direct("update wahlschein set wahlscheinstatus='2|0', abgabetyp='2|0' where id={voter_id}  and stimmzettel={stimmzettel} and wahlscheinstatus in (select wahlscheinstatus from wahlscheinstatus_online_erlaubt) ",[
+                    $db->direct("update wahlschein set wahlscheinstatus='2|0', abgabetyp='2|0' where id={voter_id}  and stimmzettel={stimmzettel} and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt) ",[
                         'voter_id'      =>  $_REQUEST['voter_id'],
                         'stimmzettel'   => $stimmzettel_ridx
                     ]);

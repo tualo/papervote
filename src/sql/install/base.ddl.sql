@@ -75,6 +75,32 @@ VALUES
         null
     );
 
+insert IGNORE INTO abgabetyp (
+        ridx,
+        id,
+        kostenstelle,
+        name,
+        aktiv,
+        insert_date,
+        update_date,
+        login,
+        insert_time,
+        update_time
+    )
+VALUES
+    (
+        '0|0',
+        0,
+        0,
+        'unbekannt',
+        1,
+        '2011-10-19',
+        '2011-10-19',
+        'ADMIN',
+        null,
+        null
+    );
+
 CREATE TABLE IF NOT EXISTS wahltyp (
     ridx VARCHAR(12),
     id INT DEFAULT 0 NOT NULL,

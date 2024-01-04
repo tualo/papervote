@@ -47,9 +47,15 @@ BEGIN
                     `stimmzettel`.`id`,
                     "canvote",
                     if(
-                        `wahlschein`.`wahlscheinstatus` in (
+                        (
+                            `wahlschein`.`wahlscheinstatus`,
+                            `wahlschein`.`abgabetyp`
+                        ) 
+                            in 
+                        (
                             select
-                                `wahlscheinstatus_online_erlaubt`.`wahlscheinstatus`
+                                `wahlscheinstatus_online_erlaubt`.`wahlscheinstatus`,
+                                `wahlscheinstatus_online_erlaubt`.`abgabetyp`
                             from
                                 `wahlscheinstatus_online_erlaubt`
                         ),

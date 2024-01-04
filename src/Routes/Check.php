@@ -28,7 +28,7 @@ class Check implements IRoute{
                 where 
                     id={voter_id} 
                     and stimmzettel in (select ridx from stimmzettel where id = {ballotpaper_id}) 
-                    and wahlscheinstatus in (select wahlscheinstatus from wahlscheinstatus_online_erlaubt)';
+                    and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt)';
                 $data = $db->singleRow($sql,$_REQUEST);
                 App::result('success',$data !== false);
                 App::result('msg',($data === false)?'Der Wähler wurde nicht gefunden.':'');
