@@ -7,11 +7,19 @@ Ext.define('Tualo.PaperVote.lazy.models.Input', {
       sortiergang: 'rest',
       blocknumber: '',
       
+      useident: false,
+      list_length: 1,
       count: 0
     },
     formulas: {
       ftitle: function(get){
-        return 'Rücklauf ('+get('count')+') | Aktueller Block: '+get('blocknumber');
+        let txt='',typ='Rücklauf per Wahlscheinnummer';
+        if (get('useident')){
+          typ= 'Rücklauf per Identnummer';
+        }
+        
+        if (get('list_length')>1) txt=' - Listenerfassung ';
+        return typ+txt+' ('+get('count')+') | Aktueller Block: '+get('blocknumber');
       }
     },
     stores: {
