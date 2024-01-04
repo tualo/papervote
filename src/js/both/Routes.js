@@ -14,7 +14,7 @@ Ext.define('Tualo.routes.PaperVoteReturn', {
     handler: {
         action: function () {
             
-            Ext.getApplication().addView('Tualo.PaperVote.Viewport');
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.Input');
         },
         before: function (action) {
             action.resume();
@@ -37,7 +37,7 @@ Ext.define('Tualo.routes.PaperVoteReturnList', {
     handler: {
         action: function () {
             
-            Ext.getApplication().addView('Tualo.PaperVote.Viewport',{
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.Input',{
                 list_length: 10
             });
         },
@@ -63,7 +63,7 @@ Ext.define('Tualo.routes.PaperVoteReturnIdent', {
     handler: {
         action: function () {
             
-            Ext.getApplication().addView('Tualo.PaperVote.Viewport',{
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.Input',{
                 useident: 1
             });
         },
@@ -88,7 +88,7 @@ Ext.define('Tualo.routes.PaperVoteReturnIdentList', {
     handler: {
         action: function () {
             
-            Ext.getApplication().addView('Tualo.PaperVote.Viewport',{
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.Input',{
                 useident: 1,
                 list_length: 10
             });
