@@ -2,7 +2,7 @@ delimiter ;
 CREATE TABLE IF NOT EXISTS `wahlscheinstatus_online_erlaubt` (
   `wahlscheinstatus` varchar(12) NOT NULL,
   abgabetyp varchar(12),
-  primary key(wahlscheinstatus, abgabetyp)
+  primary key(wahlscheinstatus, abgabetyp),
   CONSTRAINT `fk_wahlscheinstatus_online_erlaubt_wahlscheinstatus` FOREIGN KEY (`wahlscheinstatus`) REFERENCES `wahlscheinstatus` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
 
   ,
