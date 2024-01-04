@@ -267,7 +267,12 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'reportfiles_typen'=> 'setup reportfiles_typen',
             'reportfiles'=> 'setup reportfiles',
-            
+
+            'view_blocksystem_status'=> 'setup view_blocksystem_status',
+            'view_blocksystem_status.ds'=> 'setup view_blocksystem_status.ds',
+
+            'view_double_voter'=> 'setup view_double_voter',
+            'view_double_voter.ds'=> 'setup view_double_voter.ds',            
 
             'function_getzero'=> 'setup function_getzero',
             'view_readtable_wahlzeichnungsberechtigter'=> 'setup view_readtable_wahlzeichnungsberechtigter',
