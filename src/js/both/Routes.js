@@ -22,6 +22,82 @@ Ext.define('Tualo.routes.PaperVoteReturn', {
     }
 });
 
+Ext.define('Tualo.routes.PaperVoteReturnList', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/returnlist',
+                    path: '#papervote/returnlist'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/returnlist',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.Viewport',{
+                list_length: 10
+            });
+        },
+        before: function (action) {
+            action.resume();
+        }
+    }
+});
+
+// list_length
+Ext.define('Tualo.routes.PaperVoteReturnIdent', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/returnident',
+                    path: '#papervote/returnident'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/returnident',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.Viewport',{
+                useident: 1
+            });
+        },
+        before: function (action) {
+            action.resume();
+        }
+    }
+});
+
+Ext.define('Tualo.routes.PaperVoteReturnIdentList', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/returnidentlist',
+                    path: '#papervote/returnidentlist'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/returnidentlist',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.Viewport',{
+                useident: 1,
+                list_length: 10
+            });
+        },
+        before: function (action) {
+            action.resume();
+        }
+    }
+});
 
 Ext.define('Tualo.routes.PaperVoteCounting', {
     statics: {
