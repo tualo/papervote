@@ -229,7 +229,7 @@ update
 set
     `is_primary` = 1
 where
-   `column_name` = 'id'
+   `column_name` = 'o'
     and table_name in (
         select table_name from (
             select
