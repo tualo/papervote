@@ -72,21 +72,19 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
         list_length=parseInt( this.view.list_length );
       }
   
-  
+      if (this.view && this.view.useident && (this.view.useident=='1')){
+        me.logic.useident = true;
+      }
+
       if (this.view.request && this.view.request.useident ){
         if (this.view.request.useident=='1'){
           me.logic.useident = true;
+        }
       }
 
-      if (this.view && this.view.useident && (this.view.useident=='1')){
-          me.logic.useident = true;
-      }
+
       console.log('list_length',list_length);
       console.log('useident',me.logic.useident);
-
-    }
-
-
   
   
   
