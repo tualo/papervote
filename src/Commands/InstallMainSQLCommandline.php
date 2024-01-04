@@ -73,7 +73,7 @@ class InstallMainSQLCommandline implements ICommandline{
 
 
             'view_beteiligung_stimmzettel_pro_tag' => 'setup view_beteiligung_stimmzettel_pro_tag ',
-            //'view_beteiligung_stimmzettel_pro_tag.ds' => 'setup view_beteiligung_stimmzettel_pro_tag.ds ',
+            'view_beteiligung_stimmzettel_pro_tag.ds' => 'setup view_beteiligung_stimmzettel_pro_tag.ds ',
 
             'kandidaten' => 'setup kandidaten ',
             'kandidaten.preview' => 'setup kandidaten.preview ',
