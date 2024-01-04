@@ -7,3 +7,22 @@ INSERT  IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `
 ('view_wm_wahlbeteiligungwahl_beteiligung_bericht_config','sortfield','',10000000,0,0,NULL,'NO','NO',NULL,NULL,'bigint','','bigint(12)',NULL,19,0,NULL,'select,insert,update,references',1,0,1,'',''),
 ('view_wm_wahlbeteiligungwahl_beteiligung_bericht_config','statusliste','',10000000,0,0,NULL,'YES','NO',NULL,NULL,'mediumtext','','mediumtext',16777215,NULL,NULL,'utf8mb3','select,insert,update,references',1,0,1,'',''),
 ('view_wm_wahlbeteiligungwahl_beteiligung_bericht_config','statusliste_json','',10000000,0,0,NULL,'YES','NO',NULL,NULL,'mediumtext','','mediumtext',16777215,NULL,NULL,'utf8mb3','select,insert,update,references',1,0,1,'','');
+
+
+update
+    `ds_column`
+set
+    `is_primary` = 1
+where
+   `column_name` = 'id'
+    and table_name in (
+        select table_name from (
+            select
+                table_name,
+                sum(`is_primary`) s
+            from
+                `ds_column`
+            where
+                `table_name` = 'view_wm_wahlbeteiligungwahl_beteiligung_bericht_config'
+        ) as s where s.s = 0
+);

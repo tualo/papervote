@@ -21,3 +21,23 @@ INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `langua
 ('view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject','wahltypconfig','DE','wahltypconfig','gridcolumn','',999,'','',0,1,'','',1.00,'','',0,'',''),
 ('view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject','wahltypname','DE','wahltypname','gridcolumn','',0,'','',0,1,'','',1.00,'','',0,'','');
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject',1,0,0,0,1);
+
+
+
+update
+    `ds_column`
+set
+    `is_primary` = 1
+where
+   `column_name` in ('wahltyp','stimmzettel')
+    and table_name in (
+        select table_name from (
+            select
+                table_name,
+                sum(`is_primary`) s
+            from
+                `ds_column`
+            where
+                `table_name` = 'view_wm_wahlbeteiligungwahl_beteiligung_bericht_datenobject'
+        ) as s where s.s = 0
+);

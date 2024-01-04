@@ -223,6 +223,7 @@ VALUES
         ''
     );
 
+call fill_ds_column('view_wm_bekanntmachung_kandidaten_liste_wm_bekanntmachung');
 
 update
     `ds_column`
