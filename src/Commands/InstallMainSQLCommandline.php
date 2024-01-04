@@ -72,6 +72,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'stimmzettelgruppen.ds' => 'setup stimmzettelgruppen.ds ',
 
 
+            'view_beteiligung_stimmzettel' => 'setup view_beteiligung_stimmzettel ',
+            //'view_beteiligung_stimmzettel.ds' => 'setup view_beteiligung_stimmzettel.ds ',
 
             'kandidaten' => 'setup kandidaten ',
             'kandidaten.preview' => 'setup kandidaten.preview ',
