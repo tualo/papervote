@@ -265,6 +265,10 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'blocked_voters'=> 'setup blocked_voters',
 
+            'reportfiles_typen'=> 'setup reportfiles_typen',
+            'reportfiles'=> 'setup reportfiles',
+            
+
             'function_getzero'=> 'setup function_getzero',
             'view_readtable_wahlzeichnungsberechtigter'=> 'setup view_readtable_wahlzeichnungsberechtigter',
         ];
