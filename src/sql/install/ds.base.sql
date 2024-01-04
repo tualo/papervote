@@ -336,7 +336,7 @@ INSERT IGNORE INTO `ds` (`table_name`, `title`, `reorderfield`, `use_history`, `
 UNLOCK TABLES;
 LOCK TABLES `ds_column` WRITE;
 INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default_max_value`, `default_min_value`, `update_value`, `is_primary`, `syncable`, `referenced_table`, `referenced_column_name`, `is_nullable`, `is_referenced`, `writeable`, `note`, `data_type`, `column_key`, `column_type`, `character_maximum_length`, `numeric_precision`, `numeric_scale`, `character_set_name`, `privileges`, `existsreal`, `deferedload`, `hint`, `fieldtype`) VALUES ('kandidaten','aktiv','1',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
-('kandidaten','andrede','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(100)',100,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','anrede','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(100)',100,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','anzeige_name',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'YES',NULL,0,NULL,'text','','text',65535,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','barcode','{#serial}',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(5)',5,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','branche','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,NULL,NULL,''),
@@ -377,7 +377,7 @@ INSERT IGNORE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `d
 UNLOCK TABLES;
 LOCK TABLES `ds_column_list_label` WRITE;
 INSERT IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `editor`, `position`, `summaryrenderer`, `renderer`, `summarytype`, `hidden`, `active`, `filterstore`, `grouped`, `flex`, `direction`, `align`, `listfiltertype`, `hint`) VALUES ('kandidaten','aktiv','DE','Aktiv','gridcolumn','',0,'','','',1,1,'',0,1.00,'ASC','left','',''),
-('kandidaten','andrede','DE','andrede','gridcolumn','',47,'','','',1,0,'',0,1.00,'','','',''),
+('kandidaten','anrede','DE','anrede','gridcolumn','',47,'','','',1,0,'',0,1.00,'','','',''),
 ('kandidaten','anzeige_name','DE','anzeige_name','gridcolumn','',28,'','','',1,1,'',0,1.00,'ASC','left','',''),
 ('kandidaten','aussenwirtschaftssausschuss','DE','aussenwirtschaftssausschuss','gridcolumn','',34,'','','',1,1,'',0,1.00,'','','',''),
 ('kandidaten','barcode','DE','Barcode','gridcolumn','',7,'','','',0,1,'',0,1.00,'ASC','left','',''),
@@ -437,7 +437,7 @@ INSERT IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `languag
 UNLOCK TABLES;
 LOCK TABLES `ds_column_form_label` WRITE;
 INSERT IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `field_path`, `position`, `hidden`, `active`, `allowempty`, `fieldgroup`, `flex`, `hint`) VALUES ('kandidaten','aktiv','DE','Aktiv','checkbox','Allgemein/Kandidat',0,0,1,1,'',1.00,''),
-('kandidaten','andrede','DE','Kreis','textfield','Firma/Angaben',1,1,0,1,'',1.00,''),
+('kandidaten','anrede','DE','Kreis','textfield','Firma/Angaben',1,1,0,1,'',1.00,''),
 ('kandidaten','anzeige_name','DE','anzeige_name','displayfield','Allgemein',37,1,1,1,'',1.00,''),
 ('kandidaten','aussenwirtschaftssausschuss','DE','Fotofreigabe','checkbox','Bilder',39,0,1,1,'',1.00,''),
 ('kandidaten','barcode','DE','Barcode','textfield','Allgemein/Stimmzettel',11,0,1,1,'',1.00,''),

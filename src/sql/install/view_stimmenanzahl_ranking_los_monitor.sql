@@ -50,8 +50,8 @@ select
     json_object(
         'aktiv',
         `kandidaten`.`aktiv`,
-        'andrede',
-        `kandidaten`.`andrede`,
+        'anrede',
+        `kandidaten`.`anrede`,
         'barcode',
         `kandidaten`.`barcode`,
         'branche',

@@ -1097,7 +1097,7 @@ CREATE TABLE IF NOT EXISTS kandidaten (
     personen_identnummer VARCHAR(15),
     geburtsdatum DATE,
     geschlecht VARCHAR(5),
-    andrede VARCHAR(100),
+    anrede VARCHAR(100),
     geburtsjahr VARCHAR(5),
     branche VARCHAR(255),
     losung_verloren TINYINT DEFAULT 0,
