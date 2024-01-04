@@ -171,19 +171,21 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
       },this);
   
       this.logic.on('state',function(o,state){
-        var ampel = me.view.getHeader().getEl();
+        var ampel = false;
+        if (me.view.getHeader()){ ampel = me.view.getHeader().getEl(); }
+
         var basicColor = '#4C9EDE';// ampel.getStyle("background-color");
     
         if (state==''){
-          ampel.setStyle("background-color",basicColor);
+          ampel && ampel.setStyle("background-color",basicColor);
           me.disableButtons(true);
         }
         if (state=='ok'){
-          ampel.setStyle("background-color","green");
+          ampel && ampel.setStyle("background-color","green");
           me.disableButtons(false);
         }
         if (state=='error'){
-          ampel.setStyle("background-color","red");
+          ampel && ampel.setStyle("background-color","red");
           me.disableButtons(true);
           try{
             var audio = new Audio('./papervote/sounds/sms-alert-2-daniel_simon.mp3');
@@ -191,7 +193,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
           }catch(e){}
         }
         if (state=='yellow'){
-          ampel.setStyle("background-color","rgb(255,99,71)");
+          ampel && ampel.setStyle("background-color","rgb(255,99,71)");
           me.disableButtons(true);
           try{
             var audio = new Audio('./papervote/sounds/sms-alert-1-daniel_simon.mp3');
