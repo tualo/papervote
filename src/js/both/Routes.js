@@ -322,7 +322,7 @@ Ext.define('Tualo.routes.PaperVoteFindIdent', {
     handler: {
         action: function () {
             
-            Ext.getApplication().addView('Tualo.PaperVote.lazy.stacks.FindIdentnummer');
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.FindIdentnummer');
         },
         before: function (action) {
 
