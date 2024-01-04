@@ -62,6 +62,8 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
         form: me.lookupReference('bcForm'),
         model: me.getViewModel()
       });
+
+      me.logic.useident = false;
   
       var list_length = 1;
       if (this.view.request && this.view.request.list_length ){
