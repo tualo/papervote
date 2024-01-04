@@ -1,3 +1,4 @@
+DELIMITER ;
 CREATE OR REPLACE VIEW `view_beteiligung_stimmzettel` AS (
     select
         cast(`wahlschein`.`update_date` as date) AS `datum`,
