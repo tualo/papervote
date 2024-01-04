@@ -24,3 +24,5 @@ insert ignore into wm_berichte (id,name) values ('wm_berichte_onlinewahl_teilerg
 insert ignore into wm_berichte (id,name) values ('wm_berichte_prozentuale_verteilung','Erreichte Stimmenanzahl je Kandidaten');
 insert ignore into wm_berichte (id,name) values ('wm_berichte_zaehlprotokoll','Zählprotokoll');
 insert ignore into wm_berichte (id,name) values ('wm_erwartet','Protokoll Erwartet');
+
+

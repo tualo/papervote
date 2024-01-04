@@ -208,6 +208,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'pug_css_assign' => 'setup pug_css',
             
             'reporting/wm_berichte.pug' => 'setup wm_berichte.pug' ,
+            'reporting/wm_berichte.ds_renderer_stylesheet_groups_assign' => 'setup wm_berichte.ds_renderer_stylesheet_groups_assign' ,
+            
             'wm_berichte.data' => 'setup wm_berichte.data' ,
 
             'kandidaten_bilder.upd'=> 'setup kandidaten_bilder.upd' ,
