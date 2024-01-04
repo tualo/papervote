@@ -275,7 +275,7 @@ Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
                 wahltyp.data.forEach(function(wahltyp){
                     abgabetyp.data.forEach(function(abgabetyp){
                         list.push({
-                            name: wahltyp.title + ' ('+abgabetyp.title+')',
+                            name: wahltyp.__displayfield + ' ('+abgabetyp.__displayfield+')',
                             path: '#papervote/involvement/'+wahltyp.id+'/'+abgabetyp.id+'/0'
                         });
                     });
