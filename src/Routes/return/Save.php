@@ -36,6 +36,11 @@ class Save implements IRoute
 
                 $wahlschein = DSTable::instance('wahlschein');
                 $blocknumber = isset($input['blocknumber'])?$input['blocknumber']:'0';
+
+                if(App::configuration('papervote','force_blocknumber','0')=='1'){
+                    if ($blocknumber=='0') throw new Exception("Eine Bocknummer wird erwartet.");
+                }
+
                 $db->direct("insert into wahlschein_blocknumbers (blocknumber  ,login,lastlogin , createtime ,lastinsert) values ({blocknumber},getSessionUser(),getSessionUser(),now(),now() ) on duplicate key update lastlogin=values(lastlogin),lastinsert=values(lastinsert) ",['blocknumber'=>$blocknumber]);
 
                 foreach ($liste as $wert) {
