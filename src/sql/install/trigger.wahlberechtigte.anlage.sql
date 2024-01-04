@@ -96,7 +96,7 @@ BEGIN
           NEW.identnummer, 
           '17|0',
           NULL,
-          NULL,
+          '1|0',
           0,
           NEW.pwhash,
           NEW.username,

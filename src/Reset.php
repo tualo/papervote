@@ -41,7 +41,7 @@ class Reset
                     ' . $typ['feld'] . '=\'1|0\',
                     ' . $typ['feld'] . '_grund=\'\', 
                     blocknumber =0, 
-                    abgabetyp="1|0", 
+                    abgabetyp="0|0", 
                     usedate=null 
                 where ' . $typ['feld'] . '<>\'6|0\'';
             $db->execute($sql);

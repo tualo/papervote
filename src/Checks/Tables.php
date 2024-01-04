@@ -34,6 +34,13 @@ class Tables  extends PostCheck {
                     '__file_data'=>'char(0)'
                 ]
             ],
+            'wahlscheinstatus_online_erlaubt',[
+                'columns'=>[
+                    'wahlscheinstatus'=>'varchar(12)',
+                    'abgabetyp'=>'varchar(12)'
+                ]
+            ],
+
             'wahlberechtigte'=>[],
             'wahlberechtigte_anlage'=>[],
             'wahlschein'=>[],
