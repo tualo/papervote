@@ -86,7 +86,8 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
       console.log('list_length',list_length);
       console.log('useident',me.logic.useident);
   
-  
+      me.getViewModel().set('list_length',list_length);
+      me.getViewModel().set('useident',me.logic.useident);
   
       this.logic.on('blockchanged',function(o,number){
         me.getViewModel().set('blocknumber',number);
