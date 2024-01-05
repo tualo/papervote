@@ -65,3 +65,5 @@ INSERT  IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`,
 ('wahlschein','wahlberechtigte','{\"wahlberechtigte\":\"ridx\"}','fk_wahlschein_wahlberechtigte',0,0,1,99999,'',1,''),
 ('wahlschein','wahlscheinstatus','{\"wahlscheinstatus\":\"ridx\"}','fk_wahlschein_wahlscheinstatus',0,0,1,99999,'',1,'');
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','wahlschein',1,1,1,1,1);
+
+INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('wahl_ruecklauf','wahlschein',1,1,0,0,1);
