@@ -736,6 +736,7 @@ on duplicate key update template=values(template);
 
 
 
+
 insert into ds_pug_templates (name,id,note,template) values ('wm_berichte_abschlussbericht_gesamt','wm_berichte_abschlussbericht_gesamt',from_base64('d21fYmVyaWNodGVfYWJzY2hsdXNzYmVyaWNodF9nZXNhbXQ='),from_base64( 'OnBocAogICAgJHN0aW1temV0dGVsZ3J1cHBlbiA9XFR1YWxvXE9mZmljZVxEU1xEU1RhYmxlOjpp
 bnN0YW5jZSgnc3RpbW16ZXR0ZWxncnVwcGVuJyktPnNvcnQoJ2lkJywnYXNjJyktPnJlYWQoKS0+
 Z2V0KCk7CiAgICBmb3IoICRzdGltbXpldHRlbGdydXBwZW5faT0wOyAkc3RpbW16ZXR0ZWxncnVw
