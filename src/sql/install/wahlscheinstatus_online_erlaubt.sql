@@ -26,5 +26,5 @@ CREATE TABLE IF NOT EXISTS `wahlscheinstatus_online_erlaubt` (
 //
 
 insert ignore into wahlscheinstatus_online_erlaubt (wahlscheinstatus,abgabetyp) values ('1|0','0|0')//
-
+update wahlschein set abgabetyp = '0|0' where abgabetyp is null //
 drop procedure if exists check_wahlscheinstatus_online_erlaubt //
