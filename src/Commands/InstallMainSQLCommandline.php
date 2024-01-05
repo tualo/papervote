@@ -274,6 +274,10 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'view_blocksystem_status'=> 'setup view_blocksystem_status',
             'view_blocksystem_status.ds'=> 'setup view_blocksystem_status.ds',
+            
+            'wahlschein_status_import'=> 'setup wahlschein_status_import',
+            'wahlschein_status_import.ds'=> 'setup wahlschein_status_import.ds',
+
 
             'view_double_voter'=> 'setup view_double_voter',
             'view_double_voter.ds'=> 'setup view_double_voter.ds',            

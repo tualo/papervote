@@ -70,6 +70,7 @@ class Tables  extends PostCheck {
             'view_blocksystem_status_blocks_wahlscheine'=>[],
             'view_double_voter'=>[],
             'view_beteiligung_stimmzettel'=>[],
+            'wahlschein_status_import'=>[],
             
         ];
         self::tableCheck('papervote',$tables,
