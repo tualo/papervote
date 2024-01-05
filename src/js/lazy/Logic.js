@@ -439,8 +439,12 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
                 if (o.success) {
                     try {
-                    scope.wbliste=[];
-                    scope.wbhash={};
+                        scope.lastwbliste = scope.wbliste;
+                        scope.lastdataSet = scope.dataSet;
+                        
+                        scope.wbliste=[];
+                        scope.wbhash={};
+
     //                              scope.fireEvent('loaded', scope, '',{});
                     scope.transit('warteAufWB');
                     } catch (e) {
