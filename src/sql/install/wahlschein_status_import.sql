@@ -121,7 +121,7 @@ OR REPLACE VIEW `view_readtable_import_status_loop` AS (
 ) //
 
 
-create table matview_readtable_import_status_loop as
+create table if not exists matview_readtable_import_status_loop as
 select * from view_readtable_import_status_loop //
 
 CREATE
