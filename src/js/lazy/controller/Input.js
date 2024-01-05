@@ -136,11 +136,11 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
 
     this.logic.on('saved', function (o, msg, object) {
       console.log('saved', object); 
-      window.x = me.Logic.getSaveText().join(', ')
+      window.x = me.logic.getSaveText().join(', ')
       window.y = me;
-      
+
       me.savedMask = Ext.toast({
-        html: me.Logic.getSaveText().join(', ') + ' ' + ' um ' + (Ext.util.Format.date(new Date(), 'H:i\'s')),
+        html: me.logic.getSaveText().join(', ') + ' ' + ' um ' + (Ext.util.Format.date(new Date(), 'H:i\'s')),
         title: 'Gespeichert',
         width: 300,
         align: 't',
