@@ -33,35 +33,27 @@ Ext.define('Tualo.PaperVote.commands.StatusImportCommand', {
         this.selectedrecords = selectedrecords;
         let me = this;
       },
-      run: function(list){
-    
-        let me = this;
-    
-          Tualo.Ajax.request({
-            showWait: true,
-            timeout: 10*60000,
-            url: './cmp_wm_ruecklauf/wmstatusimport',
-            params: {
-              
-            },
-            json: function(o){
-              if (o.success){
-                me.fireEvent('completed');
-              }else{
-                Ext.toast({
-                  html: o.msg,
-                  title: 'Fehler',
-                  width: 400,
-                  align: 't',
-                  iconCls: 'fa fa-warning'
-               });
-              }
-            }
-          });
-    
-    
-    
-      },
+
+    getNextText: function () {
+      return 'Erzeugen';
+    },
+    run: async function () {
+        let url = './papervote/involvement/wmstatusimport';
+        let o = await (await fetch(url)).json()
+        if (o.success){
+          //me.fireEvent('completed');
+        }else{
+          Ext.toast({
+            html: o.msg,
+            title: 'Fehler',
+            width: 400,
+            align: 't',
+            iconCls: 'fa fa-warning'
+         });
+        }
+      return null;
+    }
+    /*
       buttons: [
         {
           text: 'Schliessen',
@@ -77,5 +69,6 @@ Ext.define('Tualo.PaperVote.commands.StatusImportCommand', {
           }
         }
       ]
+      */
   });
   
