@@ -31,7 +31,6 @@ class Reset
     public static function Ruecklauf()
     {
         $db = App::get('session')->getDB();
-
         $typen = DSTable::instance("wahltyp")->filter('aktiv', 'eq', 1)->limit(1000);
         $typen_liste = $typen->get();
         if ($typen->empty()) return;
@@ -42,9 +41,13 @@ class Reset
                     ' . $typ['feld'] . '_grund=\'\', 
                     blocknumber =0, 
                     abgabetyp="0|0", 
+                    login=getSessionUser(),
                     usedate=null 
                 where ' . $typ['feld'] . '<>\'6|0\'';
             $db->execute($sql);
+        }
+        if(App::configuration('papervote','delete_history_on_reset','0')=='1'){
+            $db->execute('DELETE HISTORY FROM wahlschein');
         }
     }
 
@@ -69,30 +72,17 @@ class Reset
     {
         $db = App::get('session')->getDB();
 
-        $db->execute('delete from wahlschein');
-        $db->execute('DELETE HISTORY FROM wahlschein');
-
-        try {
-            $db->execute('delete from wahlschein_hstr');
-        } catch (\Exception $e) {
+        $db->execute('delete from wahlschein ');
+        if(App::configuration('papervote','delete_history_on_reset','0')=='1'){
+            $db->execute('DELETE HISTORY FROM wahlschein');
         }
 
         $db->execute('delete from wahlberechtigte');
-        $db->execute('DELETE HISTORY FROM wahlberechtigte');
-        try {
-            $db->execute('delete from wahlberechtigte_hstr');
-        } catch (\Exception $e) {
+        if(App::configuration('papervote','delete_history_on_reset','0')=='1'){
+            $db->execute('DELETE HISTORY FROM wahlberechtigte');
         }
-
-        $db->execute('delete from wahlberechtigte_anlage');
-        try {
-            $db->execute('delete from wahlberechtigte_anlage_hstr');
-        } catch (\Exception $e) {
-        }
-        try {
-            $db->execute('delete from wahlberechtigte_anlage_hstr_last');
-        } catch (\Exception $e) {
-        }
+        $db->execute('truncate wahlberechtigte_anlage');
+        
     }
 
 
