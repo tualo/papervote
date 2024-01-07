@@ -18,7 +18,7 @@ class StoredProcedures extends PostCheck {
             'randomString'=>'c327855664249e78a33f0370a38e4981',
             'canChangeValue'=>'26dd4e31c0ca9e056cddb7f27102fb85',
             'getBallotpaper'=>'2637d349dcbaa0307cdb28f7cb8e0652',
-            'fix_testdaten_flag'=>'08e596c9b49dc1f9ff03d29c4ec28089'
+            'fix_testdaten_flag'=>'84445815fa5e69e6d746ac5a1840d940'
         ];
         self::procedureCheck(
             'ds',
