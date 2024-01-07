@@ -283,6 +283,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_double_voter.ds'=> 'setup view_double_voter.ds',            
 
             'function_getzero'=> 'setup function_getzero',
+            'fix_testdaten_flag'=> 'setup fix_testdaten_flag',
             'view_readtable_wahlzeichnungsberechtigter'=> 'setup view_readtable_wahlzeichnungsberechtigter',
         ];
 

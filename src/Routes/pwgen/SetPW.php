@@ -27,7 +27,13 @@ class SetPW implements IRoute
                     $postdata = json_decode($postdata,true);
                 }
                 foreach($postdata as $row){
-                    $sql = 'update wahlschein set pwhash={pwhash},username={username},wahlscheinnummer={wahlscheinnummer},wahlscheinstatus={wahlscheinstatus} where 
+                    $sql = '
+                    update wahlschein set 
+                        pwhash={pwhash},
+                        username={username},
+                        wahlscheinnummer={wahlscheinnummer},
+                        wahlscheinstatus={wahlscheinstatus} 
+                    where 
                         id = {id}
                         and stimmzettel={stimmzettel}
                         and wahlscheinstatus in ("16|0","17|0")';
