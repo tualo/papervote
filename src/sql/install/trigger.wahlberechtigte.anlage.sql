@@ -79,8 +79,7 @@ BEGIN
           `abgabehash`,
           `sendtotmg`,
           `kombiniert`,
-          `testdaten`,
-          
+          `testdaten`
 
         ) VALUES (
           concat(prefix,lpad(NEW.identnummer,8,'0')),
