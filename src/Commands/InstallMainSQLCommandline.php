@@ -286,6 +286,12 @@ class InstallMainSQLCommandline implements ICommandline{
             'fix_testdaten_flag'=> 'setup fix_testdaten_flag',
             'view_readtable_wahlzeichnungsberechtigter'=> 'setup view_readtable_wahlzeichnungsberechtigter',
 
+            'kandidaten_stimmenanzahl_losentscheid_stimmzettel'=> 'setup kandidaten_stimmenanzahl_losentscheid_stimmzettel',
+            'kandidaten_stimmenanzahl_losentscheid_stimmzettel.ds'=> 'setup kandidaten_stimmenanzahl_losentscheid_stimmzettel.ds',
+
+            'view_lose_untergruppen'=> 'setup view_lose_untergruppen',
+            'view_lose_untergruppen.ds'=> 'setup view_lose_untergruppen.ds',
+
             'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
             
         ];
