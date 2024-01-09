@@ -148,3 +148,22 @@ insert into `ds_column_list_label`
 update `ds_column_list_label` set `xtype`='gridcolumn',`editor`='',`position`='10',`summaryrenderer`='',`summarytype`='',`hidden`='0',`active`='1',`renderer`='',`filterstore`='',`flex`='1.00',`direction`='',`align`='',`grouped`='0',`listfiltertype`='',`hint`='NULL' where `table_name`='view_lose_untergruppen' and `column_name`='stimmzettel_sitze' and `language`='DE';
 -- END DS view_lose_untergruppen
 
+
+
+update
+    `ds_column`
+set
+    `is_primary` = 1
+where
+   `column_name` = 'stimmzettelgruppen_ridx'
+    and table_name in (
+        select table_name from (
+            select
+                table_name,
+                sum(`is_primary`) s
+            from
+                `ds_column`
+            where
+                `table_name` = 'view_lose_untergruppen'
+        ) as s where s.s = 0
+);
