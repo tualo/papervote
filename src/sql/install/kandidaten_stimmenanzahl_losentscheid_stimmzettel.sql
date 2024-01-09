@@ -1,4 +1,4 @@
-delimiter ;
+delimiter //
 
 CREATE OR REPLACE VIEW `kandidaten_stimmenanzahl_losentscheid_stimmzettel` AS
 select
@@ -78,4 +78,4 @@ from
             `kandidaten_stimmenanzahl_rank`.`rank`
         having
             `c` > 1
-    ) `x`;
+    ) `x` //

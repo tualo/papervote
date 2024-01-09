@@ -1,4 +1,4 @@
-delimiter ;
+delimiter //
 
 CREATE OR REPLACE VIEW `view_lose_untergruppen` AS (
     select
@@ -62,4 +62,4 @@ CREATE OR REPLACE VIEW `view_lose_untergruppen` AS (
         and `c` > `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_mindestsitze`
         and `c` > 1
         and `kandidaten_stimmenanzahl_rank`.`losnummer` = 0
-)
+) //
