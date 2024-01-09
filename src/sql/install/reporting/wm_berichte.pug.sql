@@ -688,7 +688,7 @@ ICAgICAgICAgICAgICAgICAgCQl0ZC5wcmludHRhYmxlLm51bWJlcl9yZSAgJm5ic3A7CiAgICAg
 ICAgICAgICAgICAJLSBzel9uYW1lID0gcmVjb3JkLnN0aW1temV0dGVsX25hbWU=') );
 
 
-insert into ds_pug_templates (name,id,note,template) values ('wm_berichte_erwartet','wm_berichte_erwartet',from_base64('d21fYmVyaWNodGVfZXJ3YXJ0ZXQ='),from_base64( 'c3R5bGUuCiAgICAJQHBhZ2Uge3NpemU6IEE0IGxhbmRzY2FwZTsgfQo6cGhwCiAgICAkZGF0YSA9
+insert  ignore into ds_pug_templates (name,id,note,template) values ('wm_berichte_erwartet','wm_berichte_erwartet',from_base64('d21fYmVyaWNodGVfZXJ3YXJ0ZXQ='),from_base64( 'c3R5bGUuCiAgICAJQHBhZ2Uge3NpemU6IEE0IGxhbmRzY2FwZTsgfQo6cGhwCiAgICAkZGF0YSA9
 XFR1YWxvXE9mZmljZVxEU1xEU1RhYmxlOjppbnN0YW5jZSgndmlld19zdGltbWVuYW56YWhsX3Jh
 bmtpbmdfbG9zX21vbml0b3JfbGlzdCcpLT5yZWFkKCktPmdldCgpOwovLyBkIHModGFibGVuYW1l
 PSJ2aWV3X3N0aW1tZW5hbnphaGxfcmFua2luZ19sb3NfbW9uaXRvcl9saXN0Iix0ZW1wbGF0ZT0i
@@ -731,13 +731,13 @@ ZywwLCcsJywnLicpfQogICAgICAgICAgICAgICAgICAgIHRkLnByaW50dGFibGUubnVtYmVyX3Jl
 ICF7bnVtYmVyX2Zvcm1hdChnZXNfa29uLDAsJywnLCcuJyl9CiAgICAgICAgICAgICAgICAgICAg
 dGQucHJpbnR0YWJsZS5udW1iZXJfcmUgIXtudW1iZXJfZm9ybWF0KGdlc19xb3UqMTAwLDIsJywn
 LCcuJyl9JQ==') )
-on duplicate key update template=values(template);
+-- on duplicate key update template=values(template);
 ;
 
 
 
 
-insert into ds_pug_templates (name,id,note,template) values ('wm_berichte_abschlussbericht_gesamt','wm_berichte_abschlussbericht_gesamt',from_base64('d21fYmVyaWNodGVfYWJzY2hsdXNzYmVyaWNodF9nZXNhbXQ='),from_base64( 'OnBocAogICAgJHN0aW1temV0dGVsZ3J1cHBlbiA9XFR1YWxvXE9mZmljZVxEU1xEU1RhYmxlOjpp
+insert ignore into ds_pug_templates (name,id,note,template) values ('wm_berichte_abschlussbericht_gesamt','wm_berichte_abschlussbericht_gesamt',from_base64('d21fYmVyaWNodGVfYWJzY2hsdXNzYmVyaWNodF9nZXNhbXQ='),from_base64( 'OnBocAogICAgJHN0aW1temV0dGVsZ3J1cHBlbiA9XFR1YWxvXE9mZmljZVxEU1xEU1RhYmxlOjpp
 bnN0YW5jZSgnc3RpbW16ZXR0ZWxncnVwcGVuJyktPnNvcnQoJ2lkJywnYXNjJyktPnJlYWQoKS0+
 Z2V0KCk7CiAgICBmb3IoICRzdGltbXpldHRlbGdydXBwZW5faT0wOyAkc3RpbW16ZXR0ZWxncnVw
 cGVuX2kgPCBjb3VudCggJHN0aW1temV0dGVsZ3J1cHBlbiApOyAkc3RpbW16ZXR0ZWxncnVwcGVu
@@ -790,5 +790,5 @@ e3JlY29yZC5vZmZsaW5lc3RpbW1lbn0KICAgICAgICAgICAgICAgICAgICAvLyB0ZC5udW1iZXIo
 Y2xhc3M9cmVjb3JkLmdld2FlaGx0PT0xPyd2b3RlZCc6J25vdHZvdGVkJykgIXtyZWNvcmQub25s
 aW5lc3RpbW1lbn0KICAgICAgICAgICAgICAgIC0gdmFyIGxhc3QgPSByZWNvcmQuZ2V3YWVobHQK
 ICAgICAgICAgICAgICAgIAogICAgICA=') )
-on duplicate key update template=values(template);
+-- on duplicate key update template=values(template);
 ;
