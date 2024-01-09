@@ -67,7 +67,11 @@ class ApiUser implements IRoute{
                     try{
                         $data['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where aktiv=1 and wahlberechtigte = {wahlberechtigte_ridx}',$data);
 
-                    }catch(Exception $e){}
+                    }catch(Exception $e){
+
+                    }
+
+                    // App::result('last_state',  $$db->direct('select wahlscheinstatus,abgabetyp from wahlschein ' );
 
                 }
 

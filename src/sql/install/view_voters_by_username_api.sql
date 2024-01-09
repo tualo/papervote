@@ -35,6 +35,7 @@ BEGIN
         `q`.`pwhash` AS `pwhash`,
         `q`.`id` AS `id`,
         `wahlberechtigte`.`ridx` as `wahlberechtigte_ridx`,
+        wahlschein.wahlscheinstatus as `last_wahlscheinstatus`,
         concat(
             "[",
             group_concat(

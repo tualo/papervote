@@ -285,6 +285,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'function_getzero'=> 'setup function_getzero',
             'fix_testdaten_flag'=> 'setup fix_testdaten_flag',
             'view_readtable_wahlzeichnungsberechtigter'=> 'setup view_readtable_wahlzeichnungsberechtigter',
+
+            'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
+            
         ];
 
 
