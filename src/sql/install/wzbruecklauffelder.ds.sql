@@ -66,5 +66,5 @@ UNLOCK TABLES;
 LOCK TABLES `ds_addcommands` WRITE;
 UNLOCK TABLES;
 LOCK TABLES `ds_access` WRITE;
-INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) VALUES ('wahl_administration','wzbruecklauffelder',1,0,0,0 );
+INSERT IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append` ) VALUES ('wahl_administration','wzbruecklauffelder',1,1,1,1 );
 UNLOCK TABLES;
