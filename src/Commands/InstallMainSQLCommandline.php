@@ -289,6 +289,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'kandidaten_stimmenanzahl_losentscheid_stimmzettel'=> 'setup kandidaten_stimmenanzahl_losentscheid_stimmzettel',
             'kandidaten_stimmenanzahl_losentscheid_stimmzettel.ds'=> 'setup kandidaten_stimmenanzahl_losentscheid_stimmzettel.ds',
 
+            'kandidaten_stimmenanzahl_liste'    => 'setup kandidaten_stimmenanzahl_liste',
+            'kandidaten_stimmenanzahl_liste.ds'    => 'setup kandidaten_stimmenanzahl_liste.ds',
+
             'view_lose_untergruppen'=> 'setup view_lose_untergruppen',
             'view_lose_untergruppen.ds'=> 'setup view_lose_untergruppen.ds',
 

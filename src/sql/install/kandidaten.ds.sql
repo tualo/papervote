@@ -23,7 +23,7 @@ REPLACE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default
 ('kandidaten','id','{#serial}',NULL,NULL,NULL,1,NULL,NULL,NULL,'NO',NULL,1,NULL,'int','PRI','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','ist_gewaehlt','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','kooptiert','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
-('kandidaten','kostenstelle','0',NULL,NULL,NULL,1,NULL,NULL,NULL,'YES',NULL,1,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
+('kandidaten','kostenstelle','0',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','losnummer','0',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','losnummer_stimmzettelgruppe','0',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'int','','int(11)',NULL,10,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
 ('kandidaten','losung_verloren','',NULL,NULL,NULL,0,NULL,NULL,NULL,'YES',NULL,1,NULL,'tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,NULL,NULL,''),
@@ -164,3 +164,6 @@ INSERT  IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`,
 ('kandidaten','stimmzettel','{\"kandidaten__stimmzettel\":\"stimmzettel__ridx\"}','kandidaten_ibfk_1',0,0,1,99999,'',0,''),
 ('kandidaten','stimmzettelgruppen','{\"stimmzettelgruppen\":\"ridx\"}','fk_kandidaten_stimmzettelgruppen',1,0,0,999,'',1,'');
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','kandidaten',1,1,1,1,1);
+
+
+update ds_column set is_primary = 0 where table_name = 'kandidaten' and column_name = 'kostenstelle';

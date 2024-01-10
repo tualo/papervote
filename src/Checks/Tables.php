@@ -73,6 +73,7 @@ class Tables  extends PostCheck {
             'wahlschein_status_import'=>[],
             'view_lose_untergruppen'=>[],
             'kandidaten_stimmenanzahl_losentscheid_stimmzettel'=>[],
+            'kandidaten_stimmenanzahl_liste'=>[],
             
         ];
         self::tableCheck('papervote',$tables,

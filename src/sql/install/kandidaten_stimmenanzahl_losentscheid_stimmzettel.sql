@@ -1,5 +1,7 @@
 delimiter //
 
+
+
 CREATE OR REPLACE VIEW `kandidaten_stimmenanzahl_losentscheid_stimmzettel` AS
 select
     if(
@@ -79,3 +81,5 @@ from
         having
             `c` > 1
     ) `x` //
+
+
