@@ -66,7 +66,7 @@ class ApiUser implements IRoute{
                     }
                     try{
                         $data['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where aktiv=1 and wahlberechtigte in (
-                            select wahlberechtigte where username={username}
+                            select wahlberechtigte from wahlschein where username={username}
                         )',[
                             'username'=>$_REQUEST['username']
                         ]);
