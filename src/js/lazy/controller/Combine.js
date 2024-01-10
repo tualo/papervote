@@ -84,11 +84,13 @@ Ext.define('Tualo.PaperVote.lazy.controller.Combine', {
     deferredListIdentChange: function(field, newValue, oldValue, eOpts){
         let me = this,
             vm = me.getViewModel(),
+            ignoreIdent = vm.get('initial_ident'),
             list = newValue.replace(/[^0-9]/g,' ').replace(/\s\s/g,' ').split(' '),
             identListStore = vm.getStore('identList');
         console.log('deferredListIdentChange',list);
         identListStore.removeAll();
         list.forEach(function(identnummer){
+            if (identnummer==ignoreIdent) return;
             identListStore.add({identnummer:identnummer,status:false});
         });
 
