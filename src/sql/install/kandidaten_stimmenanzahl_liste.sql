@@ -25,13 +25,3 @@ from
         )
     ) //
 
-INSERT INTO `ds_referenced_manual` VALUES
-('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel'),
-('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste')//
-
-
-INSERT INTO `ds_referenced_manual_columns` VALUES
-('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste','rank','rank'),
-('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste','stimmzettel_ridx','stimmzettel_ridx'),
-('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel','rank','rank'),
-('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel','stimmzettel_ridx','stimmzettel_ridx')//
