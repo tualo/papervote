@@ -1,3 +1,4 @@
+delimiter ; 
 CREATE OR REPLACE VIEW `view_ruecklauffelder_columns` AS 
 
 select `ds_column_form_label`.`column_name` AS `column_name`,`ds_column_form_label`.`label` AS `label` from `ds_column_form_label` 
