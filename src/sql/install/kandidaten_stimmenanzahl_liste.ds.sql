@@ -7,12 +7,12 @@ INSERT  IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`,
 
 INSERT  IGNORE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ('administration','kandidaten_stimmenanzahl_liste',1,1,0,1,0);
 
-INSERT INTO `ds_referenced_manual` VALUES
+INSERT  IGNORE INTO `ds_referenced_manual` VALUES
 ('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel'),
 ('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste') ;
 
 
-INSERT INTO `ds_referenced_manual_columns` VALUES
+INSERT IGNORE INTO `ds_referenced_manual_columns` VALUES
 ('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste','rank','rank'),
 ('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste','stimmzettel_ridx','stimmzettel_ridx'),
 ('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel','rank','rank'),
