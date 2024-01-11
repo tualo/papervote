@@ -1,9 +1,9 @@
 delimiter //
-
-create or replace view kandidaten_stimmenanzahl_liste as
+create or replace view kandidaten_stimmenanzahl_liste_szg as
 select
     `kandidaten_stimmenanzahl_rank`.`stimmzettel_ridx` AS `stimmzettel_ridx`,
     `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_ridx` AS `stimmzettelgruppen_ridx`,
+    `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_rang` AS `stimmzettelgruppen_rang`,
     `kandidaten_stimmenanzahl_rank`.`rank` AS `rank`,
     `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_mindestsitze` AS `stimmzettelgruppen_mindestsitze`,
     `kandidaten_stimmenanzahl_rank`.`stimmzettel_name` AS `stimmzettel_name`,
@@ -25,5 +25,3 @@ from
             `kandidaten_stimmenanzahl_rank`.`id` = `view_readtable_kandidaten`.`id`
         )
     ) //
-
-

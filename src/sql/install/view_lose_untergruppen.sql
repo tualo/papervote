@@ -4,6 +4,8 @@ CREATE OR REPLACE VIEW `view_lose_untergruppen` AS (
     select
         count(0) AS `c`,
         `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_ridx` AS `stimmzettelgruppen_ridx`,
+        `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_rang` AS `stimmzettelgruppen_rang`,
+        `kandidaten_stimmenanzahl_rank`.rank,
         `stimmzettelgruppen`.`name` AS `stimmzettelgruppe`,
         `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_mindestsitze` AS `stimmzettelgruppen_mindestsitze`,
         `kandidaten_stimmenanzahl_rank`.`stimmzettel_sitze` AS `stimmzettel_sitze`,

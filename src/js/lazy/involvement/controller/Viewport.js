@@ -45,6 +45,16 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
 
   },
   onFlatFileClick: function(){
+
+    let config = {
+        url: './ds/wahlschein_flatfile/export',
+        scope: this,
+        showWait: true,
+        timeout: 300000,
+        params: extraParams
+    };
+    Tualo.Ajax.download(config);
+    /*
         Ext.MessageBox.wait('Bitte warten...','Bericht wird erstellt');
         console.log('timeout',600000);
         Ext.Ajax.request({
@@ -72,6 +82,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
                 Ext.MessageBox.alert('Fehler '+f.responseText);
             }
         });
+        */
   },
   onCodePDFClick: function(){
     /*
