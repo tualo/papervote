@@ -51,7 +51,9 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
         scope: this,
         showWait: true,
         timeout: 300000,
-        params: extraParams
+        params: {
+          limit: 10000000,
+        }
     };
     Tualo.Ajax.download(config);
     /*
