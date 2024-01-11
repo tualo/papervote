@@ -74,7 +74,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                         }
                         if (data.owstate.remoteError===true){
                             list.push({
-                                name: 'Remote-Server',
+                                name: 'Remote-Server ',
                                 value: 'nicht erreichbar',
                                 color: 'red',
                                 bold: true
@@ -82,7 +82,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                         }   
                         if (data.owstate.starttime==null){
                             list.push({
-                                name: 'Wahlzeitraum',
+                                name: 'Wahlzeitraum (online)',
                                 value: 'nicht konfiguriert',
                                 color: 'red',
                                 bold: true
@@ -95,7 +95,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                 (new Date(data.owstate.starttime)).getTime()>(new Date(data.owstate.stoptime)).getTime()
                             ){
                                 list.push({
-                                    name: 'Wahlzeitraum',
+                                    name: 'Wahlzeitraum (online)',
                                     value: 'fehlerhaft konfiguriert',
                                     color: 'red',
                                     bold: true
@@ -109,7 +109,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                     (new Date(data.owstate.stoptime)).getTime()>=Date.now()
                                 ){
                                     list.push({
-                                        name: 'Wahl',
+                                        name: 'Wahl (online)',
                                         value: 'aktiv',
                                         color: 'green',
                                         bold: true
@@ -119,7 +119,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                     (new Date(data.owstate.starttime)).getTime()>Date.now()
                                 ){
                                     list.push({
-                                        name: 'Wahl',
+                                        name: 'Wahl (online)',
                                         value: 'nicht gestartet',
                                         color: 'darkgrey',
                                         bold: true
@@ -128,7 +128,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                     (new Date(data.owstate.stoptime)).getTime()<Date.now()
                                 ){
                                     list.push({
-                                        name: 'Wahl',
+                                        name: 'Wahl (online)',
                                         value: 'beendet',
                                         color: 'orange',
                                         bold: true
@@ -137,14 +137,14 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                             }
 
                             list.push({
-                                name: 'Start',
+                                name: 'Start (online)',
                                 value: start,
                                 color: 'black',
                                 bold: true
                             });
 
                             list.push({
-                                name: 'Ende',
+                                name: 'Ende (online)',
                                 value: stop,
                                 color: 'black',
                                 bold: true
@@ -154,19 +154,19 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                        
 
                         list.push({ 
-                            name: 'Webserver-Zeitzone',
+                            name: 'Webserver-Zeitzone (online)',
                             value: ''+data.owstate.timezone,
                             color: 'black',
                             bold: false
                         });
                         list.push({
-                            name: 'Zeitabweichung',
+                            name: 'Zeitabweichung (online)',
                             value: Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.owstate.db_time)).getTime())/1000)+' Sekunden',
                             color: (Math.round(Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.owstate.db_time)).getTime())/1000)/100)>0?'red':'black'),
                             bold: false
                         });
                         list.push({
-                            name: 'aktive Wähler',
+                            name: 'aktive Wähler (online)',
                             value: data.owstate.active_voters,
                             color: 'black',
                             bold: false
