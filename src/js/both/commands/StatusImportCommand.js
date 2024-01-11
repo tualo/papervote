@@ -5,7 +5,7 @@ Ext.define('Tualo.PaperVote.commands.StatusImportCommand', {
       tooltip: 'Verarbeiten'
     },
     extend: 'Ext.panel.Panel',
-    alias: ['widget.wm_wb_importcmd','widget.cmp_wm_ruecklauf_import_command'],
+    alias: ['widget.wm_wb_importstatuscmd','widget.cmp_wm_ruecklauf_import_command'],
     requires:[
     ],
 

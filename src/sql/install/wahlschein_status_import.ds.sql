@@ -310,6 +310,5 @@ insert into `ds_column_list_label`
 update `ds_column_list_label` set `xtype`='gridcolumn',`editor`='',`position`='8',`summaryrenderer`='',`summarytype`='',`hidden`='0',`active`='1',`renderer`='',`filterstore`='',`flex`='1.00',`direction`='',`align`='',`grouped`='0',`listfiltertype`='',`hint`='' where `table_name`='wahlschein_status_import' and `column_name`='wahlscheinnummer' and `language`='DE';
 -- END DS wahlschein_status_import
 
-
-INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) 
-VALUES ("wahlschein_status_import","wm_wb_importcmd","toolbar",1,"Importieren",NULL);
+replace INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) 
+VALUES ("wahlschein_status_import","wm_wb_importstatuscmd","toolbar",1,"Importieren",NULL);
