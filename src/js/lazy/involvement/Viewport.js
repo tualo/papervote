@@ -25,7 +25,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.Viewport', {
       {
           text: 'Flatfile',
           handler: 'onFlatFileClick'
-      },'-',
+      }/*,'-',
       {
           text: 'Eingabe WB ohne Zuordnung',
           handler: 'onOhneWBClick'
@@ -33,7 +33,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.Viewport', {
       {
           text: 'Code - PDF',
           handler: 'onCodePDFClick'
-      }
+      }*/
     ],
     items: [
 
