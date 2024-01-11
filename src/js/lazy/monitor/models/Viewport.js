@@ -26,6 +26,12 @@ Ext.define('Tualo.PaperVote.lazy.monitor.models.Viewport', {
             type: 'kandidaten_store'
         },
         
+        view_stimmenanzahl_ranking_los_monitor_list_gruppen:{
+            autoLoad: true,
+            remoteFilter: false,
+            pageSize: 10000,
+            type: 'view_stimmenanzahl_ranking_los_monitor_list_gruppen'
+        },
         view_stimmenanzahl_ranking_los_monitor_list:{
             autoLoad: true,
             remoteFilter: false,
