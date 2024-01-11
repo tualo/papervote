@@ -4,7 +4,8 @@ insert ignore into ds_addcommands_xtypes (id,name) values ('wm_wb_importcmd','Im
 insert ignore into ds_addcommands_xtypes (id,name) values ('pwgen_pw_command','Passwortgenerator');
 insert ignore into ds_addcommands_xtypes (id,name) values ('papervote_export_command','ZIP-Export');
 insert ignore into ds_addcommands_xtypes (id,name) values ('papervote_barcode_command','Kandidaten-Barcodes');
-insert ignore into ds_addcommands_xtypes (id,name) values ('wm_wb_importcmd','Statusimport');
+
+insert ignore into ds_addcommands_xtypes (id,name) values ('wm_wb_importstatuscmd','Statusimport');
 
 
 INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("wahlberechtigte_anlage","wm_wb_importcmd","toolbar",1,"Importieren",NULL);
