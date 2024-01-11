@@ -40,7 +40,31 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                     boxready: async function(me){
                         let data = await fetch('./papervote/status').then((response)=>{return response.json()}),
                             list = [];
-                        if (data.remoteError===false){
+                        if (data.basistyp==='stimmzettel'){
+                            list.push({
+                                name: 'Basistyp',
+                                value: 'Stimmzettel',
+                                color: 'green',
+                                bold: true
+                            });
+                        }
+                        if (data.basistyp==='stimmzettelgruppen'){
+                            list.push({
+                                name: 'Basistyp',
+                                value: 'Stimmzettelgruppen',
+                                color: 'green',
+                                bold: true
+                            });
+                        }
+
+                        list.push({
+                            name: 'Blockerfassung',
+                            value: (data.force_blocknumber=='1')?'aktiv':'inaktiv',
+                            color: 'green',
+                            bold: true
+                        });
+
+                        if (data.owstate.remoteError===false){
                             list.push({
                                 name: 'Remote-Server',
                                 value: 'erreichbar',
@@ -48,7 +72,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                 bold: false
                             });
                         }
-                        if (data.remoteError===true){
+                        if (data.owstate.remoteError===true){
                             list.push({
                                 name: 'Remote-Server',
                                 value: 'nicht erreichbar',
@@ -56,7 +80,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                 bold: true
                             });
                         }   
-                        if (data.starttime==null){
+                        if (data.owstate.starttime==null){
                             list.push({
                                 name: 'Wahlzeitraum',
                                 value: 'nicht konfiguriert',
@@ -64,11 +88,11 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                 bold: true
                             });
                         }else{
-                            let start = Ext.util.Format.date( new Date(data.starttime), 'd.m.Y H:i:s');
-                            let stop = Ext.util.Format.date( new Date(data.stoptime), 'd.m.Y H:i:s');
+                            let start = Ext.util.Format.date( new Date(data.owstate.starttime), 'd.m.Y H:i:s');
+                            let stop = Ext.util.Format.date( new Date(data.owstate.stoptime), 'd.m.Y H:i:s');
 
                             if (
-                                (new Date(data.starttime)).getTime()>(new Date(data.stoptime)).getTime()
+                                (new Date(data.owstate.starttime)).getTime()>(new Date(data.owstate.stoptime)).getTime()
                             ){
                                 list.push({
                                     name: 'Wahlzeitraum',
@@ -81,8 +105,8 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
 
 
                                 if (
-                                    (new Date(data.starttime)).getTime()<=Date.now() &&
-                                    (new Date(data.stoptime)).getTime()>=Date.now()
+                                    (new Date(data.owstate.starttime)).getTime()<=Date.now() &&
+                                    (new Date(data.owstate.stoptime)).getTime()>=Date.now()
                                 ){
                                     list.push({
                                         name: 'Wahl',
@@ -92,7 +116,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                     });
 
                                 }else if (
-                                    (new Date(data.starttime)).getTime()>Date.now()
+                                    (new Date(data.owstate.starttime)).getTime()>Date.now()
                                 ){
                                     list.push({
                                         name: 'Wahl',
@@ -101,7 +125,7 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                                         bold: true
                                     });
                                 }else if (
-                                    (new Date(data.stoptime)).getTime()<Date.now()
+                                    (new Date(data.owstate.stoptime)).getTime()<Date.now()
                                 ){
                                     list.push({
                                         name: 'Wahl',
@@ -131,19 +155,19 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
 
                         list.push({ 
                             name: 'Webserver-Zeitzone',
-                            value: ''+data.timezone,
+                            value: ''+data.owstate.timezone,
                             color: 'black',
                             bold: false
                         });
                         list.push({
                             name: 'Zeitabweichung',
-                            value: Math.abs(Math.round((new Date(data.php_time)).getTime()-(new Date(data.db_time)).getTime())/1000)+' Sekunden',
-                            color: (Math.round(Math.abs(Math.round((new Date(data.php_time)).getTime()-(new Date(data.db_time)).getTime())/1000)/100)>0?'red':'black'),
+                            value: Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.db_time)).getTime())/1000)+' Sekunden',
+                            color: (Math.round(Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.db_time)).getTime())/1000)/100)>0?'red':'black'),
                             bold: false
                         });
                         list.push({
                             name: 'aktive Wähler',
-                            value: data.active_voters,
+                            value: data.owstate.active_voters,
                             color: 'black',
                             bold: false
                         });

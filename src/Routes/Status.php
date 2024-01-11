@@ -30,7 +30,7 @@ class Status implements IRoute
             ",[],'text','v');
             
             $ping_result = APIRequestHelper::query( $o['api_url'].'/~/'.$o['api_token'].'/onlinevote/state',[] );
-            App::result('state',$ping_result);
+            App::result('owstate',$ping_result);
             App::result('success',true);
         }, ['get'], true);
     }
