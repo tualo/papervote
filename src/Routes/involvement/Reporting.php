@@ -340,7 +340,9 @@ class Reporting implements IRoute
                 
                 $hcolumns = [];
                 foreach($data[0] as $key=>$row){
-                    $hcolumns[$key] = $key;
+                    $hcolumns[$key] = [
+                        'label'=> $key
+                    ];
                 }
                 $temporary_folder = App::get("tempPath") . '/';
 
