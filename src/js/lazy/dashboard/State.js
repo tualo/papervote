@@ -161,8 +161,8 @@ Ext.define('Tualo.PaperVote.lazy.dashboard.State', {
                         });
                         list.push({
                             name: 'Zeitabweichung',
-                            value: Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.db_time)).getTime())/1000)+' Sekunden',
-                            color: (Math.round(Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.db_time)).getTime())/1000)/100)>0?'red':'black'),
+                            value: Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.owstate.db_time)).getTime())/1000)+' Sekunden',
+                            color: (Math.round(Math.abs(Math.round((new Date(data.owstate.php_time)).getTime()-(new Date(data.owstate.db_time)).getTime())/1000)/100)>0?'red':'black'),
                             bold: false
                         });
                         list.push({
