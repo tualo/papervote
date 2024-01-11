@@ -9,8 +9,12 @@ class JsLoader implements IRoute{
     public static function register(){
         BasicRoute::add('/jspapervote/(?P<file>[\w.\/\-]+).js',function($matches){
             App::contenttype('application/javascript');
-            readfile( dirname(__DIR__,1).'/js/lazy/'.$matches['file'].'.js' );
-            exit();
+            if (file_exists(dirname(__DIR__,1).'/js/lazy/'.$matches['file'].'.js')){
+                App::etagFile( dirname(__DIR__,1).'/js/lazy/'.$matches['file'].'.js', true);
+                BasicRoute::$finished = true;
+                http_response_code(200);
+            } 
+            
             
         },['get'],false);
 
