@@ -12,7 +12,7 @@ class Status implements IRoute
     public static function register()
     {
         BasicRoute::add('/papervote/status',function($matches){
-            App::contenttype('application/javascript');
+            App::contenttype('application/json');
             App::result('basistyp',App::configuration('papervote','basistyp','stimmzettel'));
             App::result('success',true);
         }, ['get'], true);
