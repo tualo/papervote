@@ -30,3 +30,9 @@ insert ignore into wm_berichte (id,name) values ('wm_erwartet','Protokoll Erwart
 INSERT IGNORE INTO `wm_berichte` VALUES
 ('wm_berichte_losentscheid_stimmzettel','Losentscheide nach Stimmzettel'),
 ('wm_berichte_los_mindestsitze','Losentscheide nach Mindestsitz');
+
+
+INSERT IGNORE INTO `wm_berichte` VALUES
+('wm_berichte_erwartet_online','Protokoll Erwartet Online');
+
+
