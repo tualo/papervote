@@ -88,3 +88,55 @@ from
     )
 group by
     `stimmzettel`.`ridx`;
+
+CREATE OR REPLACE VIEW `view_stimmenanzahl_ranking_los_monitor_list_gruppen` AS
+select
+    `stimmzettel`.`name` AS `stimmzettel_name`,
+    `stimmzettelgruppen`.`name` AS `stimmzettelgruppen_name`,
+    `stimmzettelgruppen`.`id` AS `id`,
+    `stimmzettel`.`ridx` AS `stimmzettel_ridx`,
+    `stimmzettelgruppen`.`ridx` AS `stimmzettelgruppen_ridx`,
+    ifnull(
+        `view_stimmenanzahl_ranking_los_monitor_list_erwartet`.`erwartet`,
+        0
+    ) AS `erwartet`,
+    ifnull(
+        `view_stimmenanzahl_ranking_los_monitor_list_gescannt`.`gescannt`,
+        0
+    ) AS `gescannt`,
+    ifnull(`stimmzettel`.`ungueltig`, 0) AS `ungueltig`,
+    ifnull(
+        `view_stimmenanzahl_ranking_los_monitor_list_erwartet`.`erwartet`,
+        0
+    ) - ifnull(
+        `view_stimmenanzahl_ranking_los_monitor_list_gescannt`.`gescannt`,
+        0
+    ) - ifnull(`stimmzettel`.`ungueltig`, 0) AS `kontrolle`,
+    (
+        ifnull(
+            `view_stimmenanzahl_ranking_los_monitor_list_gescannt`.`gescannt`,
+            0
+        ) + ifnull(`stimmzettel`.`ungueltig`, 0)
+    ) / ifnull(
+        `view_stimmenanzahl_ranking_los_monitor_list_erwartet`.`erwartet`,
+        0.000000001
+    ) AS `quote`
+from
+    (
+        (
+            (
+                `stimmzettel`
+                join `stimmzettelgruppen` on(
+                    `stimmzettelgruppen`.`stimmzettel` = `stimmzettel`.`ridx`
+                )
+            )
+            left join `view_stimmenanzahl_ranking_los_monitor_list_erwartet` on(
+                `view_stimmenanzahl_ranking_los_monitor_list_erwartet`.`stimmzettel` = `stimmzettel`.`ridx`
+            )
+        )
+        left join `view_stimmenanzahl_ranking_los_monitor_list_gescannt` on(
+            `view_stimmenanzahl_ranking_los_monitor_list_gescannt`.`stimmzettel` = `stimmzettel`.`ridx`
+        )
+    )
+group by
+    `stimmzettelgruppen`.`ridx`;
