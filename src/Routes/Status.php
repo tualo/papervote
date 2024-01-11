@@ -15,6 +15,7 @@ class Status implements IRoute
         BasicRoute::add('/papervote/status',function($matches){
             App::contenttype('application/json');
             App::result('basistyp',App::configuration('papervote','basistyp','stimmzettel'));
+            App::result('force_blocknumber',App::configuration('papervote','force_blocknumber','0'));
             
             // /onlinevote/state
             $db = App::get('session')->getDB();
