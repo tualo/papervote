@@ -42,8 +42,11 @@ class Tan implements IRoute
                     ->f('ridx','eq',$matches['id'])
                     ->read();
                 if ($wahlscheintable->empty()) throw new Exception("Der Wahlschein wurde nicht gefunden.");
+
                 $wahlschein = $wahlscheintable->getSingle();
                     
+                if ($wahlschein['abgabetyp']=='2|0') throw new Exception("Der Wahlschein kann nicht entsperrt werden, da Online gewählt wurde.");
+
                 $wahlschein['wahlscheinstatus']='-1|0';
                 $wahlscheintable->update($wahlschein);
 
