@@ -312,3 +312,7 @@ update `ds_column_list_label` set `xtype`='gridcolumn',`editor`='',`position`='8
 
 replace INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) 
 VALUES ("wahlschein_status_import","wm_wb_importstatuscmd","toolbar",1,"Importieren",NULL);
+
+delete from ds_addcommands 
+where table_name = 'wahlschein_status_import' and xtype = 'wm_wb_importcmd' 
+;
