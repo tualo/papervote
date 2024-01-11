@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `wahlschein_status_import` (
   `user` varchar(128) DEFAULT NULL,
   `importdatetime` datetime DEFAULT NULL,
   `processed_state` tinyint(4) DEFAULT NULL,
-  `processed_datetime` datetime NOT NULL DEFAULT current_timestamp(),
+  `processed_datetime` datetime DEFAULT NULL,
   `processed_user` varchar(128) DEFAULT NULL,
   `processed_msg` varchar(255) DEFAULT NULL,
   `wahlscheinnummer` varchar(24) DEFAULT NULL,
@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `wahlschein_status_import` (
   KEY `idx_wahlschein_status_import_processed_state` (`processed_state`)
 ) //
 
+alter table wahlschein_status_import modify processed_datetime datetime default null //
 
 CREATE TABLE IF NOT EXISTS `import_status_ausgangszustand` (
   `id_wahlscheinstatus` int(11) NOT NULL,

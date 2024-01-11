@@ -190,12 +190,36 @@ class Reset
         $db = App::get('session')->getDB();
         $sql = 'delete from onlinekandidaten  ';
         $db->execute($sql);
-        $sql = 'delete from onlinekandidaten_doc  ';
-        $db->execute($sql);
-        $sql = 'delete from onlinekandidaten_docdata  ';
-        $db->execute($sql);
+        try{
+            $sql = 'delete from onlinekandidaten_doc  ';
+            $db->execute($sql);
+            $sql = 'delete from onlinekandidaten_docdata  ';
+            $db->execute($sql);
+        }catch(\Exception $e){
+            
+        }
     }
 
+    public static function Onlinestimmzettel()
+    {
+        $db = App::get('session')->getDB();
+        $sql = 'delete from onlinestimmzettel  ';
+        $db->execute($sql);
+        
+        $sql = 'delete from ballotbox_decrypted_sum  ';
+        $db->execute($sql);
+        
+        try{
+            
+            $sql = 'delete from onlinestimmzettel_doc  ';
+            $db->execute($sql);
+            $sql = 'delete from onlinestimmzettel_docdata  ';
+            $db->execute($sql);
+        }catch(\Exception $e){
+            
+        }
+    }
+    
 
     public static function WahlgruppenWahlbezirke()
     {

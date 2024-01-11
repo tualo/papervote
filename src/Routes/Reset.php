@@ -123,6 +123,26 @@ class Reset implements IRoute{
         },['get'],true);
 
 
+
+        BasicRoute::add('/papervote/reset/onlinestimmzettel',function($matches){
+            App::contenttype('application/json');
+            if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
+                
+                try{
+                    ResetClass::Onlinestimmzettel();
+                    App::result('success', true);
+                    App::result('msg', "Onlinestimmzettel sind gelöscht");
+
+                }catch(\Exception $e){
+                    App::result('msg', $e->getMessage());
+                }
+                
+            }else{
+                App::result('msg', 'Keine Berechtigung');
+            }
+        },['get'],true);
+
+
         BasicRoute::add('/papervote/reset/wahlgruppen',function($matches){
             App::contenttype('application/json');
             if(isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ']=='master')){
