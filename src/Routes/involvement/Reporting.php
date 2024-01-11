@@ -6,6 +6,7 @@ use Exception;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
+use Tualo\Office\DS\DSExporterHelper;
 
 use Ramsey\Uuid\Uuid;
 
@@ -330,5 +331,26 @@ class Reporting implements IRoute
             }
             App::contenttype('application/json');
         }, array('get', 'post'), true);
+
+        BasicRoute::add('/papervote/involvement/reporting/export', function () {
+            $db = App::get('session')->getDB();
+            try {
+                App::result('data',);
+                $data = Reporting::getData();
+                
+                $hcolumns = [];
+                foreach($data[0] as $key=>$row){
+                    $hcolumns[$key] = $key;
+                }
+                $temporary_folder = App::get("tempPath") . '/';
+
+                DSExporterHelper::exportDataToXSLX($db,'report',$hcolumns,$data,$temporary_folder,$fname,$hcolumns);
+                App::result('success', true);
+            } catch (Exception $e) {
+                App::result('msg', $e->getMessage());
+            }
+            App::contenttype('application/json');
+        }, array('get', 'post'), true);
+
     }
 }

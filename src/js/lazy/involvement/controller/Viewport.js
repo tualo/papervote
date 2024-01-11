@@ -150,6 +150,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
   onExcelClick: function(){
     Ext.MessageBox.wait('Bitte warten...','Bericht wird erstellt');
     Ext.Ajax.request({
+             
         url: './papervote/involvement/reporting/export',
         params: {
             typ: this.getViewModel().get('ridx'),
