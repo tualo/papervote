@@ -19,7 +19,7 @@ use Tualo\Office\Report\Routes\Report;
 
 class Reporting implements IRoute
 {
-    public static function getExcel($name='export.xlsx')
+    public static function getExcel($name='Beteiligungsbericht.xlsx')
     {
         try {
             $db = App::get('session')->getDB();
