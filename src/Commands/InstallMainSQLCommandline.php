@@ -301,6 +301,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'wm_auswertungen'=> 'setup wm_auswertungen',
             'wm_auswertungen.ds'=> 'setup wm_auswertungen.ds',
             'view_protokoll_online_erwartet'=> 'setup view_protokoll_online_erwartet',
+            'dashboard'=> 'setup dashboard',
 
             'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
             
