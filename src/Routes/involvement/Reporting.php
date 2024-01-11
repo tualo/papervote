@@ -73,11 +73,11 @@ class Reporting implements IRoute
             ));
 
             $ddl_sql = '
-    create table if not exists wm_auswertungen_filter(
-        feld varchar(64) primary key,
-        name varchar(64) not null
-    );
-    ';
+            create table if not exists wm_auswertungen_filter(
+                feld varchar(64) primary key,
+                name varchar(64) not null
+            );
+            ';
             $db->direct($ddl_sql);
 
             $db->direct("call addFieldIfNotExists('wm_auswertungen_filter','position','tinyint DEFAULT 0')");

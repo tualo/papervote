@@ -298,6 +298,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'ballotbox_decrypted_sum'=> 'setup ballotbox_decrypted_sum',
             'ballotbox_decrypted_sum.ds'=> 'setup ballotbox_decrypted_sum.ds',
 
+            'wm_auswertungen'=> 'setup wm_auswertungen',
+            'wm_auswertungen.ds'=> 'setup wm_auswertungen.ds',
+
             'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
             
         ];

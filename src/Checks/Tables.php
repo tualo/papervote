@@ -75,6 +75,7 @@ class Tables  extends PostCheck {
             'kandidaten_stimmenanzahl_losentscheid_stimmzettel'=>[],
             'kandidaten_stimmenanzahl_liste'=>[],
             'ballotbox_decrypted_sum'=>[],
+            'wm_auswertungen'=>[],
             
         ];
         self::tableCheck('papervote',$tables,

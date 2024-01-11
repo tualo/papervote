@@ -1,59 +1,61 @@
 Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.cmp_wm_beteiligung_viewport',
-  onWahlbeteiligungBerichtLoad:  function(store,records){
+  onWahlbeteiligungBerichtLoad: function (store, records) {
     this.getViewModel().getStore('wahlbeteiligung_bericht_formel').load();
   },
-  onWahlbeteiligungBerichtFormelLoad:  function(store,records){
+  onWahlbeteiligungBerichtFormelLoad: function (store, records) {
     this.getViewModel().getStore('ohne_wahlberechtigten').load();
   },
-  onOhneWahlberechtigtenlLoad:  function(store,records){
+  onOhneWahlberechtigtenlLoad: function (store, records) {
     console.log(records);
     this.createGrid();
   },
-  onWahltypLoad: function(store,records){
+  onWahltypLoad: function (store, records) {
     var me = this,
-        view = this.getView(),
-        typ = (view.typ)?view.typ:1;
+      view = this.getView(),
+      typ = (view.typ) ? view.typ : 1;
 
-      records.forEach(function(record){
-        if (typ==record.get('id')){
+    records.forEach(function (record) {
+      if (typ == record.get('id')) {
 
-          me.getViewModel().set('ridx',record.get('ridx'));
-          me.getViewModel().set('typ_name',record.get('name'));
-          me.getViewModel().set('disabled',false);
+        me.getViewModel().set('ridx', record.get('ridx'));
+        me.getViewModel().set('typ_name', record.get('name'));
+        me.getViewModel().set('disabled', false);
 
 
-          me.getViewModel().getStore('wahlbeteiligung_bericht').load({params: {
+        me.getViewModel().getStore('wahlbeteiligung_bericht').load({
+          params: {
             filters: "[{\"aktiv\":\"1\"}]"
-          }});
-        }
-      });
-    
+          }
+        });
+      }
+    });
+
   },
-  onBoxReady: function(){
+  onBoxReady: function () {
     let me = this,
-        view = me.getView(),
-        abgabetyp = (view.abgabetyp)?view.abgabetyp:null,
-        testdaten = (view.testdaten)?view.testdaten:null,
-        base = (view.base)?view.base:null
-    ;
+      view = me.getView(),
+      abgabetyp = (view.abgabetyp) ? view.abgabetyp : null,
+      testdaten = (view.testdaten) ? view.testdaten : null,
+      base = (view.base) ? view.base : null
+      ;
     me.getViewModel().getStore('wahltyp').load();
     if (base) this.getViewModel().set('base', base);
     if (abgabetyp) this.getViewModel().set('abgabetyp', abgabetyp);
     if (testdaten) this.getViewModel().set('testdaten', testdaten);
 
   },
-  onFlatFileClick: function(){
+  onFlatFileClick: function () {
 
     let config = {
-        url: './ds/wahlschein_flatfile/export',
-        scope: this,
-        showWait: true,
-        timeout: 300000,
-        params: {
-          limit: 10000000,
-        }
+      url: './ds/wahlschein_flatfile/export',
+      scope: this,
+      showWait: true,
+      timeout: 300000,
+      params: {
+        limit: 10000000,
+      }
     };
     Tualo.Ajax.download(config);
     /*
@@ -86,7 +88,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
         });
         */
   },
-  onCodePDFClick: function(){
+  onCodePDFClick: function () {
     /*
       window.open('./index.php?'+'sid='+sid+'&p=ajax/statuscodes&cmp=cmp_wm_ruecklauf&TEMPLATE=NO');
       if (false){
@@ -118,73 +120,65 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
       }
     */
   },
-  onOhneWBClick: function(){
-      var me = this;
-      var window = Ext.create("Ext.tualo.Window",{
-          title: "Eingabe Wahlbeteiligung ohne Zuordnung von Berechtigten",
-          layout: 'fit',
-          items: [Ext.create('Tualo.PaperVote.lazy.users.ManualGrid', {
-              component: 'cmp_wm_beteiligung',
-              ohne_wahlberechtigten: this.getViewModel().getStore('ohne_wahlberechtigten').getRange()
-          })],
-          buttons: [
-              {
-                  text: 'Abbrechen',
-                  handler: function(btn){
-                      btn.up().up().close();
-                  }
-              }
-          ],
-          listeners:{
-              scope: me,
-              close: function(){
-                  var me = this;
-                  me.grid.store.load();
-              }
+  onOhneWBClick: function () {
+    var me = this;
+    var window = Ext.create("Ext.tualo.Window", {
+      title: "Eingabe Wahlbeteiligung ohne Zuordnung von Berechtigten",
+      layout: 'fit',
+      items: [Ext.create('Tualo.PaperVote.lazy.users.ManualGrid', {
+        component: 'cmp_wm_beteiligung',
+        ohne_wahlberechtigten: this.getViewModel().getStore('ohne_wahlberechtigten').getRange()
+      })],
+      buttons: [
+        {
+          text: 'Abbrechen',
+          handler: function (btn) {
+            btn.up().up().close();
           }
-      });
-      window.resizeMe();
-      window.show();
+        }
+      ],
+      listeners: {
+        scope: me,
+        close: function () {
+          var me = this;
+          me.grid.store.load();
+        }
+      }
+    });
+    window.resizeMe();
+    window.show();
 
   },
-  onExcelClick: function(){
-    Ext.MessageBox.wait('Bitte warten...','Bericht wird erstellt');
-    Ext.Ajax.request({
-             
-        url: './papervote/involvement/reporting/export',
-        params: {
-            typ: this.getViewModel().get('ridx'),
-            base: this.getViewModel().get('base'),//request.base,
-            abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
-            testdaten: this.getViewModel().get('testdaten'),//request.base,
-        },
-        timeout: 600000,
-        success: function(f, a){
-            Ext.MessageBox.hide();
-            var o = Ext.JSON.decode(f.responseText);
-            if (o.data.file != '') {
-                
-                Ext.tualo.window.DownloadManager.notify_download(o.data.file);
-            }else{
-                Ext.MessageBox.alert('Fehler','Die R&uuml;ckgabe war fehlerhaft.');
-            }
-        },
-        failure: function(f){
-            Ext.MessageBox.hide();
-            Ext.MessageBox.alert('Fehler '+f.responseText);
-        }
-    });
+  onExcelClick: function () {
+
+    let config = {
+      url: './papervote/involvement/reporting/export',
+      scope: this,
+      showWait: true,
+      timeout: 300000,
+      params: {
+        limit: 10000000,
+        typ: this.getViewModel().get('ridx'),
+        base: this.getViewModel().get('base'),//request.base,
+        abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
+        testdaten: this.getViewModel().get('testdaten'),//request.base,
+
+      }
+    };
+
+    Tualo.Ajax.download(config);
+
   },
-  createGrid: function(){
+  createGrid: function () {
     var fields = new Array();
     var columns = new Array();
     columns.push({
-        header: 'Stimmzettel',
-        dataIndex: 'stimmzettel_name',
-        flex: 1,
-        sortable: true
+      header: 'Stimmzettel',
+      dataIndex: 'stimmzettel_name',
+      flex: 1,
+      sortable: true
     });
-    fields.push({name:'stimmzettel',type: 'string'});
+    fields.push({ name: 'stimmzettel', type: 'string' });
 
 
     var wahlbeteiligung_bericht = this.getViewModel().getStore('wahlbeteiligung_bericht').getRange();
@@ -192,78 +186,78 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
     var ohne_wahlberechtigten = this.getViewModel().getStore('ohne_wahlberechtigten').getRange();
 
 
-    wahlbeteiligung_bericht.forEach(function(record){
-      if (record.get('aktiv')==1){
-        var dataIndex = 'b'+record.get('id');//.replace('|','_');
+    wahlbeteiligung_bericht.forEach(function (record) {
+      if (record.get('aktiv') == 1) {
+        var dataIndex = 'b' + record.get('id');//.replace('|','_');
         var headerName = record.get('name');
 
         columns.push({
-            header: headerName,
-            dataIndex: dataIndex,
-            sortable: true,
-            xtype: 'numbercolumn',
-            flex: 1,
-            format:'0,000',
-            align: 'right',
-            summaryType: 'sum',
-            summaryRenderer: Ext.util.Format.numberRenderer('0,000')
+          header: headerName,
+          dataIndex: dataIndex,
+          sortable: true,
+          xtype: 'numbercolumn',
+          flex: 1,
+          format: '0,000',
+          align: 'right',
+          summaryType: 'sum',
+          summaryRenderer: Ext.util.Format.numberRenderer('0,000')
         });
-        fields.push({name: dataIndex,type: 'int'});
+        fields.push({ name: dataIndex, type: 'int' });
       }
     });
 
 
 
-    wahlbeteiligung_bericht_formel.forEach(function(record){
-      if (record.get('aktiv')==1){
+    wahlbeteiligung_bericht_formel.forEach(function (record) {
+      if (record.get('aktiv') == 1) {
 
-        var dataIndex = 'f'+record.get('id');//.replace('|','_');
+        var dataIndex = 'f' + record.get('id');//.replace('|','_');
         var headerName = record.get('name');
 
         columns.push({
-            header: headerName,
-            dataIndex: dataIndex,
-            sortable: true,
-            xtype: 'numbercolumn',
-            format:'0.000',
-            align: 'right' //,
-            //summaryRenderer: Ext.util.Format.numberRenderer('0.000')
+          header: headerName,
+          dataIndex: dataIndex,
+          sortable: true,
+          xtype: 'numbercolumn',
+          format: '0.000',
+          align: 'right' //,
+          //summaryRenderer: Ext.util.Format.numberRenderer('0.000')
         });
-        fields.push({name: dataIndex,type: 'float'});
+        fields.push({ name: dataIndex, type: 'float' });
       }
     });
 
     var store = Ext.create('Ext.data.Store', {
-        fields:fields,
-        pageSize: 500,
-        proxy: {
-            type: 'ajax',
-            url: './papervote/involvement/reporting',
+      fields: fields,
+      pageSize: 500,
+      proxy: {
+        type: 'ajax',
+        url: './papervote/involvement/reporting',
 
-            extraParams: {
-                typ: this.getViewModel().get('ridx'),
-                base: this.getViewModel().get('base'),//request.base,
-                abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
-                testdaten: this.getViewModel().get('testdaten'),//request.base,
-            },
-            reader: {
-                type: 'json',
-                root: 'data'
-            }
+        extraParams: {
+          typ: this.getViewModel().get('ridx'),
+          base: this.getViewModel().get('base'),//request.base,
+          abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
+          testdaten: this.getViewModel().get('testdaten'),//request.base,
+        },
+        reader: {
+          type: 'json',
+          root: 'data'
         }
+      }
     });
     store.load();
 
     this.grid = Ext.create('Ext.grid.Panel', {
-        store: store,
-        columns: columns,
-        dockedItems: [
-          {
-            dock: 'bottom',
-            xtype: 'pagingtoolbar',
-            displayInfo: true
-          }
-        ]
+      store: store,
+      columns: columns,
+      dockedItems: [
+        {
+          dock: 'bottom',
+          xtype: 'pagingtoolbar',
+          displayInfo: true
+        }
+      ]
     });
     this.view.add(this.grid);
   }
