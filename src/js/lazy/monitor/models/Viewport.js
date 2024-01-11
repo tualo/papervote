@@ -30,7 +30,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.models.Viewport', {
             autoLoad: true,
             remoteFilter: false,
             pageSize: 10000,
-            type: 'view_stimmenanzahl_ranking_los_monitor_list_gruppen'
+            type: 'view_stimmenanzahl_ranking_los_monitor_list_gruppen_store'
         },
         view_stimmenanzahl_ranking_los_monitor_list:{
             autoLoad: true,

@@ -194,14 +194,15 @@ Ext.define('Tualo.routes.PaperVoteMonitor', {
     handler: {
         action: function () {
             fetch('./papervote/status').then(function(response){
-                let json = response.json();
-                if (json.basistyp=='stimmzettel'){
-                    Ext.getApplication().addView('Tualo.PaperVote.lazy.monitor.Viewport');
-                }else{
-                    Ext.getApplication().addView('Tualo.PaperVote.lazy.monitor.SZGViewport');
-                }
-                return json;
+                response.json().then(function(json){
 
+                    if (json.basistyp=='stimmzettel'){
+                        Ext.getApplication().addView('Tualo.PaperVote.lazy.monitor.Viewport');
+                    }else{
+                        Ext.getApplication().addView('Tualo.PaperVote.lazy.monitor.SZGViewport');
+                    }
+                    return json;
+                });
             })
 
         },
