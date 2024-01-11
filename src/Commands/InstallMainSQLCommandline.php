@@ -295,6 +295,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_lose_untergruppen'=> 'setup view_lose_untergruppen',
             'view_lose_untergruppen.ds'=> 'setup view_lose_untergruppen.ds',
 
+            
             'ballotbox_decrypted_sum'=> 'setup ballotbox_decrypted_sum',
             'ballotbox_decrypted_sum.ds'=> 'setup ballotbox_decrypted_sum.ds',
 
