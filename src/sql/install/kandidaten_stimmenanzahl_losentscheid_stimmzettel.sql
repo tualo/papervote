@@ -12,7 +12,7 @@ select
             `x`.`min_xrank` > `x`.`stimmzettel_sitze`
             and `x`.`max_xrank` > `x`.`stimmzettel_sitze`,
             'Nachrückerlosung',
-            'Rankfolgelosung'
+            'Rangfolgelosung'
         )
     ) AS `msg`,
     `x`.`stimmzettel_ridx` AS `stimmzettel_ridx`,
