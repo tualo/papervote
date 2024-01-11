@@ -236,13 +236,13 @@ and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
                     {casefields}
                 from wahlschein join ' . $base . ' bs
                     on bs.ridx = wahlschein.' . $join_stimmzettelfeld . '
-and wahlschein.testdaten = 0
+                    and wahlschein.testdaten = 0
                 join wahlberechtigte
                     on wahlschein.wahlberechtigte = wahlberechtigte.ridx
                 join wahlberechtigte_anlage
                 on 
-wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
-and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
+                    wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
+                    and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
                 ' . $lfilter . '
                 where
                     bs.wahltyp=\'' . $wahltypridx . '\'
@@ -254,19 +254,10 @@ and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
                     $formel_hash = array();
                     foreach ($wahlbeteiligung_bericht as $bericht) {
 
-                        //                foreach($abgabetypen as $atyp){
-                        //                    $abgabetyp = " and wahlschein.abgabetyp = '".$atyp['ridx']."' ";
-
-
-                        $sheet->getCell([$spalte, 2])->setValue($bericht['name']);
-                        /*
-                    $sheet->getCell([$spalte, 2])->getFont()->setBold(true);
-                    $sheet->getCell([$spalte, 2])->getAlignment()->setTextRotation(90);
-                    
-                    $sheet->SetCellValue(PHPExcel_Cell::stringFromColumnIndex($spalte).'2',$bericht['name']);
-                    $sheet->getStyle(PHPExcel_Cell::stringFromColumnIndex($spalte).'2')->getFont()->setBold(true);
-                    $sheet->getStyle(PHPExcel_Cell::stringFromColumnIndex($spalte) . '2')->getAlignment()->setTextRotation(90);
-*/
+                            
+                        $sheet->SetCellValue(Coordinate::stringFromColumnIndex($spalte).'2',$bericht['name']);
+                        $sheet->getStyle(Coordinate::stringFromColumnIndex($spalte).'2')->getFont()->setBold(true);
+                        $sheet->getStyle(Coordinate::stringFromColumnIndex($spalte) . '2')->getAlignment()->setTextRotation(90);
 
                         $ias = array();
                         $status = array();
