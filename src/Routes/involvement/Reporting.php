@@ -347,6 +347,7 @@ class Reporting implements IRoute
                 $temporary_folder = App::get("tempPath") . '/';
 
                 DSExporterHelper::exportDataToXSLX($db,'report',$hcolumns,$data,$temporary_folder,$fname,$hcolumns);
+                App::result('file', $fname);
                 App::result('success', true);
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
