@@ -34,7 +34,7 @@ class Save implements IRoute
                 if (is_null( $status )) throw new Exception("Error Processing Request", 1);
                 if (is_null( $liste )) throw new Exception("Error Processing Request", 1);
 
-                $wahlschein = DSTable::instance('wahlschein');
+                
                 $blocknumber = isset($input['blocknumber'])?$input['blocknumber']:'0';
 
                 if(App::configuration('papervote','force_blocknumber','0')=='1'){
@@ -44,6 +44,7 @@ class Save implements IRoute
                 $db->direct("insert into wahlschein_blocknumbers (blocknumber  ,login,lastlogin , createtime ,lastinsert) values ({blocknumber},getSessionUser(),getSessionUser(),now(),now() ) on duplicate key update lastlogin=values(lastlogin),lastinsert=values(lastinsert) ",['blocknumber'=>$blocknumber]);
 
                 foreach ($liste as $wert) {
+                    $wahlschein = DSTable::instance('wahlschein');
                     $ws_read = $wahlschein->f('ridx','eq',$wert)->read();
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *".$wert."* wurde nicht gefunden");
                     $ws = $ws_read->getSingle();
