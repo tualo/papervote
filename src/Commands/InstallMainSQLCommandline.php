@@ -292,6 +292,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'kandidaten_stimmenanzahl_liste'    => 'setup kandidaten_stimmenanzahl_liste',
             'kandidaten_stimmenanzahl_liste.ds'    => 'setup kandidaten_stimmenanzahl_liste.ds',
 
+            'view_stimmenanzahl_ranking_los_monitor_list_gruppen.ds'    => 'setup view_stimmenanzahl_ranking_los_monitor_list_gruppen.ds',
+
             'view_lose_untergruppen'=> 'setup view_lose_untergruppen',
             'view_lose_untergruppen.ds'=> 'setup view_lose_untergruppen.ds',
 
