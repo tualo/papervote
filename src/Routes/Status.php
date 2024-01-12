@@ -29,8 +29,21 @@ class Status implements IRoute
                 select property v,'api_private' text FROM system_settings WHERE system_settings_id = 'erp/privatekey'
             ",[],'text','v');
             
-            $ping_result = APIRequestHelper::query( $o['api_url'].'/~/'.$o['api_token'].'/onlinevote/state',[] );
-            App::result('owstate',$ping_result);
+            if (isset($o['api_url'])){
+                $ping_result = APIRequestHelper::query( $o['api_url'].'/~/'.$o['api_token'].'/onlinevote/state',[] );
+                if($ping_result===false){
+                    $ping_result = [
+                        'remoteError'=>true,
+                    ];
+                }else{
+                    App::result('owstate',$ping_result);
+                }
+            }else{
+                App::result('owstate',[
+                    'remoteError'=>true,
+                ]);
+            }
+            
             App::result('success',true);
         }, ['get'], true);
     }
