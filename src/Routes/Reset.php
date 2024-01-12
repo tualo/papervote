@@ -110,6 +110,7 @@ class Reset implements IRoute{
                 
                 try{
                     ResetClass::Onlinekandidaten();
+                    ResetClass::Onlinestimmzettel();
                     App::result('success', true);
                     App::result('msg', "Onlinekandidaten sind gelöscht");
 
