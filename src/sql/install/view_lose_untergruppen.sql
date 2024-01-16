@@ -61,7 +61,6 @@ CREATE OR REPLACE VIEW `view_lose_untergruppen` AS (
         `kandidaten_stimmenanzahl_rank`.`losnummer`
     having
         `kandidaten_stimmenanzahl_rank`.`up_vote` > 0
-        and `c` > `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_mindestsitze`
         and `c` > 1
         and `kandidaten_stimmenanzahl_rank`.`losnummer` = 0
 ) //
