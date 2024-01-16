@@ -45,6 +45,7 @@ from
             ) AS `kandidaten_namen`,
             max(`kandidaten_stimmenanzahl_rank`.`Xrank`) AS `max_xrank`,
             min(`kandidaten_stimmenanzahl_rank`.`Xrank`) AS `min_xrank`,
+            max(view_readtable_kandidaten.barcode) as sort_field,
             `kandidaten_stimmenanzahl_rank`.`stimmzettel_sitze` AS `stimmzettel_sitze`,
             count(0) AS `c`,
             json_merge_preserve(
