@@ -306,6 +306,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_protokoll_online_erwartet'=> 'setup view_protokoll_online_erwartet',
             'dashboard'=> 'setup dashboard',
 
+            'kandidaten_stimmenanzahl_liste_szg'=>'setup kandidaten_stimmenanzahl_liste_szg',
+            'kandidaten_stimmenanzahl_liste_szg.ds'=>'setup kandidaten_stimmenanzahl_liste_szg.ds',
+
             'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
             
         ];

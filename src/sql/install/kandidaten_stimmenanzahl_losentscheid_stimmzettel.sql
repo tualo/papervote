@@ -22,6 +22,7 @@ select
     `x`.`gesamtstimmen` AS `gesamtstimmen`,
     `x`.`stimmzettelgruppen_name` AS `stimmzettelgruppen_name`,
     `x`.`ids` AS `ids`,
+    sort_field,
     `x`.`kandidaten_namen` AS `kandidaten_namen`,
     `x`.`max_xrank` AS `max_xrank`,
     `x`.`min_xrank` AS `min_xrank`,
