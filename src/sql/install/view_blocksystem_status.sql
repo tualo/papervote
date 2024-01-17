@@ -1,7 +1,6 @@
 DELIMITER ;
 
-CREATE
-OR REPLACE VIEW `view_blocksystem_status_blocks_wahlscheine` AS (
+CREATE OR REPLACE VIEW `view_blocksystem_status_blocks_wahlscheine` AS (
     select
         `wahlschein`.`id` AS `id`,
         concat(
@@ -63,8 +62,7 @@ CREATE oR replace VIEW `view_blocksystem_status_blocks` AS (
         `wahlschein`.`blocknumber`
 );
 
-CREATE
-OR REPLACE VIEW `view_blocksystem_status` AS (
+CREATE OR REPLACE VIEW `view_blocksystem_status` AS (
     select
         `wahlschein`.`wahlscheinstatus` AS `wahlscheinstatus`,
         `wahlscheinstatus`.`name` AS `name`,
