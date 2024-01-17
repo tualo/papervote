@@ -1273,7 +1273,7 @@ CREATE TABLE IF NOT EXISTS wahlschein (
 
 
 call addFieldIfNotExists('wahlschein','kombiniert','bigint');
-
+create index if not exists idx_wahlschein_kombiniert on wahlschein(kombiniert);
 
 CREATE TABLE IF NOT EXISTS wahlberechtigte_anlage (
     identnummer VARCHAR(20) NOT NULL,
