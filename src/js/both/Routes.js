@@ -283,12 +283,12 @@ Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
                 (abgabetyp.success==true)
             ){
                 wahltyp.data.push({
-                    id: '*',
+                    id: 'x',
                     __displayfield: 'Alle WT'
                 });
 
                 abgabetyp.data.push({
-                    id: '*',
+                    id: 'x',
                     __displayfield: 'Alle AT'
                 });
                 
@@ -310,9 +310,9 @@ Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
     handler: {
         action: function (typ,abgabetyp,testdaten) {
             let opt={}
-            if (typ!='*') opt.typ=typ;
-            if (abgabetyp!='*') opt.abgabetyp=abgabetyp;
-            if (testdaten!='*') opt.testdaten=testdaten;
+            if (typ!='x') opt.typ=typ;
+            if (abgabetyp!='x') opt.abgabetyp=abgabetyp;
+            if (testdaten!='x') opt.testdaten=testdaten;
             Ext.getApplication().addView('Tualo.PaperVote.lazy.involvement.Viewport',opt);
         },
         before: function (typ,abgabetyp,testdaten,action) {
