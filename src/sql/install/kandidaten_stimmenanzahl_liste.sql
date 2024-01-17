@@ -5,6 +5,7 @@ select
     `kandidaten_stimmenanzahl_rank`.`stimmzettel_ridx` AS `stimmzettel_ridx`,
     `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_ridx` AS `stimmzettelgruppen_ridx`,
     `kandidaten_stimmenanzahl_rank`.`rank` AS `rank`,
+    `kandidaten_stimmenanzahl_rank`.`stimmzettel_rang` AS `stimmzettel_rang`,
     `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_mindestsitze` AS `stimmzettelgruppen_mindestsitze`,
     `kandidaten_stimmenanzahl_rank`.`stimmzettel_name` AS `stimmzettel_name`,
     `kandidaten_stimmenanzahl_rank`.`gesamtstimmen` AS `gesamtstimmen`,

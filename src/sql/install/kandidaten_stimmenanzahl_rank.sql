@@ -2,6 +2,7 @@ DELIMITER;
 
 create
 or replace view `kandidaten_stimmenanzahl_rank` as
+
 select
     `kandidaten_stimmenanzahl`.`losnummer` AS `losnummer`,
     `kandidaten_stimmenanzahl`.`losnummer_stimmzettelgruppe` AS `losnummer_stimmzettelgruppe`,
@@ -22,9 +23,11 @@ select
                 `kandidaten_stimmenanzahl`.`losnummer`
             )
     ) AS `Xrank`,
+
+
     if(
         rank() over (
-            partition by `kandidaten_stimmenanzahl`.`stimmzettelgruppen_ridx`
+            partition by `kandidaten_stimmenanzahl`.`stimmzettel_ridx`
             order by
                 `kandidaten_stimmenanzahl`.`kooptiert` desc,
                 if(
@@ -42,6 +45,83 @@ select
         1,
         0
     ) AS `gewaehlt`,
+
+
+    if(
+        rank() over (
+            partition by `kandidaten_stimmenanzahl`.`stimmzettelgruppen_ridx`
+            order by
+                `kandidaten_stimmenanzahl`.`kooptiert` desc,
+                if(
+                    `kandidaten_stimmenanzahl`.`stimmzettelgruppen_rang` <= `kandidaten_stimmenanzahl`.`stimmzettelgruppen_mindestsitze`,
+                    1,
+                    0
+                ) desc,
+                `kandidaten_stimmenanzahl`.`gesamtstimmen` desc,
+                if(
+                    `kandidaten_stimmenanzahl`.`losnummer_stimmzettelgruppe` = 0,
+                    100000,
+                    `kandidaten_stimmenanzahl`.`losnummer_stimmzettelgruppe`
+                )
+        ) <= `kandidaten_stimmenanzahl`.`stimmzettelgruppen_sitze`,
+        1,
+        0
+    ) AS `stimmzettelgruppen_gewaehlt`,
+
+
+    if(
+        rank() over (
+            partition by `kandidaten_stimmenanzahl`.`stimmzettel_ridx`
+            order by
+                `kandidaten_stimmenanzahl`.`kooptiert` desc, -- manuell hoch gewählt
+                if(
+                    `kandidaten_stimmenanzahl`.`stimmzettelgruppen_rang` 
+                    <= `kandidaten_stimmenanzahl`.`stimmzettelgruppen_mindestsitze`,
+                    1,
+                    0
+                ) desc,
+                
+                `kandidaten_stimmenanzahl`.`gesamtstimmen` desc,
+
+                if(
+                    `kandidaten_stimmenanzahl`.`losnummer_stimmzettelgruppe` = 0,
+                    100000,
+                    `kandidaten_stimmenanzahl`.`losnummer_stimmzettelgruppe`
+                ),
+
+                if(
+                    `kandidaten_stimmenanzahl`.`losnummer` = 0,
+                    100000,
+                    `kandidaten_stimmenanzahl`.`losnummer`
+                )
+        ) <= `kandidaten_stimmenanzahl`.`stimmzettel_sitze`,
+        1,
+        0
+    ) AS `stimmzettel_gewaehlt`,
+
+
+
+    if(
+        rank() over (
+            partition by `kandidaten_stimmenanzahl`.`stimmzettelgruppen_ridx`
+            order by
+                `kandidaten_stimmenanzahl`.`kooptiert` desc,
+                if(
+                    `kandidaten_stimmenanzahl`.`stimmzettelgruppen_rang` <= `kandidaten_stimmenanzahl`.`stimmzettelgruppen_mindestsitze`,
+                    1,
+                    0
+                ) desc,
+                `kandidaten_stimmenanzahl`.`gesamtstimmen` desc,
+                if(
+                    `kandidaten_stimmenanzahl`.`losnummer` = 0,
+                    100000,
+                    `kandidaten_stimmenanzahl`.`losnummer`
+                )
+        ) <= `kandidaten_stimmenanzahl`.`stimmzettel_sitze`,
+        1,
+        0
+    ) AS `gewaehlt_sz`,
+
     dense_rank() over (
         partition by `kandidaten_stimmenanzahl`.`stimmzettelgruppen_ridx`
         order by

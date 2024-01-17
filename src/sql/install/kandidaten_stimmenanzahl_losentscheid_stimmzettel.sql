@@ -28,12 +28,14 @@ select
     `x`.`min_xrank` AS `min_xrank`,
     `x`.`stimmzettel_sitze` AS `stimmzettel_sitze`,
     `x`.`c` AS `c`,
+     stimmzettel_rang,
     `x`.`kn` AS `kn`
 from
     (
         select
             `kandidaten_stimmenanzahl_rank`.`stimmzettel_ridx` AS `stimmzettel_ridx`,
             `kandidaten_stimmenanzahl_rank`.`rank` AS `rank`,
+            `kandidaten_stimmenanzahl_rank`.`stimmzettel_rang`,
             `kandidaten_stimmenanzahl_rank`.`stimmzettelgruppen_mindestsitze` AS `stimmzettelgruppen_mindestsitze`,
             `kandidaten_stimmenanzahl_rank`.`stimmzettel_name` AS `stimmzettel_name`,
             `kandidaten_stimmenanzahl_rank`.`gesamtstimmen` AS `gesamtstimmen`,
@@ -79,7 +81,8 @@ from
             )
         group by
             `kandidaten_stimmenanzahl_rank`.`stimmzettel_ridx`,
-            `kandidaten_stimmenanzahl_rank`.`rank`
+            `kandidaten_stimmenanzahl_rank`.`stimmzettel_rang`
+            -- `kandidaten_stimmenanzahl_rank`.`rank`
         having
             `c` > 1
     ) `x` //

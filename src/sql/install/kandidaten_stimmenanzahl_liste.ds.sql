@@ -13,7 +13,7 @@ INSERT  IGNORE INTO `ds_referenced_manual` VALUES
 
 
 INSERT IGNORE INTO `ds_referenced_manual_columns` VALUES
-('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste','rank','rank'),
+('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste','stimmzettel_rang','stimmzettel_rang'),
 ('kandidaten_stimmenanzahl_losentscheid_stimmzettel','kandidaten_stimmenanzahl_liste','stimmzettel_ridx','stimmzettel_ridx'),
-('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel','rank','rank'),
+('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel','stimmzettel_rang','stimmzettel_rang'),
 ('kandidaten_stimmenanzahl_liste','kandidaten_stimmenanzahl_losentscheid_stimmzettel','stimmzettel_ridx','stimmzettel_ridx') ;
