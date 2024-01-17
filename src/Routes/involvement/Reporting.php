@@ -100,8 +100,6 @@ class Reporting implements IRoute
                 }
             }
 
-
-
             $sql = 'select * from wm_auswertungen order by pos';
             $auswertungen_liste = $db->direct($sql, array());
             try {
@@ -203,51 +201,51 @@ class Reporting implements IRoute
 
 
                     $case_tpl = '
-                (SUM(CASE
-                WHEN {statusliste} THEN 1
-                ELSE 0
-                END) + {ias}) AS {fieldname}
-            ';
+                        (SUM(CASE
+                        WHEN {statusliste} THEN 1
+                        ELSE 0
+                        END) + {ias}) AS {fieldname}
+                    ';
 
                     $sql = '
-                select
-                    bs.group_ridx `cellid`,
-                    {casefields}
-                from wahlschein join ' . $base . ' bs
-                    on bs.ridx = wahlschein.' . $join_stimmzettelfeld . '
-and wahlschein.testdaten = 0
-                join wahlberechtigte
-                    on wahlschein.wahlberechtigte = wahlberechtigte.ridx
-                join wahlberechtigte_anlage
-                on wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
-and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
-                ' . $lfilter . '
-                where
-                    bs.wahltyp=\'' . $wahltypridx . '\'
-                    and wahlberechtigte_anlage.' . $feld . ' in (' . $feldwerte . ')
-                group by bs.group_ridx
-            ';
-                    //echo  $sql."\n\n"; 
+                        select
+                            bs.group_ridx `cellid`,
+                            {casefields}
+                        from wahlschein join ' . $base . ' bs
+                            on bs.ridx = wahlschein.' . $join_stimmzettelfeld . '
+                            and wahlschein.testdaten = 0
+                        join wahlberechtigte
+                            on wahlschein.wahlberechtigte = wahlberechtigte.ridx
+                        join wahlberechtigte_anlage
+                        on 
+                            wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
+                            and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
+                        ' . $lfilter . '
+                        where
+                            bs.wahltyp=\'' . $wahltypridx . '\'
+                            and wahlberechtigte_anlage.' . $feld . ' in (' . $feldwerte . ')
+                        group by bs.group_ridx
+                    ';
 
                     if ($feld == 'aktiv') {
                         $sql = '
-                select
-                    bs.group_ridx `cellid`,
-                    {casefields}
-                from wahlschein join ' . $base . ' bs
-                    on bs.ridx = wahlschein.' . $join_stimmzettelfeld . '
-                    and wahlschein.testdaten = 0
-                join wahlberechtigte
-                    on wahlschein.wahlberechtigte = wahlberechtigte.ridx
-                join wahlberechtigte_anlage
-                on 
-                    wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
-                    and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
-                ' . $lfilter . '
-                where
-                    bs.wahltyp=\'' . $wahltypridx . '\'
-                group by bs.group_ridx
-            ';
+                            select
+                                bs.group_ridx `cellid`,
+                                {casefields}
+                            from wahlschein join ' . $base . ' bs
+                                on bs.ridx = wahlschein.' . $join_stimmzettelfeld . '
+                                and wahlschein.testdaten = 0
+                            join wahlberechtigte
+                                on wahlschein.wahlberechtigte = wahlberechtigte.ridx
+                            join wahlberechtigte_anlage
+                            on 
+                                wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
+                                and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
+                            ' . $lfilter . '
+                            where
+                                bs.wahltyp=\'' . $wahltypridx . '\'
+                            group by bs.group_ridx
+                        ';
                     }
 
                     $cases = array();
@@ -335,7 +333,7 @@ and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
                                     $sheet->SetCellValue($feld . $zeile, is_null($wert) ? 0 : $wert);
                                 }
                             }
-                            $sheet->SetCellValue('B' . $zeile, $filter_feldwert['wert']);
+                            // $sheet->SetCellValue('B' . $zeile, $filter_feldwert['wert']);
                             $zeile++;
                         }
 
