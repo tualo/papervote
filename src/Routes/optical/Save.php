@@ -40,10 +40,11 @@ class Save implements IRoute
                 if (!isset($_POST['marks'])) {
                     throw new Exception('marks is missing');
                 }
-                /*
+                
                 if (!isset($_POST['image'])) {
                     throw new Exception('image is missing');
-                }*/
+                }
+                
                 $sql = 'insert into papervote_optical (pagination_id, box_id, stack_id, ballotpaper_id, marks) 
                 values ({barcode}, {boxbarcode}, {stackbarcode}, {id}, {marks})
                 on duplicate key update marks={marks}, box_id={boxbarcode}, stack_id={stackbarcode}, ballotpaper_id={id}
@@ -55,6 +56,12 @@ class Save implements IRoute
                     'id' => $_POST['id'],
                     'marks' => $_POST['marks']
                 ]);
+
+                $sql = 'replace into papervote_optical_data (pagination_id, data) values ({barcode}, {image})';
+                $db->direct($sql, [
+                    'barcode' => $_POST['barcode'],
+                    'image' => $_POST['image']
+                ]);
                 App::result('success', true);
                 $db->commit();
             } catch (Exception $e) {
@@ -62,7 +69,6 @@ class Save implements IRoute
                 
                 App::result('msg', $e->getMessage());
             }
-            App::result('msg',$db->last_sql);
         }, ['post'], true);
     }
 }
