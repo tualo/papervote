@@ -44,7 +44,7 @@ class Save implements IRoute
                 if (!isset($_POST['image'])) {
                     throw new Exception('image is missing');
                 }*/
-                $sql = 'insert into papervote_optical (pagination_id, box_id, stack_id, ballotpaper_id, marks) values ({barcode}, {boxbarcode}, {stackbarcode}, {id}, {marks})';
+                $sql = 'replace into papervote_optical (pagination_id, box_id, stack_id, ballotpaper_id, marks) values ({barcode}, {boxbarcode}, {stackbarcode}, {id}, {marks})';
                 $db->execute($sql, [
                     'barcode' => $_POST['barcode'],
                     'boxbarcode' => $_POST['boxbarcode'],
