@@ -94,7 +94,7 @@ Ext.define('Tualo.PaperVote.lazy.counting.controller.Viewport', {
         console.log('yellow');
         try{
             if (sound!==false){
-                var audio = new Audio('./cmp/cmp_wm_ruecklauf/sounds/sms-alert-1-daniel_simon.mp3');
+                var audio = new Audio('./papervote/sounds/sms-alert-1-daniel_simon.mp3');
                 audio.play();
             }
         }catch(e){}
@@ -110,7 +110,7 @@ Ext.define('Tualo.PaperVote.lazy.counting.controller.Viewport', {
         console.log('red');
         try{
             if (sound!==false){
-                var audio = new Audio('./cmp/cmp_wm_ruecklauf/sounds/sms-alert-2-daniel_simon.mp3');
+                var audio = new Audio('./papervote/sounds/sms-alert-2-daniel_simon.mp3');
                 audio.play();
             }
         }catch(e){}

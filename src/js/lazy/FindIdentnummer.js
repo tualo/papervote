@@ -36,7 +36,8 @@ Ext.define('Tualo.PaperVote.lazy.FindIdentnummer', {
                 emptyText: 'Barcode',
                 enableKeyEvents: true,
                 listeners: {
-                  keyup: async function(fld){
+                  keyup: async function(fld,e){
+                    if (e.browserEvent.keyCode == 13 || e.browserEvent.keyCode == 10) 
                     if (fld.getValue().length>0){
                         let v = fld.getValue();
                         fld.setValue('');

@@ -281,7 +281,7 @@ class Reset
 
         $sql = 'CREATE TABLE IF NOT EXISTS `wahlberechtigte_anlage` (
             `identnummer` varchar(20) NOT NULL,
-            `stimmzettel` varchar(12) NOT NULL,
+            `stimmzettel` integer NOT NULL,
             `wahlscheinnummer` varchar(12) DEFAULT NULL,
             `kombiniert` bigint(20) DEFAULT NULL,
             `testdaten` tinyint(4) DEFAULT 0,
@@ -296,26 +296,26 @@ class Reset
         
 
 
-        $sql = 'create or replace view wahlschein_flatfile as
+        $sql = '
+        CREATE OR REPLACE VIEW `wahlschein_flatfile` AS
         select
-            wahlberechtigte_anlage.*,
-            wahlschein.wahlscheinnummer wahlschein_wahlscheinnummer,
-            wahlschein.insert_date wahlschein_insert_date,
-            wahlschein.update_date wahlschein_update_date,
-            wahlscheinstatus.name status_text,
-            if(wahlschein.abgabetyp="2|0","Onlinewahl","Briefwahl") abgabetyp_text,
-            stimmzettel.name stimmzettel_name
+            `wahlberechtigte_anlage`.*,
+            `wahlschein`.`wahlscheinnummer` AS `wahlschein_wahlscheinnummer`,
+            cast(`wahlschein`.`ts` as date) AS `wahlschein_insert_date`,
+            cast(`wahlschein`.`ts` as date) AS `wahlschein_update_date`,
+            `wahlscheinstatus`.`name` AS `status_text`,
+            `abgabetyp`.`name` AS `abgabetyp_text`,
+            `stimmzettel`.`name` AS `stimmzettel_name`
         from
-            wahlschein
-            join wahlberechtigte
-            	on wahlschein.wahlberechtigte = wahlberechtigte.ridx
-            join wahlberechtigte_anlage
-            on  wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer
-                and wahlberechtigte_anlage.stimmzettel = wahlschein.stimmzettel 
-            join wahlscheinstatus
-            on wahlscheinstatus.ridx = wahlschein.wahlscheinstatus
-            join stimmzettel
-            on stimmzettel.ridx = wahlschein.stimmzettel
+            `wahlberechtigte_anlage`
+            join `stimmzettel` on  `stimmzettel`.`ridx` = `wahlberechtigte_anlage`.`stimmzettel`
+            join `wahlberechtigte` on `wahlberechtigte_anlage`.`identnummer` = `wahlberechtigte`.`identnummer`
+            join `wahlschein`  on  
+                `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,8,"0"))
+                and `wahlberechtigte`.`ridx` = `wahlschein`.`wahlberechtigte`
+            join `wahlscheinstatus` on
+                `wahlscheinstatus`.`ridx` = `wahlschein`.`wahlscheinstatus`
+            join `abgabetyp` on `abgabetyp`.`ridx` = `wahlschein`.`abgabetyp`
         ';
         $db->execute($sql);
 
@@ -327,7 +327,7 @@ class Reset
             wahlschein
             join wahlberechtigte
                 on wahlschein.wahlberechtigte = wahlberechtigte.ridx
-                and `wahlschein`.`wahlscheinstatus` in ("16|0","17|0")
+                and `wahlschein`.`wahlscheinstatus` in (16,17)
             join wahlberechtigte_anlage
             on 
                 wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer

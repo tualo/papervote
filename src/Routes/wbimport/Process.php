@@ -109,31 +109,7 @@ class Process implements IRoute
                 }
         
         
-                $sql='create or replace view wahlschein_flatfile as
-                select
-                    wahlberechtigte_anlage.*,
-                    wahlschein.wahlscheinnummer wahlschein_wahlscheinnummer,
-                    `wahlschein`.`wahlscheinnummer` AS `wahlschein_wahlscheinnummer`,
-                    
-                    cast(`wahlschein`.`ts` as date) AS `wahlschein_insert_date`,
-                    cast(`wahlschein`.`ts` as date) AS `wahlschein_update_date`,
-
-                    wahlscheinstatus.name status_text,
-                    if(wahlschein.abgabetyp=\'2|0\',\'Onlinewahl\',\'Briefwahl\') abgabetyp_text,
-                    stimmzettel.name stimmzettel_name
-                from
-                    wahlschein
-                    join wahlberechtigte 
-                    on wahlschein.wahlberechtigte = wahlberechtigte.ridx
-                    join wahlberechtigte_anlage
-                    on wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer
-                    join wahlscheinstatus
-                    on wahlscheinstatus.ridx = wahlschein.wahlscheinstatus
-                    join stimmzettel
-                    on stimmzettel.ridx = wahlschein.stimmzettel
-                ';
-                
-                $sql = 'CREATE OR REPLACE VIEW `wahlschein_flatfile` AS
+                $sql='CREATE OR REPLACE VIEW `wahlschein_flatfile` AS
                 select
                     `wahlberechtigte_anlage`.*,
                     `wahlschein`.`wahlscheinnummer` AS `wahlschein_wahlscheinnummer`,
@@ -144,15 +120,17 @@ class Process implements IRoute
                     `stimmzettel`.`name` AS `stimmzettel_name`
                 from
                     `wahlberechtigte_anlage`
-                    join `stimmzettel` on  `stimmzettel`.`ridx` = `wahlberechtigte_anlage`.`stimmzettel`
+                    join `stimmzettel` on  `stimmzettel`.`id` = `wahlberechtigte_anlage`.`stimmzettel`
                     join `wahlberechtigte` on `wahlberechtigte_anlage`.`identnummer` = `wahlberechtigte`.`identnummer`
                     join `wahlschein`  on  
-                        `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,8,\'0\'))
-                        and `wahlberechtigte`.`ridx` = `wahlschein`.`wahlberechtigte`
+                        `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,8,"0"))
+                        and `wahlberechtigte`.`id` = `wahlschein`.`wahlberechtigte`
                     join `wahlscheinstatus` on
-                        `wahlscheinstatus`.`ridx` = `wahlschein`.`wahlscheinstatus`
-                    join `abgabetyp` on `abgabetyp`.`ridx` = `wahlschein`.`abgabetyp`
+                        `wahlscheinstatus`.`id` = `wahlschein`.`wahlscheinstatus`
+                    join `abgabetyp` on `abgabetyp`.`id` = `wahlschein`.`abgabetyp`
+                    on stimmzettel.id = wahlschein.stimmzettel
                 ';
+                
                 $db->execute($sql);
         
                 $wahlberechtigte_anlage=[];
@@ -180,8 +158,8 @@ class Process implements IRoute
                       join `wahlberechtigte`
                           on `wahlberechtigte`.`identnummer` = `wahlberechtigte_anlage`.`identnummer`
                     join `wahlschein` on(
-                        `wahlberechtigte`.`ridx` = `wahlschein`.`wahlberechtigte`
-                        and `wahlschein`.`wahlscheinstatus` in ("16|0", "17|0")
+                        `wahlberechtigte`.`id` = `wahlschein`.`wahlberechtigte`
+                        and `wahlschein`.`wahlscheinstatus` in (16,17)
                         and wahlberechtigte_anlage.stimmzettel = `wahlschein`.stimmzettel
                     )
                 )

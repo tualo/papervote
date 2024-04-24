@@ -1,5 +1,6 @@
 
 DELIMITER ;
+
 alter table stimmzettel drop constraint if exists fk_stimmzettel_wahlbezirk;
 alter table stimmzettel drop key if exists fk_stimmzettel_wahlbezirk;
 
