@@ -25,6 +25,7 @@ require_once "Routes/Sounds.php";
 require_once "Routes/Status.php";
 
 require_once "Routes/optical/Save.php";
+require_once "Routes/optical/Config.php";
 
 require_once "Routes/counting/SkipStartBallotPaper.php";
 require_once "Routes/counting/Save.php";
