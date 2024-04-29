@@ -319,6 +319,8 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'pagination_setup'=> 'setup pagination_setup',
             'pagination_setup.ds'=> 'setup pagination_setup.ds',
+
+            'labelbogen.pug'=> 'setup labelbogen.pug',
         ];
 
 
