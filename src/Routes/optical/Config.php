@@ -20,8 +20,8 @@ class Config implements IRoute
         BasicRoute::add('/papervote/opticaldata/config', function ($matches) {
 
             App::contenttype('application/json');
-            
-            $data = file_get_contents('sample.json');
+
+            $data = file_get_contents(__DIR__.'/sample.json');
             echo $data;
             BasicRoute::$finished = true;
             http_response_code(200);
