@@ -311,6 +311,14 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
             
+            'stackcodes_setup'=> 'setup stackcodes_setup',
+            'stackcodes_setup.ds'=> 'setup stackcodes_setup.ds',
+
+            'boxcodes_setup'=> 'setup boxcodes_setup',
+            'boxcodes_setup.ds'=> 'setup boxcodes_setup.ds',
+
+            'pagination_setup'=> 'setup pagination_setup',
+            'pagination_setup.ds'=> 'setup pagination_setup.ds',
         ];
 
 

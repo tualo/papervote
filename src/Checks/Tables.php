@@ -78,7 +78,11 @@ class Tables  extends PostCheck {
             'wm_auswertungen'=>[],
             'view_protokoll_online_erwartet'=>[],
             'kandidaten_stimmenanzahl_liste_szg'=>[],
-            'papervote_optical' => []
+            'papervote_optical' => [],
+
+            'stackcodes_setup'=>[],
+            'boxcodes_setup'=>[],
+            'pagination_setup'=>[],
             
         ];
         self::tableCheck('papervote',$tables,
