@@ -321,6 +321,9 @@ class InstallMainSQLCommandline implements ICommandline{
             'pagination_setup.ds'=> 'setup pagination_setup.ds',
 
             'labelbogen.pug'=> 'setup labelbogen.pug',
+
+            'papervote_optical'=> 'setup papervote_optical',
+            'papervote_optical.ds'=> 'setup papervote_optical.ds',
         ];
 
 

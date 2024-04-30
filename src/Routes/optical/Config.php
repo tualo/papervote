@@ -21,8 +21,21 @@ class Config implements IRoute
 
             App::contenttype('application/json');
 
-            $data = file_get_contents(__DIR__.'/sample.json');
-            echo $data;
+            $db = App::get('session')->getDB();
+            $result = [];
+            $liste = $db->direct('select o from view_sz_optical_config');
+            foreach ($liste as $item) {
+                $item = json_decode($item['o'], true);
+                $ts = [];
+                foreach ($item['titles'] as $field) {
+                    $ts[] = $field['title'];
+                }
+                $item['titles'] = $ts;
+                $result[] = $item;
+            }
+
+            //$data = file_get_contents(__DIR__.'/sample.json');
+            echo json_encode($result);
             BasicRoute::$finished = true;
             http_response_code(200);
             exit();
