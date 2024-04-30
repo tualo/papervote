@@ -54,8 +54,8 @@ select
             "width", pagesize_width,
             "height", pagesize_height
         ),
-        "circleSize", 3,
-        "circleMinDistance", 22,
+        "circleSize", 5,
+        "circleMinDistance", 15,
         "rois",json_arrayagg(
             json_object(
                     "types", `types`,
