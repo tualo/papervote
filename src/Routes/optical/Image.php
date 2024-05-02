@@ -7,7 +7,7 @@ use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
 use Tualo\Office\TualoPGP\TualoApplicationPGP;
-
+use Tualo\Office\DS\DataRenderer;
 use Ramsey\Uuid\Uuid;
 
 class Image implements IRoute
@@ -18,7 +18,7 @@ class Image implements IRoute
     public static function register()
     {
         BasicRoute::add('/papervote/opticalimagesvg/(?P<id>[\/.\w\d\-\_\.]+)', function ($matches) {
-
+            try{
             $db = App::get('session')->getDB();
             $imagedata = $db->singleValue('select replace(data," ","+") data from papervote_optical_data where pagination_id={id}', ['id' => $matches['id']], 'data');
             if ($imagedata === false) {
@@ -29,35 +29,97 @@ class Image implements IRoute
             list($mime, $data) =  explode(',', $imagedata);
             $size = (getimagesizefromstring(base64_decode($data)));
 
+            $ballotpaper_id = $db->singleValue('select ballotpaper_id from papervote_optical where pagination_id={id}', ['id' => $matches['id']], 'ballotpaper_id');
+// alter table kandidaten add bp_column integer default 0;
+// alter table sz_rois add item_height integer default 20;
+// alter table sz_rois add item_cap_y decimal(15,5) default 0.5;
+            $result = $db->direct('select * from view_papervote_optical_result where pagination_id={id}', ['id' => $matches['id']]);
+
+            $sql ='select 
+                RANK() OVER (
+                    PARTITION BY stimmzettel.id
+                    ORDER BY sz_rois.x
+                ) bp_column,
+                sz_rois.id roi_id,
+                sz_rois.name roi_name,
+                sz_rois.x   roi_x,
+                sz_rois.y   roi_y,
+                sz_rois.width roi_width,
+                sz_rois.height roi_height,
+                sz_rois.item_height roi_item_height,
+                sz_rois.item_cap_y roi_item_cap_y,
+                sz_page_sizes.width page_width,
+                sz_page_sizes.height page_height
+            from 
+                stimmzettel 
+                join stimmzettel_roi on stimmzettel_roi.stimmzettel_id = stimmzettel.id
+                join sz_rois on stimmzettel_roi.sz_rois_id = sz_rois.id
+                join sz_to_region on sz_to_region.id_sz = stimmzettel.id
+                join sz_titel_regions on  sz_titel_regions.id = sz_to_region.id_sz_titel_regions
+                join sz_to_page_sizes on sz_to_page_sizes.id_sz = stimmzettel.id
+                join sz_page_sizes on  sz_to_page_sizes.id_sz_page_sizes = sz_page_sizes.id
+            where 
+                stimmzettel.id={ballotpaper_id}';
+            $data = $db->direct($sql, ['ballotpaper_id'=>$ballotpaper_id]);
+
+            /*
+            echo $db->last_sql;
+            exit();
+            */
+
+            $roisRegionSVG = [];
+            $fields = [];
+            $index =0;
+            foreach($data as $row){
+                $scale_x = $size[0]/$row['page_width'];
+                $scale_y = $size[1]/$row['page_height'];
+                $roi_x = ($row['roi_x']*$scale_x);
+                $roi_y = ($row['roi_y']*$scale_y);
+                $cap = $row['roi_item_cap_y'];
+
+                $roisRegionSVG[] = '<g class="hover_group" opacity="0.1">
+                    <text x="'.$roi_x.'" y="'.($roi_y + ($row['roi_height']*$scale_y) ).'" font-size="20">'.$row['roi_name'].' '.$row['bp_column'].'</text>
+                    <rect x="'.$roi_x.'" y="'.$roi_y.'" opacity="0.5" fill="#0000FF" width="'.($row['roi_width']*$scale_x).'" height="'.($row['roi_height']*$scale_y).'"></rect>
+                </g>';
+
+                foreach($result as $result_row){
+                    if( $result_row['bp_column']!=$row['bp_column']) continue;
+
+                    $color = '#FF0000';
+                    if ($result_row['marked'] == 'X') $color = '#00FF00';
+                    $offset = ($result_row['bp_pos'] -1 )*$row['roi_item_height'] + ($result_row['bp_pos'] -1 )* $cap ;
+                    $fields[] = '<g class="hover_group" opacity="0.6">
+                    <a href="#papervote/opticalscanclick/svg/'.$index.'" data-attr="'.$result_row['anzeige_name'].'">
+                        <text x="'.$roi_x.'" y="'.$roi_y + $offset*$scale_y.'" font-size="20">'.$result_row['anzeige_name'].' '. $result_row['bp_column'].'</text>
+                        <rect x="'.$roi_x.'" y="'.$roi_y + $offset*$scale_y.'" opacity="0.5" fill="'.$color.'" width="'.($row['roi_width']*$scale_x).'" height="'.($row['roi_item_height']*$scale_y - $cap*$scale_y).'"></rect>
+                    </a>
+                    </g>';
+                    $index++;
+                }
+            }
+            
+
+
+
             App::contenttype('image/svg+xml');
-            $svg = '<?xml version="1.0" encoding="UTF-8"?>
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 '.$size[0].' '.$size[1].'" preserveAspectRatio="xMinYMin meet">
-
-<!-- set your background image -->
-<image width="'.$size[0].'" height="'.$size[1].'" xlink:href="http://localhost/server/papervote/opticalimage/'.$matches['id'].'" />
-
-<g>
-    <rect x="0" y="0" width="'.$size[0].'" height="'.$size[1].'" fill="none" stroke="black" stroke-width="1"/>
-</g>
-
-<!-- create the regions -->
-<g class="hover_group" opacity="0.5">
-    <a xlink:href="https://example.com/link1.html">
-    <text x="652" y="706.9" font-size="20">First zone</text>
-    <rect x="572" y="324.1" opacity="0.5" fill="#FF0000" width="264.6" height="387.8"></rect>
-    </a>
-</g>
-<g class="hover_group" opacity="0.5">
-    <a xlink:href="https://example.com/link2.html">
-    <text x="1230.7" y="952" font-size="20">Second zone</text>
-    <rect x="1081.7" y="507" opacity="0.5" fill="#FFFFFF" width="390.2" height="450"></rect>
-    </a>
-</g>
-</svg>
-            ';
-            App::body($svg);
+            $svg = file_get_contents(__DIR__.'/svg_template.svg');
+            App::body(
+                DataRenderer::renderTemplate($svg, [
+                    'rois_svg' => implode("\n",$roisRegionSVG),
+                    'fields' => implode("\n",$fields),
+                    'imageurl' => $imagedata,
+                    'width' => $size[0],
+                    'height' => $size[1]
+                ])
+            );
             BasicRoute::$finished = true;
             http_response_code(200);
+        }catch(Exception $e){
+            echo $e->getMessage();
+            http_response_code(500);
+            BasicRoute::$finished = true;
+            exit();
+        }
         }, ['get'], true);
 
         BasicRoute::add('/papervote/opticalimage/(?P<id>[\/.\w\d\-\_\.]+)', function ($matches) {
@@ -92,6 +154,7 @@ class Image implements IRoute
             App::body(base64_decode($data));
             BasicRoute::$finished = true;
             http_response_code(200);
+        
         },['get'],true);
     }
 }

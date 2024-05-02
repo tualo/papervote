@@ -101,31 +101,6 @@ Ext.define('Tualo.routes.PaperVoteReturnIdentList', {
 
 
 
-Ext.define('Tualo.routes.PaperVoteOpticalScan', {
-    statics: {
-        load: async function() {
-            return [
-                {
-                    name: 'papervote/opticalscan',
-                    path: '#papervote/opticalscan'
-                }
-            ]
-        }
-    }, 
-    url: 'papervote/opticalscan',
-    handler: {
-        action: function () {
-            
-            Ext.getApplication().addView('Tualo.PaperVote.lazy.OpticalScan',{
-                
-            });
-        },
-        before: function (action) {
-            action.resume();
-        }
-    }
-});
-
 Ext.define('Tualo.routes.PaperVoteCounting', {
     statics: {
         load: async function() {
@@ -428,6 +403,83 @@ Ext.define('Tualo.routes.ResetCombine', {
         before: function (action) {
 
             
+            action.resume();
+        }
+    }
+});
+
+
+
+
+
+
+
+
+Ext.define('Tualo.routes.PaperVoteOpticalScan', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/opticalscan',
+                    path: '#papervote/opticalscan'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/opticalscan',
+    handler: {
+        action: function () {
+            
+            let mainView = Ext.getApplication().getMainView(),
+                stage = mainView.getComponent('dashboard_dashboard').getComponent('stage'),
+                component = null,
+                cmp_id = 'papervote_opticalscan';
+                component = stage.down(cmp_id);
+            if (component){
+                stage.setActiveItem(component);
+            }else{
+                Ext.getApplication().addView('Tualo.PaperVote.lazy.OpticalScan',{
+                
+                });
+            }
+
+            
+        },
+        before: function (action) {
+            action.resume();
+        }
+    }
+});
+
+
+Ext.define('Tualo.routes.PaperVoteOpticalScanClick', {
+    statics: {
+        load: async function() {
+            return [ ]
+        }
+    }, 
+    url: 'papervote/opticalscanclick/svg/:id',
+    handler: {
+        action: function (id,action) {
+            let mainView = Ext.getApplication().getMainView(),
+                stage = mainView.getComponent('dashboard_dashboard').getComponent('stage'),
+                component = null,
+                cmp_id = 'papervote_opticalscan';
+                component = stage.down(cmp_id);
+            if (component){
+                
+                component.setDisabled(true);
+                setTimeout(()=>{
+                    component.getController().onSvgClick(id);
+                    
+                    Ext.getApplication().redirectTo('#papervote/opticalscan');
+                },10);
+                
+            }else{
+                // action.reject();
+            }
+        },
+        before: function (id,action) {
             action.resume();
         }
     }

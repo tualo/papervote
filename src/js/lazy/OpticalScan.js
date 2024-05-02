@@ -25,6 +25,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             itemId: 'docs',
             region: 'west',
             flex: 1,
+            hidden: false,
             listeners: {
                 select: 'onSelect'
             },
@@ -53,7 +54,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             listeners: {
                 select: 'onSelectCandidate'
             },
-
+            hidden: true,
             store: {
                 type: 'array',
                 fields: ['pagination_id',
@@ -79,7 +80,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             flex: 3,
             region: 'center',
             src: '',
-            style: 'object-fit: contain; width: 100%; height: 100%;',
+            //style: 'object-fit: contain; width: 100%; height: 100%;',
         
         }
 	],

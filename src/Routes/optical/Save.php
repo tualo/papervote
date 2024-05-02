@@ -17,6 +17,20 @@ class Save implements IRoute
 
     public static function register()
     {
+        BasicRoute::add('/papervote/opticaledit', function ($matches) {
+            App::contenttype('application/json');
+            $db = App::get('session')->getDB();
+            App::result('success', false);
+            $db->autoCommit(false);
+            try {
+                $db->direct('update papervote_optical set marks = {marks}  where pagination_id={id}', $_POST);
+                App::result('success', true);
+                $db->commit();
+            } catch (Exception $e) {
+                $db->rollback();
+                App::result('msg', $e->getMessage());
+            }
+        }, ['post'], true);
         BasicRoute::add('/papervote/opticaldata', function ($matches) {
 
             App::contenttype('application/json');
