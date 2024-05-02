@@ -99,6 +99,33 @@ Ext.define('Tualo.routes.PaperVoteReturnIdentList', {
     }
 });
 
+
+
+Ext.define('Tualo.routes.PaperVoteOpticalScan', {
+    statics: {
+        load: async function() {
+            return [
+                {
+                    name: 'papervote/opticalscan',
+                    path: '#papervote/opticalscan'
+                }
+            ]
+        }
+    }, 
+    url: 'papervote/opticalscan',
+    handler: {
+        action: function () {
+            
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.OpticalScan',{
+                
+            });
+        },
+        before: function (action) {
+            action.resume();
+        }
+    }
+});
+
 Ext.define('Tualo.routes.PaperVoteCounting', {
     statics: {
         load: async function() {

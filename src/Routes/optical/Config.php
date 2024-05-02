@@ -28,7 +28,7 @@ class Config implements IRoute
                 $item = json_decode($item['o'], true);
                 $ts = [];
                 foreach ($item['titles'] as $field) {
-                    $ts[] = $field['title'];
+                    $ts[] = $field['titel'];
                 }
                 $item['titles'] = $ts;
                 $result[] = $item;
