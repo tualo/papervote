@@ -359,15 +359,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'print_page.pug'=> 'setup print_page.pug',
         ];
 
-        /*
-        ds/src/sqlexport/extract-ds-setup sz_rois bwlimburg papervote 
-ds/src/sqlexport/extract-ds-setup stimmzettel_roi bwlimburg papervote 
-ds/src/sqlexport/extract-ds-setup sz_page_sizes bwlimburg papervote 
-ds/src/sqlexport/extract-ds-setup sz_to_page_sizes bwlimburg papervote 
-ds/src/sqlexport/extract-ds-setup sz_to_region bwlimburg papervote 
-ds/src/sqlexport/extract-ds-setup sz_titel_regions bwlimburg papervote 
 
-        */
 
 
         foreach($files as $file=>$msg){
