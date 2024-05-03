@@ -1106,6 +1106,8 @@ CREATE TABLE IF NOT EXISTS kandidaten (
     losnummer_stimmzettelgruppe INT DEFAULT 0,
     losnummer INT DEFAULT 0,
     ist_gewaehlt TINYINT DEFAULT 0,
+    bp_column integer not null default 1,
+
     PRIMARY KEY (id),
     CONSTRAINT fk_kandidaten_stimmzettelgruppen FOREIGN KEY (stimmzettelgruppen) REFERENCES `stimmzettelgruppen` (`ridx`) ON 
     DELETE CASCADE ON 

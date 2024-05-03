@@ -33,6 +33,7 @@ class Image implements IRoute
 // alter table kandidaten add bp_column integer default 0;
 // alter table sz_rois add item_height integer default 20;
 // alter table sz_rois add item_cap_y decimal(15,5) default 0.5;
+
             $result = $db->direct('select * from view_papervote_optical_result where pagination_id={id}', ['id' => $matches['id']]);
 
             $sql ='select 

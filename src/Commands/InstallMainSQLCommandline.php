@@ -324,7 +324,48 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'papervote_optical'=> 'setup papervote_optical',
             'papervote_optical.ds'=> 'setup papervote_optical.ds',
+
+            'sz_rois'=> 'setup sz_rois',
+            'sz_rois.ds'=> 'setup sz_rois.ds',
+
+            'sz_page_sizes'=> 'setup sz_page_sizes',
+            'sz_page_sizes.ds'=> 'setup sz_page_sizes.ds',
+
+            'sz_titel_regions'=> 'setup sz_titel_regions',
+            'sz_titel_regions.ds'=> 'setup sz_titel_regions.ds',
+            
+
+            'stimmzettel_roi'=> 'setup stimmzettel_roi',
+            'stimmzettel_roi.ds'=> 'setup stimmzettel_roi.ds',
+            
+            'sz_to_region'=> 'setup sz_to_region',
+            'sz_to_region.ds'=> 'setup sz_to_region.ds',
+
+            'sz_to_page_sizes'=> 'setup sz_to_page_sizes',
+            'sz_to_page_sizes.ds'=> 'setup sz_to_page_sizes.ds',
+
+            'view_sz_expected_marks'=> 'setup view_sz_expected_marks',
+            'view_sz_expected_marks.ds'=> 'setup view_sz_expected_marks.ds',
+
+            'view_sz_titles_by_page'=> 'setup view_sz_titles_by_page',
+            'view_sz_titles_by_page.ds'=> 'setup view_sz_titles_by_page.ds',
+
+            'view_papervote_optical_result'=> 'setup view_papervote_optical_result',
+            'view_papervote_optical_result.ds'=> 'setup view_papervote_optical_result.ds',
+
+            'view_sz_optical_config'=> 'setup view_sz_optical_config',
+            'view_sz_optical_config.ds'=> 'setup view_sz_optical_config.ds',
         ];
+
+        /*
+        ds/src/sqlexport/extract-ds-setup sz_rois bwlimburg papervote 
+ds/src/sqlexport/extract-ds-setup stimmzettel_roi bwlimburg papervote 
+ds/src/sqlexport/extract-ds-setup sz_page_sizes bwlimburg papervote 
+ds/src/sqlexport/extract-ds-setup sz_to_page_sizes bwlimburg papervote 
+ds/src/sqlexport/extract-ds-setup sz_to_region bwlimburg papervote 
+ds/src/sqlexport/extract-ds-setup sz_titel_regions bwlimburg papervote 
+
+        */
 
 
         foreach($files as $file=>$msg){
