@@ -281,7 +281,7 @@ class Reset
 
         $sql = 'CREATE TABLE IF NOT EXISTS `wahlberechtigte_anlage` (
             `identnummer` varchar(20) NOT NULL,
-            `stimmzettel` integer NOT NULL,
+            `stimmzettel` varchar(12) NOT NULL,
             `wahlscheinnummer` varchar(12) DEFAULT NULL,
             `kombiniert` bigint(20) DEFAULT NULL,
             `testdaten` tinyint(4) DEFAULT 0,
