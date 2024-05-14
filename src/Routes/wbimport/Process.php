@@ -128,7 +128,6 @@ class Process implements IRoute
                     join `wahlscheinstatus` on
                         `wahlscheinstatus`.`id` = `wahlschein`.`wahlscheinstatus`
                     join `abgabetyp` on `abgabetyp`.`id` = `wahlschein`.`abgabetyp`
-                    on stimmzettel.id = wahlschein.stimmzettel
                 ';
                 
                 $db->execute($sql);

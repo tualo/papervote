@@ -107,7 +107,7 @@ BEGIN
           new.testdaten
         ) ON DUPLICATE KEY UPDATE id=values(ID);
       ELSE
-        set msg = concat("Der Stimmzettel-Typ existiert nicht ",ifnull(set_stimmzettel,""));
+        set msg = concat("Der Stimmzettel-Typ existiert nicht ",ifnull(set_stimmzettel,""), NEW.identnummer);
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;
       END IF;
 
