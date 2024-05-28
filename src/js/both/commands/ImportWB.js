@@ -5,13 +5,13 @@ Ext.define('Tualo.PaperVote.commands.ImportWB', {
         tooltip: 'nicht gesetzt'
     },
     requires: [
-        'Ext.form.field.Text',
-        'Ext.view.View',
+        //'Ext.form.field.Text',
+        //'Ext.view.View',
         'Ext.data.Model',
         'Ext.data.Store',
         'Ext.panel.Panel',
-        'Ext.form.field.Checkbox',
-        'Ext.form.field.ComboBox',
+        //'Ext.form.field.Checkbox',
+        //'Ext.form.field.ComboBox',
         'Ext.tip.*'
     ],
     extend: 'Ext.panel.Panel',

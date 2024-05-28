@@ -7,7 +7,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
   extend: 'Ext.panel.Panel',
   alias: ['widget.pwgen_pw_command'],
   requires: [
-    'Ext.exporter.excel.Xlsx',
+    // 'Ext.exporter.excel.Xlsx',
     'Ext.grid.plugin.Exporter'
   ],
   plugins: {
