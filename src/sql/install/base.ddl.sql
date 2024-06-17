@@ -1182,7 +1182,7 @@ CREATE TABLE IF NOT EXISTS wahlruecklauf_felder (
 CREATE TABLE IF NOT EXISTS wahlberechtigte (
     id bigint NOT NULL,
     kostenstelle INT DEFAULT 0 NOT NULL,
-    ridx VARCHAR(12),
+    ridx VARCHAR(14),
     insert_date DATE,
     update_date DATE,
     login VARCHAR(255),
@@ -1223,7 +1223,7 @@ CREATE TABLE IF NOT EXISTS wahlzeichnungsberechtigter (
 );
 
 CREATE TABLE IF NOT EXISTS wahlschein (
-    ridx VARCHAR(12),
+    ridx VARCHAR(14),
     id bigint NOT NULL,
     name VARCHAR(255),
     aktiv INT DEFAULT 1,
