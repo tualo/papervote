@@ -82,8 +82,8 @@ BEGIN
           `testdaten`
 
         ) VALUES (
-          concat(prefix,lpad(NEW.identnummer,8,'0')),
-          concat(prefix,lpad(NEW.identnummer,8,'0')),
+          concat(prefix,lpad(NEW.identnummer,12,'0')),
+          concat(prefix,lpad(NEW.identnummer,12,'0')),
           0,
           NEW.identnummer,
           1,
@@ -103,7 +103,7 @@ BEGIN
           NEW.username,
           '',
           0,
-          if(ifnull(new.kombiniert,'')='' is null,concat(prefix,lpad(NEW.identnummer,8,'0')),new.kombiniert),
+          if(ifnull(new.kombiniert,'')='' is null,concat(prefix,lpad(NEW.identnummer,12,'0')),new.kombiniert),
           new.testdaten
         ) ON DUPLICATE KEY UPDATE id=values(ID);
       ELSE
