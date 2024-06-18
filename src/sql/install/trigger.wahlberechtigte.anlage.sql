@@ -28,7 +28,7 @@ BEGIN
 
       IF (SELECT count(*) FROM stimmzettel WHERE ridx = set_stimmzettel)=1 THEN
       SELECT id into prefix FROM stimmzettel WHERE ridx = set_stimmzettel;
-      SET NEW.ws_id = concat(prefix,lpad(NEW.identnummer,12,'0');
+      -- SET NEW.ws_id = concat(prefix,lpad(NEW.identnummer,12,'0');
 
         INSERT IGNORE INTO `wahlberechtigte`
         (
