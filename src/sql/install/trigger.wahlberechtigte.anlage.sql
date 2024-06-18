@@ -24,8 +24,12 @@ BEGIN
   END IF;
 
 
+
+
       IF (SELECT count(*) FROM stimmzettel WHERE ridx = set_stimmzettel)=1 THEN
       SELECT id into prefix FROM stimmzettel WHERE ridx = set_stimmzettel;
+      SET NEW.ws_id = concat(prefix,lpad(NEW.identnummer,12,'0');
+
         INSERT IGNORE INTO `wahlberechtigte`
         (
          `kostenstelle`,
@@ -106,6 +110,8 @@ BEGIN
           if(ifnull(new.kombiniert,'')='' is null,concat(prefix,lpad(NEW.identnummer,12,'0')),new.kombiniert),
           new.testdaten
         ) ON DUPLICATE KEY UPDATE id=values(ID);
+
+
       ELSE
         set msg = concat("Der Stimmzettel-Typ existiert nicht ",ifnull(set_stimmzettel,""), NEW.identnummer);
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = msg;

@@ -357,6 +357,8 @@ class InstallMainSQLCommandline implements ICommandline{
             'view_sz_optical_config.ds'=> 'setup view_sz_optical_config.ds',
 
             'print_page.pug'=> 'setup print_page.pug',
+
+            'update_ws_id'=>'setup update_ws_id'
         ];
 
 

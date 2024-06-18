@@ -140,7 +140,7 @@ class Process implements IRoute
                         $wahlberechtigte_anlage[]='`wahlberechtigte_anlage`.`'.$c.'`';
                     }
                 }
-                
+
                 $sql='CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
                 select 
                     '. implode(',',$wahlberechtigte_anlage).',
@@ -152,16 +152,15 @@ class Process implements IRoute
                     `wahlschein`.`pwhash`,
                     "" `password`
                 from 
-                (
-                    `wahlberechtigte_anlage`
-                      join `wahlberechtigte`
-                          on `wahlberechtigte`.`identnummer` = `wahlberechtigte_anlage`.`identnummer`
-                    join `wahlschein` on(
-                        `wahlberechtigte`.`id` = `wahlschein`.`wahlberechtigte`
+                    wahlschein
+                    join wahlberechtigte
+                        on wahlschein.wahlberechtigte = wahlberechtigte.ridx
                         and `wahlschein`.`wahlscheinstatus` in (16,17)
-                        and wahlberechtigte_anlage.stimmzettel = `wahlschein`.stimmzettel
-                    )
-                )
+                    join wahlberechtigte_anlage
+                    on 
+                        wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer
+                        and wahlberechtigte_anlage.stimmzettel = wahlschein.stimmzettel 
+        
                 ';
                 $db->execute($sql);
         
