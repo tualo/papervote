@@ -1209,7 +1209,7 @@ CREATE TABLE IF NOT EXISTS wahlzeichnungsberechtigter (
     name VARCHAR(255),
     funktion VARCHAR(255),
     personenident VARCHAR(255),
-    wahlberechtigte VARCHAR(255),
+    wahlberechtigte VARCHAR(14),
     geburtsdatum DATE,
     vorname VARCHAR(255),
     nachname VARCHAR(255),
