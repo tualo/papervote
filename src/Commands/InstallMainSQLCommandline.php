@@ -358,7 +358,10 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'print_page.pug'=> 'setup print_page.pug',
 
-            'update_ws_id'=>'setup update_ws_id'
+            'update_ws_id'=>'setup update_ws_id',
+
+            'wahlschein.trigger.fix'=>'setup wahlschein.trigger.fix',
+            
         ];
 
 

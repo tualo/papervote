@@ -58,7 +58,7 @@ class AllData implements IRoute
                 $sql = '
                 select 
                     kandidaten.ridx,
-                    kandidaten.barcode,
+                    if(kandidaten.barcode is null or trim(kandidaten.barcode) = "",lpad(kandidaten.id,8,"X") ,kandidaten.barcode) barcode,
                     kandidaten_bilder_typen.name typ_name,
                     SUBSTRING_INDEX(ds_files.name,".",-1) extension,
                     ds_files_data.data 
