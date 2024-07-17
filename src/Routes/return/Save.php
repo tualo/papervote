@@ -78,6 +78,11 @@ class Save implements IRoute
                     $ws[''.'blocknumber'] = $blocknumber; // blocknumber
 
                     $wahlschein->update($ws);
+                    if ($wahlschein->error()){
+                        App::result('msg', $wahlschein->errorMessage());
+                    }else{
+                        App::result('success', true);
+                    }
                     App::result('success', true);
 
                 }
