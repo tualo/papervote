@@ -27,7 +27,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
   },
   onBoxReady: function () {
     var me = this;
-
+    console.log('onBoxReady****',me.getView().up('form'));
 
     var wahlscheinstatusStore = me.getViewModel().getStore('wahlscheinstatus');
     wahlscheinstatusStore.load();

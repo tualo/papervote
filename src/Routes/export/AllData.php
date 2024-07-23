@@ -29,7 +29,9 @@ class AllData implements IRoute
             $db = App::get('session')->getDB();
             try {
 
-
+                set_time_limit(3000);
+                ini_set('memory_limit','8G');
+                
                 $db->direct('SET SESSION group_concat_max_len = 4294967295;');
                 $temporary_folder = App::get("tempPath") . '/';
                 if (isset($_REQUEST['usename'])&&(strlen($_REQUEST['usename'])>0)){

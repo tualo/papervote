@@ -25,6 +25,7 @@ Ext.define('Tualo.PaperVote.lazy.Input', {
       xtype: 'form',
       reference: 'bcForm',
       region: 'north',
+      
       items: [
         {
           xtype: 'textfield',

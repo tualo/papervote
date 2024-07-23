@@ -12,7 +12,7 @@ from
     join `stimmzettel` on  `stimmzettel`.`ridx` = `wahlberechtigte_anlage`.`stimmzettel`
     join `wahlberechtigte` on `wahlberechtigte_anlage`.`identnummer` = `wahlberechtigte`.`identnummer`
     join `wahlschein`  on  
-        `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,8,'0'))
+        `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,12,'0'))
         and `wahlberechtigte`.`ridx` = `wahlschein`.`wahlberechtigte`
     join `wahlscheinstatus` on
         `wahlscheinstatus`.`ridx` = `wahlschein`.`wahlscheinstatus`
