@@ -21,36 +21,63 @@ class Process implements IRoute
         BasicRoute::add('/papervote/wahlberechtigte/process', function () {
             ini_set("memory_limit", "4096M");
             set_time_limit(600 );
+            error_reporting(0);
 
             $db = App::get('session')->getDB();
             try{
                 @session_start();
                 $db->direct('set session innodb_strict_mode=0');
+
+                if (file_exists(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.')) {
+                    // unlink(App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
+
+                    $json = json_decode(file_get_contents(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.'),true);
+                    $count = $json['count'];
+                    $sheet = $json['sheet'];
+                    $header = $json['header'];
+                    $data = $json['data'];
+                    
+
+                }else{
                         
-                $spreadsheet = IOFactory::load($_SESSION['wahlberechtigte_file']);
-                $sheet = $spreadsheet->getSheet($_REQUEST['sheetname']);
-        
-                $count          =   $sheet->getHighestDataRow();
-                $columnCount    =   $sheet->getHighestColumn();
-        
-                $header=$sheet->rangeToArray(
-                    'A1:'.$columnCount.'1',     // The worksheet range that we want to retrieve
-                    NULL,        // Value that should be returned for empty cells
-                    TRUE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
-                    TRUE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
-                    TRUE         // Should the array be indexed by cell row and cell column
-                );
-        
+                    $spreadsheet = IOFactory::load($_SESSION['wahlberechtigte_file']);
+                    $sheet = $spreadsheet->getSheet($_REQUEST['sheetname']);
+            
+                    $count          =   $sheet->getHighestDataRow();
+                    $columnCount    =   $sheet->getHighestColumn();
+            
+                    $header=$sheet->rangeToArray(
+                        'A1:'.$columnCount.'1',     // The worksheet range that we want to retrieve
+                        NULL,        // Value that should be returned for empty cells
+                        TRUE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
+                        TRUE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
+                        TRUE         // Should the array be indexed by cell row and cell column
+                    );
+            
+            
+                    $data = $sheet->rangeToArray(
+                        'A2:'.$columnCount.''.$count,     // The worksheet range that we want to retrieve
+                        NULL,        // Value that should be returned for empty cells
+                        FALSE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
+                        FALSE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
+                        FALSE         // Should the array be indexed by cell row and cell column
+                    );
+
+                    file_put_contents(
+                        App::get('tempPath') . '/.ht_wahlberechtigte_sheet.',
+                        json_encode(
+                            [
+                                'count'=>$count,
+                                'sheet'=>$sheet,
+                                'header'=>$header,
+                                'data'=>$data
+                            ]
+                        )
+                    );
+                }
+
                 $coulumndata = $db->direct('explain wahlberechtigte_anlage',[],'');
         
-                $data = $sheet->rangeToArray(
-                    'A2:'.$columnCount.''.$count,     // The worksheet range that we want to retrieve
-                    NULL,        // Value that should be returned for empty cells
-                    FALSE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
-                    FALSE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
-                    FALSE         // Should the array be indexed by cell row and cell column
-                );
-
 
                 foreach($header[1] as $index=>$val){
                     $finds=[];

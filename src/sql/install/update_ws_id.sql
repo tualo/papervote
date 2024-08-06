@@ -1,7 +1,7 @@
 delimiter //
 
-alter table wahlberechtigte_anlage add ws_id bigint //
-create index idx_wahlberechtigte_anlage_ws_id on wahlberechtigte_anlage(ws_id) //
+alter table wahlberechtigte_anlage add if not exists ws_id bigint //
+create index if not exists idx_wahlberechtigte_anlage_ws_id  on wahlberechtigte_anlage(ws_id) //
 
 CREATE OR REPLACE PROCEDURE `update_ws_id`()
 BEGIN

@@ -60,6 +60,9 @@ class Upload implements IRoute
                         if (file_exists(App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension)) {
                             unlink(App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
                         }
+                        if (file_exists(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.' )) {
+                            unlink(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.' );
+                        }
                         move_uploaded_file($sfile, App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
 
                         @session_start();

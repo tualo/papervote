@@ -43,3 +43,12 @@ CREATE TABLE IF NOT EXISTS `stimmzettel` (
   CONSTRAINT `fk_stimmzettel_wahlgruppe` FOREIGN KEY (`wahlgruppe`) REFERENCES `wahlgruppe` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
 )
 ;
+
+
+alter table `stimmzettel`  add column if not exists `ocr_name` varchar(255) default null;
+
+create view if not exists view_readtable_stimmzettel as
+select
+  *
+from stimmzettel
+;
