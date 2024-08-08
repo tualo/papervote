@@ -20,6 +20,7 @@ class Upload implements IRoute
     {
         BasicRoute::add('/papervote/wahlberechtigte/upload', function () {
             ini_set("memory_limit", "4096M");
+            set_time_limit(300);
             $db = App::get('session')->getDB();
             try {
 
