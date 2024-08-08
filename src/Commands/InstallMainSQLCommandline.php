@@ -360,7 +360,13 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'update_ws_id'=>'setup update_ws_id',
 
+
+            'wahlberechtigte_anlage'=> 'setup wahlberechtigte_anlage',
+            'wahlberechtigte_anlage.ds'=> 'setup wahlberechtigte_anlage.ds',
+
             'wahlschein.trigger.fix'=>'setup wahlschein.trigger.fix',
+
+
             
         ];
 
