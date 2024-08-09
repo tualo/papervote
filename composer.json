@@ -18,6 +18,10 @@
     "minimum-stability": "dev",
     "require": {
         "ramsey/uuid": "*",
+        "tualo/bsc": "*",
+        "tualo/tualojs": "*",
+        "tualo/ds": "*",
+        "tualo/monacoeditor": "*",
         "tualo/tualopgp": "*",
         "phpseclib/phpseclib": "*"
     }

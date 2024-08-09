@@ -15,8 +15,9 @@ class Set implements IRoute{
         
         BasicRoute::add('/papervote/set',function( ){
             App::contenttype('application/json');
+            $db = App::get('session')->getDB();
             try{
-                $db = App::get('session')->getDB();
+                
 
                 $db->direct('start transaction;');
                 $remote_public_key = $db->singleValue("select property FROM system_settings WHERE system_settings_id = 'remote-erp/public'",[],'property');
