@@ -35,7 +35,7 @@ class Set implements IRoute{
                 ]);
 
                 if ($data!==false){
-                    $db->direct("update wahlschein set wahlscheinstatus='2|0', abgabetyp='2|0' where id={voter_id}  and stimmzettel={stimmzettel} and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt) ",[
+                    $db->direct("update wahlschein set wahlscheinstatus='2|0', abgabetyp='2|0', update_date=curdate(), update_time=curtime() where id={voter_id}  and stimmzettel={stimmzettel} and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt) ",[
                         'voter_id'      =>  $_REQUEST['voter_id'],
                         'stimmzettel'   => $stimmzettel_ridx
                     ]);

@@ -78,9 +78,12 @@ class Save implements IRoute
                     $ws[''.'blocknumber'] = $blocknumber; // blocknumber
 
                     $wahlschein->update($ws);
+
+
                     if ($wahlschein->error()){
                         App::result('msg', $wahlschein->errorMessage());
                     }else{
+                        $db->direct("update wahlschein set update_date=curdate(), update_time=curtime()  where ridx = {ridx}  ",$ws);
                         App::result('success', true);
                     }
                     App::result('success', true);
