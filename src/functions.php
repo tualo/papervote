@@ -49,6 +49,7 @@ require_once "Routes/wbimport/Upload.php";
 require_once "Routes/wbimport/Process.php";
 
 
+
 require_once "Routes/rescan/Insert.php";
 
 require_once "Routes/images/BarcodeImage.php";
@@ -65,3 +66,4 @@ require_once "Routes/involvement/Reporting.php";
 require_once "Routes/involvement/StatusImport.php";
 
 require_once "Routes/export/AllData.php";
+require_once "Routes/optical/Image.php";
