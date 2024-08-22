@@ -1,7 +1,7 @@
 delimiter ;
 
 create table if not exists sz_rois (
-    id integer primary key,
+    id bigint primary key,
     name varchar(255) not null,
     x integer not null,
     y integer not null

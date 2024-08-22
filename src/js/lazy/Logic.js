@@ -594,7 +594,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             return function() {
                 scope.fireEvent('state', scope, 'yellow');
                 scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie eine freie TAN, um mit diesem Berechtigten fort zu fahren.');
+                scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie eine freie TAN, um mit diesem Berechtigten fortzufahren.');
             }
         }(this));
         this.fireEvent('refocus', this, '');

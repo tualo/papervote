@@ -53,12 +53,18 @@ class Image implements IRoute
                 sz_page_sizes.height page_height
             from 
                 stimmzettel 
-                join stimmzettel_roi on stimmzettel_roi.stimmzettel_id = stimmzettel.id
-                join sz_rois on stimmzettel_roi.sz_rois_id = sz_rois.id
-                join sz_to_region on sz_to_region.id_sz = stimmzettel.id
-                join sz_titel_regions on  sz_titel_regions.id = sz_to_region.id_sz_titel_regions
-                join sz_to_page_sizes on sz_to_page_sizes.id_sz = stimmzettel.id
-                join sz_page_sizes on  sz_to_page_sizes.id_sz_page_sizes = sz_page_sizes.id
+                join stimmzettel_roi 
+                    on stimmzettel_roi.stimmzettel_id = stimmzettel.id
+                join sz_rois 
+                    on stimmzettel_roi.sz_rois_id = sz_rois.id
+                join sz_to_region 
+                    on sz_to_region.id_sz = stimmzettel.id
+                join sz_titel_regions 
+                    on  sz_titel_regions.id = sz_to_region.id_sz_titel_regions
+                join sz_to_page_sizes 
+                    on sz_to_page_sizes.id_sz = stimmzettel.id
+                join sz_page_sizes 
+                    on  sz_to_page_sizes.id_sz_page_sizes = sz_page_sizes.id
             where 
                 stimmzettel.id={ballotpaper_id}';
             $data = $db->direct($sql, ['ballotpaper_id'=>$ballotpaper_id]);

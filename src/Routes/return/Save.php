@@ -29,7 +29,7 @@ class Save implements IRoute
                 $USE_TUALO = 0;
                 $USE_TUALO_URL = 0;
 
-                $usedate = isset($input['use_date'])?$input['use_date']:(new DateTime())->format('%Y-%m-%d');
+                $usedate = isset($input['use_date'])?$input['use_date']:(new DateTime())->format('Y-m-d');
 
                 if (is_null( $status )) throw new Exception("Error Processing Request", 1);
                 if (is_null( $liste )) throw new Exception("Error Processing Request", 1);
@@ -44,6 +44,7 @@ class Save implements IRoute
                 $db->direct("insert into wahlschein_blocknumbers (blocknumber  ,login,lastlogin , createtime ,lastinsert) values ({blocknumber},getSessionUser(),getSessionUser(),now(),now() ) on duplicate key update lastlogin=values(lastlogin),lastinsert=values(lastinsert) ",['blocknumber'=>$blocknumber]);
 
                 foreach ($liste as $wert) {
+
                     $wahlschein = DSTable::instance('wahlschein');
                     $ws_read = $wahlschein->f('ridx','eq',$wert)->read();
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *".$wert."* wurde nicht gefunden");
@@ -78,15 +79,11 @@ class Save implements IRoute
                     $ws[''.'blocknumber'] = $blocknumber; // blocknumber
 
                     $wahlschein->update($ws);
-
-
                     if ($wahlschein->error()){
                         App::result('msg', $wahlschein->errorMessage());
                     }else{
-                        $db->direct("update wahlschein set update_date=curdate(), update_time=curtime()  where ridx = {ridx}  ",$ws);
                         App::result('success', true);
                     }
-                    App::result('success', true);
 
                 }
 

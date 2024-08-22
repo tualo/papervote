@@ -7,6 +7,7 @@ BEGIN
             drop trigger if exists wahlschein__au;
             drop trigger if exists wahlschein__bd;
 
+
             ALTER TABLE wahlschein ADD COLUMN ts TIMESTAMP(6) GENERATED ALWAYS AS ROW START,
             ADD COLUMN te TIMESTAMP(6) GENERATED ALWAYS AS ROW END,
             ADD PERIOD FOR SYSTEM_TIME(ts, te),
@@ -33,9 +34,11 @@ BEGIN
 END //
 
 
-CREATE TRIGGER IF NOT EXISTS `wahlschein_login_bu`
+CREATE OR REPLACE TRIGGER  `wahlschein_login_bu`
     BEFORE UPDATE
     ON `wahlschein` FOR EACH ROW
 BEGIN
     SET new.login = getSessionUser();
+    SET new.update_date=curdate();
+    SET new.update_time=curtime();
 END //

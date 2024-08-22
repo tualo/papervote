@@ -36,7 +36,8 @@ select
 concat(
     './dsfiles/kandidaten_bilder/',
     `bc`.`file_id`
-) AS `barcode_url`
+) AS `barcode_url`,
+    stimmzettel.id AS stimmzettel_id
 
 
 from
@@ -46,6 +47,9 @@ from
             join `stimmzettelgruppen` on(
                 `stimmzettelgruppen`.`ridx` = `kandidaten`.`stimmzettelgruppen`
             )
+            join `stimmzettel` on(
+                    `stimmzettelgruppen`.`stimmzettel` = `stimmzettel`.`ridx`
+                )
         )
         left join `view_kandidaten_sitze_vergeben` on(
             `view_kandidaten_sitze_vergeben`.`ridx` = `stimmzettelgruppen`.`ridx`

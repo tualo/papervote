@@ -107,7 +107,10 @@ INSERT  IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `langua
 ('stimmzettel','zaehlung_7','DE','Anzahl Stimmzettel mit Streichungen/ Vermerken','numberfield','Zählung/Angaben',27,0,1,1,'',1.00,''),
 ('stimmzettel','zaehlung_8','DE','Anzahl Stimmzettel mit mehr Kreuzen','numberfield','Zählung/Angaben',28,0,1,1,'',1.00,''),
 ('stimmzettel','zaehlung_9','DE','Anzahl Umschlag: SZ mit mehr Kreuzen','numberfield','Zählung/Angaben',29,0,1,1,'',1.00,'');
-INSERT  IGNORE INTO `ds_dropdownfields` (`table_name`, `name`, `idfield`, `displayfield`, `filterconfig`) VALUES ('stimmzettel','RIDX','ridx','name','');
+
+INSERT  IGNORE INTO `ds_dropdownfields` (`table_name`, `name`, `idfield`, `displayfield`, `filterconfig`) VALUES ('stimmzettel','ridx','ridx','name','');
+INSERT  IGNORE INTO `ds_dropdownfields` (`table_name`, `name`, `idfield`, `displayfield`, `filterconfig`) VALUES ('stimmzettel','id','id','name','');
+
 INSERT  IGNORE INTO `ds_reference_tables` (`table_name`, `reference_table_name`, `columnsdef`, `constraint_name`, `active`, `searchable`, `autosync`, `position`, `path`, `existsreal`, `tabtitle`) VALUES ('stimmzettel','stimmzettelgruppen','{\"stimmzettel__stimmzettelgruppen\":\"stimmzettelgruppen__name\"}','fk_stimmzettel_stimmzettelgruppen',0,0,1,99999,'',0,''),
 ('stimmzettel','wahlbezirk','{\"wahlbezirk\":\"ridx\"}','fk_stimmzettel_wahlbezirk',0,0,0,999,'',1,''),
 ('stimmzettel','wahlgruppe','{\"wahlgruppe\":\"ridx\"}','fk_stimmzettel_wahlgruppe',0,0,0,999,'',1,'');

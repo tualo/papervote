@@ -310,12 +310,14 @@ class InstallMainSQLCommandline implements ICommandline{
             'kandidaten_stimmenanzahl_liste_szg.ds'=>'setup kandidaten_stimmenanzahl_liste_szg.ds',
 
             'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
+            /*            
             
             'stackcodes_setup'=> 'setup stackcodes_setup',
             'stackcodes_setup.ds'=> 'setup stackcodes_setup.ds',
 
             'boxcodes_setup'=> 'setup boxcodes_setup',
             'boxcodes_setup.ds'=> 'setup boxcodes_setup.ds',
+
 
             'pagination_setup'=> 'setup pagination_setup',
             'pagination_setup.ds'=> 'setup pagination_setup.ds',
@@ -355,7 +357,7 @@ class InstallMainSQLCommandline implements ICommandline{
 
             'view_sz_optical_config'=> 'setup view_sz_optical_config',
             'view_sz_optical_config.ds'=> 'setup view_sz_optical_config.ds',
-
+*/
             'print_page.pug'=> 'setup print_page.pug',
 
             'update_ws_id'=>'setup update_ws_id',
