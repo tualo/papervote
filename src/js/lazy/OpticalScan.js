@@ -34,6 +34,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
                 store: '{papervote_optical}'
             },
 
+
             columns: [{
                 header: 'ID',
                 dataIndex: 'pagination_id',
@@ -69,6 +70,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             xtype: 'grid',
             itemId: 'marks',
             region: 'east',
+            scrollable: 'y',
             
             flex: 1,
             listeners: {
