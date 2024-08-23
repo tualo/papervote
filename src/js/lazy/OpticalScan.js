@@ -70,7 +70,6 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             xtype: 'grid',
             itemId: 'marks',
             region: 'east',
-            scrollable: 'y',
             
             flex: 1,
             listeners: {
@@ -102,6 +101,8 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             xtype: 'component',
             split: true,
             itemId: 'image',
+            scrollable: 'y',
+            
             flex: 3,
             region: 'center',
             src: '',
