@@ -30,15 +30,34 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
                 select: 'onSelect'
             },
 
-            store: {
-                type: 'array',
-                fields: ['pagination_id','marks']
+            bind: {
+                store: '{papervote_optical}'
             },
 
             columns: [{
                 header: 'ID',
                 dataIndex: 'pagination_id',
-                flex:1
+                flex:1,
+                renderer: function (value, metaData, record) {
+
+                    if ((record.get('stimmzettelgruppen_ungueltig')==1)||(record.get('stimmzettelgruppen_ungueltig')===true)){
+                        metaData.tdStyle = 'background-color: rgba(255,0,0,0.5);';
+                    }
+
+                    if ((record.get('stimmzettel_ungueltig')==1)||(record.get('stimmzettel_ungueltig')===true)){
+                        metaData.tdStyle = 'background-color: rgba(255,100,0,0.5);';
+                    }
+
+
+                    if ((record.get('stimmzettelgruppen_enthaltung')==1)||(record.get('stimmzettelgruppen_enthaltung')===true)){
+                        metaData.tdStyle = 'background-color: rgba(255,255,0,0.5);;';
+                    }
+                    if ((record.get('stimmzettel_enthaltung')==1)||(record.get('stimmzettel_enthaltung')===true)){
+                        metaData.tdStyle = 'background-color: rgba(255,255,0,0.5);;';
+                    }
+
+                    return value;
+                }
             },{
                 hidden: true,
                 header: 'Markierungen',
@@ -50,6 +69,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             xtype: 'grid',
             itemId: 'marks',
             region: 'east',
+            
             flex: 1,
             listeners: {
                 select: 'onSelectCandidate'
@@ -57,12 +77,14 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
             hidden: true,
             store: {
                 type: 'array',
-                fields: ['pagination_id',
+                fields: [
+                    'pagination_id',
                     'stimmzettel_id',
                     'stimmzettel_name',
                     'anzeige_name',
                     'pos',
-                    'marked']
+                    'marked'
+            ]
             },
             columns: [{
                 header: 'Kandidat',
@@ -76,6 +98,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
         },
         {
             xtype: 'component',
+            split: true,
             itemId: 'image',
             flex: 3,
             region: 'center',
@@ -84,6 +107,7 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
         
         }
 	],
+    /*
   dockedItems: [
 		{
       xtype: 'toolbar',
@@ -103,5 +127,5 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
 				}
 			]
     }
-  ],
+  ],*/
 });

@@ -15,7 +15,7 @@ Ext.define('Tualo.PaperVote.lazy.models.OpticalScan', {
         
         papervote_optical: {
           autoLoad: false,
-          type: 'papervote_optical_store',
+          type: 'view_papervote_optical_result_store',
           listeners: {
             load: 'onPapervoteOpticalLoad'
           }
