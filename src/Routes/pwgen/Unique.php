@@ -29,18 +29,42 @@ class Unique implements IRoute
                 $c = $db->singleRow('select count(*) as c,database() d from wahlschein',[]);
                 if ($c['c']==0) $c['c']=1000;
 
-                $db->direct('call createRandomList(8,"1234567890",{c},"wahlscheinnummer")',$c);
-                $db->moreResults();
+                $counts=$c['c'];
+                
+                $c['c']=1000;
+                
+
+
+                $sum=0;
+                $db->direct('drop table if exists temp_random_list');
+                while($sum<$counts){
+                    $db->direct('call createRandomList(8,"1234567890",{c},"wahlscheinnummer")',$c);
+                    $db->moreResults();
+                    $sum+=$c['c'];
+                }
+                
                 App::result('wahlschein',$db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r',[]));
                 set_time_limit(120);
 
-                $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"username")',$c);
-                $db->moreResults();
+                $sum=0;
+                $db->direct('drop table if exists temp_random_list');
+                while($sum<$counts){
+                    $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"username")',$c);
+                    $db->moreResults();
+                    $sum+=$c['c'];
+                }
+
                 App::result('username',$db->direct('select temp_random_list.*,rand() r from temp_random_list order by r',[]));
                 set_time_limit(120);
 
-                $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"pw")',$c);
-                $db->moreResults();
+                $sum=0;
+                $db->direct('drop table if exists temp_random_list');
+                while($sum<$counts){
+                    $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"pw")',$c);
+                    $db->moreResults();
+                    $sum+=$c['c'];
+                }
+                
                 set_time_limit(120);
                 App::result('password',$db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r',[]));
                 App::result('success', true);

@@ -12,3 +12,6 @@ CREATE TABLE IF NOT EXISTS `stimmzettelgruppen` (
   KEY `idx_stimmzettelgruppen_stimmzettel` (`stimmzettel`),
   CONSTRAINT `fk_stimmzettelgruppen_stimmzettel` FOREIGN KEY (`stimmzettel`) REFERENCES `stimmzettel` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+alter table `stimmzettelgruppen`  add column if not exists `onlinebezeichnung` varchar(255) default null;
+

@@ -13,18 +13,17 @@ begin
     RETURN @returnStr;
 END //
 
-
 CREATE OR REPLACE PROCEDURE `createRandomList`(
     in randomLength SMALLINT(3),
     in allowedChars varchar(255), 
     in listLength int(11),
-    in fieldToUnique varchar(255)
+    in fieldToUnique varchar(255),
 )
 begin
 
     declare sql_command longtext;
     declare c int;
-    drop table if exists temp_random_list;
+--    drop table if exists temp_random_list;
 
     set sql_command = concat('create temporary table temp_random_list (seq bigint , val varchar(',randomLength,') primary key)');
     PREPARE stmt FROM sql_command;
@@ -51,4 +50,3 @@ begin
     END WHILE;
 
 end //
-
