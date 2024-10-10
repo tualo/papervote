@@ -44,16 +44,18 @@ Ext.define('Tualo.PaperVote.lazy.OpticalScan', {
                     if ((record.get('stimmzettelgruppen_enthaltung')==1)||(record.get('stimmzettelgruppen_enthaltung')===true)){
                         metaData.tdStyle = 'background-color: rgba(255,255,0,0.5);;';
                     }
+                    
+                    if ((record.get('stimmzettelgruppen_ungueltig')==1)||(record.get('stimmzettelgruppen_ungueltig')===true)){
+                        metaData.tdStyle = 'background-color: rgba(255,50,0,0.5);';
+                    }
+
                     if ((record.get('stimmzettel_enthaltung')==1)||(record.get('stimmzettel_enthaltung')===true)){
                         metaData.tdStyle = 'background-color: rgba(255,255,0,0.5);;';
                     }
-                    
-                    if ((record.get('stimmzettelgruppen_ungueltig')==1)||(record.get('stimmzettelgruppen_ungueltig')===true)){
-                        metaData.tdStyle = 'background-color: rgba(255,0,0,0.5);';
-                    }
+
 
                     if ((record.get('stimmzettel_ungueltig')==1)||(record.get('stimmzettel_ungueltig')===true)){
-                        metaData.tdStyle = 'background-color: rgba(255,100,0,0.5);';
+                        metaData.tdStyle = 'background-color: rgba(255,0,0,0.5);';
                     }
 
 
