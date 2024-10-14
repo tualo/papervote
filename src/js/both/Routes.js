@@ -451,36 +451,3 @@ Ext.define('Tualo.routes.PaperVoteOpticalScan', {
     }
 });
 
-
-Ext.define('Tualo.routes.PaperVoteOpticalScanClick', {
-    statics: {
-        load: async function() {
-            return [ ]
-        }
-    }, 
-    url: 'papervote/opticalscanclick/svg/:id',
-    handler: {
-        action: function (id,action) {
-            let mainView = Ext.getApplication().getMainView(),
-                stage = mainView.getComponent('dashboard_dashboard').getComponent('stage'),
-                component = null,
-                cmp_id = 'papervote_opticalscan';
-                component = stage.down(cmp_id);
-            if (component){
-                
-                component.setDisabled(true);
-                setTimeout(()=>{
-                    component.getController().onSvgClick(id);
-                    
-                    Ext.getApplication().redirectTo('#papervote/opticalscan');
-                },10);
-                
-            }else{
-                // action.reject();
-            }
-        },
-        before: function (id,action) {
-            action.resume();
-        }
-    }
-});
