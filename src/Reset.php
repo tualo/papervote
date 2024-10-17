@@ -120,8 +120,19 @@ class Reset
         $db->execute($sql);
         $sql = 'delete from stapel2';
         $db->execute($sql);
+
         $sql = 'delete from kisten2';
         $db->execute($sql);
+
+        try {
+            $sql = 'delete from detected_codes';
+            $db->execute($sql);
+            $sql = 'delete from papervote_optical';
+            $db->execute($sql);
+        } catch (Exception $e) {
+            
+        }
+
     }
 
     public static function Kandidaten()
