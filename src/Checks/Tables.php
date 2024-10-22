@@ -83,6 +83,7 @@ class Tables  extends PostCheck {
             'stackcodes_setup'=>[],
             'boxcodes_setup'=>[],
             'pagination_setup'=>[],
+            'deferred_sql_tasks'=>[]
             
         ];
         self::tableCheck('papervote',$tables,
