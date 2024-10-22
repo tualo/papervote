@@ -107,7 +107,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
 
 
 
-    onStimmzettelSelect: function(rm, record, index, eOpts) {
+    onStimmzettelSelect: async function(rm, record, index, eOpts) {
         this.sitze = record.get('sitze');
 
         
@@ -133,7 +133,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
           ].join(' ')
   
           );
-
+          let r = await fetch('./papervote/refreshCounting')
         this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').sort([
             {
                 property: 'stimmenanzahl',
