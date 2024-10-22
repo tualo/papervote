@@ -10,8 +10,9 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.SZGViewport', {
         //this.loop();
       },
 
-    reloadChart: function(){
+    reloadChart: async function(){
       console.log('reloadChart');
+      let r = await fetch('./papervote/refreshCounting')
       this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').load();
       //setTimeout(this.reloadChart.bind(this),120000);
     },

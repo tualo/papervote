@@ -13,6 +13,10 @@ create table if not exists briefwahlkandidaten (
 alter table briefwahlkandidaten add column if not exists created_at timestamp not null default current_timestamp  //
 alter table briefwahlkandidaten add column if not exists updated_at timestamp not null default current_timestamp on update current_timestamp  //
 
+create index if not exists idx_onlinekandidaten_name on onlinekandidaten(name)  //
+create index if not exists idx_briefwahlkandidaten_zaehlung_barcode on briefwahlkandidaten(zaehlung_barcode)  //
+
+
 
 CREATE OR REPLACE PROCEDURE `proc_briefwahlkandidaten`()
 BEGIN
