@@ -2,10 +2,10 @@ DELIMITER //
 
 drop view if exists briefwahlkandidaten //
 create table if not exists briefwahlkandidaten (
-    id	int(11) primary key
-    stimmzettelgruppen	varchar(12)
-    briefstimmen	bigint(21)
-    zaehlung_barcode	varchar(255)
+    id	int(11) primary key,
+    stimmzettelgruppen	varchar(12),
+    briefstimmen	bigint(21),
+    zaehlung_barcode	varchar(255),
     zaehlung_stimmzettel	varchar(12)
 ) //
 
@@ -54,10 +54,10 @@ BEGIN
             zaehlung_stimmzettel
         ) values 
         (
-            rec.id
-            rec.stimmzettelgruppen
-            rec.briefstimmen
-            rec.zaehlung_barcode
+            rec.id,
+            rec.stimmzettelgruppen,
+            rec.briefstimmen,
+            rec.zaehlung_barcode,
             rec.zaehlung_stimmzettel
         )
         on duplicate key update briefstimmen=values(briefstimmen)
