@@ -22,7 +22,7 @@ CREATE OR REPLACE PROCEDURE `proc_briefwahlkandidaten`()
 BEGIN
 
     if 
-        exists(select * from  briefwahlkandidaten where updated_at < now() + interval - 5 minute) 
+        exists(select * from  briefwahlkandidaten where updated_at < now() + interval - 1 minute) 
         or  
         exists(select count(*) c  from  briefwahlkandidaten having c=0) 
     then
