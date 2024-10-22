@@ -133,6 +133,13 @@ class Reset
             
         }
 
+        try {
+            $sql = 'delete from briefwahlkandidaten';
+            $db->execute($sql);
+        } catch (Exception $e) {
+            
+        }
+
     }
 
     public static function Kandidaten()
