@@ -178,25 +178,7 @@ class Save implements IRoute
                         App::result('success', true);
 
 
-                        $sql = '
-                        replace into deferred_sql_tasks (
-                            taskid,
-                            sessionuser,
-                            state,
-                            createtime,
-                            sqlstatement,
-                            hostname
-                        ) values (
-                            "proc_briefwahlkandidaten",
-                            getSessionUser(),
-                            0,
-                            current_timestamp(),
-                            "call proc_briefwahlkandidaten()",
-                            @@hostname
-                        )';
-                        $db->execute($sql);
-
-
+      
                         $db->execute('commit');
                         $db->commit();
                     } else {
