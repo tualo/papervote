@@ -1,3 +1,4 @@
+delimiter ;
 
 CREATE OR REPLACE VIEW `view_stimmenanzahl` AS
 
@@ -143,3 +144,4 @@ order by
     total_count desc
 
 
+;
