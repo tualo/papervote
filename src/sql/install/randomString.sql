@@ -17,7 +17,7 @@ CREATE OR REPLACE PROCEDURE `createRandomList`(
     in randomLength SMALLINT(3),
     in allowedChars varchar(255), 
     in listLength int(11),
-    in fieldToUnique varchar(255),
+    in fieldToUnique varchar(255)
 )
 begin
 
