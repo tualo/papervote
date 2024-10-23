@@ -94,10 +94,10 @@ select
 from
     `kandidaten`;
 
-CREATE OR REPLACE VIEW `view_stimmenanzahl` AS
+CREATE OR REPLACE VIEW `view_stimmenanzahl_OLD` AS
 select
     `view_readtable_kandidaten`.`barcode` AS `barcode`,
-    `view_readtable_kandidaten`.`anzeige_name` AS `anzeige_name`,
+    `view_readtable_kandidaten`.`nachname` AS `anzeige_name`,
     `view_readtable_kandidaten`.`losung_verloren` AS `losung_verloren`,
     `view_readtable_kandidaten`.`nachruecker` AS `nachruecker`,
     `view_readtable_kandidaten`.`id` AS `kandidaten_id`,
@@ -128,7 +128,7 @@ from
                             (
                                 (
                                     (
-                                        `view_readtable_kandidaten`
+                                          `view_readtable_kandidaten`
                                         join `stimmzettelgruppen` on(
                                             `view_readtable_kandidaten`.`stimmzettelgruppen` = `stimmzettelgruppen`.`ridx`
                                         )
