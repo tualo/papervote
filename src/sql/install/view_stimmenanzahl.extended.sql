@@ -97,10 +97,20 @@ candidates as (
 )
 
 select  
+
     candidates.stimmzettel_id id,
 
     candidates.barcode,
-    candidates.nachname   anzeige_name,
+    concat(
+        if(
+            `candidates`.`titel` <> '',
+            concat(`candidates`.`titel`, ' '),
+            ''
+        ),
+        `candidates`.`nachname`,
+        ', ',
+        `candidates`.`vorname`
+    )  anzeige_name,
 
 
 

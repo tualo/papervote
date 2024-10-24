@@ -167,3 +167,9 @@ CREATE TABLE IF NOT EXISTS `kandidaten2` (
     CONSTRAINT `fk_kandidaten2_stimmzettel2` FOREIGN KEY (`stimmzettel2`) REFERENCES `stimmzettel2` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_kandidaten2_kandidaten` FOREIGN KEY (`kandidaten`) REFERENCES `kandidaten` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+alter table stimmzettel2 modify id bigint;
+alter table kandidaten2 modify id bigint;
+alter table kandidaten2 modify `ridx` varchar(25);
+
+ 
