@@ -162,11 +162,21 @@ select
     `kandidaten_stimmenanzahl`.`onlinestimmen` AS `onlinestimmen`,
     `kandidaten_stimmenanzahl`.`offlinestimmen` AS `offlinestimmen`,
     `kandidaten_stimmenanzahl`.`gesamtstimmen` AS `gesamtstimmen`,
-    `view_readtable_kandidaten`.`anzeige_name` AS `anzeige_name`
+    concat(
+        if(
+            `kandidaten`.`titel` <> '',
+            concat(`kandidaten`.`titel`, ' '),
+            ''
+        ),
+        `kandidaten`.`nachname`,
+        ', ',
+        `kandidaten`.`vorname`
+    ) AS `anzeige_name`,
+    kandidaten.barcode
 from
     (
         `kandidaten_stimmenanzahl`
-        join `view_readtable_kandidaten` on(
-            `kandidaten_stimmenanzahl`.`id` = `view_readtable_kandidaten`.`id`
+        join `kandidaten` on(
+            `kandidaten_stimmenanzahl`.`id` = `kandidaten`.`id`
         )
     );
