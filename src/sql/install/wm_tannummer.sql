@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `wm_tannummer` (
   PRIMARY KEY (`tannummer`),
   KEY `idx_wm_tanboegen_bogen` (`bogen`),
   CONSTRAINT `fk_wm_tanboegen_bogen` FOREIGN KEY (`bogen`) REFERENCES `wm_tanboegen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;

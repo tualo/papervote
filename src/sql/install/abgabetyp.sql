@@ -13,4 +13,4 @@ CREATE TABLE IF NOT EXISTS `abgabetyp` (
   PRIMARY KEY (`id`,`kostenstelle`),
   UNIQUE KEY `idx_abgabetyp` (`ridx`),
   UNIQUE KEY `idx_abgabetyp_ridx` (`ridx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;

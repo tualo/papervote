@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS `wahlscheinstatus` (
   PRIMARY KEY (`id`,`kostenstelle`),
   UNIQUE KEY `idx_wahlscheinstatus` (`ridx`),
   UNIQUE KEY `idx_wahlscheinstatus_ridx` (`ridx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;

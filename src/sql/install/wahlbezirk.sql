@@ -15,4 +15,4 @@ CREATE TABLE IF NOT EXISTS `wahlbezirk` (
   PRIMARY KEY (`id`,`kostenstelle`),
   UNIQUE KEY `idx_wahlbezirk` (`ridx`),
   UNIQUE KEY `idx_wahlbezirk_ridx` (`ridx`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;

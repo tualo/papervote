@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `wahlbeteiligung_bericht_status` (
   KEY `idx_wahlbeteiligung_bericht_status_wahlbeteiligung_bericht` (`wahlbeteiligung_bericht`),
   KEY `idx_wahlbeteiligung_bericht_status_wahlscheinstatus` (`wahlscheinstatus`),
   CONSTRAINT `fk_wahlbeteiligung_bericht_status` FOREIGN KEY (`wahlbeteiligung_bericht`) REFERENCES `wahlbeteiligung_bericht` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ;
 
 INSERT IGNORE INTO `wahlbeteiligung_bericht_status` VALUES
 (1,0,'1','2014-01-20','2014-01-20','admin','08:27:32','08:27:44','1','','1','1|0'),
