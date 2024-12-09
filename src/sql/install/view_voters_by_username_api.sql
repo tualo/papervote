@@ -42,6 +42,10 @@ BEGIN
                 json_object(
                     "state",
                     `wahlschein`.`wahlscheinstatus`,
+                    
+                    "ts",
+                    cast(ts as datetime),
+
                     "voter_id",
                     `wahlschein`.`id`,
                     "ballotpaper_id",
