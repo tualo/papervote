@@ -371,8 +371,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'proc_briefwahlkandidaten'=>'setup proc_briefwahlkandidaten',
             'proc_briefwahlkandidaten_triggers'=>'setup proc_briefwahlkandidaten_triggers',
             
-            'view_stimmenanzahl.extended' => 'setup view_stimmenanzahl.extended',
-            'kandidaten_bp_column.index' => 'setup kandidaten_bp_column.index'
+            'view_stimmenanzahl.extended' => 'setup view_stimmenanzahl.extended'
         ];
 
 
