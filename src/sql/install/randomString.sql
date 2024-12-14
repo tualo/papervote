@@ -25,7 +25,7 @@ begin
     declare c int;
 --    drop table if exists temp_random_list;
 
-    set sql_command = concat('create temporary table temp_random_list (seq bigint , val varchar(',randomLength,') primary key)');
+    set sql_command = concat('create temporary table if not exists temp_random_list (seq bigint , val varchar(',randomLength,') primary key)');
     PREPARE stmt FROM sql_command;
     EXECUTE stmt;
     DEALLOCATE PREPARE stmt;

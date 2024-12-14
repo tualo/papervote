@@ -38,7 +38,7 @@ class Unique implements IRoute
                 $sum=0;
                 $db->direct('drop table if exists temp_random_list');
                 while($sum<$counts){
-                    $db->direct('call createRandomList(8,"1234567890",{c},"wahlscheinnummer")',$c);
+                    $db->direct('call U(8,"1234567890",{c},"wahlscheinnummer")',$c);
                     $db->moreResults();
                     $sum+=$c['c'];
                 }
