@@ -1,10 +1,9 @@
-Ext.Loader.setPath('Tualo.PaperVote.lazy', './jspapervote');
 
 Ext.define('Tualo.PaperVote.Viewport', {
     extend: "Ext.panel.Panel",
     controller: 'paperviewportcontroller',
     viewModel: {
-        type:'paperviewportmodel',
+        type: 'paperviewportmodel',
     },
     listeners: {
         boxready: 'onBoxReady'
