@@ -14,13 +14,20 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
     public static function getDir():string {   return dirname(__DIR__,1); }
     public static $shortName  = 'papervote-ddl';
     public static $files = [
-        'install/ddl/wahltyp'               => 'setup wahltyp',
-        'install/ddl/abgabetyp'             => 'setup abgabetyp',
-        'install/ddl/wahlscheinstatus'      => 'setup wahlscheinstatus',
-        'install/ddl/wahlgruppe'            => 'setup wahlgruppe',
-        'install/ddl/wahlbezirk'            => 'setup wahlbezirk',
-        'install/ddl/stimmzettel'           => 'setup stimmzettel',
-        'install/ddl/stimmzettelgruppen'    => 'setup stimmzettelgruppen',
+
+        'install/ddl/wahltyp'                   => 'setup wahltyp',
+        'install/ddl/abgabetyp'                 => 'setup abgabetyp',
+        'install/ddl/wahlscheinstatus'          => 'setup wahlscheinstatus',
+        'install/ddl/wahlgruppe'                => 'setup wahlgruppe',
+        'install/ddl/wahlbezirk'                => 'setup wahlbezirk',
+        'install/ddl/stimmzettel'               => 'setup stimmzettel',
+        'install/ddl/stimmzettelgruppen'        => 'setup stimmzettelgruppen',
+        'install/ddl/kandidaten'                => 'setup kandidaten',
+
+        'install/ddl/kandidaten_bilder_typen'   => 'setup kandidaten_bilder_typen',
+        'install/ddl/kandidaten_bilder'         => 'setup kandidaten_bilder',
+        
+        
         
     ];
     
