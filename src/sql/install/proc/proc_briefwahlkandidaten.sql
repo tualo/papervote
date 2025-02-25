@@ -59,15 +59,17 @@ BEGIN
                     )
                     left join x on kandidaten.id = x.id
         ) do
-            insert into briefwahlkandidaten  (
-                id,
-                briefstimmen
+            insert into `briefwahlkandidaten`  (
+                `id`,
+                `stimmzettelgruppen`,
+                `briefstimmen`
             ) values 
             (
                 rec.id,
+                rec.stimmzettelgruppen,
                 rec.briefstimmen
             )
-            on duplicate key update briefstimmen=values(briefstimmen)
+            on duplicate key update `briefstimmen`=values(`briefstimmen`)
             ;
         end for;
 

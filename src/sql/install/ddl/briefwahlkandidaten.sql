@@ -1,13 +1,15 @@
 DELIMITER //
 
-create table if not exists briefwahlkandidaten (
-    id	int(11) primary key,
-    briefstimmen	bigint(21),
+create table if not exists `briefwahlkandidaten` (
+
+    `id` int(11) primary key,
+    `stimmzettelgruppen`	integer not null,
+    `briefstimmen`	bigint(21),
 
     CONSTRAINT `fk_briefwahlkandidaten_id`
     foreign key (`id`)
     
-    references kandidaten(`id`)
+    references `kandidaten`(`id`)
     on delete cascade
     on update cascade,
 
@@ -15,7 +17,7 @@ create table if not exists briefwahlkandidaten (
     CONSTRAINT `fk_briefwahlkandidaten_stimmzettelgruppen`
     foreign key (`stimmzettelgruppen`)
     
-    references stimmzettelgruppen(`id`)
+    references `stimmzettelgruppen`(`id`)
     on delete cascade
     on update cascade,
 

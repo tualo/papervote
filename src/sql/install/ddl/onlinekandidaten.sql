@@ -12,13 +12,6 @@ CREATE TABLE IF NOT EXISTS `onlinekandidaten` (
    
   references kandidaten(`id`)
   on delete cascade
-  on update cascade,
-
-
-  CONSTRAINT `fk_onlinekandidaten_kandidaten_ridx`
-  foreign key (`id`)
-   
-  references kandidaten(`id`)
-  on delete cascade
   on update cascade
+  
 )

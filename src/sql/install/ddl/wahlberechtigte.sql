@@ -1,10 +1,15 @@
 DELIMITER ;
-CREATE TABLE IF NOT EXISTS `wahltyp` (
-  `id` int(11) NOT NULL DEFAULT 1,
-  `name` varchar(255) DEFAULT NULL,
-  `aktiv` tinyint(4) DEFAULT 1,
+
+CREATE TABLE IF NOT EXISTS `wahlberechtigte` (
+  `id` bigint(20) NOT NULL,
+  `aktiv` tinyint DEFAULT 0,
+  `identnummer` varchar(255) DEFAULT NULL,
+
+
   PRIMARY KEY (`id`),
-  KEY `idx_wahltyp_name` (`name`),
+  
+  KEY `idx_wahlberechtigte_identnummer` (`identnummer`),
+
 
   `login` varchar(255) NOT NULL,
   `created_at` timestamp not null default current_timestamp,
@@ -12,12 +17,10 @@ CREATE TABLE IF NOT EXISTS `wahltyp` (
 
 );
 
-
-
 DELIMITER //
 
-CREATE OR REPLACE TRIGGER `trigger_wahltyp_bi_defaults`
-BEFORE INSERT ON `wahltyp` FOR EACH ROW
+CREATE OR REPLACE TRIGGER `trigger_wahlberechtigte_bi_defaults`
+BEFORE INSERT ON `wahlberechtigte` FOR EACH ROW
 BEGIN
   IF NEW.login IS NULL THEN
     SET NEW.login = getSessionUser();
@@ -27,8 +30,8 @@ BEGIN
   END IF;
 END //
 
-CREATE OR REPLACE TRIGGER `trigger_wahltyp_bu_defaults`
-BEFORE UPDATE ON `wahltyp` FOR EACH ROW
+CREATE OR REPLACE TRIGGER `trigger_wahlberechtigte_bu_defaults`
+BEFORE UPDATE ON `wahlberechtigte` FOR EACH ROW
 BEGIN
   IF NEW.login IS NULL THEN
     SET NEW.login = getSessionUser();

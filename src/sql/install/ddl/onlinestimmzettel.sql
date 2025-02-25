@@ -1,7 +1,7 @@
 DELIMITER ;
 
  CREATE TABLE IF NOT EXISTS `onlinestimmzettel` (
-  `stimmzettel` id NOT NULL,
+  `stimmzettel` integer NOT NULL,
   `anzahl` int(11) DEFAULT 0,
   `login` varchar(255) DEFAULT NULL,
   `createdatetime` datetime DEFAULT CURRENT_TIMESTAMP,

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `kisten1` (
 CREATE TABLE IF NOT EXISTS `stapel1` (
   `id` varchar(36) NOT NULL,
   `login` varchar(255) NOT NULL,
-  `kisten1` integer NOT NULL DEFAULT 0,
+  `kisten1` varchar(36) NOT NULL,
   `abgebrochen` tinyint DEFAULT 0,
   `createdatetime` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -69,11 +69,11 @@ CREATE TABLE IF NOT EXISTS `kisten2` (
 CREATE TABLE IF NOT EXISTS `stapel2` (
   `id` varchar(36) NOT NULL,
   `login` varchar(255) NOT NULL,
-  `kisten2` integer NOT NULL DEFAULT 0,
+  `kisten2` varchar(36) NOT NULL,
   `abgebrochen` tinyint DEFAULT 0,
   `createdatetime` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_stapel1_kisten2` FOREIGN KEY (`kisten2`) REFERENCES `kisten2` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_stapel2_kisten2` FOREIGN KEY (`kisten2`) REFERENCES `kisten2` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -92,8 +92,8 @@ CREATE TABLE IF NOT EXISTS `stimmzettel2` (
   KEY `idx_stimmzettel1_stimmzettel` (`stimmzettel`),
   KEY `idx_stimmzettel1_stapel2` (`stapel2`),
 
-  CONSTRAINT `fk_stimmzettel1_stapel2` FOREIGN KEY (`stapel2`) REFERENCES `stapel2` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_stimmzettel1_stimmzettel` FOREIGN KEY (`stimmzettel`) REFERENCES `stimmzettel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_stimmzettel2_stapel2` FOREIGN KEY (`stapel2`) REFERENCES `stapel2` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_stimmzettel2_stimmzettel` FOREIGN KEY (`stimmzettel`) REFERENCES `stimmzettel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS `kandidaten2` (
@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS `kandidaten2` (
   KEY `idx_kandidaten1_kandidaten` (`kandidaten`),
   KEY `idx_kandidaten1_stimmzettel2` (`stimmzettel2`),
 
-  CONSTRAINT `fk_kandidaten1_stimmzettel2` FOREIGN KEY (`stimmzettel2`) REFERENCES `stimmzettel2` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_kandidaten1_kandidaten` FOREIGN KEY (`kandidaten`) REFERENCES `kandidaten` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_kandidaten2_stimmzettel2` FOREIGN KEY (`stimmzettel2`) REFERENCES `stimmzettel2` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_kandidaten2_kandidaten` FOREIGN KEY (`kandidaten`) REFERENCES `kandidaten` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
   
 );
 
