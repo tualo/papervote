@@ -66,7 +66,6 @@ class Save implements IRoute
                             throw new Exception("Der Wahlschein befindet sich in einem ungültigen Zustand.");
                         }
                     }
-
                     if ($USE_TUALO){
                         $keyData = $db->singleRow("select  publickey from wm_pgp_pubkey where id=0 ",[]);
                         $o =  WMTualoRequestHelper::query( str_replace('#identnummer',$ws['id'],$USE_TUALO_URL) ,[
