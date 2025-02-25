@@ -32,6 +32,6 @@ CREATE TABLE IF NOT EXISTS `logging` (
 
 CREATE OR REPLACE VIEW `view_kandidaten_logs` AS
     select  `logging`.`*`,
-            `kandidaten`.`ridx`
+            `kandidaten`.`id`
     from `logging`
     join `kandidaten` on (`logging`.`session_user`=`kandidaten.email`);

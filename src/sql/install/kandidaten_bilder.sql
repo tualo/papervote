@@ -1,7 +1,7 @@
 DELIMITER ;
 CREATE TABLE IF NOT EXISTS `kandidaten_bilder` (
   `id` varchar(36) DEFAULT NULL,
-  `kandidat` varchar(12) NOT NULL,
+  `kandidat` integer NOT NULL,
   `typ` varchar(12) NOT NULL,
   `file_id` varchar(36) DEFAULT NULL,
   PRIMARY KEY (`kandidat`,`typ`),

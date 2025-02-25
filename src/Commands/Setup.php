@@ -60,7 +60,7 @@ class Setup extends BaseSetup implements ISetupCommandline{
             'install-sql-dashboard',
             'install-sql-bootstrap',
             'install-sql-papervote-menu',
-            'install-sql-papervote'
+            'install-sql-papervote-ddl'
             // 'compile'
         ];
  

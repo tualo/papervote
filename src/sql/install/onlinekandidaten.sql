@@ -1,16 +1,10 @@
 DELIMITER ;
 
 CREATE TABLE IF NOT EXISTS `onlinekandidaten` (
-  `ridx` varchar(12) DEFAULT NULL,
-  `id` int(11) NOT NULL DEFAULT 0,
-  `kostenstelle` int(11) NOT NULL DEFAULT 0,
-  `anzahl` int(11) DEFAULT NULL,
-  `insert_time` time DEFAULT NULL,
-  `update_time` time DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `insert_date` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL ,
+  `anzahl` int(11) NOT NULL DEFAULT 0,
   `login` varchar(255) DEFAULT NULL,
-  `update_date` varchar(255) DEFAULT NULL,
+  `createdatetime` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
 
   CONSTRAINT `fk_onlinekandidaten_kandidaten_id`
@@ -20,12 +14,11 @@ CREATE TABLE IF NOT EXISTS `onlinekandidaten` (
   on delete cascade
   on update cascade,
 
-unique key `uidx_fk_onlinekandidaten_ridx` (`ridx`),
 
   CONSTRAINT `fk_onlinekandidaten_kandidaten_ridx`
-  foreign key (`ridx`)
+  foreign key (`id`)
    
-  references kandidaten(`ridx`)
+  references kandidaten(`id`)
   on delete cascade
   on update cascade
 )

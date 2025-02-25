@@ -7,54 +7,32 @@ use Tualo\Office\Basic\ICommandline;
 use Tualo\Office\ExtJSCompiler\Helper;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\PostCheck;
+use Tualo\Office\Basic\CommandLineInstallSQL;
 
-class InstallMainSQLCommandline implements ICommandline{
 
-    public static function getCommandName():string { return 'install-sql-papervote';}
+class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
+    public static function getDir():string {   return dirname(__DIR__,1); }
+    public static $shortName  = 'papervote-ddl';
+    public static $files = [
+        'install/ddl/wahltyp'               => 'setup wahltyp',
+        'install/ddl/abgabetyp'             => 'setup abgabetyp',
+        'install/ddl/wahlscheinstatus'      => 'setup wahlscheinstatus',
+        'install/ddl/wahlgruppe'            => 'setup wahlgruppe',
+        'install/ddl/wahlbezirk'            => 'setup wahlbezirk',
+        'install/ddl/stimmzettel'           => 'setup stimmzettel',
+        'install/ddl/stimmzettelgruppen'    => 'setup stimmzettelgruppen',
+        
+    ];
+    
+}
 
-    public static function setup(Cli $cli){
-        $cli->command(self::getCommandName())
-            ->description('installs needed sql procedures for papervote module')
-            ->opt('client', 'only use this client', true, 'string');
-            
-    }
+/*
+class InstallDDLX implements ICommandline{
 
-   
-    public static function setupClients(string $msg,string $clientName,string $file,callable $callback){
-        $_SERVER['REQUEST_URI']='';
-        $_SERVER['REQUEST_METHOD']='none';
-        App::run();
-
-        $session = App::get('session');
-        $sessiondb = $session->db;
-        $dbs = $sessiondb->direct('select username dbuser, password dbpass, id dbname, host dbhost, port dbport from macc_clients ');
-        foreach($dbs as $db){
-            if (($clientName!='') && ($clientName!=$db['dbname'])){ 
-                continue;
-            }else{
-                App::set('clientDB',$session->newDBByRow($db));
-                PostCheck::formatPrint(['blue'],$msg.'('.$db['dbname'].'):  ');
-                $callback($file);
-                PostCheck::formatPrintLn(['green'],"\t".' done');
-
-            }
-        }
-    }
 
     public static function run(Args $args){
 
-        exit();
         $files = [
-            // 'base.tanboegen' => 'setup tanboegen ddl ',
-            // 'base.ddl' => 'setup base ddl ',
-            // 'base.view' => 'setup base view ',
-            // 'ds.base' => 'setup base ds definition ',
-           
-            'wahltyp' => 'setup wahltyp ',
-            // 'wahltyp.ds' => 'setup wahltyp.ds ',
-
-            'abgabetyp' => 'setup abgabetyp ',
-            // 'abgabetyp.ds' => 'setup abgabetyp.ds ',
 
             'wahlscheinstatus' => 'setup wahlscheinstatus ',
             // 'wahlscheinstatus.ds' => 'setup wahlscheinstatus.ds ',
@@ -311,54 +289,7 @@ class InstallMainSQLCommandline implements ICommandline{
             'kandidaten_stimmenanzahl_liste_szg.ds'=>'setup kandidaten_stimmenanzahl_liste_szg.ds',
 
             'wahlbeteiligung_bericht.data'=> 'setup wahlbeteiligung_bericht.data',
-            /*            
             
-            'stackcodes_setup'=> 'setup stackcodes_setup',
-            'stackcodes_setup.ds'=> 'setup stackcodes_setup.ds',
-
-            'boxcodes_setup'=> 'setup boxcodes_setup',
-            'boxcodes_setup.ds'=> 'setup boxcodes_setup.ds',
-
-
-            'pagination_setup'=> 'setup pagination_setup',
-            'pagination_setup.ds'=> 'setup pagination_setup.ds',
-
-            'labelbogen.pug'=> 'setup labelbogen.pug',
-
-            'papervote_optical'=> 'setup papervote_optical',
-            'papervote_optical.ds'=> 'setup papervote_optical.ds',
-
-            'sz_rois'=> 'setup sz_rois',
-            'sz_rois.ds'=> 'setup sz_rois.ds',
-
-            'sz_page_sizes'=> 'setup sz_page_sizes',
-            'sz_page_sizes.ds'=> 'setup sz_page_sizes.ds',
-
-            'sz_titel_regions'=> 'setup sz_titel_regions',
-            'sz_titel_regions.ds'=> 'setup sz_titel_regions.ds',
-            
-
-            'stimmzettel_roi'=> 'setup stimmzettel_roi',
-            'stimmzettel_roi.ds'=> 'setup stimmzettel_roi.ds',
-            
-            'sz_to_region'=> 'setup sz_to_region',
-            'sz_to_region.ds'=> 'setup sz_to_region.ds',
-
-            'sz_to_page_sizes'=> 'setup sz_to_page_sizes',
-            'sz_to_page_sizes.ds'=> 'setup sz_to_page_sizes.ds',
-
-            'view_sz_expected_marks'=> 'setup view_sz_expected_marks',
-            'view_sz_expected_marks.ds'=> 'setup view_sz_expected_marks.ds',
-
-            'view_sz_titles_by_page'=> 'setup view_sz_titles_by_page',
-            'view_sz_titles_by_page.ds'=> 'setup view_sz_titles_by_page.ds',
-
-            'view_papervote_optical_result'=> 'setup view_papervote_optical_result',
-            'view_papervote_optical_result.ds'=> 'setup view_papervote_optical_result.ds',
-
-            'view_sz_optical_config'=> 'setup view_sz_optical_config',
-            'view_sz_optical_config.ds'=> 'setup view_sz_optical_config.ds',
-*/
             'print_page.pug'=> 'setup print_page.pug',
 
             'update_ws_id'=>'setup update_ws_id',
@@ -378,30 +309,7 @@ class InstallMainSQLCommandline implements ICommandline{
 
 
 
-        foreach($files as $file=>$msg){
-            $installSQL = function(string $file){
-
-                $filename = dirname(__DIR__).'/sql/install/'.$file.'.sql';
-                $sql = file_get_contents($filename);
-                $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
-                $sql = preg_replace('#^\s*\-\-.+$#m', '', $sql);
-
-                $sinlgeStatements = App::get('clientDB')->explode_by_delimiter($sql);
-                foreach($sinlgeStatements as $commandIndex => $statement){
-                    try{
-                        App::get('clientDB')->execute($statement);
-                        App::get('clientDB')->moreResults();
-                    }catch(\Exception $e){
-                        echo PHP_EOL;
-                        PostCheck::formatPrintLn(['red'], $e->getMessage().': commandIndex => '.$commandIndex);
-                    }
-                }
-            };
-            $clientName = $args->getOpt('client');
-            if( is_null($clientName) ) $clientName = '';
-            self::setupClients($msg,$clientName,$file,$installSQL);
-        }
-
 
     }
 }
+*/

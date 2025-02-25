@@ -1,8 +1,6 @@
 DELIMITER ;
 CREATE TABLE IF NOT EXISTS `kandidaten` (
-  `ridx` varchar(12) DEFAULT NULL,
   `id` int(11) NOT NULL DEFAULT 0,
-  `kostenstelle` int(11) DEFAULT NULL,
   `aktiv` tinyint(4) DEFAULT 0,
   `titel` varchar(255) DEFAULT NULL,
   `vorname` varchar(255) DEFAULT NULL,
@@ -26,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `kandidaten` (
   `personen_identnummer` varchar(15) DEFAULT NULL,
   `geburtsdatum` date DEFAULT NULL,
   `geschlecht` varchar(5) DEFAULT NULL,
-  `anrede` varchar(100) DEFAULT NULL,
+  `anrede` varchar(100) default "",
   `geburtsjahr` varchar(5) DEFAULT NULL,
   `branche` varchar(255) DEFAULT NULL,
   `losung_verloren` tinyint(4) DEFAULT 0,
@@ -36,9 +34,7 @@ CREATE TABLE IF NOT EXISTS `kandidaten` (
   `losnummer` int(11) DEFAULT 0,
   `ist_gewaehlt` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uidx_kandidaten_ridx` (`ridx`),
   KEY `fk_kandidaten_stimmzettelgruppen` (`stimmzettelgruppen`),
-  CONSTRAINT `fk_kandidaten_stimmzettelgruppen` FOREIGN KEY (`stimmzettelgruppen`) REFERENCES `stimmzettelgruppen` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_kandidaten_stimmzettelgruppen` FOREIGN KEY (`stimmzettelgruppen`) REFERENCES `stimmzettelgruppen` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-call addFieldIfNotExists('kandidaten','anrede','varchar(100) default ""');

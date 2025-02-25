@@ -1,21 +1,5 @@
 DELIMITER //
 
-drop view if exists briefwahlkandidaten //
-create table if not exists briefwahlkandidaten (
-    id	int(11) primary key,
-    stimmzettelgruppen	varchar(12),
-    briefstimmen	bigint(21),
-    zaehlung_barcode	varchar(255),
-    zaehlung_stimmzettel	varchar(12)
-) //
-
-
-alter table briefwahlkandidaten add column if not exists created_at timestamp not null default current_timestamp  //
-alter table briefwahlkandidaten add column if not exists updated_at timestamp not null default current_timestamp on update current_timestamp  //
-
-create index if not exists idx_onlinekandidaten_name on onlinekandidaten(name)  //
-create index if not exists idx_briefwahlkandidaten_zaehlung_barcode on briefwahlkandidaten(zaehlung_barcode)  //
-
 
 
 CREATE OR REPLACE PROCEDURE `proc_briefwahlkandidaten`()
@@ -42,20 +26,20 @@ BEGIN
                                         (
                                             `kandidaten2`
                                             join `stimmzettel2` on(
-                                                `kandidaten2`.`stimmzettel2` = `stimmzettel2`.`ridx`
+                                                `kandidaten2`.`stimmzettel2` = `stimmzettel2`.`id`
                                             )
                                         )
                                         join `stapel2` on(
-                                            `stimmzettel2`.`stapel2` = `stapel2`.`ridx`
+                                            `stimmzettel2`.`stapel2` = `stapel2`.`id`
                                             and `stapel2`.`abgebrochen` = 0
                                         )
                                     )
-                                    join `kisten2` on(`stapel2`.`kisten2` = `kisten2`.`ridx`)
+                                    join `kisten2` on(`stapel2`.`kisten2` = `kisten2`.`id`)
                                 )
                                 join `kandidaten` on(`kandidaten`.`barcode` = `kandidaten2`.`name`)
                             )
                             join `stimmzettelgruppen` on(
-                                `kandidaten`.`stimmzettelgruppen` = `stimmzettelgruppen`.`ridx`
+                                `kandidaten`.`stimmzettelgruppen` = `stimmzettelgruppen`.`id`
                             )
                         )
                     group by `kandidaten`.`id`
@@ -71,23 +55,17 @@ BEGIN
                 from 
                     kandidaten
                     join `stimmzettelgruppen` on(
-                        `kandidaten`.`stimmzettelgruppen` = `stimmzettelgruppen`.`ridx`
+                        `kandidaten`.`stimmzettelgruppen` = `stimmzettelgruppen`.`id`
                     )
                     left join x on kandidaten.id = x.id
         ) do
             insert into briefwahlkandidaten  (
                 id,
-                stimmzettelgruppen,
-                briefstimmen,
-                zaehlung_barcode,
-                zaehlung_stimmzettel
+                briefstimmen
             ) values 
             (
                 rec.id,
-                rec.stimmzettelgruppen,
-                rec.briefstimmen,
-                rec.zaehlung_barcode,
-                rec.zaehlung_stimmzettel
+                rec.briefstimmen
             )
             on duplicate key update briefstimmen=values(briefstimmen)
             ;

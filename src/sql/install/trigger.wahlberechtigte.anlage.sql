@@ -26,89 +26,49 @@ BEGIN
 
 
 
-      IF (SELECT count(*) FROM stimmzettel WHERE ridx = set_stimmzettel)=1 THEN
-      SELECT id into prefix FROM stimmzettel WHERE ridx = set_stimmzettel;
-      -- SET NEW.ws_id = concat(prefix,lpad(NEW.identnummer,12,'0');
+      IF (SELECT count(*) FROM stimmzettel WHERE id = set_stimmzettel)=1 THEN
+        SELECT id into prefix FROM stimmzettel WHERE id = set_stimmzettel;
 
         INSERT IGNORE INTO `wahlberechtigte`
         (
-         `kostenstelle`,
          `id`,
-         `ridx`,
-         `identnummer`,
-
-         `insert_date`,
-         `update_date`,
-         `login`,
-         `insert_time`,
-         `update_time`,
-         `aktiv`
+         `identnummer`
 
         ) VALUES (
-         0,
-         NEW.identnummer, 
-         NEW.identnummer, 
-         NEW.identnummer,
-
-
-         CURRENT_DATE,
-         CURRENT_DATE,
-         @sessionuser,
-         CURRENT_TIME,
-         CURRENT_TIME,
-         1
-       ) ON DUPLICATE KEY UPDATE id=values(ID);
+          NEW.identnummer, 
+          NEW.identnummer
+        );
 
         INSERT INTO `wahlschein`
         (
-          `ridx`,
           `id`,
-          `kostenstelle`,
-          `name`,
-          `aktiv`,
-          `insert_date`,
-          `update_date`,
-          `login`,
           `stimmzettel`,
-          `insert_time`,
-          `update_time`,
           `wahlscheinnummer`,
           `wahlberechtigte`,
           `wahlscheinstatus`,
           `wahlscheinstatus_grund`,
           `abgabetyp`,
-          `defered`,
+
           `pwhash`,
           `username`,
-          `abgabehash`,
-          `sendtotmg`,
           `kombiniert`,
           `testdaten`
 
         ) VALUES (
-          concat(prefix,lpad(NEW.identnummer,12,'0')),
-          concat(prefix,lpad(NEW.identnummer,12,'0')),
-          0,
-          NEW.identnummer,
-          1,
-          CURRENT_DATE,
-          CURRENT_DATE,
-          @sessionuser,
+          
+          concat(prefix,lpad(NEW.identnummer,14,'0')),
           set_stimmzettel,
-          CURRENT_TIME,
-          CURRENT_TIME,
           NEW.wahlscheinnummer,
-          NEW.identnummer, 
+          NEW.identnummer,
           '17|0',
           NULL,
           '0|0',
-          0,
+
           NEW.pwhash,
           NEW.username,
-          '',
-          0,
-          if(ifnull(new.kombiniert,'')='' is null,concat(prefix,lpad(NEW.identnummer,12,'0')),new.kombiniert),
+          if(ifnull(new.kombiniert,'')='' is null,concat(prefix,lpad(NEW.identnummer,14,'0')),new.kombiniert),
           new.testdaten
+
         ) ON DUPLICATE KEY UPDATE id=values(ID);
 
 

@@ -5,9 +5,9 @@ CREATE TABLE IF NOT EXISTS `ballotbox_decrypted_sum` (
   `keyname` varchar(50) NOT NULL,
   `anzahl` integer not null,
   `isvalid` tinyint(4) DEFAULT NULL,
-  `stimmzettel` varchar(12) DEFAULT NULL,
+  `stimmzettel` integer DEFAULT NULL,
   `status` varchar(50) DEFAULT NULL,
-   CONSTRAINT `fk_ballotbox_decrypted_sum_stimmzettel` FOREIGN KEY (`stimmzettel`) REFERENCES `stimmzettel` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
+   CONSTRAINT `fk_ballotbox_decrypted_sum_stimmzettel` FOREIGN KEY (`stimmzettel`) REFERENCES `stimmzettel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
 
 ) //
