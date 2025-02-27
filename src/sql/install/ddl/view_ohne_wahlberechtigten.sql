@@ -1,7 +1,6 @@
 DELIMITER;
 
-CREATE
-OR REPLACE VIEW `ohne_wahlberechtigten` AS
+CREATE OR REPLACE VIEW `view_ohne_wahlberechtigten` AS
 select
     `wahlscheinstatus`.`id` AS `id`,
     `wahlscheinstatus`.`name` AS `name`

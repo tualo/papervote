@@ -1,4 +1,5 @@
 DELIMITER ;
+
 CREATE TABLE IF NOT EXISTS `wahlbeteiligung_bericht_formel` (
   `id` int(11) NOT NULL,
   `kostenstelle` int(11) NOT NULL DEFAULT 0,

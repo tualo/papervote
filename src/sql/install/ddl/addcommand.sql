@@ -9,7 +9,5 @@ insert ignore into ds_addcommands_xtypes (id,name) values ('wm_wb_importstatuscm
 
 
 INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("wahlberechtigte_anlage","wm_wb_importcmd","toolbar",1,"Importieren",NULL);
-
-
 INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("kandidaten","papervote_barcode_command","toolbar",1,"Barcodes",NULL);
 INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("kandidaten","papervote_export_command","toolbar",1,"ZIP-Export",NULL);
