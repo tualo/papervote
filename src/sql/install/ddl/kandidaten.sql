@@ -43,8 +43,7 @@ CREATE TABLE IF NOT EXISTS `kandidaten` (
 
 
 
-  `losung_verloren` tinyint(4) DEFAULT 0,
-  `nachruecker` tinyint(4) DEFAULT 0,
+  
   `kooptiert` tinyint(4) DEFAULT 0,
   `losnummer_stimmzettelgruppe` int(11) DEFAULT 0,
   `losnummer` int(11) DEFAULT 0,

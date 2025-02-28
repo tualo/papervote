@@ -77,11 +77,13 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
         'install/ddl/wahlberechtigte_anlage'              => 'setup wahlberechtigte_anlage',     
 
         'install/ddl/wahlscheinstatus_online_erlaubt'              => 'setup wahlscheinstatus_online_erlaubt',     
-        'install/proc/check_wahlscheinstatus_online_erlaubt'              => 'setup check_wahlscheinstatus_online_erlaubt',     
+        // 'install/proc/check_wahlscheinstatus_online_erlaubt'              => 'setup check_wahlscheinstatus_online_erlaubt',     
         
         
         'install/proc/rebuild_view_voters_by_username_api'              => 'setup rebuild_view_voters_by_username_api',     
         
+        'install/view/view_kandidaten_sitze_vergeben'              => 'setup view_kandidaten_sitze_vergeben',     
+        'install/view/view_readtable_kandidaten'              => 'setup view_readtable_kandidaten',     
         
         
 

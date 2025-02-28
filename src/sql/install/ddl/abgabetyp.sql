@@ -2,7 +2,7 @@ DELIMITER ;
 CREATE TABLE IF NOT EXISTS `abgabetyp` (
   `id` int(11) NOT NULL DEFAULT 0,
   `name` varchar(255) DEFAULT NULL,
-  `aktiv` int(11) DEFAULT 1,
+  `aktiv` tinyint DEFAULT 1,
 
   PRIMARY KEY (`id`),
 
