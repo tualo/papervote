@@ -11,7 +11,7 @@ select
     wahlberechtigte_anlage.*,
 
 
-    wahlberechtigte.ridx wahlberechtigte_ridx,
+    wahlberechtigte.id wahlberechtigte_id,
     wahlschein.id wahlschein_id, 
     wahlschein.kombiniert wahlschein_kombiniert, 
     wahlschein.wahlscheinnummer wahlschein_wahlscheinnummer,
@@ -24,7 +24,7 @@ select
 
     wahlgruppe.name `wahlgruppe_name`, -- RLF
     wahlbezirk.name `wahlbezirk_name`, -- RLF
-    wahlschein.ridx `wahlschein_ridx`, -- RLF
+    wahlschein.id `wahlschein_id`, -- RLF
 
     '' `leerzeile`,  -- RLF
     '' `leerzeile2`, -- RLF
@@ -32,8 +32,8 @@ select
 
     concat('<br/><h4>Historie</h4><br/>',
         group_concat(
-            concat(substring(hstr.ts,1,19),' - ',hstr.wahlscheinstatus_name,' - ',hstr.login)
-            order by hstr.ts
+            concat(substring(hstr.ROW_START,1,19),' - ',hstr.wahlscheinstatus_name,' - ',hstr.login)
+            order by hstr.ROW_START
 
             separator '<br/>'
         )
@@ -44,7 +44,7 @@ select
     wahlschein.stimmzettel,
     wahlschein.abgabetyp,
     wahlschein.wahlscheinstatus,
-    wahltyp.ridx wahltyp_ridx,
+    wahltyp.id wahltyp_id,
 
     getBallotpaper(wahlschein.stimmzettel) displ_stimmzettel_name,
     concat('<b>',getBallotpaper(wahlschein.stimmzettel) ,'</b>') displ_stimmzettel_name_bold,
@@ -54,26 +54,29 @@ from
 
     wahlschein
     join wahlberechtigte 
-        on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+        on wahlberechtigte.id = wahlschein.wahlberechtigte
     join wahlberechtigte_anlage  
         on wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer
         and wahlschein.stimmzettel = wahlberechtigte_anlage.stimmzettel
     join stimmzettel 
-        on stimmzettel.ridx = wahlschein.stimmzettel
+        on stimmzettel.id = wahlschein.stimmzettel
     join wahltyp 
-        on wahltyp.ridx = stimmzettel.wahltyp
-    join wahlgruppe on wahlgruppe.ridx = stimmzettel.wahlgruppe
-    join wahlbezirk on wahlbezirk.ridx = stimmzettel.wahlbezirk
+        on wahltyp.id = stimmzettel.wahltyp
+    join wahlgruppe on wahlgruppe.id = stimmzettel.wahlgruppe
+    join wahlbezirk on wahlbezirk.id = stimmzettel.wahlbezirk
     join wahlscheinstatus 
-                on wahlschein.wahlscheinstatus = wahlscheinstatus.ridx
+                on wahlschein.wahlscheinstatus = wahlscheinstatus.id
     join (
         select 
-            hstr.*,
+            hstr.ROW_START,
+            hstr.login,
+            hstr.id,
+            hstr.stimmzettel,
             wahlscheinstatus.name wahlscheinstatus_name
         from 
             wahlschein  FOR SYSTEM_TIME ALL  hstr
             join wahlscheinstatus 
-                on hstr.wahlscheinstatus = wahlscheinstatus.ridx
+                on hstr.wahlscheinstatus = wahlscheinstatus.id
     ) hstr 
         on hstr.id = wahlschein.id
         and hstr.stimmzettel = wahlschein.stimmzettel
@@ -95,7 +98,7 @@ group by
                 "username",
                 "password",
                 "passwort",
-                "wahlberechtigte_ridx",
+                "wahlberechtigte_id",
                 "wahlschein_id",
                 "wahlschein_wahlscheinnummer",
                 "leerzeile",
@@ -106,12 +109,11 @@ group by
                 "stimmzettel_typtitel",
                 "wahlgruppe_name",
                 "wahlbezirk_name",
-                "wahlschein_ridx",
                 "abgabetyp",
                 "wahlscheinstatus",
                 "hstr",
                 "displ_stimmzettel_name",
-                "wahltyp_ridx",
+                "wahltyp_id",
                 "last_state_text",
                 "displ_stimmzettel_name_bold",
                 "stimmzettel_typtitel_bold"
@@ -133,7 +135,7 @@ group by
 
     public static function wzb($db,$data){
         foreach($data as &$item){
-            $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$item);
+            $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_id}',$item);
         }
         return $data;
     }

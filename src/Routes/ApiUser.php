@@ -44,7 +44,8 @@ class ApiUser implements IRoute{
                     foreach( $data['possible_ballotpapers'] as &$ballotpaper){
                         $hash = [
                             'voter_id'=>$ballotpaper['voter_id'],
-                            'ballotpaper_ridx' => $ballotpaper['ballotpaper_id'].'|0',
+                            'ballotpaper_id'=>$ballotpaper['ballotpaper_id'],
+                            // 'ballotpaper_ridx' => $ballotpaper['ballotpaper_id'].'|0',
                             'secret_token' => Uuid::uuid4()->toString()
                         ];
                         if ($ballotpaper['canvote']==1){
@@ -56,7 +57,7 @@ class ApiUser implements IRoute{
                                 token
                             ) values (
                                 {voter_id},
-                                {ballotpaper_ridx},
+                                {ballotpaper_id},
                                 now(),
                                 {secret_token}
                             ) on duplicate key update token=values(token)

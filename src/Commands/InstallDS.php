@@ -42,7 +42,7 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline{
         'install/ds/wahlzeichnungsberechtigter.ds'          => 'setup wahlzeichnungsberechtigter.ds',
         'install/ds/wahlschein.ds'                          => 'setup wahlschein.ds',
         'install/ds/wahlscheinstatus_online_erlaubt.ds'     => 'setup wahlscheinstatus_online_erlaubt.ds',
-        'install/ds/wzbruecklauffelder.ds'                    => 'setup wzbruecklauffelder.ds',
+        'install/ds/wzbruecklauffelder.ds'                  => 'setup wzbruecklauffelder.ds',
         
 
 

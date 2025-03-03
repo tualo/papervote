@@ -84,8 +84,13 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
         
         'install/view/view_kandidaten_sitze_vergeben'              => 'setup view_kandidaten_sitze_vergeben',     
         'install/view/view_readtable_kandidaten'              => 'setup view_readtable_kandidaten',     
+        'install/view/view_readtable_kandidaten_bilder'              => 'setup view_readtable_kandidaten_bilder',     
         
         
+        
+        'install/proc/getBallotpaper'              => 'setup getBallotpaper',     
+
+        'install/proc/proc_clone_vm_data'              => 'setup proc_clone_vm_data',     
 
     ];  
     

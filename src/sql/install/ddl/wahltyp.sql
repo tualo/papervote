@@ -2,6 +2,7 @@ DELIMITER ;
 CREATE TABLE IF NOT EXISTS `wahltyp` (
   `id` int(11) NOT NULL DEFAULT 1,
   `name` varchar(255) DEFAULT NULL,
+  `feld` varchar(255) DEFAULT '',
   `aktiv` tinyint(4) DEFAULT 1,
   PRIMARY KEY (`id`),
   KEY `idx_wahltyp_name` (`name`),

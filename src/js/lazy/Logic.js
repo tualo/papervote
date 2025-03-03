@@ -89,8 +89,8 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                                 });
                             } else {
                                 o.data.forEach(function(itm){
-                                    scope.wbliste=[itm.wahlschein_ridx].concat(scope.wbliste);
-                                    scope.wbhash[itm.wahlschein_ridx]=itm;
+                                    scope.wbliste=[itm.wahlschein_id].concat(scope.wbliste);
+                                    scope.wbhash[itm.wahlschein_id]=itm;
                                 });
                                 scope.fireEvent('loaded', scope, '',o.data[0]);
                                 scope.last_message = o.msg;
@@ -123,7 +123,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         typen.forEach(function(record) {
             
             if ( o.data.hasOwnProperty(record.get('feld'))  
-                && (o.data.wahltyp_ridx == record.get('ridx'))
+                && (o.data.wahltyp_id == record.get('id'))
             ){
             
 
@@ -137,12 +137,12 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                 }
 
                 me.typen.push({
-                    ridx: record.get('ridx'),
+                    id: record.get('id'),
                     feld: record.get('feld'),
                     name: record.get('name')
                 });
                 status.forEach(function(statusRecord) {
-                    if (st == statusRecord.get('ridx')) {
+                    if (st == statusRecord.get('id')) {
                         text = statusRecord.get('name');
                     }
                 });
@@ -152,7 +152,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
         console.log('successRead',me.typen);
         // doppeltefassung verhindern.
-        if (me.wbliste.indexOf(o.data.wahlschein_ridx)>=0){
+        if (me.wbliste.indexOf(o.data.wahlschein_id)>=0){
           if (me.wbliste.length === me.list_length) {
               me.transit('warteAufStatus');
           } else {
@@ -160,9 +160,9 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
           }
         }else{
 
-          me.wbliste=[o.data.wahlschein_ridx].concat(me.wbliste);
-          //me.wbliste.push(o.data.wahlschein_ridx);
-          me.wbhash[o.data.wahlschein_ridx]=o.data;
+          me.wbliste=[o.data.wahlschein_id].concat(me.wbliste);
+          //me.wbliste.push(o.data.wahlschein_id);
+          me.wbhash[o.data.wahlschein_id]=o.data;
           me.fireEvent('loaded', me, '',o.data);
           if (me.list_length === 1) {
               if (reset == true) {
@@ -216,9 +216,9 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         try{
             typen.forEach(function(rec){
                 if (!Ext.isEmpty(o[rec.get('stimmzettelfeld')])
-                && (o.wahltyp_ridx == rec.get('ridx'))
+                && (o.wahltyp_id == rec.get('id'))
                 ){
-                    var txt = status.findRecord('ridx',o[rec.get('feld')],0,false,false,true);
+                    var txt = status.findRecord('id',o[rec.get('feld')],0,false,false,true);
                     if (Ext.isEmpty(txt)){
                         txt = 'unbekannter Statuscode ('+o[rec.get('feld')]+') ';
                     }else{
@@ -293,7 +293,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
           } else {
               scope.dataSet.push({
                   feld: scope.typen[scope.typen_index].feld,
-                  status: statusItem.get('ridx')
+                  status: statusItem.get('id')
               });
               scope.lastsavesatte = statusItem.get('name');
 
@@ -329,7 +329,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                                   try {
                                       var o = {};
                                       o[scope.typen[scope.typen_index].feld] = statusItem.get('name') + ' (' + statusgrundRecord.get('name') + ')';
-                                      scope.dataSet[scope.typen_index].grund = statusgrundRecord.get('ridx');
+                                      scope.dataSet[scope.typen_index].grund = statusgrundRecord.get('id');
                                       scope.btnActionSheet.hide();
                                       scope._nextStatus()
                                   } catch (e) {
@@ -350,10 +350,10 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
               var d = list.length;
 
               status_grund.forEach(function(statusgrundRecord){
-                  if (statusgrundRecord.get('wahlscheinstatus') === statusItem.get('ridx')) {
+                  if (statusgrundRecord.get('wahlscheinstatus') === statusItem.get('id')) {
                       list.push({
                           text: statusgrundRecord.get('name'),
-                          idx:  statusgrundRecord.get('ridx'),
+                          idx:  statusgrundRecord.get('id'),
                           xtype: 'button',
                           scope: scope,
                           handler: function(grund, status) {
@@ -361,10 +361,10 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                                   try {
                                     //alert(b);
                                       var o = {};
-                                      o[me.typen[this.typen_index].feld] = status.get('name') + ' (' + grund.get('ridx') + ')';
+                                      o[me.typen[this.typen_index].feld] = status.get('name') + ' (' + grund.get('id') + ')';
                                       //this.form.setValues(o);
 
-                                      this.dataSet[this.typen_index].grund = grund.get('ridx');
+                                      this.dataSet[this.typen_index].grund = grund.get('id');
                                       this.btnActionSheet.hide();
                                       this._nextStatus()
                                   } catch (e) {
@@ -404,7 +404,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         var text = [];
         try{
             this.lastdataSet.forEach(function(statusrec){
-                text.push(/*typen.findRecord('feld',statusrec['feld'],0,false,false,true).get('name')+': '+*/status.findRecord('ridx',statusrec['status'],0,false,false,true).get('name'))
+                text.push(/*typen.findRecord('feld',statusrec['feld'],0,false,false,true).get('name')+': '+*/status.findRecord('id',statusrec['status'],0,false,false,true).get('name'))
             });
         }catch(e){
             console.log(e);
