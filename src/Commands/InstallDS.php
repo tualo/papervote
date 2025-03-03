@@ -36,9 +36,14 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline{
 
 
         'install/ds/ruecklauffelder.ds'                     => 'setup ruecklauffelder.ds',
+        'install/ds/ruecklauffelder.ds'                     => 'setup ruecklauffelder.ds',
+        
         'install/ds/wahlberechtigte.ds'                     => 'setup wahlberechtigte.ds',
         'install/ds/wahlzeichnungsberechtigter.ds'          => 'setup wahlzeichnungsberechtigter.ds',
         'install/ds/wahlschein.ds'                          => 'setup wahlschein.ds',
+        'install/ds/wahlscheinstatus_online_erlaubt.ds'     => 'setup wahlscheinstatus_online_erlaubt.ds',
+        'install/ds/wzbruecklauffelder.ds'                    => 'setup wzbruecklauffelder.ds',
+        
 
 
         /*
@@ -49,8 +54,6 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline{
         'install/ddl/wm_berichte'                   => 'setup wm_berichte',
         'install/ddl/wm_berichte.data'              => 'setup wm_berichte.data',
 
-        'install/ddl/wahlschein'                    => 'setup wahlschein',
-
         'install/ddl/briefwahlkandidaten'           => 'setup briefwahlkandidaten',
         'install/proc/proc_briefwahlkandidaten'     => 'setup proc_briefwahlkandidaten',
 
@@ -58,22 +61,13 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline{
         'install/view/view_kandidaten_stimmenanzahl'=> 'setup view_kandidaten_stimmenanzahl',
 
         'install/ddl/wzbruecklauffelder'            => 'setup wzbruecklauffelder',
-        'install/ddl/wzbruecklauffelder.data'       => 'setup wzbruecklauffelder.data',
 
         'install/ddl/view_ohne_wahlberechtigten'    => 'setup view_ohne_wahlberechtigten',
 
         'install/ddl/blocked_voters'                => 'setup blocked_voters',
         'install/ddl/view_voter_credentials'        => 'setup view_voter_credentials',
         
-        'install/proc/voterCredential'              => 'setup voterCredential',     
 
-        'install/ddl/wahlberechtigte_anlage'              => 'setup wahlberechtigte_anlage',     
-
-        'install/ddl/wahlscheinstatus_online_erlaubt'              => 'setup wahlscheinstatus_online_erlaubt',     
-        // 'install/proc/check_wahlscheinstatus_online_erlaubt'              => 'setup check_wahlscheinstatus_online_erlaubt',     
-        
-        
-        'install/proc/rebuild_view_voters_by_username_api'              => 'setup rebuild_view_voters_by_username_api',     
         */
         
         
