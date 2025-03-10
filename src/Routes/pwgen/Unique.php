@@ -1,4 +1,5 @@
 <?php
+
 namespace Tualo\Office\PaperVote\Routes\pwgen;
 
 use Exception;
@@ -22,70 +23,69 @@ class Unique implements IRoute
             $db = $session->getDB();
             App::contenttype('application/json');
             set_time_limit(120);
-            try{
-                App::result('wahlschein',[]);
-                App::result('username',[]);
-                App::result('password',[]);
-                $c = $db->singleRow('select count(*) as c,database() d from wahlschein',[]);
-                if ($c['c']==0) $c['c']=1000;
+            try {
+                App::result('wahlschein', []);
+                App::result('username', []);
+                App::result('password', []);
+                $c = $db->singleRow('select count(*) as c,database() d from wahlschein', []);
+                if ($c['c'] == 0) $c['c'] = 1000;
 
-                $counts=$c['c'];
-                
-                $c['c']=1000;
-                
+                $counts = $c['c'];
+
+                $c['c'] = 1000;
 
 
-                $sum=0;
+
+                $sum = 0;
                 $db->direct('drop table if exists temp_random_list');
-                while($sum<$counts){
-                    $db->direct('call U(8,"1234567890",{c},"wahlscheinnummer")',$c);
+                while ($sum < $counts) {
+                    $db->direct('call createRandomList(8,"1234567890",{c},"wahlscheinnummer")', $c);
                     $db->moreResults();
-                    $sum+=$c['c'];
-                }
-                
-                App::result('wahlschein',$db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r',[]));
-                set_time_limit(120);
-
-                $sum=0;
-                $db->direct('drop table if exists temp_random_list');
-                while($sum<$counts){
-                    $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"username")',$c);
-                    $db->moreResults();
-                    $sum+=$c['c'];
+                    $sum += $c['c'];
                 }
 
-                App::result('username',$db->direct('select temp_random_list.*,rand() r from temp_random_list order by r',[]));
+                App::result('wahlschein', $db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r', []));
                 set_time_limit(120);
 
-                $sum=0;
+                $sum = 0;
                 $db->direct('drop table if exists temp_random_list');
-                while($sum<$counts){
-                    $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"pw")',$c);
+                while ($sum < $counts) {
+                    $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"username")', $c);
                     $db->moreResults();
-                    $sum+=$c['c'];
+                    $sum += $c['c'];
                 }
-                
+
+                App::result('username', $db->direct('select temp_random_list.*,rand() r from temp_random_list order by r', []));
                 set_time_limit(120);
-                App::result('password',$db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r',[]));
+
+                $sum = 0;
+                $db->direct('drop table if exists temp_random_list');
+                while ($sum < $counts) {
+                    $db->direct('call createRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789",{c},"pw")', $c);
+                    $db->moreResults();
+                    $sum += $c['c'];
+                }
+
+                set_time_limit(120);
+                App::result('password', $db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r', []));
                 App::result('success', true);
-
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
-        },['post','get']);
+        }, ['post', 'get']);
 
         BasicRoute::add('/pwgen/unique', function () {
             $session = App::get('session');
             $db = $session->getDB();
-            
-            try{
-                App::result('wahlschein',[]);
-                App::result('username',[]);
 
-                try{
-                    App::result('wahlschein', $db->direct('select wahlscheinnummer from wahlschein FOR SYSTEM_TIME ALL',[],'wahlscheinnummer'));
-                    App::result('username', $db->direct('select username from wahlschein FOR SYSTEM_TIME ALL',[],'username'));
-                }catch(Exception $e){
+            try {
+                App::result('wahlschein', []);
+                App::result('username', []);
+
+                try {
+                    App::result('wahlschein', $db->direct('select wahlscheinnummer from wahlschein FOR SYSTEM_TIME ALL', [], 'wahlscheinnummer'));
+                    App::result('username', $db->direct('select username from wahlschein FOR SYSTEM_TIME ALL', [], 'username'));
+                } catch (Exception $e) {
                     /*
                     // für ältere system gedacht
                     // neu mit versionierung
@@ -97,10 +97,10 @@ class Unique implements IRoute
                     }*/
                 }
                 App::result('success', true);
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        },['post','get']);
+        }, ['post', 'get']);
     }
 }

@@ -1,5 +1,7 @@
 <?php
+
 namespace Tualo\Office\PaperVote\Commands;
+
 use Garden\Cli\Cli;
 use Garden\Cli\Args;
 use phpseclib3\Math\BigInteger\Engines\PHP;
@@ -10,12 +12,16 @@ use Tualo\Office\Basic\PostCheck;
 use Tualo\Office\Basic\CommandLineInstallSQL;
 
 
-class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
-    public static function getDir():string {   return dirname(__DIR__,1); }
+class InstallDDL extends CommandLineInstallSQL  implements ICommandline
+{
+    public static function getDir(): string
+    {
+        return dirname(__DIR__, 1);
+    }
     public static $shortName  = 'papervote-ddl';
     public static $files = [
 
-        
+
         'install/ddl/addcommand'                    => 'setup addcommand',
 
 
@@ -43,7 +49,7 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
         'install/ddl/counting.ddl.trigger'          => 'setup counting.ddl.trigger',
 
         'install/ddl/onlinestimmzettel'             => 'setup onlinestimmzettel',
-        'install/ddl/onlinekandidaten'              => 'setup onlinekandidaten',     
+        'install/ddl/onlinekandidaten'              => 'setup onlinekandidaten',
 
         'install/ddl/ruecklauffelder'               => 'setup ruecklauffelder',
 
@@ -61,8 +67,8 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
         'install/ddl/briefwahlkandidaten'           => 'setup briefwahlkandidaten',
         'install/proc/proc_briefwahlkandidaten'     => 'setup proc_briefwahlkandidaten',
 
-        
-        'install/view/view_kandidaten_stimmenanzahl'=> 'setup view_kandidaten_stimmenanzahl',
+
+        'install/view/view_kandidaten_stimmenanzahl' => 'setup view_kandidaten_stimmenanzahl',
 
         'install/ddl/wzbruecklauffelder'            => 'setup wzbruecklauffelder',
         'install/ddl/wzbruecklauffelder.data'       => 'setup wzbruecklauffelder.data',
@@ -71,29 +77,31 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline{
 
         'install/ddl/blocked_voters'                => 'setup blocked_voters',
         'install/ddl/view_voter_credentials'        => 'setup view_voter_credentials',
-        
-        'install/proc/voterCredential'              => 'setup voterCredential',     
 
-        'install/ddl/wahlberechtigte_anlage'              => 'setup wahlberechtigte_anlage',     
+        'install/proc/voterCredential'              => 'setup voterCredential',
 
-        'install/ddl/wahlscheinstatus_online_erlaubt'              => 'setup wahlscheinstatus_online_erlaubt',     
+        'install/ddl/wahlberechtigte_anlage'              => 'setup wahlberechtigte_anlage',
+
+        'install/ddl/wahlscheinstatus_online_erlaubt'              => 'setup wahlscheinstatus_online_erlaubt',
+        'install/ddl/wahlscheinstatus_offline_erlaubt'              => 'setup wahlscheinstatus_offline_erlaubt',
+        'install/ddl/abgabetyp_offline_erlaubt'              => 'setup abgabetyp_offline_erlaubt',
+
         // 'install/proc/check_wahlscheinstatus_online_erlaubt'              => 'setup check_wahlscheinstatus_online_erlaubt',     
-        
-        
-        'install/proc/rebuild_view_voters_by_username_api'              => 'setup rebuild_view_voters_by_username_api',     
-        
-        'install/view/view_kandidaten_sitze_vergeben'              => 'setup view_kandidaten_sitze_vergeben',     
-        'install/view/view_readtable_kandidaten'              => 'setup view_readtable_kandidaten',     
-        'install/view/view_readtable_kandidaten_bilder'              => 'setup view_readtable_kandidaten_bilder',     
-        
-        
-        
-        'install/proc/getBallotpaper'              => 'setup getBallotpaper',     
 
-        'install/proc/proc_clone_vm_data'              => 'setup proc_clone_vm_data',     
 
-    ];  
-    
+        'install/proc/rebuild_view_voters_by_username_api'              => 'setup rebuild_view_voters_by_username_api',
+
+        'install/view/view_kandidaten_sitze_vergeben'              => 'setup view_kandidaten_sitze_vergeben',
+        'install/view/view_readtable_kandidaten'              => 'setup view_readtable_kandidaten',
+        'install/view/view_readtable_kandidaten_bilder'              => 'setup view_readtable_kandidaten_bilder',
+
+
+
+        'install/proc/getBallotpaper'              => 'setup getBallotpaper',
+
+        'install/proc/proc_clone_vm_data'              => 'setup proc_clone_vm_data',
+
+    ];
 }
 
 /*

@@ -1,5 +1,7 @@
 <?php
+
 namespace Tualo\Office\PaperVote\Commands;
+
 use Garden\Cli\Cli;
 use Garden\Cli\Args;
 use phpseclib3\Math\BigInteger\Engines\PHP;
@@ -10,8 +12,12 @@ use Tualo\Office\Basic\PostCheck;
 use Tualo\Office\Basic\CommandLineInstallSQL;
 
 
-class InstallDS extends CommandLineInstallSQL  implements ICommandline{
-    public static function getDir():string {   return dirname(__DIR__,1); }
+class InstallDS extends CommandLineInstallSQL  implements ICommandline
+{
+    public static function getDir(): string
+    {
+        return dirname(__DIR__, 1);
+    }
     public static $shortName  = 'papervote-ds';
     public static $files = [
 
@@ -20,7 +26,7 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline{
         'install/ds/abgabetyp.ds'                           => 'setup abgabetyp.ds',
         'install/ds/wahlscheinstatus.ds'                    => 'setup wahlscheinstatus.ds',
         'install/ds/wahlscheinstatus_grund.ds'              => 'setup wahlscheinstatus_grund.ds',
-        'install/ds/wahlberechtigte_anlage.ds'              => 'setup wahlberechtigte_anlage.ds', 
+        'install/ds/wahlberechtigte_anlage.ds'              => 'setup wahlberechtigte_anlage.ds',
         'install/ds/wahlgruppe.ds'                          => 'setup wahlgruppe.ds',
         'install/ds/wahlbezirk.ds'                          => 'setup wahlbezirk.ds',
         'install/ds/stimmzettel.ds'                         => 'setup stimmzettel.ds',
@@ -37,13 +43,14 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline{
 
         'install/ds/ruecklauffelder.ds'                     => 'setup ruecklauffelder.ds',
         'install/ds/ruecklauffelder.ds'                     => 'setup ruecklauffelder.ds',
-        
+
         'install/ds/wahlberechtigte.ds'                     => 'setup wahlberechtigte.ds',
         'install/ds/wahlzeichnungsberechtigter.ds'          => 'setup wahlzeichnungsberechtigter.ds',
         'install/ds/wahlschein.ds'                          => 'setup wahlschein.ds',
         'install/ds/wahlscheinstatus_online_erlaubt.ds'     => 'setup wahlscheinstatus_online_erlaubt.ds',
+        'install/ds/wahlscheinstatus_offline_erlaubt.ds'     => 'setup wahlscheinstatus_offline_erlaubt.ds',
+        'install/ds/abgabetyp_offline_erlaubt.ds'     => 'setup abgabetyp_offline_erlaubt.ds',
         'install/ds/wzbruecklauffelder.ds'                  => 'setup wzbruecklauffelder.ds',
-        
 
 
         /*
@@ -69,9 +76,8 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline{
         
 
         */
-        
-        
 
-    ];  
-    
+
+
+    ];
 }
