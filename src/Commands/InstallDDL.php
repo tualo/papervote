@@ -24,6 +24,9 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
         'install/ddl/addcommand'                    => 'setup addcommand',
 
+        'install/ddl/votemanager_setup'             => 'setup votemanager_setup',
+
+
 
         'install/ddl/wahltyp'                       => 'setup wahltyp',
         'install/ddl/wahltyp.data'                  => 'setup wahltyp.data',
@@ -59,8 +62,8 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         'install/ddl/wm_tanboegen'                  => 'setup wm_tanboegen',
         'install/ddl/wm_tannummer'                  => 'setup wm_tannummer',
 
-        'install/ddl/wm_berichte'                   => 'setup wm_berichte',
-        'install/ddl/wm_berichte.data'              => 'setup wm_berichte.data',
+        // 'install/ddl/wm_berichte'                   => 'setup wm_berichte',
+        // 'install/ddl/wm_berichte.data'              => 'setup wm_berichte.data',
 
         'install/ddl/wahlschein'                    => 'setup wahlschein',
 

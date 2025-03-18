@@ -17,7 +17,7 @@ BEGIN
                         `kandidaten`.`id` AS `id`,
                         `kandidaten`.`stimmzettelgruppen` AS `stimmzettelgruppen`,
                         count(0) AS `briefstimmen`,
-                        `kandidaten2`.`name` AS `zaehlung_barcode`,
+                        `kandidaten`.`barcode` AS `zaehlung_barcode`,
                         `stimmzettel2`.`stimmzettel` AS `zaehlung_stimmzettel`
                     from (
                             (
@@ -36,7 +36,7 @@ BEGIN
                                     )
                                     join `kisten2` on(`stapel2`.`kisten2` = `kisten2`.`id`)
                                 )
-                                join `kandidaten` on(`kandidaten`.`barcode` = `kandidaten2`.`name`)
+                                join `kandidaten` on(`kandidaten`.`id` = `kandidaten2`.`kandidaten`)
                             )
                             join `stimmzettelgruppen` on(
                                 `kandidaten`.`stimmzettelgruppen` = `stimmzettelgruppen`.`id`

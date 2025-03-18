@@ -22,6 +22,8 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
     public static $files = [
 
         'install/ds/ds_class'                               => 'setup ds_class',
+        'install/ds/votemanager_setup.ds'                   => 'setup votemanager_setup.ds',
+
         'install/ds/wahltyp.ds'                             => 'setup wahltyp.ds',
         'install/ds/abgabetyp.ds'                           => 'setup abgabetyp.ds',
         'install/ds/wahlscheinstatus.ds'                    => 'setup wahlscheinstatus.ds',
@@ -48,9 +50,16 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/wahlzeichnungsberechtigter.ds'          => 'setup wahlzeichnungsberechtigter.ds',
         'install/ds/wahlschein.ds'                          => 'setup wahlschein.ds',
         'install/ds/wahlscheinstatus_online_erlaubt.ds'     => 'setup wahlscheinstatus_online_erlaubt.ds',
-        'install/ds/wahlscheinstatus_offline_erlaubt.ds'     => 'setup wahlscheinstatus_offline_erlaubt.ds',
-        'install/ds/abgabetyp_offline_erlaubt.ds'     => 'setup abgabetyp_offline_erlaubt.ds',
+        'install/ds/wahlscheinstatus_offline_erlaubt.ds'    => 'setup wahlscheinstatus_offline_erlaubt.ds',
+        'install/ds/abgabetyp_offline_erlaubt.ds'           => 'setup abgabetyp_offline_erlaubt.ds',
         'install/ds/wzbruecklauffelder.ds'                  => 'setup wzbruecklauffelder.ds',
+
+        'install/ds/view_kandidaten_stimmenanzahl.ds'       => 'setup view_kandidaten_stimmenanzahl.ds',
+        'install/ds/view_kandidaten_stimmenanzahl.ds'       => 'setup view_kandidaten_stimmenanzahl.ds',
+
+
+        // 'install/reporting/wm_berichte.pug'                 => 'setup wm_berichte.pug',
+        // 'install/ds/wm_berichte.ds'                         => 'setup wm_berichte.ds',
 
 
         /*
