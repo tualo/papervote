@@ -32,7 +32,19 @@ select
         order by
 
             ifnull(`kandidaten`.`kooptiert`,0) desc,
-            ifnull(`onlinekandidaten`.`anzahl`, 0) + ifnull(`briefwahlkandidaten`.`briefstimmen`, 0) desc
+            ifnull(`onlinekandidaten`.`anzahl`, 0) + ifnull(`briefwahlkandidaten`.`briefstimmen`, 0) desc,
+
+            if(
+                `kandidaten`.`losnummer_stimmzettelgruppe` = 0,
+                2000000,
+                `kandidaten`.`losnummer_stimmzettelgruppe`
+            ),
+
+            if(
+                `kandidaten`.`losnummer` = 0,
+                1000000,
+                `kandidaten`.`losnummer`
+            )
 
     ) AS `stimmzettel_rang`,
 
@@ -80,21 +92,49 @@ from
 order by
     ifnull(`onlinekandidaten`.`anzahl`, 0) + ifnull(`briefwahlkandidaten`.`briefstimmen`, 0) desc
 ), setup as (
-    select * from votemanager_setup where id='view_kandidaten_stimmenanzahl_basis'
-)
-select 
-setup.val,
-    row_number() over (partition by stimmzettel_id order by stimmzettel_rang,id) rn,
-    row_number() over (partition by stimmzettel_id order by stimmzettel_rang,id)<=stimmzettel_sitze as gewaehlt,
-    basedata.*
-from basedata join setup on basedata.stimmzettel_id = setup.id='view_kandidaten_stimmenanzahl_basis' and setup.val='stimmzettel'
+    select * from votemanager_setup where id='wm_report_base'
+), predata as (
+    select 
+        setup.val,
+        stimmzettel_id use_id,
+        stimmzettel_rang use_rang,
+        row_number() over (partition by stimmzettel_id order by stimmzettel_rang,id) rn,
+        row_number() over (partition by stimmzettel_id order by stimmzettel_rang,id)<=stimmzettel_sitze as gewaehlt,
+        basedata.*
+    from basedata join setup on   setup.val='stimmzettel'
 
-    union all 
+        union all 
+    select 
+        setup.val,
+        stimmzettelgruppen_id use_id,
+        stimmzettelgruppen_rang use_rang,
+
+        row_number() over (partition by stimmzettelgruppen_id order by stimmzettelgruppen_rang,id) rn,
+        row_number() over (partition by stimmzettelgruppen_id order by stimmzettelgruppen_rang,id)<=stimmzettelgruppen_sitze as gewaehlt,
+        basedata.*
+    from basedata join setup on   setup.val='stimmzettelgruppen'
+), finalcheck as (
+    select 
+        use_id,
+        is_final
+    from (
+        select 
+            0 is_final,
+            use_id,
+            use_rang,
+            count(*) as cnt
+        from predata
+        group by use_id,use_rang
+        having cnt > 1
+    ) x group by use_id
+)
+
 select 
-setup.val,
-    row_number() over (partition by stimmzettelgruppen_id order by stimmzettelgruppen_rang,id) rn,
-    row_number() over (partition by stimmzettelgruppen_id order by stimmzettelgruppen_rang,id)<=stimmzettelgruppen_sitze as gewaehlt,
-    basedata.*
-from basedata join setup on basedata.stimmzettel_id = setup.id='view_kandidaten_stimmenanzahl_basis' and setup.val='stimmzettelgruppen'
-    
+    ifnull(finalcheck.is_final, 1) as is_final,
+    predata.* 
+from 
+    predata
+    left join 
+    finalcheck
+    on predata.use_id = finalcheck.use_id 
 ;

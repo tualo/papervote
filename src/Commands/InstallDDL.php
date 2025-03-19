@@ -27,6 +27,9 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         'install/ddl/votemanager_setup'             => 'setup votemanager_setup',
 
 
+        'install/ddl/reportfiles_typen'             => 'setup reportfiles_typen',
+        'install/ddl/reportfiles'                   => 'setup reportfiles',
+
 
         'install/ddl/wahltyp'                       => 'setup wahltyp',
         'install/ddl/wahltyp.data'                  => 'setup wahltyp.data',

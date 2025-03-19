@@ -24,6 +24,10 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/ds_class'                               => 'setup ds_class',
         'install/ds/votemanager_setup.ds'                   => 'setup votemanager_setup.ds',
 
+        'install/ds/reportfiles_typen.ds'                   => 'setup reportfiles_typen.ds',
+        'install/ds/reportfiles.ds'                         => 'setup reportfiles.ds',
+
+
         'install/ds/wahltyp.ds'                             => 'setup wahltyp.ds',
         'install/ds/abgabetyp.ds'                           => 'setup abgabetyp.ds',
         'install/ds/wahlscheinstatus.ds'                    => 'setup wahlscheinstatus.ds',
@@ -57,6 +61,8 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/view_kandidaten_stimmenanzahl.ds'       => 'setup view_kandidaten_stimmenanzahl.ds',
         'install/ds/view_kandidaten_stimmenanzahl.ds'       => 'setup view_kandidaten_stimmenanzahl.ds',
 
+        'install/ds/wm_tanboegen.ds'                        => 'setup wm_tanboegen.ds',
+        'install/ds/wm_tannummer.ds'                        => 'setup wm_tannummer.ds',
 
         // 'install/reporting/wm_berichte.pug'                 => 'setup wm_berichte.pug',
         // 'install/ds/wm_berichte.ds'                         => 'setup wm_berichte.ds',

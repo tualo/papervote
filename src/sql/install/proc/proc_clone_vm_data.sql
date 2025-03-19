@@ -66,6 +66,8 @@ BEGIN
         ('kandidaten_bilder','kandidaten_bilder'),
         ('ds_files','ds_files'),
         ('ds_files_data','ds_files_data'),
+
+        ('reportfiles','reportfiles'),
         ('wahlberechtigte','wahlberechtigte'),
         ('wahlzeichnungsberechtigter','wahlzeichnungsberechtigter'),
 
