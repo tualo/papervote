@@ -9,3 +9,4 @@ create table if not exists votemanager_setup (
 
 insert ignore into votemanager_setup (id, val) values ('view_kandidaten_stimmenanzahl_basis', 'stimmzettel');
 insert ignore into votemanager_setup (id, val) values ('view_kandidaten_stimmenanzahl_report_teilergebnis', 'show');
+insert ignore into votemanager_setup (id, val) values ('wm_report_pagenumbers', 'show');
