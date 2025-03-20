@@ -50,6 +50,8 @@ select
 
     `kandidaten`.`id` AS `id`,
     
+    `kandidaten`.`barcode` AS `barcode`,
+
     `kandidaten`.`losnummer` AS `losnummer`,
     `kandidaten`.`losnummer_stimmzettelgruppe` AS `losnummer_stimmzettelgruppe`,
     `kandidaten`.`kooptiert` AS `kooptiert`,
