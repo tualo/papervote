@@ -34,13 +34,13 @@ class InstallMenuSQLCommandline implements ICommandline
 
         $session = App::get('session');
         $sessiondb = $session->db;
-        $dbs = $sessiondb->direct('select username dbuser, password dbpass, id dbname, host dbhost, port dbport from macc_clients ');
+        $dbs = $sessiondb->direct('select username db_user, password db_pass, id db_name, host db_host, port db_port from macc_clients ');
         foreach ($dbs as $db) {
-            if (($clientName != '') && ($clientName != $db['dbname'])) {
+            if (($clientName != '') && ($clientName != $db['db_name'])) {
                 continue;
             } else {
                 App::set('clientDB', $session->newDBByRow($db));
-                PostCheck::formatPrint(['blue'], $msg . '(' . $db['dbname'] . '):  ');
+                PostCheck::formatPrint(['blue'], $msg . '(' . $db['db_name'] . '):  ');
                 $callback($file);
                 PostCheck::formatPrintLn(['green'], "\t" . ' done');
             }

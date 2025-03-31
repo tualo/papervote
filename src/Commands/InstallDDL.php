@@ -70,6 +70,10 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
         'install/ddl/wahlschein'                    => 'setup wahlschein',
 
+
+        'install/ddl/briefwahlstimmzettel'          => 'setup briefwahlstimmzettel',
+        'install/ddl/ballotbox_decrypted_sum'       => 'setup ballotbox_decrypted_sum',
+
         'install/ddl/briefwahlkandidaten'           => 'setup briefwahlkandidaten',
         'install/proc/proc_briefwahlkandidaten'     => 'setup proc_briefwahlkandidaten',
 

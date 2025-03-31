@@ -73,6 +73,60 @@ BEGIN
             ;
         end for;
 
+
+
+
+        -- ------------------------------------------- ------------------------------------------- -------------------------------------------
+
+        insert into `briefwahlstimmzettel`
+        (
+            `stimmzettel`,
+            `erwartet`,
+            `login`
+        )
+
+        select stimmzettel,count(*) erwartet,
+            getSessionUser() AS `login` from wahlschein where wahlscheinstatus = 2 and abgabetyp=1 group by stimmzettel
+        on duplicate key update `erwartet`=values(`erwartet`),`login`=values(`login`)
+        ;
+
+        insert into `onlinestimmzettel`
+        (
+            `stimmzettel`,
+            `erwartet`,
+            `login`
+        )
+
+        select stimmzettel,count(*) erwartet,
+            getSessionUser() AS `login` from wahlschein where wahlscheinstatus = 2 and abgabetyp=2 group by stimmzettel
+        on duplicate key update `erwartet`=values(`erwartet`),`login`=values(`login`)
+        ;
+
+
+        insert into `briefwahlstimmzettel`
+        (
+            `stimmzettel`,
+            `anzahl`,
+            `login`
+        )
+
+                select 
+            `stimmzettel2`.`stimmzettel` AS `stimmzettel`,
+            count(`stimmzettel2`.id) AS `anzahl`,
+            getSessionUser() AS `login`
+        from 
+            (
+                `stimmzettel2` 
+                join `stapel2` on(
+                    `stimmzettel2`.`stapel2` = `stapel2`.`id`
+                    and `stapel2`.`abgebrochen` = 0
+                )
+            )
+        group by `stimmzettel2`.`stimmzettel` 
+
+        on duplicate key update `anzahl`=values(`anzahl`),`login`=values(`login`)
+        ;
+
     end if;
 
 end //

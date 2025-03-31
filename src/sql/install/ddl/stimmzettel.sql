@@ -68,3 +68,7 @@ BEGIN
     SET NEW.updated_at = CURRENT_TIMESTAMP;
   END IF;
 END //
+
+
+
+

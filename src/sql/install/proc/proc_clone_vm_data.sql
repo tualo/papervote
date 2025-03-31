@@ -84,7 +84,11 @@ BEGIN
         ('stapel2','v_prep_stapel2'),
         ('stimmzettel2','v_prep_stimmzettel2'),
         ('kandidaten2','v_prep_kandidaten2'),
-        ('onlinekandidaten','onlinekandidaten')
+
+        
+        ('onlinekandidaten','onlinekandidaten'),
+        ('ballotbox_decrypted_sum','ballotbox_decrypted_sum')
+        
         
         ;
     for rec in (

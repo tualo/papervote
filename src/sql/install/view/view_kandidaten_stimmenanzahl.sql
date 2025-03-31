@@ -68,7 +68,12 @@ select
 
     ifnull(`onlinekandidaten`.`anzahl`, 0) AS `onlinestimmen`,
     ifnull(`briefwahlkandidaten`.`briefstimmen`, 0) AS `offlinestimmen`,
-    ifnull(`onlinekandidaten`.`anzahl`, 0) + ifnull(`briefwahlkandidaten`.`briefstimmen`, 0) AS `gesamtstimmen`
+    ifnull(`onlinekandidaten`.`anzahl`, 0) + ifnull(`briefwahlkandidaten`.`briefstimmen`, 0) AS `gesamtstimmen`,
+
+    onlinestimmzettel.erwartet AS `onlinestimmzettel_erwartet`,
+    onlinestimmzettel.anzahl AS `onlinestimmzettel_anzahl`,
+    briefwahlstimmzettel.erwartet AS `briefwahlstimmzettel_erwartet`,
+    briefwahlstimmzettel.anzahl AS `briefwahlstimmzettel_anzahl`
 from
     (
         (
@@ -83,12 +88,18 @@ from
                     `stimmzettelgruppen`.`stimmzettel` = `stimmzettel`.`id`
                 )
             )
-            left join `onlinekandidaten` on(
+            join `onlinekandidaten` on(
                 `onlinekandidaten`.`id` = `kandidaten`.`id`
             )
         )
-        left join `briefwahlkandidaten` on(
+        join `briefwahlkandidaten` on(
             `briefwahlkandidaten`.`id` = `kandidaten`.`id`
+        )
+        join `briefwahlstimmzettel` on(
+            `stimmzettel`.`id` = `briefwahlstimmzettel`.`stimmzettel`
+        )
+        join `onlinestimmzettel` on(
+            `stimmzettel`.`id` = `onlinestimmzettel`.`stimmzettel`
         )
     )
 order by
@@ -100,6 +111,8 @@ order by
         setup.val,
         stimmzettel_id use_id,
         stimmzettel_rang use_rang,
+        stimmzettel_name use_name,
+        stimmzettel_sitze use_sitze,
         row_number() over (partition by stimmzettel_id order by stimmzettel_rang,id) rn,
         row_number() over (partition by stimmzettel_id order by stimmzettel_rang,id)<=stimmzettel_sitze as gewaehlt,
         basedata.*
@@ -110,6 +123,8 @@ order by
         setup.val,
         stimmzettelgruppen_id use_id,
         stimmzettelgruppen_rang use_rang,
+        stimmzettelgruppen_name use_name,
+        stimmzettelgruppen_sitze use_sitze,
 
         row_number() over (partition by stimmzettelgruppen_id order by stimmzettelgruppen_rang,id) rn,
         row_number() over (partition by stimmzettelgruppen_id order by stimmzettelgruppen_rang,id)<=stimmzettelgruppen_sitze as gewaehlt,
@@ -140,3 +155,4 @@ from
     finalcheck
     on predata.use_id = finalcheck.use_id 
 ;
+

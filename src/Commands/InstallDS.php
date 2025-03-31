@@ -64,6 +64,11 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/wm_tanboegen.ds'                        => 'setup wm_tanboegen.ds',
         'install/ds/wm_tannummer.ds'                        => 'setup wm_tannummer.ds',
 
+
+        'install/ds/ballotbox_decrypted_sum.ds'                        => 'setup ballotbox_decrypted_sum.ds',
+
+
+
         // 'install/reporting/wm_berichte.pug'                 => 'setup wm_berichte.pug',
         // 'install/ds/wm_berichte.ds'                         => 'setup wm_berichte.ds',
 
