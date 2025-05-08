@@ -21,3 +21,4 @@ INSERT  IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `langua
 ('wahlbeteiligung_bericht','kostenstelle','DE','kostenstelle','displayfield','Allgemein',0,0,1,1,'',1.00,''),
 ('wahlbeteiligung_bericht','name','DE','Name','textfield','Allgemein',2,0,1,1,'',1.00,'');
 INSERT  IGNORE INTO `ds_dropdownfields` (`table_name`, `name`, `idfield`, `displayfield`, `filterconfig`) VALUES ('wahlbeteiligung_bericht','RIDX','ridx','name',NULL);
+INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('1','1','1','administration','wahlbeteiligung_bericht','1') ; 
