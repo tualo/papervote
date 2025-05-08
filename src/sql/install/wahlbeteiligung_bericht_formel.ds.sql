@@ -16,3 +16,4 @@ INSERT  IGNORE INTO `ds_column_list_label` (`table_name`, `column_name`, `langua
 INSERT  IGNORE INTO `ds_column_form_label` (`table_name`, `column_name`, `language`, `label`, `xtype`, `field_path`, `position`, `hidden`, `active`, `allowempty`, `fieldgroup`, `flex`, `hint`) VALUES ('wahlbeteiligung_bericht_formel','id','DE','id','displayfield','Allgemein',0,0,1,1,'',1.00,''),
 ('wahlbeteiligung_bericht_formel','kostenstelle','DE','kostenstelle','displayfield','Allgemein',0,0,1,1,'',1.00,''),
 ('wahlbeteiligung_bericht_formel','name','DE','Name','textfield','Allgemein',999,0,1,1,'',1.00,'');
+INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('1','1','1','administration','wahlbeteiligung_bericht_formel','1') ; 
