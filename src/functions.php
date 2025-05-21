@@ -16,6 +16,8 @@ require_once "Routes/SetupHandshake.php";
 require_once "Routes/Ping.php";
 require_once "Routes/Set.php";
 require_once "Routes/Check.php";
+require_once "Routes/DSReplacement.php";
+
 
 
 require_once "Routes/Reset.php";
@@ -64,4 +66,3 @@ require_once "Routes/involvement/Reporting.php";
 require_once "Routes/involvement/StatusImport.php";
 
 require_once "Routes/export/AllData.php";
-
