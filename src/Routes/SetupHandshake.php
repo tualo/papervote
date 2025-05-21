@@ -1,4 +1,5 @@
 <?php
+
 namespace Tualo\Office\PaperVote\Routes;
 
 use Exception;
@@ -9,119 +10,116 @@ use Tualo\Office\TualoPGP\TualoApplicationPGP;
 use Ramsey\Uuid\Uuid;
 use Tualo\Office\PaperVote\APIRequestHelper;
 
-class SetupHandshake implements IRoute{
- 
-    public static function register(){
+class SetupHandshake implements IRoute
+{
 
-        BasicRoute::add('/papervote/setuphandshake',function($matches){
-            try{
+    public static function register()
+    {
+
+        BasicRoute::add('/papervote/setuphandshake', function ($matches) {
+            try {
                 $session = App::get('session');
                 $db = $session->getDB();
                 App::contenttype('application/json');
-                
-                
+
+
                 if (!isset($_REQUEST['publickey'])) throw new \Exception("missing parameter");
                 if (!isset($_REQUEST['uri'])) throw new \Exception("missing parameter");
                 if (!isset($_REQUEST['token'])) throw new \Exception("missing parameter");
                 if (!isset($_REQUEST['message'])) throw new \Exception("missing parameter");
 
-                
+
                 $ping_result = false;
-                if ($_REQUEST['domain'] == 'localhost'){
-                   
+                if ($_REQUEST['domain'] == 'localhost') {
+
 
                     $keys = TualoApplicationPGP::keyGen(2048);
-                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                         'system_settings_id'    => 'erp/privatekey',
                         'property'              => $keys['private']
                     ]);
-    
-                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+
+                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                         'system_settings_id'    => 'remote-erp/public',
                         'property'              => $_REQUEST['publickey']
                     ]);
 
-                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                         'system_settings_id'    => 'remote-erp/url',
                         'property'              => $_REQUEST['uri']
                     ]);
 
-                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                    $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                         'system_settings_id'    => 'remote-erp/token',
                         'property'              => $_REQUEST['token']
                     ]);
-    
+
                     $token = $session->registerOAuth(
-                            $params     =   [],
-                            $force      =   true,
-                            $anyclient  =   false,
-                            $path       =   '/papervote/*'
+                        $params     =   [],
+                        $force      =   true,
+                        $anyclient  =   false,
+                        $path       =   '/papervate/*'
                     );
-                    $session->oauthValidDays($token,365);
-                    
+                    $session->oauthValidDays($token, 365);
+
                     App::result('publickey', $keys['public']);
                     App::result('token', $token);
-                    App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)));
-                    App::result('success', true );
-                }else if (
-                    $ping_result = APIRequestHelper::query( $_REQUEST['uri'].'/~/'.$_REQUEST['token'].'/onlinevote/ping',[] )
-                ){
+                    App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'], $token)));
+                    App::result('success', true);
+                } else if (
+                    $ping_result = APIRequestHelper::query($_REQUEST['uri'] . '/~/' . $_REQUEST['token'] . '/onlinevote/ping', [])
+                ) {
                     if (
-                        ($ping_result==false)||
-                        (!isset($ping_result['success']))||
-                        ($ping_result['success']!==true)
-                    ){
+                        ($ping_result == false) ||
+                        (!isset($ping_result['success'])) ||
+                        ($ping_result['success'] !== true)
+                    ) {
                         throw new \Exception("Das Onlinewahlsystem kann nicht angepingt werden.");
-                    }else{
+                    } else {
 
 
                         $keys = TualoApplicationPGP::keyGen(2048);
-                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                             'system_settings_id'    => 'erp/privatekey',
                             'property'              => $keys['private']
                         ]);
-        
-                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                             'system_settings_id'    => 'remote-erp/public',
                             'property'              => $_REQUEST['publickey']
                         ]);
 
-                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                             'system_settings_id'    => 'remote-erp/url',
                             'property'              => $_REQUEST['uri']
                         ]);
 
-                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)",[
+                        $db->direct("insert into system_settings (system_settings_id,property) values ({system_settings_id},{property}) on duplicate key update property=values(property)", [
                             'system_settings_id'    => 'remote-erp/token',
                             'property'              => $_REQUEST['token']
                         ]);
-        
+
                         $token = $session->registerOAuth(
-                                $params     =   [],
-                                $force      =   true,
-                                $anyclient  =   false,
-                                $path       =   '/papervote/*'
+                            $params     =   [],
+                            $force      =   true,
+                            $anyclient  =   false,
+                            $path       =   '/papervote/*'
                         );
-                        $session->oauthValidDays($token,365);
-                        
+                        $session->oauthValidDays($token, 365);
+
                         App::result('publickey', $keys['public']);
                         App::result('token', $token);
-                        App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'],$token)));
-                        App::result('success', true );
+                        App::result('message_public', TualoApplicationPGP::enarmor(TualoApplicationPGP::encrypt($_REQUEST['publickey'], $token)));
+                        App::result('success', true);
                     }
-                }else{
+                } else {
                     throw new \Exception("Das Onlinewahlsystem kann nicht angepingt werden. (2) ");
                 }
-                
-                
-            }catch(\Exception $e){
+            } catch (\Exception $e) {
 
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        },['post','get'],true);
-
-
-        
+        }, ['post', 'get'], true);
     }
 }
