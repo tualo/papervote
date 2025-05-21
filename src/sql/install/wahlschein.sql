@@ -1,14 +1,14 @@
 DELIMITER ;
+
 CREATE TABLE IF NOT EXISTS `wahlschein` (
   `ridx` varchar(14) DEFAULT NULL,
   `id` bigint(20) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `aktiv` tinyint DEFAULT 1,
+  `aktiv` int(11) DEFAULT 1,
   `insert_date` date NOT NULL,
   `insert_time` time DEFAULT NULL,
   `update_date` date NOT NULL,
   `update_time` time DEFAULT NULL,
-
   `login` varchar(255) NOT NULL,
   `stimmzettel` varchar(12) NOT NULL,
   `wahlscheinnummer` varchar(255) DEFAULT NULL,
@@ -27,11 +27,11 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
   `secret` varchar(500) DEFAULT NULL,
   `onlinecheck` tinyint(4) DEFAULT 0,
   `testdaten` tinyint(4) DEFAULT 0,
-  `kombiniert`bigint(20) DEFAULT NULL,
+  `kombiniert` bigint(20) DEFAULT NULL,
   `usedate` date DEFAULT NULL,
-  PRIMARY KEY (`id`,`stimmzettel`),
-  UNIQUE KEY `idx_wahlschein` (`ridx`),
-  UNIQUE KEY `idx_wahlschein_ridx` (`ridx`),
+  `ts` timestamp(6) GENERATED ALWAYS AS ROW START,
+  `te` timestamp(6) GENERATED ALWAYS AS ROW END,
+  PRIMARY KEY (`id`,`stimmzettel`,`te`),
   KEY `idx_wahlschein_wahlscheinstatus` (`wahlscheinstatus`),
   KEY `idx_wahlschein_wahlscheinstatus_grund` (`wahlscheinstatus_grund`),
   KEY `idx_wahlschein_wahlberechtigte` (`wahlberechtigte`),
@@ -42,12 +42,12 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
   KEY `fk_wahlschein_stimmzettel` (`stimmzettel`),
   KEY `uidx_wahlschein_username` (`username`),
   KEY `idx_wahlschein_blocknumber` (`blocknumber`),
+  KEY `idx_wahlschein_kombiniert` (`kombiniert`),
+  PERIOD FOR SYSTEM_TIME (`ts`, `te`),
   CONSTRAINT `fk_wahlschein_stimmzettel` FOREIGN KEY (`stimmzettel`) REFERENCES `stimmzettel` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_wahlschein_wahlberechtigte` FOREIGN KEY (`wahlberechtigte`) REFERENCES `wahlberechtigte` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_wahlschein_wahlscheinstatus` FOREIGN KEY (`wahlscheinstatus`) REFERENCES `wahlscheinstatus` (`ridx`) ON DELETE CASCADE ON UPDATE CASCADE
-);
-
-
+)   WITH SYSTEM VERSIONING;
 
 call fill_ds('wahlschein');
 call fill_ds_column('wahlschein');

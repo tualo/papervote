@@ -84,8 +84,7 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
   `kombiniert`bigint(20) DEFAULT NULL,
   `usedate` date DEFAULT NULL,
   PRIMARY KEY (`id`,`stimmzettel`),
-  UNIQUE KEY `idx_wahlschein` (`ridx`),
-  UNIQUE KEY `idx_wahlschein_ridx` (`ridx`),
+
   KEY `idx_wahlschein_wahlscheinstatus` (`wahlscheinstatus`),
   KEY `idx_wahlschein_wahlscheinstatus_grund` (`wahlscheinstatus_grund`),
   KEY `idx_wahlschein_wahlberechtigte` (`wahlberechtigte`),

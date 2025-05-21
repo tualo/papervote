@@ -1258,8 +1258,7 @@ CREATE TABLE IF NOT EXISTS wahlschein (
     CONSTRAINT fk_wahlschein_wahlscheinstatus FOREIGN KEY (wahlscheinstatus) REFERENCES `wahlscheinstatus` (`ridx`) ON 
     DELETE CASCADE ON 
     UPDATE CASCADE,
-    CONSTRAINT idx_wahlschein UNIQUE (ridx),
-    CONSTRAINT idx_wahlschein_ridx UNIQUE (ridx),
+
     INDEX idx_wahlschein_wahlscheinstatus (wahlscheinstatus),
     INDEX idx_wahlschein_wahlscheinstatus_grund (wahlscheinstatus_grund),
     INDEX idx_wahlschein_wahlberechtigte (wahlberechtigte),
