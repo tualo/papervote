@@ -9,7 +9,7 @@ create table if not exists briefwahlkandidaten (
     zaehlung_stimmzettel	varchar(12)
 ) //
 
-
+ 
 alter table briefwahlkandidaten add column if not exists created_at timestamp not null default current_timestamp  //
 alter table briefwahlkandidaten add column if not exists updated_at timestamp not null default current_timestamp on update current_timestamp  //
 
@@ -89,7 +89,11 @@ BEGIN
                 rec.zaehlung_barcode,
                 rec.zaehlung_stimmzettel
             )
-            on duplicate key update briefstimmen=values(briefstimmen)
+            on duplicate key update 
+                briefstimmen=values(briefstimmen), 
+                stimmzettelgruppen=values(stimmzettelgruppen), 
+                zaehlung_stimmzettel=values(zaehlung_stimmzettel), 
+                zaehlung_barcode=values(zaehlung_barcode)
             ;
         end for;
 
