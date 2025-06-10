@@ -15,4 +15,5 @@ select
         )
     ) AS `o`
 from
-    `view_wm_bekanntmachung_kandidaten_liste`;
+    `view_wm_bekanntmachung_kandidaten_liste`
+    order by cast(substring_index(`stimmzettelgruppen_ridx`,'|',1) as signed);
