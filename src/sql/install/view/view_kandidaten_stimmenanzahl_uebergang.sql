@@ -1,4 +1,3 @@
-DELIMITER;
 
 
 create or replace view `view_kandidaten_stimmenanzahl` as
@@ -24,7 +23,7 @@ select
             )
     ) AS `stimmzettelgruppen_rang`,
 
-
+concat(if(`kandidaten`.`titel` <> '',concat(`kandidaten`.`titel`,' '),''),`kandidaten`.`nachname`,', ',`kandidaten`.`vorname`) AS `anzeige_name`,
     `kandidaten`.`id` AS `id`,
     
     `kandidaten`.`barcode` AS `barcode`,
@@ -84,7 +83,6 @@ order by
 ), basedata as (
     select 
         stimmzettel_id,
-            
         dense_rank() over (
             partition by 
 
@@ -117,6 +115,11 @@ order by
                 )
 
         ) AS `stimmzettel_rang`,
+        if (
+            `stimmzettelgruppen_rang` <=  `stimmzettelgruppen_mindestsitze`,
+            1,
+            0
+        ) up_vote,
         stimmzettel_name,
         stimmzettel_sitze,
         stimmzettelgruppen_id,
@@ -130,6 +133,7 @@ order by
         kooptiert,
         stimmzettelgruppen_mindestsitze,
 
+        anzeige_name,
         onlinestimmen,
         offlinestimmen,
         gesamtstimmen,
@@ -186,7 +190,12 @@ order by
 
 select 
     ifnull(finalcheck.is_final, 1) as is_final,
-    predata.* 
+    predata.* ,
+
+    -- kann später entfernt werden, da die IDs in der UI nicht mehr benötigt werden
+    concat(stimmzettelgruppen_id,'|0') stimmzettelgruppen_ridx,
+    concat(stimmzettel_id,'|0')stimmzettel_ridx
+    
 from 
     predata
     left join 

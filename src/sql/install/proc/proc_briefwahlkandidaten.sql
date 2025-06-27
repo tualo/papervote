@@ -85,7 +85,9 @@ BEGIN
             `login`
         )
 
-        select stimmzettel,count(*) erwartet,
+        select 
+            stimmzettel,
+            count(*) erwartet,
             getSessionUser() AS `login` from wahlschein where wahlscheinstatus = 2 and abgabetyp=1 group by stimmzettel
         on duplicate key update `erwartet`=values(`erwartet`),`login`=values(`login`)
         ;

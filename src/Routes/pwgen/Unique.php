@@ -72,7 +72,7 @@ class Unique implements IRoute
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
-        }, ['post', 'get']);
+        }, ['post', 'get'], true);
 
         BasicRoute::add('/pwgen/unique', function () {
             $session = App::get('session');
@@ -101,6 +101,6 @@ class Unique implements IRoute
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['post', 'get']);
+        }, ['post', 'get'], true);
     }
 }
