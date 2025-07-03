@@ -1,28 +1,30 @@
 {
-    "name": "tualo/papervote",
-    "description": "tualo - papervotes",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Thomas Hoffmann",
-            "email": "thomas.hoffmann@tualo.de"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "Tualo\\Office\\PaperVote\\": "src/"
-        },
-        "files": ["src/functions.php"]
-    },
-    "minimum-stability": "dev",
-    "require": {
-        "ramsey/uuid": "*",
-        "tualo/bsc": "*",
-        "tualo/tualojs": "*",
-        "tualo/ds": "*",
-        "tualo/monacoeditor": "*",
-        "tualo/tualopgp": "*",
-        "phpseclib/phpseclib": "*"
+  "name": "tualo/papervote",
+  "description": "tualo - papervotes",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Hoffmann",
+      "email": "thomas.hoffmann@tualo.de"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Tualo\\Office\\PaperVote\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "ramsey/uuid": "*",
+    "tualo/bsc": "^1.0.3",
+    "tualo/tualojs": "^1.0.1",
+    "tualo/ds": "^1.0.1",
+    "tualo/monacoeditor": "^1.0.1",
+    "tualo/tualopgp": "^1.0.1",
+    "phpseclib/phpseclib": "*"
+  }
 }
