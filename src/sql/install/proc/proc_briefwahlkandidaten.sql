@@ -5,6 +5,7 @@ DELIMITER //
 CREATE OR REPLACE PROCEDURE `proc_briefwahlkandidaten`()
 BEGIN
 
+
     if 
         exists(select * from  briefwahlkandidaten where updated_at < now() + interval - 1 minute) 
         or  
