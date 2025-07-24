@@ -73,6 +73,10 @@ class InstallMainSQLCommandline implements ICommandline
             'wahlbezirk' => 'setup wahlbezirk ',
             'wahlbezirk.ds' => 'setup wahlbezirk.ds ',
 
+            'stimmzettel_fusstexte' => 'setup stimmzettel_fusstexte ',
+            'stimmzettel_fusstexte.ds' => 'setup stimmzettel_fusstexte.ds ',
+
+
             'stimmzettel' => 'setup stimmzettel ',
             'stimmzettel.ds' => 'setup stimmzettel.ds ',
 
