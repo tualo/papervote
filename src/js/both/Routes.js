@@ -101,6 +101,32 @@ Ext.define('Tualo.routes.PaperVoteReturnIdentList', {
 });
 
 
+Ext.define('Tualo.routes.PaperVoteReturnIdentListX', {
+    statics: {
+        load: async function () {
+            return [
+                {
+                    name: 'papervote/returnidentlist',
+                    path: '#papervote/returnidentlist'
+                }
+            ]
+        }
+    },
+    url: 'papervote/returnx',
+    handler: {
+        action: function () {
+
+            Ext.getApplication().addView('Tualo.PaperVote.lazy.input.UI', {
+                //useident: 1,
+                //list_length: 10
+            });
+        },
+        before: function (action) {
+            action.resume();
+        }
+    }
+});
+
 
 Ext.define('Tualo.routes.PaperVoteCounting', {
     statics: {

@@ -43,6 +43,15 @@ Ext.define('Tualo.PaperVote.lazy.ReturnFSM', {
 	onTransit: function(){
 		return this.allowTransit(arguments);
 	},
+	toMermaidChart: function(){
+		var chart = 'graph TD;\n';
+		for (var trs in this.transitions) {
+			if(!this.transitions.hasOwnProperty(trs)){continue;}
+			var tr=this.transitions[trs];
+			chart += "\t"+trs.replace(/!/g,' --> ')+'\n';
+		}
+		return chart;
+	},
 	allowTransit: function(transition, action, action2, events, clobberable){
 		if (transition.indexOf(this.sep)!=-1){
 			throw new Error('transition string cannot contain "'+this.sep+'" character');
@@ -79,6 +88,7 @@ Ext.define('Tualo.PaperVote.lazy.ReturnFSM', {
 		if (err) {
 			 
 		}
+		console.log(this.toMermaidChart());
 		return this;
 	},
 	on: function(event, action){

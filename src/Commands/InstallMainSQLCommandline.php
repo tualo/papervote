@@ -34,13 +34,13 @@ class InstallMainSQLCommandline implements ICommandline
 
         $session = App::get('session');
         $sessiondb = $session->db;
-        $dbs = $sessiondb->direct('select username dbuser, password dbpass, id dbname, host dbhost, port dbport from macc_clients ');
+        $dbs = $sessiondb->direct('select username db_user, password db_pass, id db_name, host db_host, port db_port from macc_clients ');
         foreach ($dbs as $db) {
-            if (($clientName != '') && ($clientName != $db['dbname'])) {
+            if (($clientName != '') && ($clientName != $db['db_name'])) {
                 continue;
             } else {
                 App::set('clientDB', $session->newDBByRow($db));
-                PostCheck::formatPrint(['blue'], $msg . '(' . $db['dbname'] . '):  ');
+                PostCheck::formatPrint(['blue'], $msg . '(' . $db['db_name'] . '):  ');
                 $callback($file);
                 PostCheck::formatPrintLn(['green'], "\t" . ' done');
             }
@@ -50,23 +50,24 @@ class InstallMainSQLCommandline implements ICommandline
     public static function run(Args $args)
     {
 
+        exit();
         $files = [
-            'base.tanboegen' => 'setup tanboegen ddl ',
-            'base.ddl' => 'setup base ddl ',
-            'base.view' => 'setup base view ',
-            //  'ds.base' => 'setup base ds definition ',
+            // 'base.tanboegen' => 'setup tanboegen ddl ',
+            // 'base.ddl' => 'setup base ddl ',
+            // 'base.view' => 'setup base view ',
+            // 'ds.base' => 'setup base ds definition ',
 
             'wahltyp' => 'setup wahltyp ',
-            'wahltyp.ds' => 'setup wahltyp.ds ',
+            // 'wahltyp.ds' => 'setup wahltyp.ds ',
 
             'abgabetyp' => 'setup abgabetyp ',
-            'abgabetyp.ds' => 'setup abgabetyp.ds ',
+            // 'abgabetyp.ds' => 'setup abgabetyp.ds ',
 
             'wahlscheinstatus' => 'setup wahlscheinstatus ',
-            'wahlscheinstatus.ds' => 'setup wahlscheinstatus.ds ',
+            // 'wahlscheinstatus.ds' => 'setup wahlscheinstatus.ds ',
 
             'wahlgruppe' => 'setup wahlgruppe ',
-            'wahlgruppe.ds' => 'setup wahlgruppe.ds ',
+            // 'wahlgruppe.ds' => 'setup wahlgruppe.ds ',
 
 
             'wahlbezirk' => 'setup wahlbezirk ',
@@ -311,17 +312,12 @@ class InstallMainSQLCommandline implements ICommandline
             'wm_auswertungen' => 'setup wm_auswertungen',
             'wm_auswertungen.ds' => 'setup wm_auswertungen.ds',
             'view_protokoll_online_erwartet' => 'setup view_protokoll_online_erwartet',
-            'view_protokoll_online_erwartet.ds' => 'setup view_protokoll_online_erwartet.ds',
             'dashboard' => 'setup dashboard',
 
             'kandidaten_stimmenanzahl_liste_szg' => 'setup kandidaten_stimmenanzahl_liste_szg',
             'kandidaten_stimmenanzahl_liste_szg.ds' => 'setup kandidaten_stimmenanzahl_liste_szg.ds',
 
             'wahlbeteiligung_bericht.data' => 'setup wahlbeteiligung_bericht.data',
-
-            'wm_sync_tables' => 'setup wm_sync_tables',
-            'wm_sync_tables.ds' => 'setup wm_sync_tables.ds',
-
             /*            
             
             'stackcodes_setup'=> 'setup stackcodes_setup',

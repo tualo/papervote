@@ -25,29 +25,31 @@ Ext.define('Tualo.PaperVote.lazy.monitor.models.Viewport', {
             pageSize: 10000,
             type: 'kandidaten_store'
         },
-        
-        view_stimmenanzahl_ranking_los_monitor_list_gruppen:{
+
+        view_stimmenanzahl_ranking_los_monitor_list_gruppen: {
             autoLoad: true,
             remoteFilter: false,
             pageSize: 10000,
-            type: 'view_stimmenanzahl_ranking_los_monitor_list_gruppen_store'
+            type: 'store',
+            // type: 'view_stimmenanzahl_ranking_los_monitor_list_gruppen_store'
         },
-        view_stimmenanzahl_ranking_los_monitor_list:{
+        view_stimmenanzahl_ranking_los_monitor_list: {
             autoLoad: true,
             remoteFilter: false,
             pageSize: 10000,
-            type: 'view_stimmenanzahl_ranking_los_monitor_list_store'
+            type: 'store',
+            // type: 'view_stimmenanzahl_ranking_los_monitor_list_store'
         },
-        
-        view_stimmenanzahl_ranking_los_monitor:{
+
+        view_stimmenanzahl_ranking_los_monitor: {
             autoLoad: true,
             remoteFilter: true,
             pageSize: 10000,
-            type: 'view_stimmenanzahl_ranking_los_monitor_store',
+            type: 'store',
+            //type: 'view_stimmenanzahl_ranking_los_monitor_store',
             listeners: {
                 load: 'onMonitorStoreLoad'
             }
         }
     }
 });
-  

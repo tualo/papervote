@@ -24,34 +24,35 @@ class Tan implements IRoute
             try {
                 $tantable = DSTable::instance('wm_tannummer');
                 $tans = $tantable
-                    ->f('tannummer','eq',$matches['tan'])
+                    ->f('tannummer', 'eq', $matches['tan'])
                     ->read();
                 if ($tans->empty()) throw new Exception("Die Tan wurde nicht gefunden.");
 
                 $tans = $tantable
-                    ->f('tannummer','eq',$matches['tan'])
-                    ->f('aktiv','eq',1)
+                    ->f('tannummer', 'eq', $matches['tan'])
+                    ->f('aktiv', 'eq', 1)
                     ->read();
                 if ($tans->empty()) throw new Exception("Die Tan wurde bereits verwendet.");
                 $tan = $tans->getSingle();
-                $tan['aktiv']=0;
+                $tan['aktiv'] = 0;
                 $tantable->update($tan);
 
 
                 ($wahlscheintable = DSTable::instance('wahlschein'))
-                    ->f('ridx','eq',$matches['id'])
+                    ->f('id', 'eq', $matches['id'])
                     ->read();
                 if ($wahlscheintable->empty()) throw new Exception("Der Wahlschein wurde nicht gefunden.");
 
                 $wahlschein = $wahlscheintable->getSingle();
-                    
-                if ($wahlschein['abgabetyp']=='2|0') throw new Exception("Der Wahlschein kann nicht entsperrt werden, da Online gewählt wurde.");
 
-                $wahlschein['wahlscheinstatus']='-1|0';
+                if ($wahlschein['abgabetyp'] == 2) throw new Exception("Der Wahlschein kann nicht entsperrt werden, da Online gewählt wurde.");
+
+                $wahlschein['wahlscheinstatus'] = '-1';
+                $wahlschein['abgabetyp'] = '0';
+
                 $wahlscheintable->update($wahlschein);
 
                 App::result('success', true);
-
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }

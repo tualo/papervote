@@ -37,6 +37,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
             }
         ]
     }],
+    title: 'Wahlausschuss Monitor',
     items: [
         {
             xtype: 'grid',

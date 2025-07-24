@@ -23,27 +23,8 @@ class Setup extends BaseSetup implements ISetupCommandline{
         $clientName = $args->getOpt('client');
         if( is_null($clientName) ) $clientName = '';
         
-        PostCheck::formatPrintLn(['blue'], "Installing all needed SQL procedures for papervote module");
+        PostCheck::formatPrintLn(['blue'], "Installing complete setup for papervote module");
         PostCheck::formatPrintLn(['blue'], "==========================================================");
-        
-
-        /*
-        exec(implode(' ',['which','scss']),$result,$return_code);
-        $sass_cmd = $result[0];
-
-        exec(implode(' ',['which','sencha']),$result,$return_code);
-        $sencha_cmd = $result[0];
-
-
-        $installCommands = [
-            'configuration --section scss --key cmd --value '.$sass_cmd,
-            'configuration --section ext-compiler --key sencha_compiler_command --value '. $sencha_cmd,
-            // 'configuration --section ext-compiler --key requires --value "exporter"',
-        ];
-        foreach($installCommands as $cmdString){
-            self::performInstall($cmdString,'');
-        }
-        */
 
         $installCommands = [
             'install-sessionsql-bsc-main',
@@ -60,7 +41,9 @@ class Setup extends BaseSetup implements ISetupCommandline{
             'install-sql-dashboard',
             'install-sql-bootstrap',
             'install-sql-papervote-menu',
-            'install-sql-papervote'
+            'install-sql-papervote-ddl',
+            'install-sql-papervote-report-ddl',
+            'install-sql-papervote-ds',
             // 'compile'
         ];
  

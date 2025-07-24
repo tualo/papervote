@@ -19,14 +19,14 @@ class SetPW implements IRoute
     public static function register()
     {
         BasicRoute::add('/pwgen/set', function () {
-            try{
+            try {
                 $postdata = file_get_contents("php://input");
                 $session = App::get('session');
                 $db = $session->getDB();
                 if (isset($postdata)) {
-                    $postdata = json_decode($postdata,true);
+                    $postdata = json_decode($postdata, true);
                 }
-                foreach($postdata as $row){
+                foreach ($postdata as $row) {
                     $sql = '
                     update wahlschein set 
                         pwhash={pwhash},
@@ -37,21 +37,20 @@ class SetPW implements IRoute
                         id = {id}
                         and stimmzettel={stimmzettel}
                         and wahlscheinstatus in ("16|0","17|0")';
-                    $db->direct($sql,$row);
+                    $db->direct($sql, $row);
                 }
                 App::result('success', true);
-
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['post', 'get']);
+        }, ['post', 'get'], true);
 
         BasicRoute::add('/pwgen/setpw', function () {
             $session = App::get('session');
             $db = $session->getDB();
             try {
-                
+
 
                 $USE_TMG = $db->singleValue('select daten from setup where id = "USE_TMG" and rolle="_default_" ', [], 'daten');
                 if ($USE_TMG == '1') {
@@ -116,6 +115,6 @@ class SetPW implements IRoute
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['post', 'get']);
+        }, ['post', 'get'], true);
     }
 }
