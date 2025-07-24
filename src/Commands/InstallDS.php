@@ -35,6 +35,7 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/wahlberechtigte_anlage.ds'              => 'setup wahlberechtigte_anlage.ds',
         'install/ds/wahlgruppe.ds'                          => 'setup wahlgruppe.ds',
         'install/ds/wahlbezirk.ds'                          => 'setup wahlbezirk.ds',
+        'install/ds/stimmzettel_fusstexte.ds'                         => 'setup stimmzettel_fusstexte.ds',
         'install/ds/stimmzettel.ds'                         => 'setup stimmzettel.ds',
         'install/ds/stimmzettelgruppen.ds'                  => 'setup stimmzettelgruppen.ds',
         'install/ds/kandidaten_bilder_typen.ds'             => 'setup kandidaten_bilder_typen.ds',

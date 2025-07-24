@@ -45,6 +45,7 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
         'install/ddl/wahlgruppe'                    => 'setup wahlgruppe',
         'install/ddl/wahlbezirk'                    => 'setup wahlbezirk',
+        'install/ddl/stimmzettel_fusstexte'         => 'setup stimmzettel_fusstexte',
         'install/ddl/stimmzettel'                   => 'setup stimmzettel',
         'install/ddl/stimmzettelgruppen'            => 'setup stimmzettelgruppen',
         'install/ddl/kandidaten'                    => 'setup kandidaten',
@@ -107,7 +108,7 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
 
 
-        'install/proc/getBallotpaper'              => 'setup getBallotpaper',
+        'install/proc/getBallotPaper'              => 'setup getBallotpaper',
 
         'install/proc/proc_clone_vm_data'              => 'setup proc_clone_vm_data',
 

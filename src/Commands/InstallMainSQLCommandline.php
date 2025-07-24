@@ -15,7 +15,7 @@ class InstallMainSQLCommandline implements ICommandline
 
     public static function getCommandName(): string
     {
-        return 'install-sql-papervote';
+        return 'install-sql-papervotXXXX';
     }
 
     public static function setup(Cli $cli)
