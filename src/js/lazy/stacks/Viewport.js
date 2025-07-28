@@ -119,13 +119,13 @@ Ext.define('Tualo.PaperVote.lazy.stacks.Viewport', {
           dataIndex: 'login',
           header: 'Login',
           sortable: true,
-          width: 90
+          width: 150
         },
         {
           dataIndex: 'createdatetime',
           sortable: true,
           header: 'Zeit',
-          width: 60,
+          width: 120,
           renderer: function (v) {
             return Ext.util.Format.date(v, 'H:i:s');
           },
