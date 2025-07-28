@@ -169,6 +169,8 @@ class Save implements IRoute
                             $name = $_REQUEST['stapel'];
                             $stimmzettelnr = $stimmzettelliste[0]['stimmzettel'];
 
+                            $stimmzettel_id = (Uuid::uuid4())->toString();
+
                             $sql = 'insert into stimmzettel' . $str_zaehltyp . ' (
                                 id,
                                 login,
@@ -176,7 +178,7 @@ class Save implements IRoute
                                 stimmzettel,
                                 createdatetime
                             ) values (
-                                uuid(),
+                                {stimmzettel_id},
                                 getSessionUser(),
                                 {stapel},
                                 {stimmzettelnr},
@@ -184,6 +186,7 @@ class Save implements IRoute
                             )';
 
                             $db->direct($sql, [
+                                'stimmzettel_id' => $stimmzettel_id,
                                 'stapel' => $str_stapel,
                                 'stimmzettelnr' => $stimmzettelnr
                             ]);
@@ -203,13 +206,13 @@ class Save implements IRoute
                                 ) values (
                                     getSessionUser(),
                                     {kandidat},
-                                    {stimmzettel},
+                                    {stimmzettel_id},
                                     now(),
                                     1
                                 )';
                                 $db->direct($sql, [
                                     'kandidat' => $kandidat,
-                                    'stimmzettel' => $stimmzettelnr
+                                    'stimmzettel_id' => $stimmzettel_id
                                 ]);
                             }
                         }
