@@ -126,7 +126,10 @@ Ext.define('Tualo.PaperVote.lazy.stacks.Viewport', {
           sortable: true,
           header: 'Zeit',
           width: 60,
-          renderer: 'deDateTime',
+          renderer: function (v) {
+            return Ext.util.Format.date(v, 'H:i:s');
+          },
+
           align: 'left'
         }
         ]
