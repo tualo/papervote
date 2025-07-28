@@ -147,7 +147,7 @@ class Save implements IRoute
                         $sql = 'insert into stapel' . $str_zaehltyp . ' (
                             id,
                             login,
-                            kisten1,
+                            kisten' . $str_zaehltyp . ',
                             abgebrochen,
                             createdatetime
                         ) values (
@@ -176,7 +176,7 @@ class Save implements IRoute
                             $sql = 'insert into stimmzettel' . $str_zaehltyp . ' (
                                 id,
                                 login,
-                                stapel1,
+                                stapel' . $str_zaehltyp . ',
                                 stimmzettel,
                                 createdatetime
                             ) values (
@@ -202,7 +202,7 @@ class Save implements IRoute
                                 $sql = 'insert into kandidaten' . $str_zaehltyp . ' (
                                     login,
                                     kandidaten,
-                                    stimmzettel1,
+                                    stimmzettel' . $str_zaehltyp . ',
                                     createdatetime,
                                     stimmen
                                 ) values (
