@@ -121,7 +121,7 @@ class Save implements IRoute
 
 
                 if ($do) {
-                    if (count($stack) == 0) {
+                    if (($stack) !== false) {
 
 
                         $kistennr = $_REQUEST['kistennummer'];
