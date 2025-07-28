@@ -121,10 +121,11 @@ Ext.define('Tualo.PaperVote.lazy.stacks.Viewport', {
           width: 90
         },
         {
-          dataIndex: 'insert_time',
+          dataIndex: 'createdatetime',
           sortable: true,
           header: 'Zeit',
           width: 60,
+          renderer: 'deDateTime',
           align: 'left'
         }
         ]
