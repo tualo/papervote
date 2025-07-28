@@ -23,8 +23,8 @@ Ext.define('Tualo.PaperVote.lazy.stacks.Viewport', {
         type: 'string'
       },
       {
-        name: 'insert_time',
-        type: 'string'
+        name: 'createdatetime',
+        type: 'tualo_mysqli_type_datetime'
       }
 
       ]
