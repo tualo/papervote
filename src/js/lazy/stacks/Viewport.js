@@ -24,7 +24,8 @@ Ext.define('Tualo.PaperVote.lazy.stacks.Viewport', {
       },
       {
         name: 'createdatetime',
-        type: 'tualo_mysqli_type_datetime'
+        dateFormat: 'Y-m-d H:i:s',
+        type: 'date'
       }
 
       ]
