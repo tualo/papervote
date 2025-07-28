@@ -63,17 +63,19 @@ class Save implements IRoute
                     $sql = '
                         select 
                             kandidaten1.kandidaten,
+                            kandidaten.barcode as code,
                             count(*) c 
                         from 
                             stapel1 
                             join stimmzettel1 on stapel1.id = stimmzettel1.stapel1
                             join kandidaten1  on stimmzettel1.id = kandidaten1.stimmzettel1 
+                            join kandidaten on kandidaten.id = kandidaten1.kandidaten
                         where
                             stapel1.id = {stapel}
                         group by 
                             kandidaten1.kandidaten
                     ';
-                    $kandidaten_vergleich = $db->direct($sql, ['stapel' => $str_stapel], 'kandidaten');
+                    $kandidaten_vergleich = $db->direct($sql, ['stapel' => $str_stapel], 'code');
                     if (!$kandidaten_vergleich) {
                         throw new Exception('Stack missing in first count: ' . $str_stapel);
                     }
