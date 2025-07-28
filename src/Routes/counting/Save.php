@@ -195,10 +195,10 @@ class Save implements IRoute
                                 $kandidat = $pos['kandidat'];
 
                                 $sql = 'insert into kandidaten' . $str_zaehltyp . ' (
-                                    login
-                                    kandidaten
-                                    stimmzettel1
-                                    createdatetime
+                                    login,
+                                    kandidaten,
+                                    stimmzettel1,
+                                    createdatetime,
                                     stimmen
                                 ) values (
                                     getSessionUser(),
