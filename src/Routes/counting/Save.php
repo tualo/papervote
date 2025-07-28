@@ -180,7 +180,6 @@ class Save implements IRoute
                                 getSessionUser(),
                                 {stapel},
                                 {stimmzettelnr},
-                                now(),
                                 now()
                             )';
 
