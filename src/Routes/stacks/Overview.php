@@ -35,16 +35,15 @@ class Open implements IRoute
 
                     from 
                         wahlschein
-                        join abgabetyp on wahlschein.abgabetyp = abgabetyp.ridx
-                        join wahlscheinstatus on wahlschein.wahlscheinstatus = wahlscheinstatus.ridx
+                        join abgabetyp on wahlschein.abgabetyp = abgabetyp.id
+                        join wahlscheinstatus on wahlschein.wahlscheinstatus = wahlscheinstatus.id
                     group by 
                         blocknumber,
                         abgabetyp,
                         wahlscheinstatus
                 ";
-                App::result('data',$db->direct($sql,[]));
+                App::result('data', $db->direct($sql, []));
                 App::result('success', true);
-
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }

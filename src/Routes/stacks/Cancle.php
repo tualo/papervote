@@ -22,15 +22,14 @@ class Cancle implements IRoute
             $db = App::get('session')->getDB();
             try {
 
-                
-                $sql = "update stapel1 set abgebrochen =1 where name={id}";
-                $db->direct($sql,$matches);
-                $sql = "update stapel2 set abgebrochen =1 where name={id}";
-                $db->direct($sql,$matches);
+
+                $sql = "update stapel1 set abgebrochen =1 where id={id}";
+                $db->direct($sql, $matches);
+                $sql = "update stapel2 set abgebrochen =1 where id={id}";
+                $db->direct($sql, $matches);
 
 
                 App::result('success', true);
-
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }

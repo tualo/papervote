@@ -22,10 +22,9 @@ class Open implements IRoute
             $db = App::get('session')->getDB();
             try {
 
-                $sql = "select stapel1.* from stapel1 left join stapel2 on stapel1.name=stapel2.name where stapel2.name is null and stapel1.abgebrochen=0";
-                App::result('data',$db->direct($sql,[]));
+                $sql = "select stapel1.* from stapel1 left join stapel2 on stapel1.id=stapel2.id where stapel2.id is null and stapel1.abgebrochen=0";
+                App::result('data', $db->direct($sql, []));
                 App::result('success', true);
-
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
