@@ -121,7 +121,7 @@ class Save implements IRoute
 
 
                 if ($do) {
-                    if (($stack) !== false) {
+                    if ($stack === false) {
 
 
                         $kistennr = $_REQUEST['kistennummer'];
@@ -138,7 +138,7 @@ class Save implements IRoute
                         ) on duplicate key update
                             update_time = now()
                         ';
-                        $db->execute($sql, [
+                        $db->direct($sql, [
                             'kistennr' => $kistennr
                         ]);
 
@@ -155,7 +155,7 @@ class Save implements IRoute
                             0,
                             now()
                         ) ';
-                        $db->execute($sql, [
+                        $db->direct($sql, [
                             'stapel' => $str_stapel,
                             'kistennr' => $kistennr
                         ]);
@@ -184,7 +184,7 @@ class Save implements IRoute
                                 now()
                             )';
 
-                            $db->execute($sql, [
+                            $db->direct($sql, [
                                 'stapel' => $str_stapel,
                                 'stimmzettelnr' => $stimmzettelnr
                             ]);
@@ -208,7 +208,7 @@ class Save implements IRoute
                                     now(),
                                     1
                                 )';
-                                $db->execute($sql, [
+                                $db->direct($sql, [
                                     'kandidat' => $kandidat,
                                     'stimmzettel' => $stimmzettelnr
                                 ]);
