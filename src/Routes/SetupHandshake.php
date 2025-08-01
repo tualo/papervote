@@ -57,10 +57,10 @@ class SetupHandshake implements IRoute
                         ]);
 
                         $token = $session->registerOAuth(
-                            $params     =   [],
+                            // $params     =   [], removed because it is not used
                             $force      =   true,
                             $anyclient  =   false,
-                            $path       =   '/papervate/*'
+                            $path       =   '/papervote /*'
                         );
                         $session->oauthValidDays($token, 365);
 
