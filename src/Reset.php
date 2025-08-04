@@ -18,10 +18,10 @@ class Reset
             concat(stimmzettel.id,lpad(wahlberechtigte_anlage.identnummer,8,'0')),
             ' ',char(59),
             ' delete from wahlberechtigte where id = ',wahlberechtigte_anlage.identnummer, char(59),
-            ' delete from wahlberechtigte_anlage where stimmzettel=\"',stimmzettel.ridx,'\" and  identnummer = \"',wahlberechtigte_anlage.identnummer,'\"', char(59)
+            ' delete from wahlberechtigte_anlage where stimmzettel=\"',stimmzettel.id,'\" and  identnummer = \"',wahlberechtigte_anlage.identnummer,'\"', char(59)
         ) x
         
-         from wahlberechtigte_anlage join stimmzettel on wahlberechtigte_anlage.stimmzettel = stimmzettel.ridx
+         from wahlberechtigte_anlage join stimmzettel on wahlberechtigte_anlage.stimmzettel = stimmzettel.id
         
         where wahlberechtigte_anlage.testdaten=1";
         $db = App::get('session')->getDB();
@@ -35,15 +35,16 @@ class Reset
         $typen_liste = $typen->get();
         if ($typen->empty()) return;
         foreach ($typen_liste as $typ) {
+            if ($typ['feld'] == '') $typ['feld'] = 'wahlscheinstatus';
             $sql = 'update wahlschein 
                 set 
-                    ' . $typ['feld'] . '=\'1|0\',
+                    ' . $typ['feld'] . '=1,
                     ' . $typ['feld'] . '_grund=\'\', 
                     blocknumber =0, 
-                    abgabetyp="0|0", 
+                    abgabetyp=0, 
                     login=getSessionUser(),
                     usedate=null 
-                where ' . $typ['feld'] . '<>\'6|0\'';
+                where ' . $typ['feld'] . '<> 6';
             $db->execute($sql);
         }
         if (App::configuration('papervote', 'delete_history_on_reset', '0') == '1') {
@@ -306,6 +307,8 @@ class Reset
         $db->direct($sql);
 
 
+        $db->execute('call fill_ds("wahlberechtigte_anlage")');
+        $db->execute('call fill_ds_column("wahlberechtigte_anlage")');
 
 
         $sql = '
@@ -320,14 +323,14 @@ class Reset
             `stimmzettel`.`name` AS `stimmzettel_name`
         from
             `wahlberechtigte_anlage`
-            join `stimmzettel` on  `stimmzettel`.`ridx` = `wahlberechtigte_anlage`.`stimmzettel`
+            join `stimmzettel` on  `stimmzettel`.`id` = `wahlberechtigte_anlage`.`stimmzettel`
             join `wahlberechtigte` on `wahlberechtigte_anlage`.`identnummer` = `wahlberechtigte`.`identnummer`
             join `wahlschein`  on  
                 `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,12,"0"))
-                and `wahlberechtigte`.`ridx` = `wahlschein`.`wahlberechtigte`
+                and `wahlberechtigte`.`id` = `wahlschein`.`wahlberechtigte`
             join `wahlscheinstatus` on
-                `wahlscheinstatus`.`ridx` = `wahlschein`.`wahlscheinstatus`
-            join `abgabetyp` on `abgabetyp`.`ridx` = `wahlschein`.`abgabetyp`
+                `wahlscheinstatus`.`id` = `wahlschein`.`wahlscheinstatus`
+            join `abgabetyp` on `abgabetyp`.`id` = `wahlschein`.`abgabetyp`
         ';
         $db->execute($sql);
 
@@ -338,7 +341,7 @@ class Reset
         from 
             wahlschein
             join wahlberechtigte
-                on wahlschein.wahlberechtigte = wahlberechtigte.ridx
+                on wahlschein.wahlberechtigte = wahlberechtigte.id
                 and `wahlschein`.`wahlscheinstatus` in (16,17)
             join wahlberechtigte_anlage
             on 
@@ -355,7 +358,7 @@ class Reset
         $db->direct('INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("wahlberechtigte_anlage","wm_wb_importcmd","toolbar",1,"Importieren",NULL);');
 
 
-        $filename = (__DIR__) . '/sql/install/trigger.wahlberechtigte.anlage.sql';
+        $filename = (__DIR__) . '/sql/install/ddl/before_insert_wahlberechtigte_anlage.sql';
         $sql = file_get_contents($filename);
         $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
         $sql = preg_replace('#^\s*\-\-.+$#m', '', $sql);
