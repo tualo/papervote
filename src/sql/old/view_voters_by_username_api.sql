@@ -44,7 +44,7 @@ BEGIN
                     `wahlschein`.`wahlscheinstatus`,
                     
                     "ts",
-                    cast(wahlschein.ts as datetime),
+                    cast(wahlschein.row_start as datetime),
 
                     "voter_id",
                     `wahlschein`.`id`,

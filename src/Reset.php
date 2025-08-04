@@ -9,7 +9,8 @@ use Exception;
 class Reset
 {
 
-    public static function Testdatenreset(){
+    public static function Testdatenreset()
+    {
         $sql = "select 
 
         concat(
@@ -25,7 +26,6 @@ class Reset
         where wahlberechtigte_anlage.testdaten=1";
         $db = App::get('session')->getDB();
         $db->execute($sql);
-
     }
 
     public static function Ruecklauf()
@@ -46,7 +46,7 @@ class Reset
                 where ' . $typ['feld'] . '<>\'6|0\'';
             $db->execute($sql);
         }
-        if(App::configuration('papervote','delete_history_on_reset','0')=='1'){
+        if (App::configuration('papervote', 'delete_history_on_reset', '0') == '1') {
             $db->execute('DELETE HISTORY FROM wahlschein');
         }
     }
@@ -73,16 +73,15 @@ class Reset
         $db = App::get('session')->getDB();
 
         $db->execute('delete from wahlschein ');
-        if(App::configuration('papervote','delete_history_on_reset','0')=='1'){
+        if (App::configuration('papervote', 'delete_history_on_reset', '0') == '1') {
             $db->execute('DELETE HISTORY FROM wahlschein');
         }
 
         $db->execute('delete from wahlberechtigte');
-        if(App::configuration('papervote','delete_history_on_reset','0')=='1'){
+        if (App::configuration('papervote', 'delete_history_on_reset', '0') == '1') {
             $db->execute('DELETE HISTORY FROM wahlberechtigte');
         }
         $db->execute('truncate wahlberechtigte_anlage');
-        
     }
 
 
@@ -130,16 +129,13 @@ class Reset
             $sql = 'delete from papervote_optical';
             $db->execute($sql);
         } catch (Exception $e) {
-            
         }
 
         try {
             $sql = 'delete from briefwahlkandidaten';
             $db->execute($sql);
         } catch (Exception $e) {
-            
         }
-
     }
 
     public static function Kandidaten()
@@ -208,13 +204,12 @@ class Reset
         $db = App::get('session')->getDB();
         $sql = 'delete from onlinekandidaten  ';
         $db->execute($sql);
-        try{
+        try {
             $sql = 'delete from onlinekandidaten_doc  ';
             $db->execute($sql);
             $sql = 'delete from onlinekandidaten_docdata  ';
             $db->execute($sql);
-        }catch(\Exception $e){
-            
+        } catch (\Exception $e) {
         }
     }
 
@@ -223,21 +218,20 @@ class Reset
         $db = App::get('session')->getDB();
         $sql = 'delete from onlinestimmzettel  ';
         $db->execute($sql);
-        
+
         $sql = 'delete from ballotbox_decrypted_sum  ';
         $db->execute($sql);
-        
-        try{
-            
+
+        try {
+
             $sql = 'delete from onlinestimmzettel_doc  ';
             $db->execute($sql);
             $sql = 'delete from onlinestimmzettel_docdata  ';
             $db->execute($sql);
-        }catch(\Exception $e){
-            
+        } catch (\Exception $e) {
         }
     }
-    
+
 
     public static function WahlgruppenWahlbezirke()
     {
@@ -311,7 +305,7 @@ class Reset
         )';
         $db->direct($sql);
 
-        
+
 
 
         $sql = '
@@ -319,8 +313,8 @@ class Reset
         select
             `wahlberechtigte_anlage`.*,
             `wahlschein`.`wahlscheinnummer` AS `wahlschein_wahlscheinnummer`,
-            cast(`wahlschein`.`ts` as date) AS `wahlschein_insert_date`,
-            cast(`wahlschein`.`ts` as date) AS `wahlschein_update_date`,
+            cast(`wahlschein`.`row_start` as date) AS `wahlschein_insert_date`,
+            cast(`wahlschein`.`row_start` as date) AS `wahlschein_update_date`,
             `wahlscheinstatus`.`name` AS `status_text`,
             `abgabetyp`.`name` AS `abgabetyp_text`,
             `stimmzettel`.`name` AS `stimmzettel_name`

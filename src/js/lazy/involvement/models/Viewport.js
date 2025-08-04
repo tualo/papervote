@@ -3,9 +3,9 @@ Ext.define('Tualo.PaperVote.lazy.involvement.models.Viewport', {
   alias: 'viewmodel.cmp_wm_beteiligung_viewport',
   data: {
     typ_name: 'Unbekannt',
-    wahltyp__ridx: '',
+    wahltyp: 0,
     testdaten: 0,
-    base: 'stimmzettel_default'
+    base: 'view_stimmzettel_default'
   },
   formulas: {
     title: function (get) {

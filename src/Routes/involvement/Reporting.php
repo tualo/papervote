@@ -39,18 +39,19 @@ class Reporting implements IRoute
                     $abgabetyp = " and wahlschein.abgabetyp = {abgabetyp} ";
                 }
             }
-            $sql = 'select ridx,name from abgabetyp where aktiv=1';
+            $sql = 'select id,name from abgabetyp where aktiv=1';
             $abgabetypen = $db->direct($sql, $_REQUEST);
 
 
             $sql = 'select * from wahltyp where id={typ}';
             $t = $db->singleRow($sql, $_REQUEST);
             if ($t === false) {
+                App::result('x', $db->last_sql);
                 throw new Exception('Wahltypen Fehler');
             }
 
 
-            $base = 'stimmzettel_default';
+            $base = 'view_stimmzettel_default';
 
             if ($_REQUEST['base']) {
                 $base = $_REQUEST['base'];
@@ -123,7 +124,7 @@ class Reporting implements IRoute
             $sql = 'select id,name from wahlscheinstatus where sz_count=1';
             $sz_count = $db->direct($sql);
 
-            $sql = 'select wahlbeteiligung_bericht,id,wahlscheinstatus from wahlbeteiligung_bericht_status where aktiv=1 order by id';
+            $sql = 'select wahlbeteiligung_bericht,wahlscheinstatus from wahlbeteiligung_bericht_status where aktiv=1  ';
             $wahlbeteiligung_bericht_status = $db->direct($sql);
 
             $sql = 'select id,name from wahlbeteiligung_bericht_formel where aktiv=1 order by id';
@@ -171,7 +172,7 @@ class Reporting implements IRoute
                     }
 
                     $statusfeld = $t['feld'];
-                    $stimmzettelfeld = $t['stimmzettelfeld'];
+
                     $join_stimmzettelfeld = $t['stimmzettelfeld'];
                     if (isset($_REQUEST['join_fld']) && $_REQUEST['join_fld'] != '') {
                         $join_stimmzettelfeld = $_REQUEST['join_fld'];
@@ -182,7 +183,7 @@ class Reporting implements IRoute
 
                     $stimmzettel_ohne_wb = array();
                     $stimmzettel_ia = array();
-                    if ($base === 'stimmzettel_default') {
+                    if ($base === 'view_stimmzettel_default') {
                         foreach ($ohne_wahlberechtigten as $pos) {
                             $stimmzettel_ohne_wb[] = 'stimmzettel.anzahl_' . $pos['id'];
                             $stimmzettel_ia[$pos['id']] =  'anzahl_' . $pos['id'];
@@ -191,7 +192,7 @@ class Reporting implements IRoute
 
                     $stimmzettel_sz_count = array();
                     $stimmzettel_ia_sz_count = array();
-                    if ($base === 'stimmzettel_default') {
+                    if ($base === 'view_stimmzettel_default') {
                         foreach ($sz_count as $pos) {
                             $stimmzettel_sz_count[] = 'stimmzettel.ds_count';
                             $stimmzettel_ia_sz_count[$pos['id']] =  'ds_count';
@@ -264,7 +265,7 @@ class Reporting implements IRoute
                         $ias = array();
                         $status = array();
                         foreach ($wahlbeteiligung_bericht_status as $bericht_status) {
-                            if ($bericht['ridx'] === $bericht_status['wahlbeteiligung_bericht']) {
+                            if ($bericht['id'] === $bericht_status['wahlbeteiligung_bericht']) {
 
                                 if (($bericht_status['wahlscheinstatus'] == '2|0') && ($bericht['checktyp'] == 1)) {
 
@@ -365,13 +366,13 @@ class Reporting implements IRoute
                             for ($zi = 3; $zi <= $zeile; $zi++) {
                                 $nenner = array();
                                 foreach ($wahlbeteiligung_bericht_formel_nenner as $bericht_nenner) {
-                                    if ($bericht['ridx'] === $bericht_nenner['wahlbeteiligung_bericht_formel']) {
+                                    if ($bericht['id'] === $bericht_nenner['wahlbeteiligung_bericht_formel']) {
                                         $nenner[] = $formel_hash[$bericht_nenner['wahlbeteiligung_bericht']] . $zi;
                                     }
                                 }
                                 $teiler = array();
                                 foreach ($wahlbeteiligung_bericht_formel_teiler as $bericht_teiler) {
-                                    if ($bericht['ridx'] === $bericht_teiler['wahlbeteiligung_bericht_formel']) {
+                                    if ($bericht['id'] === $bericht_teiler['wahlbeteiligung_bericht_formel']) {
                                         $teiler[] = $formel_hash[$bericht_teiler['wahlbeteiligung_bericht']] . $zi;
                                     }
                                 }
@@ -419,74 +420,70 @@ class Reporting implements IRoute
 
 
 
-        $t = $db->singleRow('select * from wahltyp where ridx={typ}', $_REQUEST);
-        if ($t === false) throw new Exception('Wahltypen Fehler');
+        $t = $db->singleRow('select 
+        id,
+        name,
+        if(ifnull(feld,"")="","stimmzettel",ifnull(feld,"")) stimmzettelfeld
+        from wahltyp where id={typ}', $_REQUEST);
+        if ($t === false) {
+            throw new Exception('Wahltypen Fehler');
+        }
 
-        $sql = 'select ridx from wahlscheinstatus';
-        $wahlscheinstatus = $db->direct($sql);
 
-        $sql = 'select id,ridx,name from wahlscheinstatus where ohne_wahlberechtigten=1';
+        $sql = 'select id,name from wahlscheinstatus where ohne_wahlberechtigten=1';
         $ohne_wahlberechtigten = $db->direct($sql);
 
-        $sql = 'select id,ridx,name from wahlscheinstatus where sz_count=1';
+        $sql = 'select id,name from wahlscheinstatus where sz_count=1';
         $sz_count = $db->direct($sql);
 
-        $base = isset($_REQUEST['base']) ? $_REQUEST['base'] : 'stimmzettel_default';
+        $base = isset($_REQUEST['base']) ? $_REQUEST['base'] : 'view_stimmzettel_default';
 
 
-        $sql = 'select ridx,name from ' . $base . ' where wahltyp=\'' . $t['ridx'] . '\'';
-        $stimmzettel_liste = $db->direct($sql);
 
-        $sql = 'select ridx,id,name,checktyp from wahlbeteiligung_bericht where aktiv=1 order by id';
+        $sql = 'select id,name,checktyp from wahlbeteiligung_bericht where aktiv=1 order by id';
         $wahlbeteiligung_bericht = $db->direct($sql);
 
         if (isset($_REQUEST['abgabetyp'])) {
             if ($_REQUEST['abgabetyp'] != '') {
                 //$abgabetyp = " and ws.abgabetyp = '".$_REQUEST['abgabetyp']."|0' ";
-                $sql = 'select ridx,id,name,checktyp from wahlbeteiligung_bericht where aktiv=1 and JSON_VALUE(abgabetyp,"$.abgabetyp' . $_REQUEST['abgabetyp'] . '")=true order by id';
+                $sql = 'select id,name,checktyp from wahlbeteiligung_bericht where aktiv=1 and JSON_VALUE(abgabetyp,"$.abgabetyp' . $_REQUEST['abgabetyp'] . '")=true order by id';
                 $wahlbeteiligung_bericht = $db->direct($sql);
             }
         }
 
-        $sql = 'select ridx,wahlbeteiligung_bericht,id,wahlscheinstatus from wahlbeteiligung_bericht_status where aktiv=1 order by id';
+        $sql = 'select wahlbeteiligung_bericht ,wahlscheinstatus from wahlbeteiligung_bericht_status where aktiv=1 ';
         $wahlbeteiligung_bericht_status = $db->direct($sql);
 
-        $sql = 'select ridx,id,name from wahlbeteiligung_bericht_formel where aktiv=1 order by id';
+        $sql = 'select id,name from wahlbeteiligung_bericht_formel where aktiv=1 order by id';
         $wahlbeteiligung_bericht_formel = $db->direct($sql);
 
-        $sql = 'select ridx,wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_nenner where aktiv=1 order by id';
+        $sql = 'select wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_nenner where aktiv=1 order by id';
         $wahlbeteiligung_bericht_formel_nenner = $db->direct($sql);
 
 
 
-        $sql = 'select ridx,wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_teiler where aktiv=1 order by id';
+        $sql = 'select wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_teiler where aktiv=1 order by id';
         $wahlbeteiligung_bericht_formel_teiler = $db->direct($sql);
 
 
         if (isset($_REQUEST['abgabetyp'])) {
             if ($_REQUEST['abgabetyp'] != '') {
                 //$abgabetyp = " and ws.abgabetyp = '".$_REQUEST['abgabetyp']."|0' ";
-                $insql = 'select ridx  from wahlbeteiligung_bericht where aktiv=1 and JSON_VALUE(abgabetyp,"$.abgabetyp' . $_REQUEST['abgabetyp'] . '")=true  ';
+                $insql = 'select id  from wahlbeteiligung_bericht where aktiv=1 and JSON_VALUE(abgabetyp,"$.abgabetyp' . $_REQUEST['abgabetyp'] . '")=true  ';
 
-                $sql = 'select ridx,wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_nenner where aktiv=1 and wahlbeteiligung_bericht in (' . $insql . ') order by id';
+                $sql = 'select wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_nenner where aktiv=1 and wahlbeteiligung_bericht in (' . $insql . ') order by id';
                 $wahlbeteiligung_bericht_formel_nenner = $db->direct($sql);
 
-                $sql = 'select ridx,wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_teiler where aktiv=1 and wahlbeteiligung_bericht in (' . $insql . ') order by id';
+                $sql = 'select wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_teiler where aktiv=1 and wahlbeteiligung_bericht in (' . $insql . ') order by id';
                 $wahlbeteiligung_bericht_formel_teiler = $db->direct($sql);
             }
         }
 
 
 
-        $datahash = array();
-        $statusfeld = $t['feld'];
-        $stimmzettelfeld = $t['stimmzettelfeld'];
-        $join_stimmzettelfeld = $t['stimmzettelfeld'];
         $wahltyp_id = $t['id'];
 
-        if (isset($_REQUEST['join_fld']) && $_REQUEST['join_fld'] != '') {
-            $join_stimmzettelfeld = $_REQUEST['join_fld'];
-        }
+
 
 
         $case_tpl = " SUM(CASE WHEN {statusliste} THEN 1 ELSE 0 END) AS `{fieldname}` ";
@@ -494,9 +491,9 @@ class Reporting implements IRoute
                 select
                 bs.group_id id,
                 bs.id stimmzettel_id,
-                bs.name stimmzettel_name, ws.$stimmzettelfeld stimmzettel, {casefields}
+                bs.name stimmzettel_name, ws.stimmzettel stimmzettel, {casefields}
                 from
-                wahlschein ws join " . $base . " bs  on bs.ridx = ws.$join_stimmzettelfeld and ws.testdaten=$testdaten
+                wahlschein ws join " . $base . " bs  on bs.id = ws.stimmzettel and ws.testdaten=$testdaten
 
                 where
             bs.wahltyp='$wahltyp_id'  group by bs.group_id ";
@@ -508,17 +505,20 @@ class Reporting implements IRoute
         foreach ($wahlbeteiligung_bericht as $bericht) {
             $status = array();
             foreach ($wahlbeteiligung_bericht_status as $bericht_status) {
-                if ($bericht['ridx'] === $bericht_status['wahlbeteiligung_bericht']) {
+                if ($bericht['id'] === $bericht_status['wahlbeteiligung_bericht']) {
                     $typ = ' ';
                     if ($bericht['checktyp'] == '1') {
                         $typ = ' ' . $abgabetyp;
                     }
-                    $status[] = ' ( ws.' . $statusfeld . '=\'' . $bericht_status['wahlscheinstatus'] . '\' ' . $typ . ')';
+                    $status[] = ' ( ws.wahlscheinstatus'  . '=\'' . $bericht_status['wahlscheinstatus'] . '\' ' . $typ . ')';
                 }
             }
 
             $formel_hash[$bericht['id']] = 'b' . $bericht['id'];
             $case = $case_tpl;
+            if (count($status)) {
+                throw new Exception('Keine Status gefunden für Bericht ' . $bericht['name'] . ' (' . $bericht['id'] . ')');
+            }
             $case = str_replace('{statusliste}', '' . implode(' or ', $status) . ' ', $case);
             $case = str_replace('{fieldname}', 'b' . $bericht['id'], $case);
             $cases[] = $case;
@@ -535,12 +535,12 @@ class Reporting implements IRoute
             stimmzettel.name stimmzettel_name,
             
             {casefields}
-            from stimmzettel_default stimmzettel
+            from view_stimmzettel_default stimmzettel
             where stimmzettel.wahltyp=$wahltyp_id  ";
 
 
-        if ($base !== 'stimmzettel_default') {
-            $sql_sw = "select 
+        if ($base !== 'view_stimmzettel_default') {
+            $sql_sw = "select
             
                 stimmzettel.id stimmzettel_id,
                 stimmzettel.name stimmzettel_name,
@@ -555,9 +555,9 @@ class Reporting implements IRoute
 
             $found = '';
             foreach ($wahlbeteiligung_bericht_status as $bericht_status) {
-                if ($bericht['ridx'] === $bericht_status['wahlbeteiligung_bericht']) {
+                if ($bericht['id'] === $bericht_status['wahlbeteiligung_bericht']) {
                     foreach ($ohne_wahlberechtigten as $pos) {
-                        if ($pos['ridx'] == $bericht_status['wahlscheinstatus']) {
+                        if ($pos['id'] == $bericht_status['wahlscheinstatus']) {
                             if ($found != '') {
                                 $found .= ' + ';
                             }
@@ -591,15 +591,17 @@ class Reporting implements IRoute
                 stimmzettel.id stimmzettel_id,
                 stimmzettel.name stimmzettel_name,
                 {casefields}
-                from stimmzettel_default stimmzettel
+                from view_stimmzettel_default stimmzettel
                 where stimmzettel.wahltyp=wahltyp_id  ";
 
 
-        if ($base !== 'stimmzettel_default') {
-            $sql_sw_umschlag = "select ridx,
+        if ($base !== 'view_stimmzettel_default') {
+            $sql_sw_umschlag = "select
+            
                 stimmzettel.id stimmzettel_id,
                 stimmzettel.name stimmzettel_name,
-                    ridx stimmzettel, {casefields}
+                    
+                 {casefields}
                     from stimmzettel
                     where false  ";
         }
@@ -610,9 +612,9 @@ class Reporting implements IRoute
 
             $found = '';
             foreach ($wahlbeteiligung_bericht_status as $bericht_status) {
-                if ($bericht['ridx'] === $bericht_status['wahlbeteiligung_bericht']) {
+                if ($bericht['id'] === $bericht_status['wahlbeteiligung_bericht']) {
                     foreach ($sz_count as $pos) {
-                        if ($pos['ridx'] == $bericht_status['wahlscheinstatus']) {
+                        if ($pos['id'] == $bericht_status['wahlscheinstatus']) {
                             if ($found != '') {
                                 $found .= ' + ';
                             }
@@ -655,13 +657,13 @@ class Reporting implements IRoute
         foreach ($wahlbeteiligung_bericht_formel as $bericht) {
             $nenner = array();
             foreach ($wahlbeteiligung_bericht_formel_nenner as $bericht_nenner) {
-                if ($bericht['ridx'] === $bericht_nenner['wahlbeteiligung_bericht_formel']) {
+                if ($bericht['id'] === $bericht_nenner['wahlbeteiligung_bericht_formel']) {
                     $nenner[] = $formel_hash[$bericht_nenner['wahlbeteiligung_bericht']];
                 }
             }
             $teiler = array();
             foreach ($wahlbeteiligung_bericht_formel_teiler as $bericht_teiler) {
-                if ($bericht['ridx'] === $bericht_teiler['wahlbeteiligung_bericht_formel']) {
+                if ($bericht['id'] === $bericht_teiler['wahlbeteiligung_bericht_formel']) {
                     $teiler[] = $formel_hash[$bericht_teiler['wahlbeteiligung_bericht']];
                 }
             }
@@ -722,17 +724,87 @@ class Reporting implements IRoute
 
     public static function register()
     {
-        BasicRoute::add('/papervote/involvement/reporting', function () {
-            $db = App::get('session')->getDB();
-            try {
-                App::result('data', Reporting::getData());
+        BasicRoute::add(
+            '/papervote/involvement/reporting',
+            function () {
+                $db = App::get('session')->getDB();
+                try {
+                    App::result('data', Reporting::getData());
 
-                App::result('success', true);
-            } catch (Exception $e) {
-                App::result('msg', $e->getMessage());
-            }
-            App::contenttype('application/json');
-        }, array('get', 'post'), true);
+                    App::result('success', true);
+                } catch (Exception $e) {
+
+                    App::result('x', $db->last_sql);
+                    App::result('msg', $e->getMessage());
+                }
+                App::contenttype('application/json');
+            },
+            [
+                'post',
+                'get'
+            ],
+            true,
+            [
+                'errorOnUnexpected' => true,
+                'errorOnInvalid' => true,
+                'fields' =>  [
+                    'typ' => [
+                        'required' => true,
+                        'type' => 'int',
+                        'min' => 0,
+                        'max' => 10000000
+                    ],
+                    '_dc' => [
+                        'required' => false,
+                        'type' => 'string',
+                        'minlength' => 0,
+                        'maxlength' => 10000
+                    ],
+                    'abgabetyp' => [
+                        'required' => false,
+                        'type' => 'string',
+                        'minlength' => 0,
+                        'maxlength' => 100
+                    ],
+                    'testdaten' => [
+                        'required' => false,
+                        'type' => 'int',
+                        'min' => 0,
+                        'max' => 1
+                    ],
+                    'base' => [
+                        'required' => false,
+                        'type' => 'string',
+                        'minlength' => 0,
+                        'maxlength' => 50
+                    ],
+                    'join_fld' => [
+                        'required' => false,
+                        'type' => 'string',
+                        'minlength' => 0,
+                        'maxlength' => 50
+                    ],
+                    'page' => [
+                        'required' => false,
+                        'type' => 'int',
+                        'minlength' => 0,
+                        'maxlength' => 1000000
+                    ],
+                    'start' => [
+                        'required' => false,
+                        'type' => 'int',
+                        'minlength' => 0,
+                        'maxlength' => 1000000
+                    ],
+                    'limit' => [
+                        'required' => false,
+                        'type' => 'int',
+                        'minlength' => 0,
+                        'maxlength' => 1000000
+                    ]
+                ]
+            ]
+        );
 
         BasicRoute::add('/papervote/involvement/reporting/export', function () {
             $db = App::get('session')->getDB();

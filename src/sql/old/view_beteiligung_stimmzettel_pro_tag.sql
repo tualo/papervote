@@ -1,7 +1,7 @@
 DELIMITER ;
 CREATE OR REPLACE VIEW `view_beteiligung_stimmzettel` AS (
     select
-        cast(`wahlschein`.`ts` as date) AS `datum_ts`,
+        cast(`wahlschein`.`row_start` as date) AS `datum_ts`,
         `wahlschein`.`update_date` AS `datum`,
         `wahlschein`.`wahlscheinstatus` AS `wahlscheinstatus`,
         `wahlschein`.`stimmzettel` AS `stimmzettel`,

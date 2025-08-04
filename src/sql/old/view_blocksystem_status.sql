@@ -7,7 +7,7 @@ CREATE OR REPLACE VIEW `view_blocksystem_status_blocks_wahlscheine` AS (
             `wahlschein`.`blocknumber`,
             `wahlschein`.`wahlscheinstatus`
         ) AS `blocks_id`,
-        cast(`wahlschein`.`ts` as date) AS `letzte_aenderung`,
+        cast(`wahlschein`.`row_start` as date) AS `letzte_aenderung`,
         `wahlschein`.`wahlscheinstatus` AS `wahlscheinstatus`,
         `wahlschein`.`wahlscheinnummer` AS `wahlscheinnummer`,
         `wahlberechtigte`.`identnummer` AS `identnummer`,
@@ -45,7 +45,7 @@ CREATE oR replace VIEW `view_blocksystem_status_blocks` AS (
         `wahlschein`.`blocknumber` AS `blocknumber`,
         `wahlscheinstatus`.`name` AS `name`,
         max(
-            cast(`wahlschein`.`ts` as date)
+            cast(`wahlschein`.`row_start` as date)
         ) AS `letzte_aenderung`,
         count(distinct `wahlschein`.`id`) AS `anzahl_wahlscheine`
     from
@@ -66,7 +66,7 @@ CREATE OR REPLACE VIEW `view_blocksystem_status` AS (
     select
         `wahlschein`.`wahlscheinstatus` AS `wahlscheinstatus`,
         `wahlscheinstatus`.`name` AS `name`,
-        cast(`wahlschein`.`ts` as date) AS `letzte_aenderung`,
+        cast(`wahlschein`.`row_start` as date) AS `letzte_aenderung`,
         count(distinct `wahlschein`.`id`) AS `anzahl_wahlscheine`,
         count(distinct `wahlschein`.`blocknumber`) AS `anzahl_blocknumber`
     from

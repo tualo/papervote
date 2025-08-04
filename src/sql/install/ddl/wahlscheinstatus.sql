@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS `wahlscheinstatus` (
   `barcode` varchar(36) DEFAULT uuid(),
   `farbe` varchar(25) DEFAULT "rgb(111,111,111)",
   `ohne_wahlberechtigten` tinyint(4) DEFAULT 0,
+  `sz_count` tinyint(4) DEFAULT 0,
 
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_wahlscheinstatus_barcode` (`barcode`),
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `wahlscheinstatus` (
   `updated_at` timestamp not null default current_timestamp on update current_timestamp
 
 );
+alter table `wahlscheinstatus` add column if not exists  `sz_count` tinyint(4) DEFAULT 0;
 
 DELIMITER //
 

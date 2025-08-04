@@ -19,7 +19,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
     records.forEach(function (record) {
       if (typ == record.get('id')) {
 
-        me.getViewModel().set('ridx', record.get('ridx'));
+        me.getViewModel().set('typ', record.get('id'));
         me.getViewModel().set('typ_name', record.get('name'));
         me.getViewModel().set('disabled', false);
 
@@ -58,35 +58,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
       }
     };
     Tualo.Ajax.download(config);
-    /*
-        Ext.MessageBox.wait('Bitte warten...','Bericht wird erstellt');
-        console.log('timeout',600000);
-        Ext.Ajax.request({
-            url: './index.php',
-            timeout: 600000,
-            params: {
-              typ: this.getViewModel().get('ridx'),
-              base: this.getViewModel().get('base'),//request.base,
-              abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
-              testdaten: this.getViewModel().get('testdaten'),//request.base,
-              join_fld: '',//request.join_fld,
-              p: 'ajax/flatfile'
-            },
-            success: function(f, a){
-                Ext.MessageBox.hide();
-                var o = Ext.JSON.decode(f.responseText);
-                if (o.data.file != '') {
-                    Ext.tualo.window.DownloadManager.notify_download(o.file);
-                }else{
-                    Ext.MessageBox.alert('Fehler','Die R&uuml;ckgabe war fehlerhaft.');
-                }
-            },
-            failure: function(f){
-                Ext.MessageBox.hide();
-                Ext.MessageBox.alert('Fehler '+f.responseText);
-            }
-        });
-        */
+
   },
   onCodePDFClick: function () {
     /*
@@ -158,7 +130,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
       timeout: 300000,
       params: {
         limit: 10000000,
-        typ: this.getViewModel().get('ridx'),
+        typ: this.getViewModel().get('typ'),
         base: this.getViewModel().get('base'),//request.base,
         abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
         testdaten: this.getViewModel().get('testdaten'),//request.base,
@@ -235,7 +207,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
         url: './papervote/involvement/reporting',
 
         extraParams: {
-          typ: this.getViewModel().get('ridx'),
+          typ: this.getViewModel().get('typ'),
           base: this.getViewModel().get('base'),//request.base,
           abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
           testdaten: this.getViewModel().get('testdaten'),//request.base,
