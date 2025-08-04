@@ -245,31 +245,6 @@ Ext.define('Tualo.routes.PaperVoteMonitor', {
 
 
 
-Ext.define('Tualo.routes.PaperVoteInvolvement', {
-    statics: {
-        load: async function () {
-            return [
-                {
-                    name: 'papervote/involvement',
-                    path: '#papervote/involvement'
-                }
-            ]
-        }
-    },
-    url: 'papervote/involvement',
-    handler: {
-        action: function () {
-
-            Ext.getApplication().addView('Tualo.PaperVote.lazy.involvement.Viewport');
-        },
-        before: function (action) {
-
-
-            action.resume();
-        }
-    }
-});
-
 
 
 Ext.define('Tualo.routes.PaperVoteStacks', {

@@ -1314,6 +1314,6 @@ create table if not exists wm_tualo_api_logfile (
 create   view if not exists stimmzettel_default as
 select
     stimmzettel.*,
-    stimmzettel.ridx group_ridx
+    stimmzettel.id group_id
 from
 stimmzettel;

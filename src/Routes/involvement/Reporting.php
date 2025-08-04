@@ -19,29 +19,34 @@ use Tualo\Office\Report\Routes\Report;
 
 class Reporting implements IRoute
 {
-    public static function getExcel($name='Beteiligungsbericht.xlsx')
+    public static function getExcel($name = 'Beteiligungsbericht.xlsx')
     {
         try {
             $db = App::get('session')->getDB();
+
+            if (!is_numeric($_REQUEST['abgabetyp'])) {
+                throw new Exception('Abgabetyp muss numerisch sein');
+            }
+            if (!is_numeric($_REQUEST['typ'])) {
+                throw new Exception('Wahltyp muss numerisch sein');
+            }
 
             $abgabetyp = "";
             $_REQUEST['dynabgabetyp'] = '1';
 
             if (isset($_REQUEST['abgabetyp'])) {
                 if ($_REQUEST['abgabetyp'] != '') {
-                    $abgabetyp = " and wahlschein.abgabetyp = '" . $_REQUEST['abgabetyp'] . "|0' ";
+                    $abgabetyp = " and wahlschein.abgabetyp = {abgabetyp} ";
                 }
             }
             $sql = 'select ridx,name from abgabetyp where aktiv=1';
-            $abgabetypen = $db->direct($sql);
+            $abgabetypen = $db->direct($sql, $_REQUEST);
 
 
-            $sql = 'select * from wahltyp where id=\'' . $_REQUEST['typ'] . '\' ';
-            $t = $db->direct($sql);
-            if (count($t) === 1) {
-                $t = $t[0];
-            } else {
-                die('Wahltypen Fehler');
+            $sql = 'select * from wahltyp where id={typ}';
+            $t = $db->singleRow($sql, $_REQUEST);
+            if ($t === false) {
+                throw new Exception('Wahltypen Fehler');
             }
 
 
@@ -51,17 +56,16 @@ class Reporting implements IRoute
                 $base = $_REQUEST['base'];
             }
 
-            $sql = 'select ridx from wahlscheinstatus';
-            $wahlscheinstatus = $db->direct($sql);
 
-            $sql = 'select ridx,name from stimmzettel where wahltyp=\'' . $t['ridx'] . '\' order by id';
-            $sql = 'select group_ridx,name from ' . $base . ' where wahltyp=\'' . $t['ridx'] . '\'';
-            $stimmzettel_liste = $db->direct($sql, array(), 'group_ridx');
 
-            $stimmzettel_liste_index = array();
+            $sql = 'select id,name from stimmzettel where wahltyp={id} order by id';
+            $sql = 'select group_id,name from ' . $base . ' where wahltyp={id}';
+            $stimmzettel_liste = $db->direct($sql, $t, 'group_id');
+
+            $stimmzettel_liste_index = [];
             $zeile = 3;
             foreach ($stimmzettel_liste as $key => $pos) {
-                $stimmzettel_liste_index[$pos['group_ridx']] = $zeile;
+                $stimmzettel_liste_index[$pos['group_id']] = $zeile;
                 $zeile++;
             }
             $filter_feldwerte_offset_count = $zeile;
@@ -109,29 +113,29 @@ class Reporting implements IRoute
                 $rs->unload();
             } catch (\Exception $e) {
             }
-            $sql = 'select ridx,id,name,checktyp from wahlbeteiligung_bericht where aktiv=1 order by id';
+            $sql = 'select id,name,checktyp from wahlbeteiligung_bericht where aktiv=1 order by id';
             $wahlbeteiligung_bericht = $db->direct($sql);
 
 
-            $sql = 'select id,ridx,name from wahlscheinstatus where ohne_wahlberechtigten=1';
+            $sql = 'select id,name from wahlscheinstatus where ohne_wahlberechtigten=1';
             $ohne_wahlberechtigten = $db->direct($sql);
 
-            $sql = 'select id,ridx,name from wahlscheinstatus where sz_count=1';
+            $sql = 'select id,name from wahlscheinstatus where sz_count=1';
             $sz_count = $db->direct($sql);
 
-            $sql = 'select ridx,wahlbeteiligung_bericht,id,wahlscheinstatus from wahlbeteiligung_bericht_status where aktiv=1 order by id';
+            $sql = 'select wahlbeteiligung_bericht,id,wahlscheinstatus from wahlbeteiligung_bericht_status where aktiv=1 order by id';
             $wahlbeteiligung_bericht_status = $db->direct($sql);
 
-            $sql = 'select ridx,id,name from wahlbeteiligung_bericht_formel where aktiv=1 order by id';
+            $sql = 'select id,name from wahlbeteiligung_bericht_formel where aktiv=1 order by id';
             $wahlbeteiligung_bericht_formel = $db->direct($sql);
 
-            $sql = 'select ridx,wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_nenner where aktiv=1 order by id';
+            $sql = 'select wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_nenner where aktiv=1 order by id';
             $wahlbeteiligung_bericht_formel_nenner = $db->direct($sql);
 
-            $sql = 'select ridx,wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_teiler where aktiv=1 order by id';
+            $sql = 'select wahlbeteiligung_bericht_formel,id,wahlbeteiligung_bericht from wahlbeteiligung_bericht_formel_teiler where aktiv=1 order by id';
             $wahlbeteiligung_bericht_formel_teiler = $db->direct($sql);
 
-            $ergebniss = array();
+            $ergebniss = [];
 
 
 
@@ -173,7 +177,7 @@ class Reporting implements IRoute
                         $join_stimmzettelfeld = $_REQUEST['join_fld'];
                     }
 
-                    $wahltypridx = $t['ridx'];
+                    $wahltyp_id = $t['id'];
 
 
                     $stimmzettel_ohne_wb = array();
@@ -181,7 +185,7 @@ class Reporting implements IRoute
                     if ($base === 'stimmzettel_default') {
                         foreach ($ohne_wahlberechtigten as $pos) {
                             $stimmzettel_ohne_wb[] = 'stimmzettel.anzahl_' . $pos['id'];
-                            $stimmzettel_ia[$pos['ridx']] =  'anzahl_' . $pos['id'];
+                            $stimmzettel_ia[$pos['id']] =  'anzahl_' . $pos['id'];
                         }
                     }
 
@@ -190,7 +194,7 @@ class Reporting implements IRoute
                     if ($base === 'stimmzettel_default') {
                         foreach ($sz_count as $pos) {
                             $stimmzettel_sz_count[] = 'stimmzettel.ds_count';
-                            $stimmzettel_ia_sz_count[$pos['ridx']] =  'ds_count';
+                            $stimmzettel_ia_sz_count[$pos['id']] =  'ds_count';
                         }
                     }
 
@@ -209,42 +213,42 @@ class Reporting implements IRoute
 
                     $sql = '
                         select
-                            bs.group_ridx `cellid`,
+                            bs.group_id `cellid`,
                             {casefields}
                         from wahlschein join ' . $base . ' bs
-                            on bs.ridx = wahlschein.' . $join_stimmzettelfeld . '
+                            on bs.id = wahlschein.' . $join_stimmzettelfeld . '
                             and wahlschein.testdaten = 0
                         join wahlberechtigte
-                            on wahlschein.wahlberechtigte = wahlberechtigte.ridx
+                            on wahlschein.wahlberechtigte = wahlberechtigte.id
                         join wahlberechtigte_anlage
                         on 
                             wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
                             and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
                         ' . $lfilter . '
                         where
-                            bs.wahltyp=\'' . $wahltypridx . '\'
+                            bs.wahltyp=\'' . $wahltyp_id . '\'
                             and wahlberechtigte_anlage.' . $feld . ' in (' . $feldwerte . ')
-                        group by bs.group_ridx
+                        group by bs.group_id
                     ';
 
                     if ($feld == 'aktiv') {
                         $sql = '
                             select
-                                bs.group_ridx `cellid`,
+                                bs.group_id `cellid`,
                                 {casefields}
                             from wahlschein join ' . $base . ' bs
-                                on bs.ridx = wahlschein.' . $join_stimmzettelfeld . '
+                                on bs.id = wahlschein.' . $join_stimmzettelfeld . '
                                 and wahlschein.testdaten = 0
                             join wahlberechtigte
-                                on wahlschein.wahlberechtigte = wahlberechtigte.ridx
+                                on wahlschein.wahlberechtigte = wahlberechtigte.id
                             join wahlberechtigte_anlage
                             on 
                                 wahlberechtigte_anlage.identnummer = wahlberechtigte.identnummer
                                 and wahlschein.' . $join_stimmzettelfeld . '=wahlberechtigte_anlage.stimmzettel
                             ' . $lfilter . '
                             where
-                                bs.wahltyp=\'' . $wahltypridx . '\'
-                            group by bs.group_ridx
+                                bs.wahltyp=\'' . $wahltyp_id . '\'
+                            group by bs.group_id
                         ';
                     }
 
@@ -252,9 +256,9 @@ class Reporting implements IRoute
                     $formel_hash = array();
                     foreach ($wahlbeteiligung_bericht as $bericht) {
 
-                            
-                        $sheet->SetCellValue(Coordinate::stringFromColumnIndex($spalte).'2',$bericht['name']);
-                        $sheet->getStyle(Coordinate::stringFromColumnIndex($spalte).'2')->getFont()->setBold(true);
+
+                        $sheet->SetCellValue(Coordinate::stringFromColumnIndex($spalte) . '2', $bericht['name']);
+                        $sheet->getStyle(Coordinate::stringFromColumnIndex($spalte) . '2')->getFont()->setBold(true);
                         $sheet->getStyle(Coordinate::stringFromColumnIndex($spalte) . '2')->getAlignment()->setTextRotation(90);
 
                         $ias = array();
@@ -400,8 +404,6 @@ class Reporting implements IRoute
             $writer = IOFactory::createWriter($objPHPExcel, 'Xlsx');
             // $writer->setPreCalculateFormulas(false);
             $writer->save(App::get('tempPath')  . '/' . $name);
-
-            
         } catch (Exception $error) {
             echo $error->getMessage();
         }
@@ -480,7 +482,7 @@ class Reporting implements IRoute
         $statusfeld = $t['feld'];
         $stimmzettelfeld = $t['stimmzettelfeld'];
         $join_stimmzettelfeld = $t['stimmzettelfeld'];
-        $wahltypridx = $t['ridx'];
+        $wahltyp_id = $t['id'];
 
         if (isset($_REQUEST['join_fld']) && $_REQUEST['join_fld'] != '') {
             $join_stimmzettelfeld = $_REQUEST['join_fld'];
@@ -490,14 +492,14 @@ class Reporting implements IRoute
         $case_tpl = " SUM(CASE WHEN {statusliste} THEN 1 ELSE 0 END) AS `{fieldname}` ";
         $sql_tpl = "
                 select
-                bs.group_ridx id,
+                bs.group_id id,
                 bs.id stimmzettel_id,
                 bs.name stimmzettel_name, ws.$stimmzettelfeld stimmzettel, {casefields}
                 from
                 wahlschein ws join " . $base . " bs  on bs.ridx = ws.$join_stimmzettelfeld and ws.testdaten=$testdaten
 
                 where
-            bs.wahltyp='$wahltypridx'  group by bs.group_ridx ";
+            bs.wahltyp='$wahltyp_id'  group by bs.group_id ";
 
 
 
@@ -527,19 +529,22 @@ class Reporting implements IRoute
 
         // # BEGIN ############### OHNE WAHLSCHEIN #########################
         $case_tpl = " {anzahl} AS `{fieldname}` ";
-        $sql_sw = "select ridx,
+        $sql_sw = "select 
+        
             stimmzettel.id stimmzettel_id,
             stimmzettel.name stimmzettel_name,
-            ridx stimmzettel, {casefields}
+            
+            {casefields}
             from stimmzettel_default stimmzettel
-            where stimmzettel.wahltyp='$wahltypridx'  ";
+            where stimmzettel.wahltyp=$wahltyp_id  ";
 
 
         if ($base !== 'stimmzettel_default') {
-            $sql_sw = "select ridx,
+            $sql_sw = "select 
+            
                 stimmzettel.id stimmzettel_id,
                 stimmzettel.name stimmzettel_name,
-                    ridx stimmzettel, {casefields}
+                    {casefields}
                     from stimmzettel
                     where false  ";
         }
@@ -582,12 +587,12 @@ class Reporting implements IRoute
 
         // # BEGIN ############### WAHLUMSCHLAUG ZÄHLUNG #########################
         $case_tpl = " {anzahl} AS `{fieldname}` ";
-        $sql_sw_umschlag = "select ridx,
+        $sql_sw_umschlag = "select 
                 stimmzettel.id stimmzettel_id,
                 stimmzettel.name stimmzettel_name,
-                ridx stimmzettel, {casefields}
+                {casefields}
                 from stimmzettel_default stimmzettel
-                where stimmzettel.wahltyp='$wahltypridx'  ";
+                where stimmzettel.wahltyp=wahltyp_id  ";
 
 
         if ($base !== 'stimmzettel_default') {

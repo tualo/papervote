@@ -8,8 +8,8 @@ Ext.define('Tualo.PaperVote.lazy.involvement.models.Viewport', {
     base: 'stimmzettel_default'
   },
   formulas: {
-    title: function(get){
-      return 'Beteiligung >> '+get('typ_name')
+    title: function (get) {
+      return 'Beteiligung >> ' + get('typ_name')
     }
   },
   stores: {
@@ -36,7 +36,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.models.Viewport', {
     },
     ohne_wahlberechtigten: {
       autoLoad: false,
-      type: 'ohne_wahlberechtigten_store',
+      type: 'view_ohne_wahlberechtigten_store',
       listeners: {
         load: 'onOhneWahlberechtigtenlLoad'
       }
