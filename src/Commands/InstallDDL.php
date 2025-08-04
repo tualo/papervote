@@ -31,6 +31,7 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         'install/ddl/reportfiles'                   => 'setup reportfiles',
 
 
+
         'install/ddl/wahltyp'                       => 'setup wahltyp',
         'install/ddl/wahltyp.data'                  => 'setup wahltyp.data',
 
@@ -43,8 +44,7 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         'install/ddl/wahlscheinstatus_grund'        => 'setup wahlscheinstatus_grund',
         'install/ddl/wahlscheinstatus_grund.data'   => 'setup wahlscheinstatus_grund.data',
 
-        'install/ddl/wahlgruppe'                    => 'setup wahlgruppe',
-        'install/ddl/wahlbezirk'                    => 'setup wahlbezirk',
+
         'install/ddl/stimmzettel_fusstexte'         => 'setup stimmzettel_fusstexte',
         'install/ddl/stimmzettel'                   => 'setup stimmzettel',
         'install/ddl/stimmzettelgruppen'            => 'setup stimmzettelgruppen',
@@ -60,7 +60,6 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
         'install/ddl/ruecklauffelder'               => 'setup ruecklauffelder',
 
-        'install/ddl/wahlberechtigte'               => 'setup wahlberechtigte',
         'install/ddl/wahlzeichnungsberechtigter'    => 'setup wahlzeichnungsberechtigter',
 
         'install/ddl/wm_tanboegen'                  => 'setup wm_tanboegen',
@@ -69,7 +68,6 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         // 'install/ddl/wm_berichte'                   => 'setup wm_berichte',
         // 'install/ddl/wm_berichte.data'              => 'setup wm_berichte.data',
 
-        'install/ddl/wahlschein'                    => 'setup wahlschein',
 
 
         'install/ddl/briefwahlstimmzettel'          => 'setup briefwahlstimmzettel',
@@ -91,7 +89,6 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
         'install/proc/voterCredential'              => 'setup voterCredential',
 
-        'install/ddl/wahlberechtigte_anlage'              => 'setup wahlberechtigte_anlage',
 
         'install/ddl/wahlscheinstatus_online_erlaubt'              => 'setup wahlscheinstatus_online_erlaubt',
         'install/ddl/wahlscheinstatus_offline_erlaubt'              => 'setup wahlscheinstatus_offline_erlaubt',
@@ -114,10 +111,6 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         'install/proc/getBallotPaper'              => 'setup getBallotpaper',
 
         'install/proc/proc_clone_vm_data'              => 'setup proc_clone_vm_data',
-
-
-        'install/ddl/before_insert_wahlberechtigte_anlage'              => 'setup before_insert_wahlberechtigte_anlage',
-
 
 
     ];

@@ -39,7 +39,7 @@ class Reset
             $sql = 'update wahlschein 
                 set 
                     ' . $typ['feld'] . '=1,
-                    ' . $typ['feld'] . '_grund=\'\', 
+                    ' . $typ['feld'] . '_grund=0, 
                     blocknumber =0, 
                     abgabetyp=0, 
                     login=getSessionUser(),

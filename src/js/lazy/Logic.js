@@ -25,18 +25,18 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
     startingState: 'warteAufWB',
     typen_index: 0,
     blocknumber: '0',
-    transit: function(toState, event) {
+    transit: function (toState, event) {
         this.FSM.transit(toState, event);
     },
-    allowTransit: function(transition, action, action2, events, clobberable) {
+    allowTransit: function (transition, action, action2, events, clobberable) {
         this.FSM.allowTransit(transition, action, action2, events, clobberable);
     },
     wahlscheinstatusHash: {},
     wbliste: [],
     wbhash: {},
     FORCEBLOCKCODE: false,
-    liste: function(scope) {
-        return function() {
+    liste: function (scope) {
+        return function () {
             var values = scope.form.getValues();
 
             if (scope.checkReload(values._read_barcode)) {
@@ -50,8 +50,8 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             }
         }
     },
-    leseleeren: function(scope) {
-        return function() {
+    leseleeren: function (scope) {
+        return function () {
             var values = scope.form.getValues();
             if (scope.checkReload(values._read_barcode)) {
                 scope.last_message = "Leeren wird erwartet.";
@@ -59,40 +59,40 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             }
         }
     },
-    lese: function(scope) {
-        return async function() {
+    lese: function (scope) {
+        return async function () {
             var values = scope.form.getValues();
 
             if (scope.checkReload(values._read_barcode)) {
 
-                if (values._read_barcode.substring(0,3)=='FC7'){
-                    scope.last_message = ""+values._read_barcode;//.substring(3);
+                if (values._read_barcode.substring(0, 3) == 'FC7') {
+                    scope.last_message = "" + values._read_barcode;//.substring(3);
                     scope.transit('useBlock');
-                }else{
+                } else {
 
-                    if ((scope.FORCEBLOCKCODE===true)&&(scope.blocknumber=='0')){
+                    if ((scope.FORCEBLOCKCODE === true) && (scope.blocknumber == '0')) {
                         console.log('-----');
                         scope.last_message = "Bitte geben Sie zuerst den Block an";
                         scope.transit('WBFehler');
 
-                    }else{
+                    } else {
 
-                            try{
-                            let url = (scope.useident===true)?('./papervote/identnummer/'+values._read_barcode):('./papervote/wahlschein/'+values._read_barcode);
+                        try {
+                            let url = (scope.useident === true) ? ('./papervote/identnummer/' + values._read_barcode) : ('./papervote/wahlschein/' + values._read_barcode);
                             let o = await (await fetch(url)).json()
                             if (o.success) {
-                                var _x=JSON.stringify(o),dataindex=0;
-                                o.data.forEach(function(itm){
+                                var _x = JSON.stringify(o), dataindex = 0;
+                                o.data.forEach(function (itm) {
                                     var _xo = JSON.parse(_x);
-                                    _xo.data=itm;
-                                    scope.successRead(_xo,++dataindex,o.data.length);
+                                    _xo.data = itm;
+                                    scope.successRead(_xo, ++dataindex, o.data.length);
                                 });
                             } else {
-                                o.data.forEach(function(itm){
-                                    scope.wbliste=[itm.wahlschein_id].concat(scope.wbliste);
-                                    scope.wbhash[itm.wahlschein_id]=itm;
+                                o.data.forEach(function (itm) {
+                                    scope.wbliste = [itm.wahlschein_id].concat(scope.wbliste);
+                                    scope.wbhash[itm.wahlschein_id] = itm;
                                 });
-                                scope.fireEvent('loaded', scope, '',o.data[0]);
+                                scope.fireEvent('loaded', scope, '', o.data[0]);
                                 scope.last_message = o.msg;
                                 scope.transit('WBFehler');
                             }
@@ -105,152 +105,152 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             }
         }
     },
-    successRead: function(o,dataindex,resultrows) {
+    successRead: function (o, dataindex, resultrows) {
         var me = this;
         me.last_message = '';
         me.typen_index = 0;
         me.dataSet = [];
         var reset = false;
-        if (dataindex==1)me.hasOldError=false;
+        if (dataindex == 1) me.hasOldError = false;
 
         me.typen = [];
         var typen = me.model.getStore('wahltyp').getRange();
         var status = me.model.getStore('wahlscheinstatus').getRange();
         var use_typen = [];
         var text = 'unbekannt';
-        console.log('successRead',typen,'dataindex',dataindex,'hasOldError',me.hasOldError);
+        console.log('successRead', typen, 'dataindex', dataindex, 'hasOldError', me.hasOldError);
 
-        typen.forEach(function(record) {
-            
-            if ( o.data.hasOwnProperty(record.get('feld'))  
+        typen.forEach(function (record) {
+
+            if (o.data.hasOwnProperty(record.get('feld'))
                 && (o.data.wahltyp_id == record.get('id'))
-            ){
-            
+            ) {
 
-            console.log(record.get('name'),record.get('feld'));
-            
 
-              if (!Ext.isEmpty(o.data[record.get('stimmzettelfeld')])){
-                var st = o.data[record.get('feld')];
-                if ((st != '-1|0') && (st != '1|0') && (st != '6|0')) {
-                    reset = true;
-                }
+                console.log(record.get('name'), record.get('feld'));
 
-                me.typen.push({
-                    id: record.get('id'),
-                    feld: record.get('feld'),
-                    name: record.get('name')
-                });
-                status.forEach(function(statusRecord) {
-                    if (st == statusRecord.get('id')) {
-                        text = statusRecord.get('name');
+
+                if (!Ext.isEmpty(o.data[record.get('stimmzettelfeld')])) {
+                    var st = o.data[record.get('feld')];
+                    if ((st != '-1|0') && (st != '1|0') && (st != '6|0')) {
+                        reset = true;
                     }
-                });
-              }
+
+                    me.typen.push({
+                        id: record.get('id'),
+                        feld: record.get('feld'),
+                        name: record.get('name')
+                    });
+                    status.forEach(function (statusRecord) {
+                        if (st == statusRecord.get('id')) {
+                            text = statusRecord.get('name');
+                        }
+                    });
+                }
             }
         });
 
-        console.log('successRead',me.typen);
+        console.log('successRead', me.typen);
         // doppeltefassung verhindern.
-        if (me.wbliste.indexOf(o.data.wahlschein_id)>=0){
-          if (me.wbliste.length === me.list_length) {
-              me.transit('warteAufStatus');
-          } else {
-              me.transit('warteAufStatusOderWB');
-          }
-        }else{
+        if (me.wbliste.indexOf(o.data.wahlschein_id) >= 0) {
+            if (me.wbliste.length === me.list_length) {
+                me.transit('warteAufStatus');
+            } else {
+                me.transit('warteAufStatusOderWB');
+            }
+        } else {
 
-          me.wbliste=[o.data.wahlschein_id].concat(me.wbliste);
-          //me.wbliste.push(o.data.wahlschein_id);
-          me.wbhash[o.data.wahlschein_id]=o.data;
-          me.fireEvent('loaded', me, '',o.data);
-          if (me.list_length === 1) {
-              if (reset == true) {
+            me.wbliste = [o.data.wahlschein_id].concat(me.wbliste);
+            //me.wbliste.push(o.data.wahlschein_id);
+            me.wbhash[o.data.wahlschein_id] = o.data;
+            me.fireEvent('loaded', me, '', o.data);
+            if (me.list_length === 1) {
+                if (reset == true) {
 
-//                me.last_message = "*"+( ( typeof me.wahlscheinstatusHash[o.data.wahlscheinstatus]=='string' )?me.wahlscheinstatusHash[o.data.wahlscheinstatus]:'nicht bekannter Statuscode ('+o.data.wahlscheinstatus+')' )+'*';
-                me.last_message = me.getTanText(o.data).join(',')+'.';
-                me.last_message += (o.data.abgabetyp == '2|0')?' (Online)':' (Brief)';
-                me.last_message += ' ('+o.data.blocknumber+')';
+                    //                me.last_message = "*"+( ( typeof me.wahlscheinstatusHash[o.data.wahlscheinstatus]=='string' )?me.wahlscheinstatusHash[o.data.wahlscheinstatus]:'nicht bekannter Statuscode ('+o.data.wahlscheinstatus+')' )+'*';
+                    me.last_message = me.getTanText(o.data).join(',') + '.';
+                    me.last_message += (o.data.abgabetyp == '2|0') ? ' (Online)' : ' (Brief)';
+                    me.last_message += ' (' + o.data.blocknumber + ')';
 
-                me.transit('warteAufTAN');
-              } else {
-                  me.transit('warteAufStatus');
-              }
-          } else {
-              if ((reset === false)  && (me.hasOldError === true)){
-                if (resultrows==dataindex){
-                    me.transit('WBFehler');
+                    me.transit('warteAufTAN');
+                } else {
+                    me.transit('warteAufStatus');
                 }
-              }
-              
-              if (reset === true) {
-                  me.last_message += "Der Berechtigte wurde bereits erfasst *"+( ( typeof me.wahlscheinstatusHash[o.data.wahlscheinstatus]=='string' )?me.wahlscheinstatusHash[o.data.wahlscheinstatus]:'nicht bekannter Statuscode ('+o.data.wahlscheinstatus+')' )+'*.';
-                  me.last_message += (o.data.abgabetyp == '2|0')?' (Online)':' (Brief)';
-                  me.last_message += ' ('+o.data.blocknumber+')';
+            } else {
+                if ((reset === false) && (me.hasOldError === true)) {
+                    if (resultrows == dataindex) {
+                        me.transit('WBFehler');
+                    }
+                }
 
-                  if (resultrows==dataindex){
-                    me.transit('WBFehler');
-                  }else{
-                    // Fehler merken
-                    me.hasOldError = true;
-                    me.transit('warteAufStatusOderWB');
-                 }
-              } else {
-                  if (me.wbliste.length === me.list_length) {
-                      me.transit('warteAufStatus');
-                  } else {
-                      me.transit('warteAufStatusOderWB');
-                  }
-              }
-          }
+                if (reset === true) {
+                    me.last_message += "Der Berechtigte wurde bereits erfasst *" + ((typeof me.wahlscheinstatusHash[o.data.wahlscheinstatus] == 'string') ? me.wahlscheinstatusHash[o.data.wahlscheinstatus] : 'nicht bekannter Statuscode (' + o.data.wahlscheinstatus + ')') + '*.';
+                    me.last_message += (o.data.abgabetyp == '2|0') ? ' (Online)' : ' (Brief)';
+                    me.last_message += ' (' + o.data.blocknumber + ')';
+
+                    if (resultrows == dataindex) {
+                        me.transit('WBFehler');
+                    } else {
+                        // Fehler merken
+                        me.hasOldError = true;
+                        me.transit('warteAufStatusOderWB');
+                    }
+                } else {
+                    if (me.wbliste.length === me.list_length) {
+                        me.transit('warteAufStatus');
+                    } else {
+                        me.transit('warteAufStatusOderWB');
+                    }
+                }
+            }
         }
 
     },
     dataSet: [],
 
-    getTanText: function(o){
+    getTanText: function (o) {
         var scope = this;
         var typen = scope.model.getStore('wahltyp').getRange();
         var status = scope.model.getStore('wahlscheinstatus');
         var text = [];
-        try{
-            typen.forEach(function(rec){
+        try {
+            typen.forEach(function (rec) {
                 if (!Ext.isEmpty(o[rec.get('stimmzettelfeld')])
-                && (o.wahltyp_id == rec.get('id'))
-                ){
-                    var txt = status.findRecord('id',o[rec.get('feld')],0,false,false,true);
-                    if (Ext.isEmpty(txt)){
-                        txt = 'unbekannter Statuscode ('+o[rec.get('feld')]+') ';
-                    }else{
+                    && (o.wahltyp_id == rec.get('id'))
+                ) {
+                    var txt = status.findRecord('id', o[rec.get('feld')], 0, false, false, true);
+                    if (Ext.isEmpty(txt)) {
+                        txt = 'unbekannter Statuscode (' + o[rec.get('feld')] + ') ';
+                    } else {
                         txt = txt.get('name');
                     }
-                    text.push(rec.get('name')+': '+txt);
+                    text.push(rec.get('name') + ': ' + txt);
                 }
             });
-        }catch(e){
+        } catch (e) {
             console.log(e);
         }
         return text;
 
     },
 
-    checkReload: function(code) {
+    checkReload: function (code) {
         if (code === 'FC208') {
-            this.fireEvent('reload',  '');
+            this.fireEvent('reload', '');
             return false;
         }
         return true;
     },
-    reload: function() {
-      //  window.document.location.reload();
+    reload: function () {
+        //  window.document.location.reload();
     },
-    tan: function(scope) {
-        return async function() {
+    tan: function (scope) {
+        return async function () {
             var values = scope.form.getValues();
             if (scope.checkReload(values._read_barcode)) {
 
                 try {
-                    let url = './papervote/return/tan/'+scope.wbliste[0]+'/'+values._read_barcode;
+                    let url = './papervote/return/tan/' + scope.wbliste[0] + '/' + values._read_barcode;
                     let o = await (await fetch(url)).json();
                     if (o.success) {
                         scope.transit('warteAufStatus');
@@ -263,156 +263,156 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                     scope.transit('WBFehler');
                 }
 
-                
+
             }
         }
     },
-    grund: function(scope) {
-        return function() {}
+    grund: function (scope) {
+        return function () { }
     },
-    setze: function(scope) {
-      return this._setze.bind(scope)
+    setze: function (scope) {
+        return this._setze.bind(scope)
     },
-    _setze: function(){
-      var scope = this;
-      var me = scope;
-      var typen = scope.model.getStore('wahltyp').getRange();
-      var status = scope.model.getStore('wahlscheinstatus').getRange();
-      var values = scope.form.getValues();
-      if (scope.checkReload(values._read_barcode)) {
-          var statusItem;
-          status.forEach(function(statusRecord){
-            if (values._read_barcode == statusRecord.get('barcode')) {
-              statusItem = statusRecord;
-            }
-          });
+    _setze: function () {
+        var scope = this;
+        var me = scope;
+        var typen = scope.model.getStore('wahltyp').getRange();
+        var status = scope.model.getStore('wahlscheinstatus').getRange();
+        var values = scope.form.getValues();
+        if (scope.checkReload(values._read_barcode)) {
+            var statusItem;
+            status.forEach(function (statusRecord) {
+                if (values._read_barcode == statusRecord.get('barcode')) {
+                    statusItem = statusRecord;
+                }
+            });
 
-          if (typeof statusItem === 'undefined') {
-              scope.last_message = 'Der Statuscode ist nicht bekannt';
-              scope.transit('WBFehler');
-          } else {
-              scope.dataSet.push({
-                  feld: scope.typen[scope.typen_index].feld,
-                  status: statusItem.get('id')
-              });
-              scope.lastsavesatte = statusItem.get('name');
+            if (typeof statusItem === 'undefined') {
+                scope.last_message = 'Der Statuscode ist nicht bekannt';
+                scope.transit('WBFehler');
+            } else {
+                scope.dataSet.push({
+                    feld: typen[scope.typen_index].feld,
+                    status: statusItem.get('id')
+                });
+                scope.lastsavesatte = statusItem.get('name');
 
-              var list = [];
-              var d = list.length;
+                var list = [];
+                var d = list.length;
 
-              var status_grund = scope.model.getStore('wahlscheinstatus_grund').getRange();
-              /*
-              var o = {};
-              o[me.typen[scope.typen_index].feld] = status.name;
-              */
-              //scope.form.setValues(o);
-              var xid = Ext.id();
-              var list = [];
-              list.push({
-                  xtype: 'textfield',
-                  id: xid,
-                  label: 'Code:',
-                  value: '',
-                  autoCapitalize: false,
-                  listeners: {
-                      scope: scope,
-                      specialkey: function(t, e, opt) {
-                          var scope = this;
-                          if (e.browserEvent.keyCode == 13 || e.browserEvent.keyCode == 10) {
-                              e.stopEvent();
-                              t.getEl().blur();
-                              var bc = t.getValue();
-                              t.setValue('');
+                var status_grund = scope.model.getStore('wahlscheinstatus_grund').getRange();
+                /*
+                var o = {};
+                o[me.typen[scope.typen_index].feld] = status.name;
+                */
+                //scope.form.setValues(o);
+                var xid = Ext.id();
+                var list = [];
+                list.push({
+                    xtype: 'textfield',
+                    id: xid,
+                    label: 'Code:',
+                    value: '',
+                    autoCapitalize: false,
+                    listeners: {
+                        scope: scope,
+                        specialkey: function (t, e, opt) {
+                            var scope = this;
+                            if (e.browserEvent.keyCode == 13 || e.browserEvent.keyCode == 10) {
+                                e.stopEvent();
+                                t.getEl().blur();
+                                var bc = t.getValue();
+                                t.setValue('');
 
-                              status_grund.forEach(function(statusgrundRecord){
-                                if (statusgrundRecord.get('barcode')==bc){
-                                  try {
-                                      var o = {};
-                                      o[scope.typen[scope.typen_index].feld] = statusItem.get('name') + ' (' + statusgrundRecord.get('name') + ')';
-                                      scope.dataSet[scope.typen_index].grund = statusgrundRecord.get('id');
-                                      scope.btnActionSheet.hide();
-                                      scope._nextStatus()
-                                  } catch (e) {
-                                      console.log(e);
-                                  }
+                                status_grund.forEach(function (statusgrundRecord) {
+                                    if (statusgrundRecord.get('barcode') == bc) {
+                                        try {
+                                            var o = {};
+                                            o[scope.typen[scope.typen_index].feld] = statusItem.get('name') + ' (' + statusgrundRecord.get('name') + ')';
+                                            scope.dataSet[scope.typen_index].grund = statusgrundRecord.get('id');
+                                            scope.btnActionSheet.hide();
+                                            scope._nextStatus()
+                                        } catch (e) {
+                                            console.log(e);
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                });
+                list.push({
+                    xtype: 'panel',
+                    html: ' ',
+                    height: 20
+                });
+                var d = list.length;
+
+                status_grund.forEach(function (statusgrundRecord) {
+                    if (statusgrundRecord.get('wahlscheinstatus') === statusItem.get('id')) {
+                        list.push({
+                            text: statusgrundRecord.get('name'),
+                            idx: statusgrundRecord.get('id'),
+                            xtype: 'button',
+                            scope: scope,
+                            handler: function (grund, status) {
+                                return function (b) {
+                                    try {
+                                        //alert(b);
+                                        var o = {};
+                                        o[me.typen[this.typen_index].feld] = status.get('name') + ' (' + grund.get('id') + ')';
+                                        //this.form.setValues(o);
+
+                                        this.dataSet[this.typen_index].grund = grund.get('id');
+                                        this.btnActionSheet.hide();
+                                        this._nextStatus()
+                                    } catch (e) {
+                                        console.log(e);
+                                    }
                                 }
-                              });
+                            }(statusgrundRecord, statusItem)
+                        });
+                    }
+                });
 
-                          }
-                      }
-                  }
-              });
-              list.push({
-                  xtype: 'panel',
-                  html: ' ',
-                  height: 20
-              });
-              var d = list.length;
+                if (list.length == d) {
+                    scope._nextStatus();
+                } else {
 
-              status_grund.forEach(function(statusgrundRecord){
-                  if (statusgrundRecord.get('wahlscheinstatus') === statusItem.get('id')) {
-                      list.push({
-                          text: statusgrundRecord.get('name'),
-                          idx:  statusgrundRecord.get('id'),
-                          xtype: 'button',
-                          scope: scope,
-                          handler: function(grund, status) {
-                              return function(b) {
-                                  try {
-                                    //alert(b);
-                                      var o = {};
-                                      o[me.typen[this.typen_index].feld] = status.get('name') + ' (' + grund.get('id') + ')';
-                                      //this.form.setValues(o);
+                    scope.fireEvent('message', scope, 'Bitte scannen Sie einen Grund');
+                    scope.fireEvent('state', scope, 'warning');
 
-                                      this.dataSet[this.typen_index].grund = grund.get('id');
-                                      this.btnActionSheet.hide();
-                                      this._nextStatus()
-                                  } catch (e) {
-                                      console.log(e);
-                                  }
-                              }
-                          }(statusgrundRecord, statusItem)
-                      });
-                  }
-              });
+                    scope.transit('warteAufGrund');
+                    scope.btnActionSheet = new Ext.ActionSheet({
+                        items: list
+                    });
+                    Ext.Viewport.add(scope.btnActionSheet);
+                    scope.btnActionSheet.show(true);
+                    Ext.getCmp(xid).focus();
 
-              if (list.length == d) {
-                  scope._nextStatus();
-              } else {
-
-                  scope.fireEvent('message', scope, 'Bitte scannen Sie einen Grund');
-                  scope.fireEvent('state', scope, 'warning');
-
-                  scope.transit('warteAufGrund');
-                  scope.btnActionSheet = new Ext.ActionSheet({
-                      items: list
-                  });
-                  Ext.Viewport.add(scope.btnActionSheet);
-                  scope.btnActionSheet.show(true);
-                  Ext.getCmp(xid).focus();
-
-              }
+                }
 
 
-          }
-      }
+            }
+        }
     },
-    getSaveText: function(){
+    getSaveText: function () {
         var scope = this;
         var typen = scope.model.getStore('wahltyp');
         var status = scope.model.getStore('wahlscheinstatus');
         var text = [];
-        try{
-            this.lastdataSet.forEach(function(statusrec){
-                text.push(/*typen.findRecord('feld',statusrec['feld'],0,false,false,true).get('name')+': '+*/status.findRecord('id',statusrec['status'],0,false,false,true).get('name'))
+        try {
+            this.lastdataSet.forEach(function (statusrec) {
+                text.push(/*typen.findRecord('feld',statusrec['feld'],0,false,false,true).get('name')+': '+*/status.findRecord('id', statusrec['status'], 0, false, false, true).get('name'))
             });
-        }catch(e){
+        } catch (e) {
             console.log(e);
         }
         return text;
 
     },
-    _nextStatus: async function() {
+    _nextStatus: async function () {
         var scope = this;
         scope.typen_index++;
         /*
@@ -421,49 +421,49 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             scope.transit('warteAufStatus');
         } else {
             */
-            scope.typen_index = 0;
-            scope.last_message = '';
+        scope.typen_index = 0;
+        scope.last_message = '';
 
-            let url = './papervote/return/save';
-            let params = {
-                status: Ext.JSON.encode(scope.dataSet),
-                liste: Ext.JSON.encode(scope.wbliste),
-                blocknumber: scope.blocknumber,
-                useident: (scope.useident===true)?'1':'0'
-            };
-            try{
-                let o = await (await fetch(url,{
-                    method: 'POST',
-                    body: JSON.stringify(params)
-                })).json();
+        let url = './papervote/return/save';
+        let params = {
+            status: Ext.JSON.encode(scope.dataSet),
+            liste: Ext.JSON.encode(scope.wbliste),
+            blocknumber: scope.blocknumber,
+            useident: (scope.useident === true) ? '1' : '0'
+        };
+        try {
+            let o = await (await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(params)
+            })).json();
 
-                if (o.success) {
-                    try {
-                        scope.lastwbliste = scope.wbliste;
-                        scope.lastdataSet = scope.dataSet;
-                        
-                        scope.wbliste=[];
-                        scope.wbhash={};
+            if (o.success) {
+                try {
+                    scope.lastwbliste = scope.wbliste;
+                    scope.lastdataSet = scope.dataSet;
 
-    //                              scope.fireEvent('loaded', scope, '',{});
+                    scope.wbliste = [];
+                    scope.wbhash = {};
+
+                    //                              scope.fireEvent('loaded', scope, '',{});
                     scope.transit('warteAufWB');
-                    } catch (e) {
+                } catch (e) {
 
-                    }
-                } else {
-                    scope.last_message = o.msg;
-                    scope.transit('WBFehler');
                 }
-            } catch (e) {
-
-                scope.last_message = e;
+            } else {
+                scope.last_message = o.msg;
                 scope.transit('WBFehler');
             }
+        } catch (e) {
 
-            
+            scope.last_message = e;
+            scope.transit('WBFehler');
+        }
+
+
     },
 
-    initLogic: async function(size) {
+    initLogic: async function (size) {
         var me = this;
         this.list_length = size;
 
@@ -472,20 +472,20 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         });
 
         let res = await (await fetch('./papervote/return/setup')).json();
-        if ( res.success === false){
+        if (res.success === false) {
             scope.fireEvent('message', scope, res.msg + ' Scannen Sie *Leeren*.');
             scope.fireEvent('refocus', scope, '');
             scope.fireEvent('state', scope, 'error');
             return;
         }
-        if (!Ext.isEmpty(res.data.FORCEBLOCKCODE)){
-            if(res.data.FORCEBLOCKCODE.daten=='1'){
+        if (!Ext.isEmpty(res.data.FORCEBLOCKCODE)) {
+            if (res.data.FORCEBLOCKCODE.daten == '1') {
                 me.FORCEBLOCKCODE = true;
             }
         }
 
-        this.allowTransit('einlesen => WBFehler', null, function(scope) {
-            return function() {
+        this.allowTransit('einlesen => WBFehler', null, function (scope) {
+            return function () {
                 console.log(scope.last_message);
                 scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie *Leeren*.');
                 scope.fireEvent('refocus', scope, '');
@@ -497,13 +497,13 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         }(this));
 
 
-        
 
 
-        this.allowTransit('einlesen => useBlock', null, function(scope) {
-            return function() {
-                console.log('useBlock',scope.last_message);
-                scope.blocknumber=scope.last_message;
+
+        this.allowTransit('einlesen => useBlock', null, function (scope) {
+            return function () {
+                console.log('useBlock', scope.last_message);
+                scope.blocknumber = scope.last_message;
                 scope.fireEvent('blockchanged', scope, scope.blocknumber);
                 scope.fireEvent('refocus', scope, '');
                 scope.transit('warteAufWB');
@@ -511,25 +511,25 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         }(this));
         this.fireEvent('blockchanged', this, this.blocknumber);
 
-        this.allowTransit('warteAufStatusOderWB => warteAufStatus', null, ()=>{});
-        this.allowTransit('warteAufStatusOderWB => warteAufStatusOderWB', null, ()=>{});
-        this.allowTransit('WBFehler => WBFehler', null, ()=>{});
+        this.allowTransit('warteAufStatusOderWB => warteAufStatus', null, () => { });
+        this.allowTransit('warteAufStatusOderWB => warteAufStatusOderWB', null, () => { });
+        this.allowTransit('WBFehler => WBFehler', null, () => { });
 
-        
 
-        this.allowTransit('warteAufStatusOderWB => WBFehler', null, function(scope) {
-            return function() {
+
+        this.allowTransit('warteAufStatusOderWB => WBFehler', null, function (scope) {
+            return function () {
                 console.log(scope.last_message);
                 scope.fireEvent('message', scope, 'Für mindestens einen Wahltyp ist eine Beteiligung verzeichnet, scannen Sie *Leeren*.');
                 scope.fireEvent('refocus', scope, '');
                 scope.fireEvent('state', scope, 'error');
             }
         }(this))
-        
-        ;
 
-        this.allowTransit('warteAufStatus => WBFehler', null, function(scope) {
-            return function() {
+            ;
+
+        this.allowTransit('warteAufStatus => WBFehler', null, function (scope) {
+            return function () {
                 console.log(scope.last_message);
                 scope.fireEvent('message', scope, ' Scannen Sie *Leeren*.');
                 scope.fireEvent('refocus', scope, '');
@@ -540,8 +540,8 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
         this.allowTransit('warteAufWB => einlesen', null, this.lese(this));
 
-        this.allowTransit('useBlock => warteAufWB', null, function(scope) {
-            return function() {
+        this.allowTransit('useBlock => warteAufWB', null, function (scope) {
+            return function () {
                 scope.fireEvent('refocus', scope, '');
                 scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
             }
@@ -551,8 +551,8 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         this.allowTransit('warteAufStatusOderWB => einlesen', null, this.liste(this));
         this.allowTransit('warteAufTAN => einlesen', null, this.tan(this));
         this.allowTransit('einlesen => warteAufGrund', null, this.grund(this));
-        this.allowTransit('warteAufGrund => warteAufWB', null, function(scope) {
-            return function() {
+        this.allowTransit('warteAufGrund => warteAufWB', null, function (scope) {
+            return function () {
                 scope.fireEvent('state', scope, '');
                 scope.fireEvent('refocus', scope, '');
                 //scope.fireEvent('reset',scope,'');
@@ -561,37 +561,37 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             }
         }(this));
 
-        this.allowTransit('warteAufGrund => warteAufStatus', null, function(scope) {
-            return function() {
+        this.allowTransit('warteAufGrund => warteAufStatus', null, function (scope) {
+            return function () {
                 scope.fireEvent('state', scope, 'ok');
                 scope.fireEvent('refocus', scope, '');
                 scope.fireEvent('message', scope, 'Scannen Sie den Status f&uuml;r die ' + scope.typen[scope.typen_index].name);
             }
         }(this));
-        this.allowTransit('einlesen => warteAufWB', null, function(scope) {
-            return function() {
+        this.allowTransit('einlesen => warteAufWB', null, function (scope) {
+            return function () {
                 scope.fireEvent('state', scope, '');
                 scope.fireEvent('refocus', scope, '');
                 scope.fireEvent('saved', scope, '');
                 scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
             }
         }(this));
-        this.allowTransit('einlesen => warteAufStatusOderWB', null, function(scope) {
-            return function() {
+        this.allowTransit('einlesen => warteAufStatusOderWB', null, function (scope) {
+            return function () {
                 scope.fireEvent('state', scope, 'ok');
                 scope.fireEvent('refocus', scope, '');
                 scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten oder den Status');// f&uuml;r die ' + scope.typen[scope.typen_index].name);
             }
         }(this));
-        this.allowTransit('einlesen => warteAufStatus', null, function(scope) {
-            return function() {
+        this.allowTransit('einlesen => warteAufStatus', null, function (scope) {
+            return function () {
                 scope.fireEvent('state', scope, 'ok');
                 scope.fireEvent('refocus', scope, '');
                 scope.fireEvent('message', scope, 'Scannen Sie den Status ');// f&uuml;r die ' + scope.typen[scope.typen_index].name);
             }
         }(this));
-        this.allowTransit('einlesen => warteAufTAN', null, function(scope) {
-            return function() {
+        this.allowTransit('einlesen => warteAufTAN', null, function (scope) {
+            return function () {
                 scope.fireEvent('state', scope, 'yellow');
                 scope.fireEvent('refocus', scope, '');
                 scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie eine freie TAN, um mit diesem Berechtigten fortzufahren.');

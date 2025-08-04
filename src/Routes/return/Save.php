@@ -46,18 +46,21 @@ class Save implements IRoute
                 foreach ($liste as $wert) {
 
                     $wahlschein = DSTable::instance('wahlschein');
-                    $ws_read = $wahlschein->f('ridx', 'eq', $wert)->read();
+                    $ws_read = $wahlschein->f('id', 'eq', $wert)->read();
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
                     $ws = $ws_read->getSingle();
                     // try load WS
                     $loadWS = Query::get('wahlscheinnummer', $ws['wahlscheinnummer']);
                     if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
 
-                    // $set_state = '1|0';
-                    foreach ($status as $val) {
-                        if (($ws['' . $val['feld']] == '6|0')) throw new Exception("Der Status darf nicht überschrieben werden.");
 
-                        if (in_array($ws['' . $val['feld']], ['1|0', '-1|0'])) {
+                    foreach ($status as $val) {
+                        if (!isset($val['feld'])) $val['feld'] = 'wahlscheinstatus';
+
+
+                        if (($ws['' . $val['feld']] == 6)) throw new Exception("Der Status darf nicht überschrieben werden.");
+
+                        if (in_array($ws['' . $val['feld']], [1, -1])) {
                             // nimmt nicht teil kann nicht überschrieben werden!
                             $ws['' . $val['feld']] = $val['status'];
                             $ws['' . $val['feld'] . '_grund'] = isset($val['grund']) ? $val['grund'] : '';
@@ -74,7 +77,7 @@ class Save implements IRoute
                     }
 
                     $ws['' . 'usedate'] = $usedate; // Datum übernehmen
-                    $ws['' . 'abgabetyp'] = '1|0'; // Briefwahltyp setzen
+                    $ws['' . 'abgabetyp'] = 1; // Briefwahltyp setzen
                     $ws['' . 'blocknumber'] = $blocknumber; // blocknumber
 
                     unset($ws['te']);
