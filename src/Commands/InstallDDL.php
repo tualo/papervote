@@ -77,10 +77,8 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         'install/proc/proc_briefwahlkandidaten'     => 'setup proc_briefwahlkandidaten',
 
 
-        'install/view/view_kandidaten_stimmenanzahl' => 'setup view_kandidaten_stimmenanzahl',
 
-        'install/ddl/wzbruecklauffelder'            => 'setup wzbruecklauffelder',
-        'install/ddl/wzbruecklauffelder.data'       => 'setup wzbruecklauffelder.data',
+
 
         'install/ddl/view_ohne_wahlberechtigten'    => 'setup view_ohne_wahlberechtigten',
 
