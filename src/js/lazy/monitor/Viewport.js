@@ -50,12 +50,12 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 select: 'onStimmzettelSelect'
             },
             bind: {
-                store: '{view_stimmenanzahl_ranking_los_monitor_list}'
+                store: '{view_protokoll_erwartet}'
             },
             dockedItems: [{
                 xtype: 'pagingtoolbar',
                 bind: {
-                    store: '{view_stimmenanzahl_ranking_los_monitor_list}',
+                    store: '{view_protokoll_erwartet}',
                 },
                 dock: 'bottom',
                 displayInfo: true
@@ -69,21 +69,13 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 //enableGroupingMenu: false
             }],
             columns: [{
-                dataIndex: 'stimmzettel_name',
+                dataIndex: 'use_name',
                 width: 300,
                 sortable: true,
                 hidden: false,
                 text: 'Stimmzettel'
             }, {
-                dataIndex: 'stimmzettelgruppen_name',
-                width: 300,
-                sortable: true,
-                hidden: true,
-                summaryType: 'count',
-
-                text: 'Stimmzettelgruppe'
-            }, {
-                dataIndex: 'erwartet',
+                dataIndex: 'briefwahlstimmzettel_erwartet',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -96,8 +88,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')] == 'undefined') {
-                            total += group[record.get('stimmzettel_ridx')] = record.get('erwartet');
+                        if (typeof group[record.get('use_id')] == 'undefined') {
+                            total += group[record.get('use_id')] = record.get('erwartet');
                         }
                     }
                     return total;
@@ -106,7 +98,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             }, {
-                dataIndex: 'gescannt',
+                dataIndex: 'briefwahlstimmzettel_anzahl',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -119,8 +111,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')] == 'undefined') {
-                            total += group[record.get('stimmzettel_ridx')] = record.get('gescannt');
+                        if (typeof group[record.get('use_id')] == 'undefined') {
+                            total += group[record.get('use_id')] = record.get('gescannt');
                         }
                     }
                     return total;
@@ -128,7 +120,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             }, {
-                dataIndex: 'ungueltig',
+                dataIndex: 'briefwahlstimmzettel_ungueltig',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -141,8 +133,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')] == 'undefined') {
-                            total += group[record.get('stimmzettel_ridx')] = 1 * record.get('ungueltig');
+                        if (typeof group[record.get('use_id')] == 'undefined') {
+                            total += group[record.get('use_id')] = 1 * record.get('ungueltig');
                         }
                     }
                     return total;
@@ -151,7 +143,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             }, {
-                dataIndex: 'kontrolle',
+                dataIndex: 'briefwahlstimmzettel_kontrolle',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -164,8 +156,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')] == 'undefined') {
-                            total += group[record.get('stimmzettel_ridx')] = 1 * record.get('kontrolle');
+                        if (typeof group[record.get('use_id')] == 'undefined') {
+                            total += group[record.get('use_id')] = 1 * record.get('kontrolle');
                         }
                     }
                     return total;
@@ -175,7 +167,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 xtype: 'numbercolumn',
                 format: '0,000'
             }, {
-                dataIndex: 'quote',
+                dataIndex: 'briefwahl_quote',
                 align: 'right',
                 width: 100,
                 sortable: true,
@@ -189,10 +181,10 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')] == 'undefined') {
-                            total_a += group[record.get('stimmzettel_ridx')] = 1 * record.get('ungueltig');
-                            total_a += group[record.get('stimmzettel_ridx')] = 1 * record.get('gescannt');
-                            total_b += group[record.get('stimmzettel_ridx')] = 1 * record.get('erwartet');
+                        if (typeof group[record.get('use_id')] == 'undefined') {
+                            total_a += group[record.get('use_id')] = 1 * record.get('briefwahlstimmzettel_ungueltig');
+                            total_a += group[record.get('use_id')] = 1 * record.get('briefwahlstimmzettel_anzahl');
+                            total_b += group[record.get('use_id')] = 1 * record.get('briefwahlstimmzettel_erwartet');
                         }
                     }
                     total = total_a / total_b;
@@ -200,10 +192,15 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 },
                 hidden: false,
                 renderer: function (v) {
+                    if (isNaN(v)) {
+                        v = 0;
+                    }
                     return Ext.util.Format.percent(v, '0,000.00');
                 },
                 summaryRenderer: function (v) {
-                    console.log('summaryRenderer', v);
+                    if (isNaN(v)) {
+                        v = 0;
+                    }
                     return Ext.util.Format.percent(v, '0,000.00');
                 },
                 header: 'Quote',
@@ -243,14 +240,14 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 duration: 500
             },
             bind: {
-                store: '{view_stimmenanzahl_ranking_los_monitor}'
+                store: '{view_kandidaten_stimmenanzahl}'
             },
             axes: [
                 {
                     type: 'numeric',
                     position: 'bottom',
 
-                    fields: ['offline', 'online'],
+                    fields: ['offlinestimmen', 'onlinestimmen'],
                     grid: true,
                     minimum: 0,
                     //maximum: 300,
@@ -261,7 +258,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                 {
                     type: 'category',
                     position: 'left',
-                    fields: 'anzeige_name',
+                    fields: 'barcode',
                     grid: true,
                     renderer: 'onCategoryRenderer',
                     label: {
@@ -274,9 +271,9 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
             },
             series: [{
                 type: 'bar',
-                xField: 'anzeige_name',
+                xField: 'barcode',
                 title: ['Briefwahl', 'Onlinewahl'],
-                yField: ['offline', 'online'],
+                yField: ['offlinestimmen', 'onlinestimmen'],
                 style: {
                     opacity: 0.80,
                     minGapWidth: 10
@@ -286,7 +283,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                     radius: 0
                 },
                 label: {
-                    field: ['offline', 'online'],
+                    field: ['offlinestimmen', 'onlinestimmen'],
                     display: 'insideStart',
                     renderer: 'onSeriesLabelRender'
                 },

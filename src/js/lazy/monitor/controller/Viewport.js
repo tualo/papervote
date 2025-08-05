@@ -12,14 +12,14 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
 
   reloadChart: async function () {
     console.log('reloadChart');
-
     let r = await fetch('./papervote/refreshCounting')
-    this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').load();
+    this.getViewModel().getStore('view_kandidaten_stimmenanzahl').load();
     //setTimeout(this.reloadChart.bind(this),120000);
+    console.log('reloadChart');
   },
 
   reloadGrid: function () {
-    this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor_list').load();
+    this.getViewModel().getStore('view_protokoll_erwartet').load();
     setTimeout(this.reloadGrid.bind(this), 320000);
   },
 
@@ -56,15 +56,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
       nr = range[0];
       setTimeout(this.loop.bind(this), this.getViewModel().get('loopTimeout') * 1000);
       list.setSelection(nr);
-      /*
-      this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor_list').load(
-        {
-          callback: function(){
-            console.log('loop',nr,length);
-          }.bind(this)
-        }
-      );
-      */
+
     } else {
 
       console.log('loop', nr, length);
@@ -75,16 +67,16 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
   },
 
   onMonitorStoreLoad: function (b, records, successful, operation, eOpts) {
-    //console.log( b, records, successful, operation, eOpts );
+    console.log(b, records, successful, operation, eOpts);
     //console.log(this.lookupReference('chart'));
     if (records != null)
       if (records.length > 0) {
-        this.lookupReference('chart').getCaptions().title.setText(records[0].get('stimmzettel_name'));
+        this.lookupReference('chart').getCaptions().title.setText(records[0].get('use_name'));
         this.lookupReference('chart').getCaptions().subtitle.setText(
           //  records[0].get('sitze')
           [
             'Sitze: ',
-            records[0].get('sitze'),
+            records[0].get('use_sitze'),
             ''
             //record.get('gescannt'),
             //record.get('erwartet')
@@ -116,56 +108,57 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
       record = selected;
     }
 
-    this.sitze = record.get('sitze');
+    this.sitze = record.get('use_sitze');
 
 
-    console.log(record.data);
-
-    window.x = this;
 
     this.lookupReference('chart').getCaptions().credits.setText(
-      //  records[0].get('sitze')
       [
         'Quote: ',
         Ext.util.Format.number(
           (
             (
-              record.get('gescannt') +
-              record.get('ungueltig')
+              record.get('briefwahlstimmzettel_anzahl') +
+              record.get('briefwahlstimmzettel_ungueltig') +
+              record.get('briefwahlstimmzettel_enthaltung')
             ) /
-            record.get('erwartet')) * 100,
+            record.get('briefwahlstimmzettel_erwartet')) * 100,
           '0.000,00/i'),
         '%'
-        //record.get('gescannt'),
-        //record.get('erwartet')
       ].join(' ')
 
     );
     let r = await fetch('./papervote/refreshCounting')
-    this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').sort([
+
+    /*this.getViewModel().getStore('view_kandidaten_stimmenanzahl').sort([
       {
-        property: 'stimmenanzahl',
+        property: 'gesamtstimmen',
         direction: 'asc'
       }
-    ]);
+    ]);*/
 
-    /*
-    this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').filter([
-        {
-            property: 'stimmzettelgruppen_ridx',
-            operator: 'eq',
-            value:  record.get('stimmzettelgruppen_ridx')
-        }
-    ]);
-    */
-    this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor').filter([
+
+
+    this.getViewModel().getStore('view_kandidaten_stimmenanzahl').filter([
       {
-        property: 'stimmzettel_ridx',
+        property: 'use_id',
         operator: 'eq',
-        value: record.get('stimmzettel_ridx')
+        value: record.get('use_id')
       }
     ]);
+    // this.getViewModel().getStore('view_kandidaten_stimmenanzahl').load();
 
+    console.log('onStimmzettelSelect', record.get('use_id'));
+
+  },
+
+  getKandidateNameById: function (id) {
+    let store = this.getViewModel().getStore('kandidaten');
+    let rec = store.findRecord('id', id, 0, false, false, true);
+    if (rec) {
+      return rec.get('anzeige_name');
+    }
+    return '';
   },
 
   onSeriesLabelRender: function (v) {
@@ -177,42 +170,42 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
   onItemEditTooltipRender: function (tooltip, item, target, e) {
     var formatString = '0',
       record = item.record;
-    tooltip.setHtml(record.get('anzeige_name') + ': ' + Ext.util.Format.number(target.yValue, formatString));
+    tooltip.setHtml(this.getKandidateNameById(record.get('id')) + ': ' + Ext.util.Format.number(target.yValue, formatString));
   },
 
   onSeriesTooltipRender: function (tooltip, record, item) {
     var formatString = '0 (Stimmen)';
 
-    if (record.get('offline') + record.get('online') != 0) {
+    if (record.get('offlinestimmen') + record.get('onlinestimmen') != 0) {
       formatString = '0 (Stimmen)';
       tooltip.setHtml(
-        record.get('anzeige_name') + ': ' +
-        Ext.util.Format.number(record.get('stimmenanzahl'),
+        this.getKandidateNameById(record.get('id')) + ': ' +
+        Ext.util.Format.number(record.get('gesamtstimmen'),
           formatString)
       );
 
       //+"<br>"+ Ext.util.Format.number(record.get('voted_oc')+record.get('notvoted_oc'), '0 Online')+"<br>"+ Ext.util.Format.number(record.get('voted_c')+record.get('notvoted_c'), '0 Brief') );
     } else {
-      tooltip.setHtml(record.get('anzeige_name') + ': ' +
-        Ext.util.Format.number(record.get('stimmenanzahl'), formatString));
+      tooltip.setHtml(this.getKandidateNameById(record.get('id')) + ': ' +
+        Ext.util.Format.number(record.get('gesamtstimmen'), formatString));
     }
   },
   onAxisLabelRender: function (axis, label, layoutContext) {
-    var store = this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor');
-    var max_val = store.max('stimmenanzahl');
+    var store = this.getViewModel().getStore('view_kandidaten_stimmenanzahl');
+    // var max_val = store.max('gesamtstimmen');
     return Ext.util.Format.number(label, '0,000');
     //return Ext.util.Format.number(label*max_val*2, '0,000');
   },
 
   onCategoryRenderer: function (axis, label, layout, lastlabel) {
-
-    var store = this.getViewModel().getStore('view_stimmenanzahl_ranking_los_monitor');
-    var rec = store.findRecord('anzeige_name', label, 0, false, false, true);
-    //console.log( label, rec,layout,lastlabel,axis);
-
-    if (rec.get('gewaehlt') == 1) {
-      return "" + label + "   ";
+    try {
+      var store = this.getViewModel().getStore('kandidaten');
+      var rec = store.findRecord('barcode', label, 0, false, false, true);
+      return rec.get('anzeige_name');
+    } catch (e) {
+      console.error('onCategoryRenderer', e);
     }
-    return label + "   ";
+    return label;
+
   }
 });

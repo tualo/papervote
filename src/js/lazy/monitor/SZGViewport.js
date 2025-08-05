@@ -9,7 +9,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
     viewModel: {
         type: 'cmp_wm_wahlausschuss_mon'
     },
-    listeners:{
+    listeners: {
         boxReady: 'onBoxReady'
     },
     layout: {
@@ -25,12 +25,12 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
             {
                 xtype: 'label',
                 text: 'Looper'
-            },{
+            }, {
                 xtype: 'numberfield',
                 bind: {
                     value: '{loopTimeout}'
                 }
-            },{
+            }, {
                 xtype: 'button',
                 text: 'Start',
                 handler: 'loop'
@@ -44,9 +44,9 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
             split: true,
             height: 400,
             reference: 'list',
-            
+
             listeners: {
-              select: 'onStimmzettelSelect'
+                select: 'onStimmzettelSelect'
             },
             bind: {
                 store: '{view_stimmenanzahl_ranking_los_monitor_list_gruppen}'
@@ -54,7 +54,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
             dockedItems: [{
                 xtype: 'pagingtoolbar',
                 bind: {
-                  store: '{view_stimmenanzahl_ranking_los_monitor_list_gruppen}',
+                    store: '{view_stimmenanzahl_ranking_los_monitor_list_gruppen}',
                 },
                 dock: 'bottom',
                 displayInfo: true
@@ -73,15 +73,15 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                 sortable: true,
                 hidden: true,
                 header: 'Stimmzettel'
-            },{
+            }, {
                 dataIndex: 'stimmzettelgruppen_name',
                 width: 300,
                 sortable: true,
                 hidden: false,
                 summaryType: 'count',
-            
+
                 header: 'Stimmzettelgruppe'
-            },{
+            }, {
                 dataIndex: 'erwartet',
                 align: 'right',
                 width: 100,
@@ -95,8 +95,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
-                            total += group[record.get('stimmzettel_ridx')] = record.get('erwartet');
+                        if (typeof group[record.get('stimmzettel_id')] == 'undefined') {
+                            total += group[record.get('stimmzettel_id')] = record.get('erwartet');
                         }
                     }
                     return total;
@@ -104,7 +104,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                 header: 'Erwartet',
                 xtype: 'numbercolumn',
                 format: '0,000'
-            },{
+            }, {
                 dataIndex: 'gescannt',
                 align: 'right',
                 width: 100,
@@ -118,15 +118,15 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
-                            total += group[record.get('stimmzettel_ridx')] = record.get('gescannt');
+                        if (typeof group[record.get('stimmzettel_id')] == 'undefined') {
+                            total += group[record.get('stimmzettel_id')] = record.get('gescannt');
                         }
                     }
                     return total;
                 },
                 xtype: 'numbercolumn',
                 format: '0,000'
-            },{
+            }, {
                 dataIndex: 'ungueltig',
                 align: 'right',
                 width: 100,
@@ -140,8 +140,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
-                            total +=group[record.get('stimmzettel_ridx')] = 1*record.get('ungueltig');
+                        if (typeof group[record.get('stimmzettel_id')] == 'undefined') {
+                            total += group[record.get('stimmzettel_id')] = 1 * record.get('ungueltig');
                         }
                     }
                     return total;
@@ -149,7 +149,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                 header: 'Ungültig',
                 xtype: 'numbercolumn',
                 format: '0,000'
-            },{
+            }, {
                 dataIndex: 'kontrolle',
                 align: 'right',
                 width: 100,
@@ -163,8 +163,8 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
-                            total += group[record.get('stimmzettel_ridx')] = 1*record.get('kontrolle');
+                        if (typeof group[record.get('stimmzettel_id')] == 'undefined') {
+                            total += group[record.get('stimmzettel_id')] = 1 * record.get('kontrolle');
                         }
                     }
                     return total;
@@ -173,7 +173,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                 header: 'Kontrolle',
                 xtype: 'numbercolumn',
                 format: '0,000'
-            },{
+            }, {
                 dataIndex: 'quote',
                 align: 'right',
                 width: 100,
@@ -188,27 +188,32 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                         record;
                     for (; i < length; ++i) {
                         record = records[i];
-                        if (typeof group[record.get('stimmzettel_ridx')]=='undefined'){
-                            total_a += group[record.get('stimmzettel_ridx')] = 1*record.get('ungueltig');
-                            total_a += group[record.get('stimmzettel_ridx')] = 1*record.get('gescannt');
-                            total_b += group[record.get('stimmzettel_ridx')] = 1*record.get('erwartet');
+                        if (typeof group[record.get('stimmzettel_id')] == 'undefined') {
+                            total_a += group[record.get('stimmzettel_id')] = 1 * record.get('ungueltig');
+                            total_a += group[record.get('stimmzettel_id')] = 1 * record.get('gescannt');
+                            total_b += group[record.get('stimmzettel_id')] = 1 * record.get('erwartet');
                         }
                     }
-                    total = total_a/total_b;
+                    total = total_a / total_b;
                     return total;
                 },
                 hidden: false,
-                renderer: function(v){
-                    return Ext.util.Format.percent(v,'0,000.00');
+                renderer: function (v) {
+                    if (isNaN(v)) {
+                        v = 0;
+                    }
+                    return Ext.util.Format.percent(v, '0,000.00');
                 },
-                summaryRenderer: function(v){
-                    console.log('summaryRenderer',v);
-                    return Ext.util.Format.percent(v,'0,000.00');
+                summaryRenderer: function (v) {
+                    if (isNaN(v)) {
+                        v = 0;
+                    }
+                    return Ext.util.Format.percent(v, '0,000.00');
                 },
                 header: 'Quote',
-                
+
                 xtype: 'numbercolumn'
-                
+
             }]
         },
 
@@ -236,66 +241,66 @@ Ext.define('Tualo.PaperVote.lazy.monitor.SZGViewport', {
                 tooltip: {
                     renderer: 'onItemEditTooltipRender'
                 }
+            },
+            animation: {
+                easing: 'easeOut',
+                duration: 500
+            },
+            bind: {
+                store: '{view_stimmenanzahl_ranking_los_monitor}'
+            },
+            axes: [
+                {
+                    type: 'numeric',
+                    position: 'bottom',
+
+                    fields: ['offline', 'online'],
+                    grid: true,
+                    minimum: 0,
+                    //maximum: 300,
+                    //majorTickSteps: 10,
+                    title: 'Stimmen',
+                    renderer: 'onAxisLabelRender'
                 },
-                animation: {
-                    easing: 'easeOut',
-                    duration: 500
-                },
-                bind: {
-                    store: '{view_stimmenanzahl_ranking_los_monitor}'
-                },
-                axes: [
-                    {
-                        type: 'numeric',
-                        position: 'bottom',
-                
-                        fields: ['offline','online'],
-                        grid: true,
-                        minimum: 0,
-                        //maximum: 300,
-                        //majorTickSteps: 10,
-                        title: 'Stimmen',
-                        renderer: 'onAxisLabelRender'
-                    }, 
-                    {
-                        type: 'category',
-                        position: 'left',
-                        fields: 'anzeige_name',
-                        grid: true,
-                        renderer: 'onCategoryRenderer',
-                        label: {
-                            textAlign: 'start'
-                        }
+                {
+                    type: 'category',
+                    position: 'left',
+                    fields: 'anzeige_name',
+                    grid: true,
+                    renderer: 'onCategoryRenderer',
+                    label: {
+                        textAlign: 'start'
                     }
-                ],
-                legend: {
+                }
+            ],
+            legend: {
                 docked: 'bottom'
             },
             series: [{
-              type: 'bar',
-              xField: 'anzeige_name',
-              title: [ 'Briefwahl', 'Onlinewahl' ],
-              yField: ['offline','online'],
-              style: {
-                opacity: 0.80,
-                minGapWidth: 10
-              },
-              highlightCfg: {
-                strokeStyle: 'black',
-                radius: 0
-              },
-              label: {
-                field: ['offline','online'],
-                display: 'insideStart',
-                renderer: 'onSeriesLabelRender'
-              },
-              renderer: 'barRenderer',
-              tooltip: {
-                trackMouse: true,
-                renderer: 'onSeriesTooltipRender'
-              }
+                type: 'bar',
+                xField: 'anzeige_name',
+                title: ['Briefwahl', 'Onlinewahl'],
+                yField: ['offline', 'online'],
+                style: {
+                    opacity: 0.80,
+                    minGapWidth: 10
+                },
+                highlightCfg: {
+                    strokeStyle: 'black',
+                    radius: 0
+                },
+                label: {
+                    field: ['offline', 'online'],
+                    display: 'insideStart',
+                    renderer: 'onSeriesLabelRender'
+                },
+                renderer: 'barRenderer',
+                tooltip: {
+                    trackMouse: true,
+                    renderer: 'onSeriesTooltipRender'
+                }
             }]
-          }
+        }
     ],
-    
+
 });
