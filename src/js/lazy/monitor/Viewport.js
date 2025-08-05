@@ -89,7 +89,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                     for (; i < length; ++i) {
                         record = records[i];
                         if (typeof group[record.get('use_id')] == 'undefined') {
-                            total += group[record.get('use_id')] = record.get('erwartet');
+                            total += group[record.get('use_id')] = record.get('briefwahlstimmzettel_erwartet');
                         }
                     }
                     return total;
@@ -112,7 +112,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                     for (; i < length; ++i) {
                         record = records[i];
                         if (typeof group[record.get('use_id')] == 'undefined') {
-                            total += group[record.get('use_id')] = record.get('gescannt');
+                            total += group[record.get('use_id')] = record.get('briefwahlstimmzettel_anzahl');
                         }
                     }
                     return total;
@@ -134,7 +134,10 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                     for (; i < length; ++i) {
                         record = records[i];
                         if (typeof group[record.get('use_id')] == 'undefined') {
-                            total += group[record.get('use_id')] = 1 * record.get('ungueltig');
+                            total += group[record.get('use_id')] = 1 * (
+                                record.get('briefwahlstimmzettel_ungueltig') +
+                                record.get('briefwahlstimmzettel_enthaltung')
+                            );
                         }
                     }
                     return total;
@@ -157,7 +160,7 @@ Ext.define('Tualo.PaperVote.lazy.monitor.Viewport', {
                     for (; i < length; ++i) {
                         record = records[i];
                         if (typeof group[record.get('use_id')] == 'undefined') {
-                            total += group[record.get('use_id')] = 1 * record.get('kontrolle');
+                            total += group[record.get('use_id')] = 1 * record.get('briefwahlstimmzettel_kontrolle');
                         }
                     }
                     return total;
