@@ -31,7 +31,7 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
         'install/ddl/reportfiles'                   => 'setup reportfiles',
 
 
-
+        /*
         'install/ddl/wahltyp'                       => 'setup wahltyp',
         'install/ddl/wahltyp.data'                  => 'setup wahltyp.data',
 
@@ -71,17 +71,20 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
 
         'install/ddl/briefwahlstimmzettel'          => 'setup briefwahlstimmzettel',
+                */
+
         'install/ddl/ballotbox_decrypted_sum'       => 'setup ballotbox_decrypted_sum',
 
+        /*
         'install/ddl/briefwahlkandidaten'           => 'setup briefwahlkandidaten',
         'install/proc/proc_briefwahlkandidaten'     => 'setup proc_briefwahlkandidaten',
+*/
 
 
 
-
-
+        /*
         'install/ddl/view_ohne_wahlberechtigten'    => 'setup view_ohne_wahlberechtigten',
-
+*/
         'install/ddl/blocked_voters'                => 'setup blocked_voters',
         'install/ddl/view_voter_credentials'        => 'setup view_voter_credentials',
 
