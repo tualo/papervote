@@ -97,12 +97,13 @@ class InstallDDL extends CommandLineInstallSQL  implements ICommandline
 
         'install/proc/rebuild_view_voters_by_username_api'              => 'setup rebuild_view_voters_by_username_api',
 
+        /*
         'install/view/view_kandidaten_sitze_vergeben'              => 'setup view_kandidaten_sitze_vergeben',
         'install/view/view_readtable_kandidaten'              => 'setup view_readtable_kandidaten',
         'install/view/view_readtable_kandidaten_bilder'              => 'setup view_readtable_kandidaten_bilder',
 
-
         'install/view/view_stimmzettel_default'              => 'setup view_stimmzettel_default',
+*/
 
 
 

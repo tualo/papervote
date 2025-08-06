@@ -42,33 +42,5 @@ Ext.define('Tualo.PaperVote.lazy.monitor.models.Viewport', {
             }
         },
 
-        /*
-
-        view_stimmenanzahl_ranking_los_monitor_list_gruppen: {
-            autoLoad: true,
-            remoteFilter: false,
-            pageSize: 10000,
-            // type: 'store',
-            type: 'view_stimmenanzahl_ranking_los_monitor_list_gruppen_store'
-        },
-        view_stimmenanzahl_ranking_los_monitor_list: {
-            autoLoad: true,
-            remoteFilter: false,
-            pageSize: 10000,
-            // type: 'store',
-            type: 'view_stimmenanzahl_ranking_los_monitor_list_store'
-        },
-
-        view_stimmenanzahl_ranking_los_monitor: {
-            autoLoad: true,
-            remoteFilter: true,
-            pageSize: 10000,
-            // type: 'store',
-            type: 'view_stimmenanzahl_ranking_los_monitor_store',
-            listeners: {
-                load: 'onMonitorStoreLoad'
-            }
-        }
-            */
     }
 });

@@ -208,69 +208,10 @@ Ext.define('Tualo.routes.PaperVoteRescan', {
 
 
 
-Ext.define('Tualo.routes.PaperVoteMonitor', {
-    statics: {
-        load: async function () {
-            return [
-                {
-                    name: 'papervote/monitor',
-                    path: '#papervote/monitor'
-                }
-            ]
-        }
-    },
-    url: 'papervote/monitor',
-    handler: {
-        action: function () {
-            fetch('./papervote/status').then(function (response) {
-                response.json().then(function (json) {
-
-                    if (json.basistyp == 'stimmzettel') {
-                        Ext.getApplication().addView('Tualo.PaperVote.lazy.monitor.Viewport');
-                    } else {
-                        Ext.getApplication().addView('Tualo.PaperVote.lazy.monitor.SZGViewport');
-                    }
-                    return json;
-                });
-            })
-
-        },
-        before: function (action) {
-
-            action.resume();
-
-        }
-    }
-});
 
 
 
 
-
-Ext.define('Tualo.routes.PaperVoteStacks', {
-    statics: {
-        load: async function () {
-            return [
-                {
-                    name: 'papervote/stacks',
-                    path: '#papervote/stacks'
-                }
-            ]
-        }
-    },
-    url: 'papervote/stacks',
-    handler: {
-        action: function () {
-
-            Ext.getApplication().addView('Tualo.PaperVote.lazy.stacks.Viewport');
-        },
-        before: function (action) {
-
-
-            action.resume();
-        }
-    }
-});
 
 
 Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
@@ -414,7 +355,7 @@ Ext.define('Tualo.routes.ResetCombine', {
 
 
 
-
+/*
 
 
 Ext.define('Tualo.routes.PaperVoteOpticalScan', {
@@ -453,3 +394,4 @@ Ext.define('Tualo.routes.PaperVoteOpticalScan', {
     }
 });
 
+*/
