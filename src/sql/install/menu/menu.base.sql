@@ -26,7 +26,8 @@ INSERT IGNORE INTO SESSIONDB.`macc_menu` VALUES
 
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('af999344-5c51-11ee-86a9-c6832147e485', 'Rücklauferfassung', '', null, '', 0, null, '', 0, 1, 'fa fa-envelope', '#papervote/return');
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e485', 'Auszählung', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/counting');
-INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e486', 'Nachzählung', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/rescan');
+REPLACE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e486', 'Nachzählung (angenommen,Brief)', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/rescan/1/2');
+REPLACE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('e299ecb2-5c51-11ee-86a9-c6832147e487', 'Nachzählung (abgewiesen,Brief)', '', null, '', 0, null, '', 0, 1, 'fa fa-barcode', '#papervote/rescan/1/3');
 INSERT IGNORE INTO SESSIONDB.macc_menu (id, title, path, param, component, priority, target, path2, automenu, use_iframe, iconcls, route_to) VALUES ('8a75dfea-5d38-11ee-86a9-c6832147e485', 'Monitor', '', null, '', 5, null, '', 0, 1, 'fa fa-bar-chart', '#papervote/monitor');
 
 

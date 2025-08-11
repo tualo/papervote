@@ -180,32 +180,6 @@ Ext.define('Tualo.routes.PaperVoteReset', {
 });
 
 
-Ext.define('Tualo.routes.PaperVoteRescan', {
-    statics: {
-        load: async function () {
-            return [
-                {
-                    name: 'papervote/rescan',
-                    path: '#papervote/rescan'
-                }
-            ]
-        }
-    },
-    url: 'papervote/rescan',
-    handler: {
-        action: function () {
-
-            Ext.getApplication().addView('Tualo.PaperVote.lazy.Rescan');
-        },
-        before: function (action) {
-
-
-            action.resume();
-        }
-    }
-});
-
-
 
 
 
