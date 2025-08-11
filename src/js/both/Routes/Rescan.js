@@ -21,7 +21,7 @@ Ext.define('Tualo.routes.Routes.PaperVoteRescan', {
                 values.abgabetyp = 0;
             }
             if (typeof values.typ == 'undefined') {
-                values.typ = 'wahlscheinnnummer';
+                values.typ = 'wahlscheinnummer';
             }
             Ext.getApplication().addView('Tualo.PaperVote.lazy.Rescan', {
                 wahlscheinstatus: values.wahlscheinstatus,

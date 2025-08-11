@@ -28,7 +28,7 @@ class Insert implements IRoute
                     'wahlscheinstatus' => $_POST['wahlscheinstatus'],
                     'abgabetyp' => $_POST['abgabetyp']
                 ];
-                if ($_POST['typ'] == 'wahlschein') {
+                if ($_POST['typ'] == 'wahlscheinnummer') {
                     $table_name = 'wm_nachzaehlung_wahlschein_wahlscheinnummer';
                     $record['wahlscheinnummer'] = $_POST['id'];
                 } elseif ($_POST['typ'] == 'wahlberechtigter') {
