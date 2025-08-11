@@ -88,7 +88,7 @@ Ext.define('Tualo.PaperVote.lazy.Rescan', {
 			},
 			reference: 'centerlist',
 			columns: [{
-				header: 'Wahlscheinnummer',
+				header: 'Gescannt',
 				dataIndex: 'id',
 				flex: 1
 			}]
