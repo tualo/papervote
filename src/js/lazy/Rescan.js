@@ -1,6 +1,6 @@
 Ext.define('Tualo.PaperVote.lazy.Rescan', {
 	extend: 'Ext.panel.Panel',
-	
+
 	requires: [
 		'Tualo.PaperVote.lazy.models.Rescan',
 		'Tualo.PaperVote.lazy.controller.Rescan'
@@ -14,9 +14,50 @@ Ext.define('Tualo.PaperVote.lazy.Rescan', {
 	listeners: {
 		boxReady: 'onBoxReady'
 	},
-	
+
 	layout: 'border',
-	title: 'Nachkontrolle',
+	bind: {
+		title: '{ftitle}'
+	},
+
+	config: {
+		wahlscheinstatus: null,
+		abgabetyp: null,
+		typ: 'wahlscheinnummer'
+	},
+	applyWahlscheinstatus: function (wahlscheinstatus) {
+		console.log('applyWahlscheinstatus', wahlscheinstatus);
+		this.getViewModel().set('wahlscheinstatus', wahlscheinstatus);
+		//this.getController().loadWahlscheinstatus();
+		return wahlscheinstatus;
+	},
+	updateWahlscheinstatus: function (wahlscheinstatus) {
+		console.log('updateWahlscheinstatus', wahlscheinstatus);
+		this.getViewModel().set('wahlscheinstatus', wahlscheinstatus);
+		//this.getController().loadWahlscheinstatus();
+	},
+
+	applyAbgabetyp: function (abgabetyp) {
+		console.log('applyAbgabetyp', abgabetyp);
+		this.getViewModel().set('abgabetyp', abgabetyp);
+		//this.getController().loadAbgabetyp();
+		return abgabetyp;
+	},
+	updateAbgabetyp: function (abgabetyp) {
+		console.log('updateAbgabetyp', abgabetyp);
+		this.getViewModel().set('abgabetyp', abgabetyp);
+		//this.getController().loadAbgabetyp();
+	},
+
+	applyTyp: function (typ) {
+		this.getViewModel().set('typ', typ);
+		return typ;
+	},
+	updateTyp: function (typ) {
+		console.log('updateTyp', typ);
+		this.getViewModel().set('typ', typ);
+	},
+
 	items: [
 		{
 			xtype: 'form',

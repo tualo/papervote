@@ -25,6 +25,31 @@ Ext.define('Tualo.PaperVote.lazy.controller.Rescan', {
     onListRemove: function (store, records, index, isMove, eOpts) {
         //  Ext.Function.defer(this.scrollIntoView,500,this,[store, records, index]);
     },
+
+    onWahlscheinstatusLoad: function () {
+        var me = this,
+            vm = me.getViewModel(),
+            wahlscheinstatus = vm.get('wahlscheinstatus'),
+            store = vm.getStore('wahlscheinstatus');
+        try {
+            vm.set('wahlscheinstatusText', store.findRecord('id', wahlscheinstatus, 0, false, true, true).get('name'));
+        } catch (e) {
+            vm.set('wahlscheinstatusText', 'unbekannt');
+        }
+        console.log('wahlscheinstatusText', vm.get('wahlscheinstatusText'));
+    },
+
+    onAbgabetypLoad: function () {
+        var me = this,
+            vm = me.getViewModel(),
+            abgabetyp = vm.get('abgabetyp'),
+            store = vm.getStore('abgabetyp');
+        try {
+            vm.set('abgabetypText', store.findRecord('id', abgabetyp, 0, false, true, true).get('name'));
+        } catch (e) {
+            vm.set('abgabetypText', 'unbekannt');
+        }
+    },
     onBoxReady: function () {
         var me = this;
 
@@ -40,6 +65,11 @@ Ext.define('Tualo.PaperVote.lazy.controller.Rescan', {
         });
     },
     onKeyup: function (t, e, opt) {
+        var me = this,
+            vm = me.getViewModel(),
+            wahlscheinstatus = vm.get('wahlscheinstatus'),
+            abgabetyp = vm.get('abgabetyp'),
+            typ = vm.get('typ');
 
         if (e.browserEvent.keyCode == 13 || e.browserEvent.keyCode == 10) {
             e.stopEvent();
@@ -55,7 +85,10 @@ Ext.define('Tualo.PaperVote.lazy.controller.Rescan', {
                 Tualo.Ajax.request({
                     url: './papervote/rescan/insert',
                     params: {
-                        id: v
+                        id: v,
+                        wahlscheinstatus: wahlscheinstatus,
+                        abgabetyp: abgabetyp,
+                        typ: typ
                     },
 
                     json: function (o) {
