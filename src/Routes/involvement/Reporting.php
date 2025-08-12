@@ -516,7 +516,7 @@ class Reporting implements IRoute
 
             $formel_hash[$bericht['id']] = 'b' . $bericht['id'];
             $case = $case_tpl;
-            if (count($status)) {
+            if (count($status) == 0) {
                 throw new Exception('Keine Status gefunden für Bericht ' . $bericht['name'] . ' (' . $bericht['id'] . ')');
             }
             $case = str_replace('{statusliste}', '' . implode(' or ', $status) . ' ', $case);
