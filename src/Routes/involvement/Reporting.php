@@ -724,12 +724,56 @@ class Reporting implements IRoute
 
     public static function register()
     {
+
+        BasicRoute::add(
+            '/papervote/involvement/reportingHeaders',
+            function () {
+                $db = App::get('session')->getDB();
+                try {
+
+
+                    //App::result('data', Reporting::getData());
+
+                    App::result('data', $db->direct('
+                    select 
+                        -1 id,
+                        concat("use_name") column_name,
+                        "Use Name" as column_title
+                    union 
+                    select 
+                        id,
+                        concat("wb_",wahlbeteiligung_bericht.id) column_name,
+                        wahlbeteiligung_bericht.name as column_title
+                    from wahlbeteiligung_bericht where aktiv=1 
+                    order by id
+                    
+                    '));
+
+                    App::result('success', true);
+                } catch (Exception $e) {
+
+                    App::result('x', $db->last_sql);
+                    App::result('msg', $e->getMessage());
+                }
+                App::contenttype('application/json');
+            },
+            [
+                'post',
+                'get'
+            ],
+            true
+        );
+
         BasicRoute::add(
             '/papervote/involvement/reporting',
             function () {
                 $db = App::get('session')->getDB();
                 try {
-                    App::result('data', Reporting::getData());
+
+
+                    //App::result('data', Reporting::getData());
+
+                    App::result('data', $db->direct('select * from view_wahlbeteiligung_base_pivot'));
 
                     App::result('success', true);
                 } catch (Exception $e) {

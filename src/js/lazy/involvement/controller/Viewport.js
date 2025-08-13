@@ -146,11 +146,11 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
     var columns = new Array();
     columns.push({
       header: 'Stimmzettel',
-      dataIndex: 'stimmzettel_name',
+      dataIndex: 'use_name',
       flex: 1,
       sortable: true
     });
-    fields.push({ name: 'stimmzettel', type: 'string' });
+    fields.push({ name: 'use_name', type: 'string' });
 
 
     var wahlbeteiligung_bericht = this.getViewModel().getStore('wahlbeteiligung_bericht').getRange();
@@ -160,7 +160,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
 
     wahlbeteiligung_bericht.forEach(function (record) {
       if (record.get('aktiv') == 1) {
-        var dataIndex = 'b' + record.get('id');//.replace('|','_');
+        var dataIndex = 'wb_' + record.get('id');//.replace('|','_');
         var headerName = record.get('name');
 
         columns.push({
@@ -186,6 +186,9 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
         var dataIndex = 'f' + record.get('id');//.replace('|','_');
         var headerName = record.get('name');
 
+        var nenner = JSON.parse(record.get('nenner'));
+        var teiler = JSON.parse(record.get('teiler'));
+
         columns.push({
           header: headerName,
           dataIndex: dataIndex,
@@ -195,7 +198,35 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
           align: 'right' //,
           //summaryRenderer: Ext.util.Format.numberRenderer('0.000')
         });
-        fields.push({ name: dataIndex, type: 'float' });
+
+        var fn = (nenner, teiler) => {
+          return function (data) {
+            var nenner_summe = 0;
+            var teiler_summe = 0;
+            var result = 0;
+
+            nenner.forEach(function (n) {
+              if (n != null && n.id && data['wb_' + n.id]) {
+                nenner_summe += data['wb_' + n.id];
+              }
+            });
+
+            teiler.forEach(function (t) {
+              if (t != null && t.id && data['wb_' + t.id]) {
+                teiler_summe += data['wb_' + t.id];
+              }
+            });
+
+            if (nenner_summe && teiler_summe) {
+              result = nenner_summe / teiler_summe;
+            }
+            return result * 100; // Return percentage
+          }
+        }
+        fields.push({
+          name: dataIndex, type: 'float',
+          calculate: fn(nenner, teiler)
+        });
       }
     });
 

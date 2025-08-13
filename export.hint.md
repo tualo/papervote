@@ -7,3 +7,6 @@ mysqldump --complete-insert --lock-all-tables --no-create-db --no-create-info --
 
 
 mysqldump --complete-insert --lock-all-tables --no-create-db --no-create-info --extended-insert bwmuenchen wahlbeteiligung_bericht
+
+
+mysqldump --complete-insert --lock-all-tables --no-create-db --no-create-info --extended-insert bwmuenchen wahlbeteiligung_bericht_abgabetyp
