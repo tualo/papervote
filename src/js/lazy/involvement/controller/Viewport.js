@@ -5,6 +5,12 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
     this.getViewModel().getStore('wahlbeteiligung_bericht_formel').load();
   },
   onWahlbeteiligungBerichtFormelLoad: function (store, records) {
+    this.getViewModel().getStore('wahlbeteiligung_bericht_abgabetyp').load();
+  },
+  onWahlbeteiligungBerichtAbgabetypLoad: function (store, records) {
+    this.getViewModel().getStore('abgabetyp').load();
+  },
+  onAbgabetypLoad: function (store, records) {
     this.getViewModel().getStore('ohne_wahlberechtigten').load();
   },
   onOhneWahlberechtigtenlLoad: function (store, records) {
@@ -155,6 +161,8 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
 
     var wahlbeteiligung_bericht = this.getViewModel().getStore('wahlbeteiligung_bericht').getRange();
     var wahlbeteiligung_bericht_formel = this.getViewModel().getStore('wahlbeteiligung_bericht_formel').getRange();
+    var wahlbeteiligung_bericht_abgabetyp = this.getViewModel().getStore('wahlbeteiligung_bericht_abgabetyp').getRange();
+    var abgabetyp = this.getViewModel().getStore('abgabetyp')
     var ohne_wahlberechtigten = this.getViewModel().getStore('ohne_wahlberechtigten').getRange();
 
 
@@ -175,6 +183,33 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
           summaryRenderer: Ext.util.Format.numberRenderer('0,000')
         });
         fields.push({ name: dataIndex, type: 'int' });
+
+        wahlbeteiligung_bericht_abgabetyp.forEach(function (abgabetyp_record) {
+          if (
+            (abgabetyp_record.get('aktiv') == true) &&
+            (abgabetyp_record.get('bericht_id') == record.get('id'))
+          ) {
+            var dataIndex = 'wb_' + abgabetyp_record.get('bericht_id') + '_' + abgabetyp_record.get('abgabetyp');//.replace('|','_');
+
+            // findRecord ( fieldName, value, [startIndex], [anyMatch], [caseSensitive], [exactMatch] )
+            var r = abgabetyp.findRecord('id', abgabetyp_record.get('abgabetyp'), 0, false, false, true);
+
+            var headerName = record.get('name') + ' (' + r.get('name') + ')';
+
+            columns.push({
+              header: headerName,
+              dataIndex: dataIndex,
+              sortable: true,
+              xtype: 'numbercolumn',
+              flex: 1,
+              format: '0,000',
+              align: 'right',
+              summaryType: 'sum',
+              summaryRenderer: Ext.util.Format.numberRenderer('0,000')
+            });
+            fields.push({ name: dataIndex, type: 'int' });
+          }
+        });
       }
     });
 

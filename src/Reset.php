@@ -137,6 +137,13 @@ class Reset
             $db->execute($sql);
         } catch (Exception $e) {
         }
+
+
+        try {
+            $sql = 'update  kandidaten set losnummer=0, losnummer_stimmzettelgruppe=0, kooptiert=0';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
     }
 
     public static function Kandidaten()

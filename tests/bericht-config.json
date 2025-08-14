@@ -1,0 +1,225 @@
+{
+    "msg": "",
+    "success": true,
+    "errors": [],
+    "warnings": [],
+    "data": [
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 1,
+            "__displayfield": "Wähler",
+            "id": 1,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "Wähler",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 1
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 2,
+            "__displayfield": "Unzustellbar",
+            "id": 2,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "Unzustellbar",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 2
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 3,
+            "__displayfield": "Bereinigt",
+            "id": 3,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "Bereinigt",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 3
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 4,
+            "__displayfield": "Angenommen",
+            "id": 4,
+            "aktiv": true,
+            "checktyp": true,
+            "name": "Angenommen",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 4
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 5,
+            "__displayfield": "Abgewiesen",
+            "id": 5,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "Abgewiesen",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":false}",
+            "__rownumber": 5
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 6,
+            "__displayfield": "Klärungen",
+            "id": 6,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "Klärungen",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":false}",
+            "__rownumber": 6
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 7,
+            "__displayfield": "ohne Wahlschein",
+            "id": 7,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "ohne Wahlschein",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":false}",
+            "__rownumber": 7
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 8,
+            "__displayfield": "verspätet",
+            "id": 8,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "verspätet",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 8
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 9,
+            "__displayfield": "abgemeldet",
+            "id": 9,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "abgemeldet",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 9
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 10,
+            "__displayfield": "E-Aktiv",
+            "id": 10,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "E-Aktiv",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 10
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 11,
+            "__displayfield": "Gültig",
+            "id": 11,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "Gültig",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 11
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 12,
+            "__displayfield": "Gültig Online",
+            "id": 12,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "Gültig Online",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 12
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 13,
+            "__displayfield": "Wahlberechtigte",
+            "id": 13,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "Wahlberechtigte",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 13
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 14,
+            "__displayfield": "nicht zustellbar",
+            "id": 14,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "nicht zustellbar",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 14
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 15,
+            "__displayfield": "Wahlberechtigte (bereinigt)",
+            "id": 15,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "Wahlberechtigte (bereinigt)",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 15
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 16,
+            "__displayfield": "eingegangene Wahlunterlagen",
+            "id": 16,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "eingegangene Wahlunterlagen",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 16
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 17,
+            "__displayfield": "davon zurückgewiesen",
+            "id": 17,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "davon zurückgewiesen",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 17
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 18,
+            "__displayfield": "davon zurückgewiesen ohne Wahlschein",
+            "id": 18,
+            "aktiv": false,
+            "checktyp": false,
+            "name": "davon zurückgewiesen ohne Wahlschein",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 18
+        },
+        {
+            "__table_name": "wahlbeteiligung_bericht",
+            "__id": 19,
+            "__displayfield": "Inaktiv",
+            "id": 19,
+            "aktiv": true,
+            "checktyp": false,
+            "name": "Inaktiv",
+            "abgabetyp": "{\"abgabetyp1\":true,\"abgabetyp2\":true}",
+            "__rownumber": 19
+        }
+    ],
+    "total": 19,
+    "input": {
+        "filters": "[{\"aktiv\":\"1\"}]",
+        "page": "1",
+        "start": "0",
+        "limit": "100",
+        "sort": "[{\"property\":\"id\",\"direction\":\"ASC\"}]"
+    }
+}

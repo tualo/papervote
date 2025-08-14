@@ -1,0 +1,51 @@
+{
+    "msg": "",
+    "success": true,
+    "errors": [],
+    "warnings": [],
+    "data": [
+        {
+            "__table_name": "abgabetyp",
+            "__id": 0,
+            "__displayfield": "unbekannt",
+            "id": 0,
+            "name": "unbekannt",
+            "aktiv": true,
+            "login": "",
+            "created_at": "2025-07-24 06:51:28",
+            "updated_at": "2025-07-24 06:51:28",
+            "__rownumber": 1
+        },
+        {
+            "__table_name": "abgabetyp",
+            "__id": 1,
+            "__displayfield": "Briefwahl",
+            "id": 1,
+            "name": "Briefwahl",
+            "aktiv": true,
+            "login": "",
+            "created_at": "2025-07-24 06:51:28",
+            "updated_at": "2025-07-24 06:51:28",
+            "__rownumber": 2
+        },
+        {
+            "__table_name": "abgabetyp",
+            "__id": 2,
+            "__displayfield": "Onlinewahl",
+            "id": 2,
+            "name": "Onlinewahl",
+            "aktiv": true,
+            "login": "",
+            "created_at": "2025-07-24 06:51:28",
+            "updated_at": "2025-07-24 06:51:28",
+            "__rownumber": 3
+        }
+    ],
+    "total": 3,
+    "input": {
+        "page": "1",
+        "start": "0",
+        "limit": "100",
+        "sort": "[{\"property\":\"id\",\"direction\":\"ASC\"}]"
+    }
+}

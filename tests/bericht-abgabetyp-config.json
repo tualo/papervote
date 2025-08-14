@@ -1,0 +1,528 @@
+{
+    "msg": "",
+        "success": true,
+            "errors": [],
+                "warnings": [],
+                    "data": [
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|8",
+                            "__displayfield": 0,
+                            "bericht_id": 8,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 1
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|13",
+                            "__displayfield": 0,
+                            "bericht_id": 13,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 2
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|15",
+                            "__displayfield": 0,
+                            "bericht_id": 15,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 3
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|1",
+                            "__displayfield": 0,
+                            "bericht_id": 1,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 4
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|9",
+                            "__displayfield": 0,
+                            "bericht_id": 9,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 5
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|5",
+                            "__displayfield": 0,
+                            "bericht_id": 5,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 6
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|4",
+                            "__displayfield": 0,
+                            "bericht_id": 4,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 7
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|3",
+                            "__displayfield": 0,
+                            "bericht_id": 3,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 8
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|17",
+                            "__displayfield": 0,
+                            "bericht_id": 17,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 9
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|18",
+                            "__displayfield": 0,
+                            "bericht_id": 18,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 10
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|10",
+                            "__displayfield": 0,
+                            "bericht_id": 10,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 11
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|16",
+                            "__displayfield": 0,
+                            "bericht_id": 16,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 12
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|11",
+                            "__displayfield": 0,
+                            "bericht_id": 11,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 13
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|12",
+                            "__displayfield": 0,
+                            "bericht_id": 12,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 14
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|19",
+                            "__displayfield": 0,
+                            "bericht_id": 19,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 15
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|6",
+                            "__displayfield": 0,
+                            "bericht_id": 6,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 16
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|14",
+                            "__displayfield": 0,
+                            "bericht_id": 14,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 17
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|7",
+                            "__displayfield": 0,
+                            "bericht_id": 7,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 18
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "0|2",
+                            "__displayfield": 0,
+                            "bericht_id": 2,
+                            "abgabetyp": 0,
+                            "aktiv": 0,
+                            "__rownumber": 19
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|17",
+                            "__displayfield": 1,
+                            "bericht_id": 17,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 20
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|18",
+                            "__displayfield": 1,
+                            "bericht_id": 18,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 21
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|10",
+                            "__displayfield": 1,
+                            "bericht_id": 10,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 22
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|16",
+                            "__displayfield": 1,
+                            "bericht_id": 16,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 23
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|11",
+                            "__displayfield": 1,
+                            "bericht_id": 11,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 24
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|12",
+                            "__displayfield": 1,
+                            "bericht_id": 12,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 25
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|19",
+                            "__displayfield": 1,
+                            "bericht_id": 19,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 26
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|6",
+                            "__displayfield": 1,
+                            "bericht_id": 6,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 27
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|14",
+                            "__displayfield": 1,
+                            "bericht_id": 14,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 28
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|7",
+                            "__displayfield": 1,
+                            "bericht_id": 7,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 29
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|2",
+                            "__displayfield": 1,
+                            "bericht_id": 2,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 30
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|8",
+                            "__displayfield": 1,
+                            "bericht_id": 8,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 31
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|13",
+                            "__displayfield": 1,
+                            "bericht_id": 13,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 32
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|15",
+                            "__displayfield": 1,
+                            "bericht_id": 15,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 33
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|1",
+                            "__displayfield": 1,
+                            "bericht_id": 1,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 34
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|9",
+                            "__displayfield": 1,
+                            "bericht_id": 9,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 35
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|5",
+                            "__displayfield": 1,
+                            "bericht_id": 5,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 36
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|4",
+                            "__displayfield": 1,
+                            "bericht_id": 4,
+                            "abgabetyp": 1,
+                            "aktiv": 1,
+                            "__rownumber": 37
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "1|3",
+                            "__displayfield": 1,
+                            "bericht_id": 3,
+                            "abgabetyp": 1,
+                            "aktiv": 0,
+                            "__rownumber": 38
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|9",
+                            "__displayfield": 2,
+                            "bericht_id": 9,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 39
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|5",
+                            "__displayfield": 2,
+                            "bericht_id": 5,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 40
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|4",
+                            "__displayfield": 2,
+                            "bericht_id": 4,
+                            "abgabetyp": 2,
+                            "aktiv": 1,
+                            "__rownumber": 41
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|3",
+                            "__displayfield": 2,
+                            "bericht_id": 3,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 42
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|17",
+                            "__displayfield": 2,
+                            "bericht_id": 17,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 43
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|18",
+                            "__displayfield": 2,
+                            "bericht_id": 18,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 44
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|10",
+                            "__displayfield": 2,
+                            "bericht_id": 10,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 45
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|16",
+                            "__displayfield": 2,
+                            "bericht_id": 16,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 46
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|11",
+                            "__displayfield": 2,
+                            "bericht_id": 11,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 47
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|12",
+                            "__displayfield": 2,
+                            "bericht_id": 12,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 48
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|19",
+                            "__displayfield": 2,
+                            "bericht_id": 19,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 49
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|6",
+                            "__displayfield": 2,
+                            "bericht_id": 6,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 50
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|14",
+                            "__displayfield": 2,
+                            "bericht_id": 14,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 51
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|7",
+                            "__displayfield": 2,
+                            "bericht_id": 7,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 52
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|2",
+                            "__displayfield": 2,
+                            "bericht_id": 2,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 53
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|8",
+                            "__displayfield": 2,
+                            "bericht_id": 8,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 54
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|13",
+                            "__displayfield": 2,
+                            "bericht_id": 13,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 55
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|15",
+                            "__displayfield": 2,
+                            "bericht_id": 15,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 56
+                        },
+                        {
+                            "__table_name": "wahlbeteiligung_bericht_abgabetyp",
+                            "__id": "2|1",
+                            "__displayfield": 2,
+                            "bericht_id": 1,
+                            "abgabetyp": 2,
+                            "aktiv": 0,
+                            "__rownumber": 57
+                        }
+                    ],
+                        "total": 57,
+                            "input": {
+        "page": "1",
+            "start": "0",
+                "limit": "1000",
+                    "sort": "[{\"property\":\"abgabetyp\",\"direction\":\"ASC\"}]"
+    }
+}

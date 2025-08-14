@@ -34,6 +34,20 @@ Ext.define('Tualo.PaperVote.lazy.involvement.models.Viewport', {
         load: 'onWahlbeteiligungBerichtFormelLoad'
       }
     },
+    wahlbeteiligung_bericht_abgabetyp: {
+      autoLoad: false,
+      type: 'wahlbeteiligung_bericht_abgabetyp_store',
+      listeners: {
+        load: 'onWahlbeteiligungBerichtAbgabetypLoad'
+      }
+    },
+    abgabetyp: {
+      autoLoad: false,
+      type: 'abgabetyp_store',
+      listeners: {
+        load: 'onAbgabetypLoad'
+      }
+    },
     ohne_wahlberechtigten: {
       autoLoad: false,
       type: 'view_ohne_wahlberechtigten_store',

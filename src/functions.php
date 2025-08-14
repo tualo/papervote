@@ -29,6 +29,7 @@ require_once "Routes/DSReplacement.php";
 
 
 require_once "Routes/Reset.php";
+require_once "Routes/Aliases.php";
 
 require_once "Routes/BCrypt.php";
 
