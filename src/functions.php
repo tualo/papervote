@@ -26,6 +26,7 @@ require_once "Routes/BCrypt.php";
 
 require_once "Routes/Sounds.php";
 require_once "Routes/Status.php";
+require_once "Routes/Aliases.php";
 require_once "Routes/RefreshCounting.php";
 
 
