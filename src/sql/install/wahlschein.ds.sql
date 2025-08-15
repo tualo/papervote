@@ -14,7 +14,7 @@ REPLACE INTO `ds_column` (`table_name`, `column_name`, `default_value`, `default
 ('wahlschein','name','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','MUL','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
 ('wahlschein','onlinecheck','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','tinyint','','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,0,'',''),
 ('wahlschein','pwhash','',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(255)',255,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
-('wahlschein','ridx','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','UNI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
+('wahlschein','ridx','',100000,0,'',0,0,NULL,NULL,'YES','NO',1,'','varchar','UNI','varchar(14)',14,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
 ('wahlschein','secret','',10000000,0,NULL,0,0,NULL,NULL,'YES','NO',1,'','varchar','','varchar(500)',500,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
 ('wahlschein','sendtotmg','0',0,0,'',0,0,NULL,NULL,'YES','NO',1,'','tinyint','MUL','tinyint(4)',NULL,3,0,NULL,'select,insert,update,references',1,0,'',''),
 ('wahlschein','stimmzettel','',100000,0,'',1,0,NULL,NULL,'NO','NO',1,'','varchar','PRI','varchar(12)',12,NULL,NULL,'utf8mb4','select,insert,update,references',1,0,'',''),
