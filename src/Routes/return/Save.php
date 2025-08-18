@@ -29,6 +29,9 @@ class Save implements IRoute
                 $USE_TUALO = 0;
                 $USE_TUALO_URL = 0;
 
+                $system_settings = $db->direct("select property,system_settings_id FROM system_settings ", [], 'system_settings_id');
+
+
                 $usedate = isset($input['use_date']) ? $input['use_date'] : (new DateTime())->format('Y-m-d');
 
                 if (is_null($status)) throw new Exception("Error Processing Request", 1);
@@ -67,10 +70,16 @@ class Save implements IRoute
                         }
                     }
                     if ($USE_TUALO) {
-                        $keyData = $db->singleRow("select  publickey from wm_pgp_pubkey where id=0 ", []);
-                        $o =  WMTualoRequestHelper::query(str_replace('#identnummer', $ws['id'], $USE_TUALO_URL), [
+
+                        $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url'] . '/~/' . $system_settings['remote-erp/token'] . '/onlinevote/get/' . $loadWS['id']);
+                        if ($online_result === false) {
+                            throw new Exception("Der Wähler ist derzeit online angemeldet. Bitte warten Sie bis der Wähler sich abgemeldet hat.");
+                        }
+                        /*
+                        $o =  WMTualoRequestHelper::query(str_replace('#identnummer', $ws['id'], $system_settings['remote-erp/url']), [
                             'message' => TualoApplicationPGP::encrypt($keyData['publickey'], 'OK MESSAGE')
                         ]);
+                        */
                     }
 
                     $ws['' . 'usedate'] = $usedate; // Datum übernehmen
