@@ -71,8 +71,8 @@ class Save implements IRoute
                     }
                     if (isset($system_settings['remote-erp/url'])  && strlen($system_settings['remote-erp/url']['property']) > 6) {
 
-                        App::logger('SAVE')->debug($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $loadWS['id']);
-                        $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $loadWS['id']);
+                        App::logger('SAVE')->debug($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
+                        $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
                         if ($online_result === false) {
                             throw new Exception("Der Wähler ist derzeit online angemeldet. Bitte warten Sie bis der Wähler sich abgemeldet hat.");
                         }
