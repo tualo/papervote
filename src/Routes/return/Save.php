@@ -28,6 +28,7 @@ class Save implements IRoute
                 $liste = json_decode($input['liste'], true);
                 $USE_TUALO = 0;
                 $USE_TUALO_URL = 0;
+                $system_settings = $db->direct("select property,system_settings_id FROM system_settings ", [], 'system_settings_id');
 
                 $usedate = isset($input['use_date']) ? $input['use_date'] : (new DateTime())->format('Y-m-d');
 
@@ -69,11 +70,18 @@ class Save implements IRoute
                             throw new Exception("Der Wahlschein befindet sich in einem ungültigen Zustand.");
                         }
                     }
-                    if ($USE_TUALO) {
-                        $keyData = $db->singleRow("select  publickey from wm_pgp_pubkey where id=0 ", []);
-                        $o =  WMTualoRequestHelper::query(str_replace('#identnummer', $ws['id'], $USE_TUALO_URL), [
+                    if (isset($system_settings['remote-erp/url'])  && strlen($system_settings['remote-erp/url']['property']) > 6) {
+
+                        App::logger('SAVE')->debug($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
+                        $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
+                        if ($online_result === false) {
+                            throw new Exception("Der Wähler ist derzeit online angemeldet. Bitte warten Sie bis der Wähler sich abgemeldet hat.");
+                        }
+                        /*
+                        $o =  WMTualoRequestHelper::query(str_replace('#identnummer', $ws['id'], $system_settings['remote-erp/url']), [
                             'message' => TualoApplicationPGP::encrypt($keyData['publickey'], 'OK MESSAGE')
                         ]);
+                        */
                     }
 
                     $ws['' . 'usedate'] = $usedate; // Datum übernehmen
