@@ -69,10 +69,10 @@ class Save implements IRoute
                             throw new Exception("Der Wahlschein befindet sich in einem ungültigen Zustand.");
                         }
                     }
-                    if (isset($system_settings['remote-erp/url'])  && strlen($system_settings['remote-erp/url']) > 6) {
+                    if (isset($system_settings['remote-erp/url'])  && strlen($system_settings['remote-erp/url']['property']) > 6) {
 
-                        App::logger('SAVE')->debug($system_settings['remote-erp/url'] . '/~/' . $system_settings['remote-erp/token'] . '/onlinevote/get/' . $loadWS['id']);
-                        $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url'] . '/~/' . $system_settings['remote-erp/token'] . '/onlinevote/get/' . $loadWS['id']);
+                        App::logger('SAVE')->debug($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token'] . '/onlinevote/get/' . $loadWS['id']);
+                        $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token'] . '/onlinevote/get/' . $loadWS['id']);
                         if ($online_result === false) {
                             throw new Exception("Der Wähler ist derzeit online angemeldet. Bitte warten Sie bis der Wähler sich abgemeldet hat.");
                         }
