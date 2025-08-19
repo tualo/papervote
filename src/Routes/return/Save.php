@@ -88,8 +88,11 @@ class Save implements IRoute
                     unset($ws['update_date']);
                     unset($ws['update_time']);
 
+
                     unset($ws['te']);
                     unset($ws['ts']);
+
+                    App::logger('SAVE')->debug('Update Wahlschein: ' . json_encode($ws));
                     $wahlschein->update($ws);
                     if ($wahlschein->error()) {
                         App::result('msg', $wahlschein->errorMessage());
