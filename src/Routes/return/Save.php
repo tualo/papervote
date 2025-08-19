@@ -148,6 +148,7 @@ class Save implements IRoute
                     }
                         */
                     self::logTiming('after_save');
+                    App::result('success', true);
                 }
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
