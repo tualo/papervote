@@ -20,43 +20,41 @@ class Process implements IRoute
     {
         BasicRoute::add('/papervote/wahlberechtigte/process', function () {
             ini_set("memory_limit", "4096M");
-            set_time_limit(600 );
+            set_time_limit(600);
             error_reporting(0);
 
             $db = App::get('session')->getDB();
-            try{
+            try {
                 @session_start();
                 $db->direct('set session innodb_strict_mode=0');
 
                 if (file_exists(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.')) {
                     // unlink(App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
 
-                    $json = json_decode(file_get_contents(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.'),true);
+                    $json = json_decode(file_get_contents(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.'), true);
                     $count = $json['count'];
                     $sheet = $json['sheet'];
                     $header = $json['header'];
                     $data = $json['data'];
-                    
+                } else {
 
-                }else{
-                        
                     $spreadsheet = IOFactory::load($_SESSION['wahlberechtigte_file']);
                     $sheet = $spreadsheet->getSheet($_REQUEST['sheetname']);
-            
+
                     $count          =   $sheet->getHighestDataRow();
                     $columnCount    =   $sheet->getHighestColumn();
-            
-                    $header=$sheet->rangeToArray(
-                        'A1:'.$columnCount.'1',     // The worksheet range that we want to retrieve
+
+                    $header = $sheet->rangeToArray(
+                        'A1:' . $columnCount . '1',     // The worksheet range that we want to retrieve
                         NULL,        // Value that should be returned for empty cells
                         TRUE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
                         TRUE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
                         TRUE         // Should the array be indexed by cell row and cell column
                     );
-            
-            
+
+
                     $data = $sheet->rangeToArray(
-                        'A2:'.$columnCount.''.$count,     // The worksheet range that we want to retrieve
+                        'A2:' . $columnCount . '' . $count,     // The worksheet range that we want to retrieve
                         NULL,        // Value that should be returned for empty cells
                         FALSE,        // Should formulas be calculated (the equivalent of getCalculatedValue() for each cell)
                         FALSE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
@@ -67,76 +65,76 @@ class Process implements IRoute
                         App::get('tempPath') . '/.ht_wahlberechtigte_sheet.',
                         json_encode(
                             [
-                                'count'=>$count,
-                                'sheet'=>$sheet,
-                                'header'=>$header,
-                                'data'=>$data
+                                'count' => $count,
+                                'sheet' => $sheet,
+                                'header' => $header,
+                                'data' => $data
                             ]
                         )
                     );
                 }
 
-                $coulumndata = $db->direct('explain wahlberechtigte_anlage',[],'');
-        
+                $coulumndata = $db->direct('explain wahlberechtigte_anlage', [], '');
 
-                foreach($header[1] as $index=>$val){
-                    $finds=[];
-                    if (preg_match("/[^A-Za-z0-9_]/",$val, $finds)){
-                        throw new Exception('Ungültiger Spaltenname: '.$val);
+
+                foreach ($header[1] as $index => $val) {
+                    $finds = [];
+                    if (preg_match("/[^A-Za-z0-9_]/", $val, $finds)) {
+                        throw new Exception('Ungültiger Spaltenname: ' . $val);
                     }
                 }
 
-        
+
                 $newfields = [];
                 $allfields = [];
                 $headerLabels = [];
-                foreach($header[1] as $index=>$val){
+                foreach ($header[1] as $index => $val) {
                     $isnew = true;
                     //$cname = strtolower( preg_replace('/[[:^ascii:]]|\s/', '_', $val) );
-                    $cname = strtolower( $val );
-        
-                    foreach($coulumndata as $col){
-                        if (strtolower($col['field'])==$cname){
+                    $cname = strtolower($val);
+
+                    foreach ($coulumndata as $col) {
+                        if (strtolower($col['field']) == $cname) {
                             $isnew = false;
                         }
                     }
-                    if ($isnew==true){
+                    if ($isnew == true) {
                         $newfields[] = $cname;
                     }
                     $headerLabels[] = [
-                        'column_name'=>$cname,
-                        'label'=>$val
+                        'column_name' => $cname,
+                        'label' => $val
                     ];
                     $allfields[] = $cname;
                 }
-        
-                foreach($newfields as $fld){
-                    $db->direct('alter table wahlberechtigte_anlage add `'.$fld.'` varchar(50) default null');
+
+                foreach ($newfields as $fld) {
+                    $db->direct('alter table wahlberechtigte_anlage add `' . $fld . '` varchar(50) default null');
                 }
-        
-                $range = range(0,count($allfields)-1);
-                $sqls = 'insert ignore into wahlberechtigte_anlage (`'.implode('`,`',$allfields).'`) values ';
-        
-                $vals = '({'.implode('},{',$range).'}) ';
-                
+
+                $range = range(0, count($allfields) - 1);
+                $sqls = 'insert ignore into wahlberechtigte_anlage (`' . implode('`,`', $allfields) . '`) values ';
+
+                $vals = '({' . implode('},{', $range) . '}) ';
+
                 $send = [];
-                foreach( $data as $row){
-                    if (count($send)==10){
-                        $sql = $sqls.implode(',',$send);
+                foreach ($data as $row) {
+                    if (count($send) == 10) {
+                        $sql = $sqls . implode(',', $send);
                         $db->direct($sql);
                         $send = [];
                     }
-                    $send[] = $db->replace_hash($vals,$row);
+                    $send[] = $db->replace_hash($vals, $row);
                 }
-        
-                if (count($send)>0){
-                    $sql = $sqls.implode(',',$send);
+
+                if (count($send) > 0) {
+                    $sql = $sqls . implode(',', $send);
                     $db->direct($sql);
                     $send = [];
                 }
-        
-        
-                $sql='CREATE OR REPLACE VIEW `wahlschein_flatfile` AS
+
+
+                $sql = 'CREATE OR REPLACE VIEW `wahlschein_flatfile` AS
                 select
                     `wahlberechtigte_anlage`.*,
                     `wahlschein`.`wahlscheinnummer` AS `wahlschein_wahlscheinnummer`,
@@ -150,27 +148,27 @@ class Process implements IRoute
                     join `stimmzettel` on  `stimmzettel`.`id` = `wahlberechtigte_anlage`.`stimmzettel`
                     join `wahlberechtigte` on `wahlberechtigte_anlage`.`identnummer` = `wahlberechtigte`.`identnummer`
                     join `wahlschein`  on  
-                        `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,8,"0"))
+                        `wahlschein`.id = concat(`stimmzettel`.`id`,lpad(`wahlberechtigte_anlage`.`identnummer`,12,"0"))
                         and `wahlberechtigte`.`id` = `wahlschein`.`wahlberechtigte`
                     join `wahlscheinstatus` on
                         `wahlscheinstatus`.`id` = `wahlschein`.`wahlscheinstatus`
                     join `abgabetyp` on `abgabetyp`.`id` = `wahlschein`.`abgabetyp`
                 ';
-                
+
                 $db->execute($sql);
-        
-                $wahlberechtigte_anlage=[];
-                
-                $exclude =[ 'id','password','username','wahlscheinnummer','pwhash','wahlscheinstatus','password'];
-                foreach($allfields as $c){
-                    if (!in_array($c,$exclude)){
-                        $wahlberechtigte_anlage[]='`wahlberechtigte_anlage`.`'.$c.'`';
+
+                $wahlberechtigte_anlage = [];
+
+                $exclude = ['id', 'password', 'username', 'wahlscheinnummer', 'pwhash', 'wahlscheinstatus', 'password'];
+                foreach ($allfields as $c) {
+                    if (!in_array($c, $exclude)) {
+                        $wahlberechtigte_anlage[] = '`wahlberechtigte_anlage`.`' . $c . '`';
                     }
                 }
 
-                $sql='CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
+                $sql = 'CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
                 select 
-                    '. implode(',',$wahlberechtigte_anlage).',
+                    ' . implode(',', $wahlberechtigte_anlage) . ',
 
                     `wahlschein`.`id`,
                     `wahlschein`.`username`,
@@ -190,12 +188,12 @@ class Process implements IRoute
         
                 ';
                 $db->execute($sql);
-        
+
                 App::result('pwgen_sql', $sql);
                 App::result('header', $header);
 
                 sleep(2);
-                
+
                 $db->direct('call rebuild_view_voters_by_username_api()');
                 $db->moreResults();
 
@@ -203,9 +201,9 @@ class Process implements IRoute
                 $db->moreResults();
                 $db->direct('call fill_ds_column("view_pwgen_wahlberechtigte_anlage")');
                 $db->moreResults();
-        
-                $g = glob(App::get('basePath').'/cache/'.$db->dbname.'*');
-                foreach($g as $filename){
+
+                $g = glob(App::get('basePath') . '/cache/' . $db->dbname . '*');
+                foreach ($g as $filename) {
                     if (!is_dir($filename)) unlink($filename);
                 }
 
@@ -356,10 +354,10 @@ class Process implements IRoute
                         table_name in ( "wahlberechtigte_anlage", "view_pwgen_wahlberechtigte_anlage" )
                     on duplicate key update active=values(active), hidden=values(hidden)
                 ');
-        
-                
+
+
                 $db->direct('INSERT IGNORE INTO `ds_listplugins` (`table_name`, `ptype`, `placement`) VALUES ("view_pwgen_wahlberechtigte_anlage","gridexporter","view");');
-                
+
                 $db->direct('update ds_column_form_label set active=1 where table_name="view_pwgen_wahlberechtigte_anlage"');
                 $db->direct('INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("view_pwgen_wahlberechtigte_anlage","pwgen_pw_command","toolbar",1,"Passwortgenerator",NULL);');
                 $db->direct('REPLACE INTO `ds_access` (`role`, `table_name`, `read`, `write`, `delete`, `append`, `existsreal`) VALUES ("wahl_administration","view_pwgen_wahlberechtigte_anlage",1,1,0,0,0);');
@@ -368,11 +366,11 @@ class Process implements IRoute
                 $db->moreResults();
                 //$db->direct('call create_or_upgrade_ hstr_table("wahlschein")');
                 //$db->moreResults();
-                
-                    
-                foreach($headerLabels as $headerLabelsRows){
-                    $db->direct('update ds_column_list_label set label={label} where column_name={column_name} and table_name="view_pwgen_wahlberechtigte_anlage"',$headerLabelsRows);
-                    $db->direct('update ds_column_list_label set label={label} where column_name={column_name} and table_name="wahlberechtigte_anlage"',$headerLabelsRows);
+
+
+                foreach ($headerLabels as $headerLabelsRows) {
+                    $db->direct('update ds_column_list_label set label={label} where column_name={column_name} and table_name="view_pwgen_wahlberechtigte_anlage"', $headerLabelsRows);
+                    $db->direct('update ds_column_list_label set label={label} where column_name={column_name} and table_name="wahlberechtigte_anlage"', $headerLabelsRows);
                 }
                 $db->direct("update ds_column set is_primary=0 where table_name='view_pwgen_wahlberechtigte_anlage'   ");
                 $db->direct("update ds_column set is_primary=1 where table_name='view_pwgen_wahlberechtigte_anlage' and column_name in ('id','stimmzettel') ");
@@ -396,11 +394,10 @@ class Process implements IRoute
               ADD SYSTEM VERSIONING;
                 */
                 App::result('success', true);
-        
+
                 App::result('newfields', $newfields);
                 App::result('allfields', $allfields);
-            
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
