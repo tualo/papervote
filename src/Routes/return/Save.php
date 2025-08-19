@@ -136,7 +136,11 @@ class Save implements IRoute
                     self::logTiming('before_save');
                     App::logger('SAVE')->debug('Update Wahlschein: ' . json_encode($ws));
 
-                    $db->direct("update wahlschein set " . implode(", ", array_map(fn($f) => "`$f` = {$f}", $flds)) . " where ridx = {ridx}", $ws);
+                    $sql = "update wahlschein set " . implode(", ", array_map(fn($f) => "`$f` = {$f}", $flds)) . " where ridx = {ridx}";
+                    App::result('sql', $sql);
+                    App::result('ws', $ws);
+
+                    $db->direct($sql, $ws);
 
                     /*
                     $wahlschein->update($ws);
