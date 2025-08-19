@@ -64,7 +64,7 @@ class Save implements IRoute
                 self::logTiming('after_blocknumber');
                 foreach ($liste as $wert) {
 
-                    $wahlschein = DSTable::instance('wahlschein');
+                    // $wahlschein = DSTable::instance('wahlschein');
                     /*
                     $ws_read = $wahlschein->f('ridx', 'eq', $wert)->read();
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
@@ -80,6 +80,8 @@ class Save implements IRoute
                     // if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
 
                     self::logTiming('after_load_ws');
+
+                    $flds = [];
                     // $set_state = '1|0';
                     foreach ($status as $val) {
                         if (($ws['' . $val['feld']] == '6|0')) throw new Exception("Der Status darf nicht überschrieben werden.");
@@ -88,6 +90,9 @@ class Save implements IRoute
                             // nimmt nicht teil kann nicht überschrieben werden!
                             $ws['' . $val['feld']] = $val['status'];
                             $ws['' . $val['feld'] . '_grund'] = isset($val['grund']) ? $val['grund'] : '';
+
+                            $flds[] = $val['feld'];
+                            $flds[] = $val['feld'] . '_grund';
                             // $set_state = $ws[''.$val['feld']];
                         } else {
                             throw new Exception("Der Wahlschein befindet sich in einem ungültigen Zustand.");
@@ -107,29 +112,42 @@ class Save implements IRoute
                     }
 
                     $ws['' . 'usedate'] = $usedate; // Datum übernehmen
+                    $flds[] = 'usedate';
                     $ws['' . 'abgabetyp'] = '1|0'; // Briefwahltyp setzen
+                    $flds[] = 'abgabetyp';
                     $ws['' . 'blocknumber'] = $blocknumber; // blocknumber
+                    $flds[] = 'blocknumber';
 
                     unset($ws['login']);
                     unset($ws['update_date']);
                     unset($ws['update_time']);
 
                     $ws['login'] = $user;
+                    $flds[] = 'login';
+
                     $ws['update_date'] = date('Y-m-d');
+                    $flds[] = 'update_date';
                     $ws['update_time'] = date('H:i:s');
+                    $flds[] = 'update_time';
 
                     unset($ws['te']);
                     unset($ws['ts']);
 
                     self::logTiming('before_save');
                     App::logger('SAVE')->debug('Update Wahlschein: ' . json_encode($ws));
+
+                    $db->direct("update wahlschein set " . implode(", ", array_map(fn($f) => "`$f` = {$f}", $flds)) . " where ridx = {ridx}", $ws);
+
+                    /*
                     $wahlschein->update($ws);
-                    self::logTiming('after_save');
+                    
                     if ($wahlschein->error()) {
                         App::result('msg', $wahlschein->errorMessage());
                     } else {
                         App::result('success', true);
                     }
+                        */
+                    self::logTiming('after_save');
                 }
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
