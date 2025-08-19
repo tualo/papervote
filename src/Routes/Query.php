@@ -74,9 +74,10 @@ from
             wahlscheinstatus.name wahlscheinstatus_name
         from 
             wahlschein  FOR SYSTEM_TIME ALL  hstr
+            join wahlschein_hidden_hstr
             join wahlscheinstatus 
                 on hstr.wahlscheinstatus = wahlscheinstatus.ridx
-                and hstr not between '2025-08-07 00:00:00' and '2025-08-12 00:00:00' 
+                and hstr.ts not between wahlschein_hidden_hstr.start and wahlschein_hidden_hstr.end
     ) hstr 
         on hstr.id = wahlschein.id
         and hstr.stimmzettel = wahlschein.stimmzettel
