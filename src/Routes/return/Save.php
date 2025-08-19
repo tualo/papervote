@@ -84,6 +84,10 @@ class Save implements IRoute
                     $ws['' . 'abgabetyp'] = '1|0'; // Briefwahltyp setzen
                     $ws['' . 'blocknumber'] = $blocknumber; // blocknumber
 
+                    unset($ws['login']);
+                    unset($ws['update_date']);
+                    unset($ws['update_time']);
+
                     unset($ws['te']);
                     unset($ws['ts']);
                     $wahlschein->update($ws);
