@@ -22,7 +22,7 @@ class Save implements IRoute
     public static function logTiming(string $key): void
     {
         $time_end = microtime(true);
-        App::logger('SaveTiming')->debug(number_format($time_end - self::$total_time_start, 5) . "s " . $key);
+        App::logger('SaveTiming')->debug(number_format($time_end - self::$time_start, 5) . "s " . $key);
         self::$time_start = $time_end;
     }
     public static function register()
