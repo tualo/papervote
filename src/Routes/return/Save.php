@@ -31,6 +31,8 @@ class Save implements IRoute
 
                 $system_settings = $db->direct("select property,system_settings_id FROM system_settings ", [], 'system_settings_id');
 
+                $user = $db->singleValue("select getSessionUser() s ", [], 's');
+
 
                 $usedate = isset($input['use_date']) ? $input['use_date'] : (new DateTime())->format('Y-m-d');
 
@@ -88,6 +90,9 @@ class Save implements IRoute
                     unset($ws['update_date']);
                     unset($ws['update_time']);
 
+                    $ws['login'] = $user;
+                    $ws['update_date'] = date('Y-m-d');
+                    $ws['update_time'] = date('H:i:s');
 
                     unset($ws['te']);
                     unset($ws['ts']);
