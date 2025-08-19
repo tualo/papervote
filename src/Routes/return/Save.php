@@ -52,6 +52,8 @@ class Save implements IRoute
                     $ws_read = $wahlschein->f('ridx', 'eq', $wert)->read();
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
                     $ws = $ws_read->getSingle();
+
+
                     // try load WS
                     $loadWS = Query::get('wahlscheinnummer', $ws['wahlscheinnummer']);
                     if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
@@ -76,11 +78,6 @@ class Save implements IRoute
                         if ($online_result === false) {
                             throw new Exception("Der Wähler ist derzeit online angemeldet. Bitte warten Sie bis der Wähler sich abgemeldet hat.");
                         }
-                        /*
-                        $o =  WMTualoRequestHelper::query(str_replace('#identnummer', $ws['id'], $system_settings['remote-erp/url']), [
-                            'message' => TualoApplicationPGP::encrypt($keyData['publickey'], 'OK MESSAGE')
-                        ]);
-                        */
                     }
 
                     $ws['' . 'usedate'] = $usedate; // Datum übernehmen
