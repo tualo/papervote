@@ -1,11 +1,13 @@
 <?php
+
 namespace Tualo\Office\PaperVote\Routes;
 
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
 
-class Query implements IRoute{
+class Query implements IRoute
+{
     public static $querySQL = "
 select
     wahlberechtigte_anlage.*,
@@ -74,6 +76,7 @@ from
             wahlschein  FOR SYSTEM_TIME ALL  hstr
             join wahlscheinstatus 
                 on hstr.wahlscheinstatus = wahlscheinstatus.ridx
+                and hstr not between '2025-08-07 00:00:00' and '2025-08-12 00:00:00' 
     ) hstr 
         on hstr.id = wahlschein.id
         and hstr.stimmzettel = wahlschein.stimmzettel
@@ -84,7 +87,8 @@ group by
     wahlschein.id, 
     wahlschein.stimmzettel";
 
-    public static function prepareQuerySQL($db){
+    public static function prepareQuerySQL($db)
+    {
         $fld = $db->singleValue('select group_concat(concat(table_name,".`",column_name,"`") separator ",") fld from ds_column where table_name="wahlberechtigte_anlage" 
         and existsreal=1
         
@@ -116,47 +120,47 @@ group by
                 "displ_stimmzettel_name_bold",
                 "stimmzettel_typtitel_bold"
 
-        ) ',[],'fld');
-        return str_replace('wahlberechtigte_anlage.*',$fld,Query::$querySQL);
+        ) ', [], 'fld');
+        return str_replace('wahlberechtigte_anlage.*', $fld, Query::$querySQL);
     }
 
-    public static function get(string $type,string $id):array{
+    public static function get(string $type, string $id): array
+    {
         $db = App::get('session')->getDB();
         $sql = str_replace(
             '#search_field',
-            ($type=='identnummer')?'wahlberechtigte_anlage.identnummer':'wahlschein.wahlscheinnummer',
+            ($type == 'identnummer') ? 'wahlberechtigte_anlage.identnummer' : 'wahlschein.wahlscheinnummer',
             Query::prepareQuerySQL($db)
         );
-        $data = Query::wzb($db,$db->direct($sql,['barcode'=>$id]));
+        $data = Query::wzb($db, $db->direct($sql, ['barcode' => $id]));
         return $data;
     }
 
-    public static function wzb($db,$data){
-        foreach($data as &$item){
-            $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}',$item);
+    public static function wzb($db, $data)
+    {
+        foreach ($data as &$item) {
+            $item['wahlzeichnungsberechtigter'] = $db->direct('select * from wahlzeichnungsberechtigter  where wahlberechtigte = {wahlberechtigte_ridx}', $item);
         }
         return $data;
     }
 
-    public static function register(){
-        BasicRoute::add('/papervote/(?P<type>(identnummer|wahlschein))/(?P<barcode>[\w\-\_\d]+)',function($matches){
-            try{
+    public static function register()
+    {
+        BasicRoute::add('/papervote/(?P<type>(identnummer|wahlschein))/(?P<barcode>[\w\-\_\d]+)', function ($matches) {
+            try {
                 $db = App::get('session')->getDB();
                 App::contenttype('application/json');
-        
-                $data = Query::get($matches['type'],$matches['barcode']);
-                App::result('data',  $data );
+
+                $data = Query::get($matches['type'], $matches['barcode']);
+                App::result('data',  $data);
                 App::result('last_sql', $db->last_sql);
-                App::result('success',count($data)>0);
-                App::result('msg',(count($data)==0)?'Der Wähler wurde nicht gefunden.':'');
-                
-            }catch(\Exception $e){
+                App::result('success', count($data) > 0);
+                App::result('msg', (count($data) == 0) ? 'Der Wähler wurde nicht gefunden.' : '');
+            } catch (\Exception $e) {
 
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        },['get','post'],true);
-
-
+        }, ['get', 'post'], true);
     }
 }
