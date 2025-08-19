@@ -72,8 +72,8 @@ class Save implements IRoute
 
 
                     // try load WS
-                    $loadWS = Query::get('wahlscheinnummer', $ws['wahlscheinnummer']);
-                    if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
+                    // $loadWS = Query::get('wahlscheinnummer', $ws['wahlscheinnummer']);
+                    // if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
 
                     self::logTiming('after_load_ws');
                     // $set_state = '1|0';
