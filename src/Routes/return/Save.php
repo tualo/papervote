@@ -65,9 +65,13 @@ class Save implements IRoute
                 foreach ($liste as $wert) {
 
                     $wahlschein = DSTable::instance('wahlschein');
+                    /*
                     $ws_read = $wahlschein->f('ridx', 'eq', $wert)->read();
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
                     $ws = $ws_read->getSingle();
+                    */
+
+                    $ws = $db->singleRow("select * from wahlschein where ridx = {ridx}", ['ridx' => $wert]);
                     self::logTiming('after_wahlschein_read');
 
 
