@@ -25,7 +25,8 @@
     "tualo/ds": "^1.0.6",
     "tualo/monacoeditor": "^1.0",
     "tualo/tualopgp": "^1.0",
-    "phpseclib/phpseclib": "~3.0.46"
+    "phpseclib/phpseclib": "~3.0.46",
+    "tualo/votemanager": "^1.1"
   },
-  "version": "2.1.3"
+  "version": "2.1.4"
 }
