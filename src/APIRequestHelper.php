@@ -53,7 +53,7 @@ class APIRequestHelper
         curl_setopt($ch, CURLOPT_NOBODY, FALSE);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
-        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 3);
 
         if (!is_null($post)) curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 
