@@ -6,6 +6,8 @@ use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\DS\DSTable;
 use Exception;
 
+use Tualo\Office\Basic\Path;
+
 class Reset
 {
 
@@ -299,19 +301,20 @@ class Reset
         $db = App::get('session')->getDB();
         $db->direct("drop table if exists wahlberechtigte_anlage");
 
-        $sql = 'CREATE TABLE IF NOT EXISTS `wahlberechtigte_anlage` (
-            `identnummer` varchar(20) NOT NULL,
-            `stimmzettel` varchar(12) NOT NULL,
-            `wahlscheinnummer` varchar(12) DEFAULT NULL,
-            `kombiniert` bigint(20) DEFAULT NULL,
-            `testdaten` tinyint(4) DEFAULT 0,
-            `username` varchar(10) DEFAULT NULL,
-            `pwhash` varchar(100) DEFAULT NULL,
-            PRIMARY KEY (`identnummer`,`stimmzettel`),
-            KEY `idx_wahlberechtigte_anlage_wahlscheinnummer` (`wahlscheinnummer`),
-            KEY `idx_wahlberechtigte_anlage_identnummer` (`identnummer`)
-        )';
-        $db->direct($sql);
+
+        $filename = Path::join(App::get('basePath'), 'votemanager', 'src', 'sql', 'install', 'ddl', 'wahlberechtigte_anlage.sql');
+
+        $sql = file_get_contents($filename);
+        $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
+        $sql = preg_replace('#^\s*\-\-.+$#m', '', $sql);
+
+        $sinlgeStatements = $db->explode_by_delimiter($sql);
+        foreach ($sinlgeStatements as $commandIndex => $statement) {
+            $db->direct($statement);
+            $db->moreResults();
+        }
+
+
 
 
         $db->execute('call fill_ds("wahlberechtigte_anlage")');
@@ -365,7 +368,9 @@ class Reset
         $db->direct('INSERT IGNORE INTO `ds_addcommands` (`table_name`, `xtype`, `location`, `position`, `label`, `iconCls`) VALUES ("wahlberechtigte_anlage","wm_wb_importcmd","toolbar",1,"Importieren",NULL);');
 
 
-        $filename = (__DIR__) . '/sql/install/ddl/before_insert_wahlberechtigte_anlage.sql';
+
+        $filename = Path::join(App::get('basePath'), 'votemanager', 'src', 'sql', 'install', 'ddl', 'before_insert_wahlberechtigte_anlage.sql');
+        // $filename = (__DIR__) . '/sql/install/ddl/before_insert_wahlberechtigte_anlage.sql';
         $sql = file_get_contents($filename);
         $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
         $sql = preg_replace('#^\s*\-\-.+$#m', '', $sql);

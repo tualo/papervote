@@ -45,17 +45,6 @@ class Set implements IRoute
                     ]);
 
                     if ($data !== false) {
-                        $db->direct("update wahlschein set wahlscheinstatus=2, abgabetyp=2, update_date=curdate(), update_time=curtime() where id={voter_id}  and stimmzettel={stimmzettel} and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt) ", [
-                            'voter_id'      => $_REQUEST['voter_id'],
-                            'stimmzettel'   => $_REQUEST['ballotpaper_id'],
-                        ]);
-
-                        $sql = 'select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and wahlscheinstatus=2 and abgabetyp=2';
-                        $data = $db->singleRow($sql, [
-                            'voter_id'      =>  $_REQUEST['voter_id'],
-                            'stimmzettel'   => $_REQUEST['ballotpaper_id'],
-                        ]);
-                        if ($data !== false) App::result('success', true);
 
                         try {
                             $formdata = $_REQUEST;
@@ -71,6 +60,20 @@ class Set implements IRoute
                             ]);
                         } catch (\Exception $e) {
                         }
+
+                        $db->direct("update wahlschein set wahlscheinstatus=2, abgabetyp=2, update_date=curdate(), update_time=curtime() where id={voter_id}  and stimmzettel={stimmzettel} and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt) ", [
+                            'voter_id'      => $_REQUEST['voter_id'],
+                            'stimmzettel'   => $_REQUEST['ballotpaper_id'],
+                        ]);
+
+                        $sql = 'select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and wahlscheinstatus=2 and abgabetyp=2';
+                        $data = $db->singleRow($sql, [
+                            'voter_id'      =>  $_REQUEST['voter_id'],
+                            'stimmzettel'   => $_REQUEST['ballotpaper_id'],
+                        ]);
+                        if ($data !== false) App::result('success', true);
+
+
                         $db->direct('commit;');
                     } else {
 

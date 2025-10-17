@@ -20,4 +20,5 @@ CREATE TABLE IF NOT EXISTS `wm_wahlschein_register` (
 ) ;
 
 
+
 call addFieldIfNotExists('wm_wahlschein_register','formdata','json default null');
