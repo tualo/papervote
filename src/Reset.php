@@ -308,6 +308,8 @@ class Reset
         $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
         $sql = preg_replace('#^\s*\-\-.+$#m', '', $sql);
 
+        App::result('B_FILE', $filename);
+        App::result('B_SQL', $sql);
         $sinlgeStatements = $db->explode_by_delimiter($sql);
         foreach ($sinlgeStatements as $commandIndex => $statement) {
             $db->direct($statement);
