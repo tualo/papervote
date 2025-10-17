@@ -59,6 +59,7 @@ class Set implements IRoute
                                 'formdata'      => json_encode($formdata)
                             ]);
                         } catch (\Exception $e) {
+                            App::logger('Ballotpaper(function save)')->error(__LINE__ . ' ' . $e->getMessage());
                         }
 
                         $db->direct("update wahlschein set wahlscheinstatus=2, abgabetyp=2, update_date=curdate(), update_time=curtime() where id={voter_id}  and stimmzettel={stimmzettel} and (wahlscheinstatus,abgabetyp) in (select wahlscheinstatus,abgabetyp from wahlscheinstatus_online_erlaubt) ", [
