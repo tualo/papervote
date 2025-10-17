@@ -96,21 +96,15 @@ class Set implements IRoute
                 'fields' => [
                     'ballotpaper_id' => [
                         'required' => false,
-                        'type' => 'int',
-                        'min' => 0,
-                        'max' => 10000000
+                        'type' => 'int'
                     ],
                     'voter_id' => [
                         'required' => true,
-                        'type' => 'int',
-                        'min' => 0,
-                        'max' => 10000000
+                        'type' => 'int'
                     ],
                     'signature' => [
                         'required' => true,
-                        'type' => 'string',
-                        'min' => 0,
-                        'max' => 1000000
+                        'type' => 'string'
                     ],
                 ]
 
