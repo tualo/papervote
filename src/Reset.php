@@ -302,13 +302,12 @@ class Reset
         $db->direct("drop table if exists wahlberechtigte_anlage");
 
 
-        $filename = Path::join(App::get('basePath'), 'votemanager', 'src', 'sql', 'install', 'ddl', 'wahlberechtigte_anlage.sql');
+        $filename = Path::join(App::get('basePath'), 'vendor', 'tualo', 'votemanager', 'src', 'sql', 'install', 'ddl', 'wahlberechtigte_anlage.sql');
 
         $sql = file_get_contents($filename);
         $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
         $sql = preg_replace('#^\s*\-\-.+$#m', '', $sql);
 
-        App::result('B_FILE', $filename);
         App::result('B_SQL', $sql);
         $sinlgeStatements = $db->explode_by_delimiter($sql);
         foreach ($sinlgeStatements as $commandIndex => $statement) {
@@ -371,7 +370,7 @@ class Reset
 
 
 
-        $filename = Path::join(App::get('basePath'), 'votemanager', 'src', 'sql', 'install', 'ddl', 'before_insert_wahlberechtigte_anlage.sql');
+        $filename = Path::join(App::get('basePath'), 'vendor', 'tualo', 'votemanager', 'src', 'sql', 'install', 'ddl', 'before_insert_wahlberechtigte_anlage.sql');
         // $filename = (__DIR__) . '/sql/install/ddl/before_insert_wahlberechtigte_anlage.sql';
         $sql = file_get_contents($filename);
         $sql = preg_replace('!/\*.*?\*/!s', '', $sql);
