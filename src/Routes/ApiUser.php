@@ -38,6 +38,8 @@ class ApiUser implements IRoute
                     'username' => $_REQUEST['username']
                 ]);
 
+                App::result('view_voters_by_username_api',  $data);
+
                 if ($data !== false) {
                     if (is_string($data['possible_ballotpapers'])) {
                         $data['possible_ballotpapers'] = json_decode($data['possible_ballotpapers'], true);
