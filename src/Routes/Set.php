@@ -20,6 +20,7 @@ class Set implements IRoute
             '/papervote/set',
             function () {
                 App::contenttype('application/json');
+                App::result('success', false);
                 $db = App::get('session')->getDB();
                 try {
 
