@@ -25,6 +25,7 @@ class DSReplacement implements IRoute
             try {
                 $allowedTables = $db->directArray('select table_name from wm_sync_tables', [], 'table_name');
                 if (!in_array($tablename, $allowedTables)) {
+                    App::result('success', false);
                     throw new Exception('Invalid DS access');
                 }
 
