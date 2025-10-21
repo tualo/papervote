@@ -29,6 +29,7 @@ class Signing implements IRoute
                 $wahlschein_id = $input['wahlschein_id'];
 
 
+                $db->direct('set @allow_signing_wahlschein = 1;');
                 $wahlschein = DSTable::instance('wahlschein');
                 $ws_read = $wahlschein->f('id', 'eq', $wahlschein_id)->read();
                 if ($ws_read->empty()) throw new Exception("Der Wahlschein *" . $wahlschein_id . "* wurde nicht gefunden");
