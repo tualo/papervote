@@ -73,10 +73,14 @@ class Set implements IRoute
                             'voter_id'      =>  $_REQUEST['voter_id'],
                             'stimmzettel'   => $_REQUEST['ballotpaper_id'],
                         ]);
-                        if ($data !== false) App::result('success', true);
-
-
-                        $db->direct('commit;');
+                        if ($data !== false) {
+                            App::result('success', true);
+                            $db->direct('commit;');
+                        } else {
+                            $db->direct('rollback;');
+                            App::result('success', false);
+                            App::result('msg', 'Konnte nicht gespeichert werden');
+                        }
                     } else {
 
                         $db->direct('rollback;');
