@@ -77,9 +77,12 @@ class Set implements IRoute
                             App::result('success', true);
                             $db->direct('commit;');
                         } else {
+                            $internal_message = 'After update no valid record found for voter_id ' . $_REQUEST['voter_id'] . ' and ballotpaper_id ' . $_REQUEST['ballotpaper_id'];
+                            App::logger('Ballotpaper(/papervote/set)')->error($internal_message);
                             $db->direct('rollback;');
                             App::result('success', false);
                             App::result('msg', 'Konnte nicht gespeichert werden');
+                            App::result('internal_message', $internal_message);
                         }
                     } else {
 
