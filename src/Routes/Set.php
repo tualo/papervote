@@ -68,7 +68,7 @@ class Set implements IRoute
                             'stimmzettel'   => $_REQUEST['ballotpaper_id'],
                         ]);
 
-                        $sql = 'select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and wahlscheinstatus=2 and abgabetyp=2';
+                        $sql = 'select * from wahlschein where id={voter_id} and stimmzettel  = {stimmzettel} and wahlscheinstatus in (2,-8) and abgabetyp=2';
                         $data = $db->singleRow($sql, [
                             'voter_id'      =>  $_REQUEST['voter_id'],
                             'stimmzettel'   => $_REQUEST['ballotpaper_id'],

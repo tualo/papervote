@@ -1,4 +1,5 @@
-DELIMITER ;
+DELIMITER //
+
 
 CREATE TABLE IF NOT EXISTS wahlzeichnungsberechtigter (
     id INT NOT NULL,
@@ -24,9 +25,7 @@ CREATE TABLE IF NOT EXISTS wahlzeichnungsberechtigter (
   `created_at` timestamp not null default current_timestamp,
   `updated_at` timestamp not null default current_timestamp on update current_timestamp
 
-);
-
-DELIMITER //
+) //
 
 CREATE OR REPLACE TRIGGER `trigger_wahlzeichnungsberechtigter_bi_defaults`
 BEFORE INSERT ON `wahlzeichnungsberechtigter` FOR EACH ROW
