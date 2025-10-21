@@ -37,6 +37,7 @@ require_once "Routes/Sounds.php";
 require_once "Routes/Status.php";
 require_once "Routes/RefreshCounting.php";
 
+require_once "Routes/signing/Signing.php";
 
 require_once "Routes/counting/SkipStartBallotPaper.php";
 require_once "Routes/counting/Save.php";
