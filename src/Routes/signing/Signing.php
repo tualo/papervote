@@ -38,7 +38,7 @@ class Signing implements IRoute
                 if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wahlschein_id . "* wurde nicht gefunden");
 
 
-                if (($ws['wahlscheinstatus'] != 8) || ($ws['wahlscheinstatus'] != -8)) throw new Exception("Der Wahlschein befindet sich in einem ungültigen Zustand. " . $ws['wahlscheinstatus']);
+                if (($ws['wahlscheinstatus'] != 8) && ($ws['wahlscheinstatus'] != -8)) throw new Exception("Der Wahlschein befindet sich in einem ungültigen Zustand. " . $ws['wahlscheinstatus']);
                 $ws['wahlscheinstatus'] = $status;
                 unset($ws['te']);
                 unset($ws['ts']);
