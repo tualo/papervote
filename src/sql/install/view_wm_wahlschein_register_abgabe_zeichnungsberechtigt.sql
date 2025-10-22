@@ -11,6 +11,7 @@ select
         wahlzeichnungsberechtigter.vorname,
         wahlzeichnungsberechtigter.nachname,
         wahlzeichnungsberechtigter.funktion,
+        wahlschein.stimmzettel,
         wahlberechtigte.identnummer,
         if (
             (
@@ -56,6 +57,7 @@ select
     max(w.fn) as vorname,
     max(w.ln) as nachname,
     max(w.identnummer) as identnummer,
+    max(w.stimmzettel) as stimmzettel,
     max(w.wahlscheinstatus) as wahlscheinstatus
 
 from view_wm_wahlschein_register_abgabe_zeichnungsberechtigt_single w
