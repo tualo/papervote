@@ -132,7 +132,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
                 if (!Ext.isEmpty(o.data[record.get('stimmzettelfeld')])) {
                     var st = o.data[record.get('feld')];
-                    if ((st != '-1|0') && (st != '1|0') && (st != '6|0')) {
+                    if ((st != '-1') && (st != '1') && (st != '6')) {
                         reset = true;
                     }
 
@@ -169,7 +169,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
                     //                me.last_message = "*"+( ( typeof me.wahlscheinstatusHash[o.data.wahlscheinstatus]=='string' )?me.wahlscheinstatusHash[o.data.wahlscheinstatus]:'nicht bekannter Statuscode ('+o.data.wahlscheinstatus+')' )+'*';
                     me.last_message = me.getTanText(o.data).join(',') + '.';
-                    me.last_message += (o.data.abgabetyp == '2|0') ? ' (Online)' : ' (Brief)';
+                    me.last_message += (o.data.abgabetyp == '2') ? ' (Online)' : ' (Brief)';
                     me.last_message += ' (' + o.data.blocknumber + ')';
 
                     me.transit('warteAufTAN');
@@ -185,7 +185,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
                 if (reset === true) {
                     me.last_message += "Der Berechtigte wurde bereits erfasst *" + ((typeof me.wahlscheinstatusHash[o.data.wahlscheinstatus] == 'string') ? me.wahlscheinstatusHash[o.data.wahlscheinstatus] : 'nicht bekannter Statuscode (' + o.data.wahlscheinstatus + ')') + '*.';
-                    me.last_message += (o.data.abgabetyp == '2|0') ? ' (Online)' : ' (Brief)';
+                    me.last_message += (o.data.abgabetyp == '2') ? ' (Online)' : ' (Brief)';
                     me.last_message += ' (' + o.data.blocknumber + ')';
 
                     if (resultrows == dataindex) {
