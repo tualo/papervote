@@ -14,23 +14,23 @@ class ReverseCheck implements IRoute
 {
     public static function register()
     {
-        BasicRoute::add('/papervote/combine/reversecheck/(?P<barcode>[\w\-\_\d]+)',function($matches){
+        BasicRoute::add('/papervote/combine/reversecheck/(?P<barcode>[\w\-\_\d]+)', function ($matches) {
 
             App::contenttype('application/json');
             $db = App::get('session')->getDB();
-            
+
             try {
                 $sql = 'select count(*) c 
-                from   wahlberechtigte join wahlschein on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+                from   wahlberechtigte join wahlschein on wahlberechtigte.id = wahlschein.wahlberechtigte
                 where 
                     wahlschein.kombiniert = {barcode}
                     and wahlberechtigte.identnummer<>wahlschein.kombiniert
                 ';
-                $count = $db->singleValue($sql, $matches,'c');
-                if ($count !=0 ) { throw new Exception('Es sind bereits Kombinationen vorhanden'); }
+                $count = $db->singleValue($sql, $matches, 'c');
+                if ($count != 0) {
+                    throw new Exception('Es sind bereits Kombinationen vorhanden');
+                }
                 App::result('success', true);
-                
-
             } catch (Exception $e) {
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());

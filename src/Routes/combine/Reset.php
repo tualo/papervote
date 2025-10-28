@@ -20,31 +20,33 @@ class Reset implements IRoute
             $db = App::get('session')->getDB();
             $db->autoCommit(false);
             try {
-                
-                
-                
+
+
+
                 $sql = '
                 select count(*) c from (
                     select 
                     wahlschein.id, wahlberechtigte.identnummer , wahlschein.username , wahlschein.kombiniert, wahlscheinstatus 
 
-                    from     wahlberechtigte join wahlschein  on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+                    from     wahlberechtigte join wahlschein  on wahlberechtigte.id = wahlschein.wahlberechtigte
                     and wahlberechtigte.identnummer in (
                     select wahlschein.kombiniert from 
-                    wahlberechtigte join wahlschein on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+                    wahlberechtigte join wahlschein on wahlberechtigte.id = wahlschein.wahlberechtigte
                     and wahlberechtigte.identnummer<>wahlschein.kombiniert
                     union all
                     select wahlberechtigte.identnummer from 
-                    wahlberechtigte join wahlschein on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+                    wahlberechtigte join wahlschein on wahlberechtigte.id = wahlschein.wahlberechtigte
                     and wahlberechtigte.identnummer<>wahlschein.kombiniert
                     ) 
                     and wahlberechtigte.identnummer<>wahlschein.kombiniert
-                    and wahlschein.wahlscheinstatus = "1|0"
+                    and wahlschein.wahlscheinstatus = 1
                     and wahlberechtigte.identnummer = {barcode}
                 ) a
                 ';
-                $wsCount = $db->singleValue($sql, $matches,'c');
-                if ($wsCount !=1 ) { throw new Exception('Für diesen Wähler nicht erlaubt'); }
+                $wsCount = $db->singleValue($sql, $matches, 'c');
+                if ($wsCount != 1) {
+                    throw new Exception('Für diesen Wähler nicht erlaubt');
+                }
 
                 $sql = '
                 update 
@@ -59,30 +61,30 @@ class Reset implements IRoute
                             select 
                             wahlschein.id, wahlberechtigte.identnummer , wahlschein.username , wahlschein.kombiniert, wahlscheinstatus 
         
-                            from     wahlberechtigte join wahlschein  on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+                            from     wahlberechtigte join wahlschein  on wahlberechtigte.id = wahlschein.wahlberechtigte
                             and wahlberechtigte.identnummer in (
                             select wahlschein.kombiniert from 
-                            wahlberechtigte join wahlschein on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+                            wahlberechtigte join wahlschein on wahlberechtigte.id = wahlschein.wahlberechtigte
                             and wahlberechtigte.identnummer<>wahlschein.kombiniert
                             union all
                             select wahlberechtigte.identnummer from 
-                            wahlberechtigte join wahlschein on wahlberechtigte.ridx = wahlschein.wahlberechtigte
+                            wahlberechtigte join wahlschein on wahlberechtigte.id = wahlschein.wahlberechtigte
                             and wahlberechtigte.identnummer<>wahlschein.kombiniert
                             ) 
                             and wahlberechtigte.identnummer<>wahlschein.kombiniert
-                            and wahlschein.wahlscheinstatus = "1|0"
+                            and wahlschein.wahlscheinstatus = 1
                             and wahlberechtigte.identnummer = {barcode}
                         ) a
                     )
                     and wahlschein.wahlscheinstatus="1|0"
                 ';
-                $db->direct($sql, $matches );
+                $db->direct($sql, $matches);
 
                 App::result('success', true);
                 $db->execute('commit');
                 $db->commit();
                 // $db->rollback();
-        
+
 
             } catch (Exception $e) {
                 $db->rollback();
@@ -92,4 +94,3 @@ class Reset implements IRoute
         }, ['get'], true);
     }
 }
-

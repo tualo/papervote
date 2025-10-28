@@ -31,41 +31,45 @@ class Save implements IRoute
                     throw new Exception('missing parameter');
                 }
                 $list = $data['identnummern'];
-                foreach($list as $index=>$value){
-                    $list[$index]=preg_replace('/[^0-9]/','',$value);
+                foreach ($list as $index => $value) {
+                    $list[$index] = preg_replace('/[^0-9]/', '', $value);
                 }
                 $savelist = $list;
 
-                $data['primaryIdentnummer']=preg_replace('/[^0-9]/','',$data['primaryIdentnummer']);
+                $data['primaryIdentnummer'] = preg_replace('/[^0-9]/', '', $data['primaryIdentnummer']);
                 $list[] = $data['primaryIdentnummer'];
 
-                
-                
-                $sql = '
-                select 
-                    count(distinct  wahlschein.wahlscheinstatus) as c
-                from 
-                    wahlberechtigte join wahlschein 
-                        on wahlberechtigte.ridx = wahlschein.wahlberechtigte 
-                where 
-                    wahlberechtigte.identnummer in ("'.implode('","', $list).'")
-                    and wahlschein.wahlscheinstatus<>"1|0"
-                ';
-                $wsCount = $db->singleValue($sql, ['list' => '"'.implode('","', $list )."'" ],'c');
-                if ($wsCount !=0 ) { throw new Exception('Wahlscheinstatus ist nicht 1'); }
+
 
                 $sql = '
                 select 
                     count(distinct  wahlschein.wahlscheinstatus) as c
                 from 
                     wahlberechtigte join wahlschein 
-                        on wahlberechtigte.ridx = wahlschein.wahlberechtigte 
+                        on wahlberechtigte.id = wahlschein.wahlberechtigte 
                 where 
-                    wahlberechtigte.identnummer in ("'.implode('","', $list).'")
+                    wahlberechtigte.identnummer in ("' . implode('","', $list) . '")
+                    and wahlschein.wahlscheinstatus<>1
+                ';
+                $wsCount = $db->singleValue($sql, ['list' => '"' . implode('","', $list) . "'"], 'c');
+                if ($wsCount != 0) {
+                    throw new Exception('Wahlscheinstatus ist nicht 1');
+                }
+
+                $sql = '
+                select 
+                    count(distinct  wahlschein.wahlscheinstatus) as c
+                from 
+                    wahlberechtigte join wahlschein 
+                        on wahlberechtigte.id = wahlschein.wahlberechtigte 
+                where 
+                    wahlberechtigte.identnummer in ("' . implode('","', $list) . '")
                     and wahlberechtigte.identnummer=wahlschein.kombiniert
                 ';
-                $wsCount = $db->singleValue($sql, [ ],'c');
-                if ($wsCount !=1 ) { throw new Exception('Es sind bereits Kombinationen vorhanden'); }
+                $wsCount = $db->singleValue($sql, [], 'c');
+                if ($wsCount != 1) {
+                    throw new Exception('Es sind bereits Kombinationen vorhanden');
+                }
 
                 $sql = '
                 update 
@@ -75,17 +79,17 @@ class Save implements IRoute
                     pwhash = "-",
                     login = getSessionUser()
                 where
-                    wahlberechtigte in (select ridx from wahlberechtigte where identnummer in ("'.implode('","', $savelist).'"))
-                    and wahlschein.wahlscheinstatus="1|0"
+                    wahlberechtigte in (select id from wahlberechtigte where identnummer in ("' . implode('","', $savelist) . '"))
+                    and wahlschein.wahlscheinstatus=1
                 ';
-                $db->direct($sql, ['primaryIdentnummer'=>$data['primaryIdentnummer']  ]);
+                $db->direct($sql, ['primaryIdentnummer' => $data['primaryIdentnummer']]);
 
                 App::result('success', true);
                 App::result('sql', $db->last_sql);
                 $db->execute('commit');
                 $db->commit();
                 // $db->rollback();
-        
+
 
             } catch (Exception $e) {
                 $db->rollback();

@@ -97,7 +97,7 @@ class SetPW implements IRoute
 
                     $prefix = $_REQUEST['prefix'] . '_';
                     $sql = 'update wahlschein set pwhash={pwhash},username={username},wahlscheinnummer={wahlscheinnummer},wahlscheinstatus="1|0" where 
-                        wahlberechtigte in ( select ridx from wahlberechtigte where identnummer={identnummer}  ) 
+                        wahlberechtigte in ( select id from wahlberechtigte where identnummer={identnummer}  ) 
                         and stimmzettel={stimmzettel}
                         and wahlscheinstatus in ("16|0","17|0")';
                     $h = [

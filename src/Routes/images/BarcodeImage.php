@@ -24,16 +24,16 @@ class BarcodeImages implements IRoute
             $db = App::get('session')->getDB();
             try {
 
-                $sql = 'select ridx id,barcode,concat("barcode_",barcode,".png") name from kandidaten ';
-                $list = $db->direct($sql,[],'');
-                foreach($list as $item){
-                    list($type,$data) = explode(',',Barcode::get('i25',$item['barcode']));
+                $sql = 'select  id,barcode,concat("barcode_",barcode,".png") name from kandidaten ';
+                $list = $db->direct($sql, [], '');
+                foreach ($list as $item) {
+                    list($type, $data) = explode(',', Barcode::get('i25', $item['barcode']));
                     $sql = 'insert ignore into kandidaten_bilder (id,
                     kandidat,
                     typ,
                     file_id) values (uuid(),{id},0,uuid())';
-                    $db->direct($sql,['id'=>$item['id']],'');
-                    $r = $db->singleRow('select file_id from kandidaten_bilder where kandidat={id} and typ=0',['id'=>$item['id']]);
+                    $db->direct($sql, ['id' => $item['id']], '');
+                    $r = $db->singleRow('select file_id from kandidaten_bilder where kandidat={id} and typ=0', ['id' => $item['id']]);
 
                     $sql = '
                     insert into ds_files (
@@ -70,25 +70,24 @@ class BarcodeImages implements IRoute
                         login=getSessionUser(),
                         table_name={table_name}
                     ';
-                    $db->direct($sql,[
-                        'file_id'=>$r['file_id'],
-                        'name'=>$item['name'],
-                        'path'=>'/kandidaten',
-                        'size'=>strlen(base64_decode($data)),
-                        'type'=>$type,
-                        'hash'=>md5($data),
-                        'table_name'=>'kandidaten_bilder'
-                    ],'');
+                    $db->direct($sql, [
+                        'file_id' => $r['file_id'],
+                        'name' => $item['name'],
+                        'path' => '/kandidaten',
+                        'size' => strlen(base64_decode($data)),
+                        'type' => $type,
+                        'hash' => md5($data),
+                        'table_name' => 'kandidaten_bilder'
+                    ], '');
                     $sql = 'replace into ds_files_data (file_id,data) values ({file_id},{data})';
-                    $db->direct($sql,[
-                        'file_id'=>$r['file_id'],
-                        'data'=>$type.','.$data
-                    ],'');
+                    $db->direct($sql, [
+                        'file_id' => $r['file_id'],
+                        'data' => $type . ',' . $data
+                    ], '');
                 }
-                
-                 
-                App::result('success', true);
 
+
+                App::result('success', true);
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
