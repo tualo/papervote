@@ -14,7 +14,7 @@ use Tualo\Office\PaperVote\WMTualoRequestHelper;
 
 use Tualo\Office\DS\DSTable;
 
-class Save implements IRoute
+class Save extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

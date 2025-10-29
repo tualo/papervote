@@ -15,7 +15,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Ramsey\Uuid\Uuid;
 
-class Insert implements IRoute
+class Insert extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

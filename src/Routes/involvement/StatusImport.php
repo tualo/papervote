@@ -7,7 +7,7 @@ use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
 use Tualo\Office\Basic\IRoute;
 
-class StatusImport implements IRoute
+class StatusImport extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()
@@ -15,10 +15,10 @@ class StatusImport implements IRoute
         BasicRoute::add('/papervote/involvement/wmstatusimport', function () {
             $session = App::get('session');
             $db = $session->getDB();
-            try{
+            try {
                 $db->execute('call set_wahlschein_status()');
                 App::result('success', true);
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');

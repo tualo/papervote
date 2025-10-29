@@ -17,7 +17,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use Ramsey\Uuid\Uuid;
 use Tualo\Office\Report\Routes\Report;
 
-class Reporting implements IRoute
+class Reporting extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function getExcel($name = 'Beteiligungsbericht.xlsx')
     {

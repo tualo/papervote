@@ -13,7 +13,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Ramsey\Uuid\Uuid;
 
-class BCrypt implements IRoute
+class BCrypt extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()
@@ -23,19 +23,19 @@ class BCrypt implements IRoute
 
             $db = App::get('session')->getDB();
             try {
-                $input = json_decode(file_get_contents('php://input'),true);
-                if (is_null( $input )) throw new Exception("Error Processing Request", 1);
-                if (!isset( $input['passwords'] )) throw new Exception("Error Processing Request", 1);
+                $input = json_decode(file_get_contents('php://input'), true);
+                if (is_null($input)) throw new Exception("Error Processing Request", 1);
+                if (!isset($input['passwords'])) throw new Exception("Error Processing Request", 1);
 
-                foreach($input['passwords'] as &$item){
+                foreach ($input['passwords'] as &$item) {
                     set_time_limit(30);
                     $options = [
-                        'cost' => App::configuration('votemanager','bcrypt_cost',8)
+                        'cost' => App::configuration('votemanager', 'bcrypt_cost', 8)
                     ];
                     $item['pwhash'] =   password_hash($item['password'], PASSWORD_BCRYPT, $options);
                     // unset($item['password']);
                 }
-                App::result( 'data' , $input['passwords']  );
+                App::result('data', $input['passwords']);
                 App::result('success', true);
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());

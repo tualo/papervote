@@ -5,13 +5,18 @@ namespace Tualo\Office\PaperVote\Routes\combine;
 use Exception;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
-use Tualo\Office\Basic\IRoute;
+use Tualo\Office\Basic\RouteWrapper;
 use Tualo\Office\TualoPGP\TualoApplicationPGP;
 
 use Ramsey\Uuid\Uuid;
 
-class Reset implements IRoute
+class Reset extends RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.combine';
+    }
+
     public static function isAllowed(): bool|null
     {
 

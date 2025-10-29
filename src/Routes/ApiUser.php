@@ -11,7 +11,7 @@ use Tualo\Office\PaperVote\Routes\Query;
 
 use Ramsey\Uuid\Uuid;
 
-class ApiUser implements IRoute
+class ApiUser extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

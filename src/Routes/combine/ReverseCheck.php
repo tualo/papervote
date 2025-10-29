@@ -10,8 +10,12 @@ use Tualo\Office\TualoPGP\TualoApplicationPGP;
 
 use Ramsey\Uuid\Uuid;
 
-class ReverseCheck implements IRoute
+class ReverseCheck extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.combine';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/combine/reversecheck/(?P<barcode>[\w\-\_\d]+)', function ($matches) {

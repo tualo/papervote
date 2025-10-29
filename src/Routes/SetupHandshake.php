@@ -10,7 +10,7 @@ use Tualo\Office\TualoPGP\TualoApplicationPGP;
 use Ramsey\Uuid\Uuid;
 use Tualo\Office\PaperVote\APIRequestHelper;
 
-class SetupHandshake implements IRoute
+class SetupHandshake extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

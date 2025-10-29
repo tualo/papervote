@@ -20,9 +20,12 @@ use Tualo\Office\DS\DSReadRoute;
 use Tualo\Office\DS\DSExporterHelper;
 
 
-class AllData implements IRoute
+class AllData extends \Tualo\Office\Basic\RouteWrapper
 {
-
+    public static function scope(): string
+    {
+        return 'papervote.candidates.export';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/export/all', function () {

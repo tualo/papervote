@@ -13,7 +13,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Ramsey\Uuid\Uuid;
 
-class Cancle implements IRoute
+class Cancle extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

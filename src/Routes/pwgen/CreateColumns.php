@@ -1,4 +1,5 @@
 <?php
+
 namespace Tualo\Office\PaperVote\Routes\pwgen;
 
 use Exception;
@@ -12,7 +13,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Ramsey\Uuid\Uuid;
 
-class CreateColumns implements IRoute
+class CreateColumns extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()
@@ -51,7 +52,7 @@ class CreateColumns implements IRoute
                         }
                         App::result('citem', $item);
 
-                        $sql="call addFieldIfNotExists('wahlberechtigte_anlage','" . $item['column_name'] . "','" . $item['data_type'] . "')";
+                        $sql = "call addFieldIfNotExists('wahlberechtigte_anlage','" . $item['column_name'] . "','" . $item['data_type'] . "')";
                         $db->direct($sql, $item);
                     }
 

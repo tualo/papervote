@@ -10,7 +10,7 @@ use Tualo\Office\TualoPGP\TualoApplicationPGP;
 
 use Ramsey\Uuid\Uuid;
 
-class Set implements IRoute
+class Set extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

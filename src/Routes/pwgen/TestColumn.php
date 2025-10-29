@@ -13,7 +13,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Ramsey\Uuid\Uuid;
 
-class TestColumn implements IRoute
+class TestColumn extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()
@@ -46,7 +46,7 @@ class TestColumn implements IRoute
                         $sheet = $spreadsheet->getSheet($index);
                         $count = $sheet->getHighestDataRow();
                         $columnCount = $sheet->getHighestColumn();
-                 
+
                         $info['unique'] = true; //count($udata)==count($data);
                         $h = [];
                         for ($row = 2; $row <= $count; $row++) {
@@ -82,7 +82,7 @@ class TestColumn implements IRoute
                                 } else {
                                     // $info['type'] = 'mixed';
                                     $info['type'] = 'varchar';
-                                    $info['length'] =255;
+                                    $info['length'] = 255;
                                 }
                             } else {
                                 $info['contains_null'] = true;

@@ -14,7 +14,7 @@ use Tualo\Office\PaperVote\WMTualoRequestHelper;
 
 use Tualo\Office\DS\DSTable;
 
-class Signing implements IRoute
+class Signing extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()

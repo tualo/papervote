@@ -15,27 +15,42 @@ use Tualo\Office\PUG\Barcode;
 
 use Ramsey\Uuid\Uuid;
 
-class BarcodeImages implements IRoute
+class BarcodeImages extends \Tualo\Office\Basic\RouteWrapper
 {
-
-    public static function register()
+    public static function scope(): string
     {
-        BasicRoute::add('/papervote/images/createbarcodeimages', function () {
-            $db = App::get('session')->getDB();
-            try {
+        return 'papervote.barcode.images';
+    }
 
-                $sql = 'select  id,barcode,concat("barcode_",barcode,".png") name from kandidaten ';
-                $list = $db->direct($sql, [], '');
-                foreach ($list as $item) {
-                    list($type, $data) = explode(',', Barcode::get('i25', $item['barcode']));
-                    $sql = 'insert ignore into kandidaten_bilder (id,
+    public static function checkRouteAccess(): int|false
+    {
+        $session = App::get('session');
+        /*
+        if ($session->isLoggedIn() && $session->hasPermission('papervote.images.manage')) {
+            return 1;
+        }
+        */
+
+        return false;
+    }
+    public static function createbarcodeimages()
+    {
+        App::contenttype('application/json');
+        $db = App::get('session')->getDB();
+        try {
+
+            $sql = 'select  id,barcode,concat("barcode_",barcode,".png") name from kandidaten ';
+            $list = $db->direct($sql, [], '');
+            foreach ($list as $item) {
+                list($type, $data) = explode(',', Barcode::get('i25', $item['barcode']));
+                $sql = 'insert ignore into kandidaten_bilder (id,
                     kandidat,
                     typ,
                     file_id) values (uuid(),{id},0,uuid())';
-                    $db->direct($sql, ['id' => $item['id']], '');
-                    $r = $db->singleRow('select file_id from kandidaten_bilder where kandidat={id} and typ=0', ['id' => $item['id']]);
+                $db->direct($sql, ['id' => $item['id']], '');
+                $r = $db->singleRow('select file_id from kandidaten_bilder where kandidat={id} and typ=0', ['id' => $item['id']]);
 
-                    $sql = '
+                $sql = '
                     insert into ds_files (
                         file_id,
                         name,
@@ -70,28 +85,39 @@ class BarcodeImages implements IRoute
                         login=getSessionUser(),
                         table_name={table_name}
                     ';
-                    $db->direct($sql, [
-                        'file_id' => $r['file_id'],
-                        'name' => $item['name'],
-                        'path' => '/kandidaten',
-                        'size' => strlen(base64_decode($data)),
-                        'type' => $type,
-                        'hash' => md5($data),
-                        'table_name' => 'kandidaten_bilder'
-                    ], '');
-                    $sql = 'replace into ds_files_data (file_id,data) values ({file_id},{data})';
-                    $db->direct($sql, [
-                        'file_id' => $r['file_id'],
-                        'data' => $type . ',' . $data
-                    ], '');
-                }
-
-
-                App::result('success', true);
-            } catch (Exception $e) {
-                App::result('msg', $e->getMessage());
+                $db->direct($sql, [
+                    'file_id' => $r['file_id'],
+                    'name' => $item['name'],
+                    'path' => '/kandidaten',
+                    'size' => strlen(base64_decode($data)),
+                    'type' => $type,
+                    'hash' => md5($data),
+                    'table_name' => 'kandidaten_bilder'
+                ], '');
+                $sql = 'replace into ds_files_data (file_id,data) values ({file_id},{data})';
+                $db->direct($sql, [
+                    'file_id' => $r['file_id'],
+                    'data' => $type . ',' . $data
+                ], '');
             }
-            App::contenttype('application/json');
-        }, array('get', 'post'), true);
+
+
+            App::result('success', true);
+        } catch (Exception $e) {
+            App::result('msg', $e->getMessage());
+        }
+    }
+
+
+    public static function register()
+    {
+        BasicRoute::add(
+            '/papervote/images/createbarcodeimages',
+            [self::class, 'createbarcodeimages'],
+            ['get', 'post'],
+            true,
+            [],
+            self::scope()
+        );
     }
 }

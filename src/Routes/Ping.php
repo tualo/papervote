@@ -13,7 +13,7 @@ use phpseclib3\Crypt\RSA;
 
 
 
-class Ping implements IRoute
+class Ping extends \Tualo\Office\Basic\RouteWrapper
 {
 
 

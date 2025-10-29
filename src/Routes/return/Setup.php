@@ -13,7 +13,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Ramsey\Uuid\Uuid;
 
-class Setup implements IRoute
+class Setup extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()
@@ -23,9 +23,8 @@ class Setup implements IRoute
             try {
 
                 $sql = 'select id,daten from setup where cmp=\'cmp_wm_ruecklauf\' and rolle=\'_default_\' and id in (\'FORCEBLOCKCODE\')';
-                App::result('data',$db->direct($sql,array(),'id'));
+                App::result('data', $db->direct($sql, array(), 'id'));
                 App::result('success', true);
-
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }

@@ -13,7 +13,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 use Ramsey\Uuid\Uuid;
 
-class Import implements IRoute
+class Import extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function register()
     {
@@ -127,7 +127,7 @@ class Import implements IRoute
                                 TRUE,        // Should values be formatted (the equivalent of getFormattedValue() for each cell)
                                 TRUE         // Should the array be indexed by cell row and cell column
                             );
-                            foreach($header['1'] as $k=>$v){
+                            foreach ($header['1'] as $k => $v) {
                                 if (is_null($v)) unset($header['1'][$k]);
                             }
 
@@ -168,9 +168,7 @@ class Import implements IRoute
 
                 $success = false;
                 if (!function_exists("error2txt")) {
-                    function error2txt($error)
-                    {
-                    }
+                    function error2txt($error) {}
                 }
                 $error = "";
                 if (isset($_FILES['userfile'])) {

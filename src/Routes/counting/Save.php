@@ -10,8 +10,13 @@ use Tualo\Office\TualoPGP\TualoApplicationPGP;
 
 use Ramsey\Uuid\Uuid;
 
-class Save implements IRoute
+class Save extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.counting';
+    }
+
     public static function logintoint($login)
     {
         $sum = 0;

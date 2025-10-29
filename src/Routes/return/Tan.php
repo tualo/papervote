@@ -14,7 +14,7 @@ use \PhpOffice\PhpSpreadsheet\IOFactory;
 use Ramsey\Uuid\Uuid;
 use Tualo\Office\DS\DSTable;
 
-class Tan implements IRoute
+class Tan extends \Tualo\Office\Basic\RouteWrapper
 {
 
     public static function register()
