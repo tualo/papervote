@@ -12,9 +12,15 @@ use Ramsey\Uuid\Uuid;
 
 class Reset implements IRoute
 {
+    public static function isAllowed(): bool|null
+    {
+
+        return null;
+    }
+
     public static function register()
     {
-        BasicRoute::add('/papervote/combine/reset/(?P<barcode>[\w\-\_\d]+)', function ($matches) {
+        BasicRoute::add('/papervote/combine/reset/(?P<barcode>[\d]+)', function ($matches) {
 
             App::contenttype('application/json');
             $db = App::get('session')->getDB();
@@ -53,7 +59,7 @@ class Reset implements IRoute
                     wahlschein
                 set
                     kombiniert = {barcode},
-                    wahlscheinstatus = "16|0",
+                    wahlscheinstatus = 16,
                     login = getSessionUser()
                 where
                     wahlschein.id in (
@@ -76,7 +82,7 @@ class Reset implements IRoute
                             and wahlberechtigte.identnummer = {barcode}
                         ) a
                     )
-                    and wahlschein.wahlscheinstatus="1|0"
+                    and wahlschein.wahlscheinstatus=1
                 ';
                 $db->direct($sql, $matches);
 

@@ -34,8 +34,9 @@ class AllData implements IRoute
 
                 $db->direct('SET SESSION group_concat_max_len = 4294967295;');
                 $temporary_folder = App::get("tempPath") . '/';
-                if (isset($_REQUEST['usename']) && (strlen($_REQUEST['usename']) > 0)) {
+                if (isset($_REQUEST['usename']) && is_string($_REQUEST['usename']) && (strlen($_REQUEST['usename']) > 0)) {
                     $fname = basename($_REQUEST['usename']);
+                    $fname = preg_replace('/[^0-9a-zA-Z]/', '', $fname);
                 } else {
                     $fname = '';
                 }
