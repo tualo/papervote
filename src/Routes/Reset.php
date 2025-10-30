@@ -21,7 +21,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
     {
         BasicRoute::add('/papervote/reset/ruecklauf', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
                 try {
                     ResetClass::Ruecklauf();
                     App::result('success', true);
@@ -36,7 +39,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/wahlberechtigte', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
                 try {
                     set_time_limit(0);
                     ResetClass::Wahlberechtigte();
@@ -60,7 +66,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/tan', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
                 try {
                     ResetClass::Tan();
                     App::result('success', true);
@@ -75,7 +84,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/zaehldaten', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
 
                 try {
                     ResetClass::Zaehldaten();
@@ -91,7 +103,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/kandidaten', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
                 try {
                     ResetClass::Kandidaten();
                     App::result('success', true);
@@ -106,7 +121,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/onlinekandidaten', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
 
                 try {
                     ResetClass::Onlinekandidaten();
@@ -125,7 +143,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/onlinestimmzettel', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
 
                 try {
                     ResetClass::Onlinestimmzettel();
@@ -142,7 +163,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/wahlgruppen', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
 
                 try {
                     ResetClass::WahlgruppenWahlbezirke();
@@ -160,7 +184,10 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/wahlzeichnungsberechtigter', function ($matches) {
             App::contenttype('application/json');
-            if (isset($_SESSION['tualoapplication']) && isset($_SESSION['tualoapplication']['typ']) && ($_SESSION['tualoapplication']['typ'] == 'master')) {
+            $session = App::get('session');
+            if (
+                $session->isMaster()
+            ) {
                 try {
                     ResetClass::Wahlzeichnungsberechtigter();
                     App::result('success', true);
