@@ -5,8 +5,9 @@ namespace Tualo\Office\PaperVote\Routes;
 use Exception;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
-use Tualo\Office\Basic\IRoute;
-use Tualo\Office\TualoPGP\TualoApplicationPGP;
+use Tualo\Office\VoteManager\Votemanager;
+use Tualo\Office\VoteManager\VotemanagerPhase;
+
 use Tualo\Office\PaperVote\Reset as ResetClass;
 
 use Ramsey\Uuid\Uuid;
@@ -21,10 +22,15 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
     {
         BasicRoute::add('/papervote/reset/ruecklauf', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
                 try {
                     ResetClass::Ruecklauf();
                     App::result('success', true);
@@ -33,16 +39,22 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/wahlberechtigte', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
                 try {
                     set_time_limit(0);
                     ResetClass::Wahlberechtigte();
@@ -59,6 +71,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
@@ -66,10 +79,15 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/tan', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
                 try {
                     ResetClass::Tan();
                     App::result('success', true);
@@ -78,16 +96,22 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/zaehldaten', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
 
                 try {
                     ResetClass::Zaehldaten();
@@ -97,16 +121,23 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/kandidaten', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
+
                 try {
                     ResetClass::Kandidaten();
                     App::result('success', true);
@@ -115,16 +146,22 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/onlinekandidaten', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
 
                 try {
                     ResetClass::Onlinekandidaten();
@@ -135,6 +172,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
@@ -143,10 +181,15 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/onlinestimmzettel', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
 
                 try {
                     ResetClass::Onlinestimmzettel();
@@ -163,10 +206,15 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/wahlgruppen', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
 
                 try {
                     ResetClass::WahlgruppenWahlbezirke();
@@ -176,6 +224,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
@@ -184,10 +233,15 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
 
         BasicRoute::add('/papervote/reset/wahlzeichnungsberechtigter', function ($matches) {
             App::contenttype('application/json');
-            $session = App::get('session');
+            $session = App::getSession();
             if (
                 $session->isMaster()
             ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
                 try {
                     ResetClass::Wahlzeichnungsberechtigter();
                     App::result('success', true);
@@ -196,6 +250,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
                     App::result('msg', $e->getMessage());
                 }
             } else {
+                http_response_code(403);
                 App::result('msg', 'Keine Berechtigung');
             }
         }, ['get'], true, [], self::scope());
