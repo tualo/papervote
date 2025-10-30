@@ -13,6 +13,11 @@ use Ramsey\Uuid\Uuid;
 class DSReplacement extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.sync';
+    }
+
     public static function register()
     {
         BasicRoute::add('/papervote/(?P<tablename>\w+)/read', function ($matches) {
@@ -48,6 +53,6 @@ class DSReplacement extends \Tualo\Office\Basic\RouteWrapper
 
             BasicRoute::$finished = true;
             App::contenttype('application/json');
-        }, ['get', 'post'], true);
+        }, ['get', 'post'], true, [], self::scope());
     }
 }

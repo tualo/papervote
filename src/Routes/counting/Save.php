@@ -249,6 +249,6 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                 'stapelliste' => ['type' => 'string', 'required' => true],
                 'kistennummer' => ['type' => 'string', 'required' => true],
             ]
-        ]);
+        ], self::scope());
     }
 }

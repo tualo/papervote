@@ -9,6 +9,10 @@ use Tualo\Office\PaperVote\APIRequestHelper;
 
 class Status extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.status';
+    }
 
     public static function register()
     {
@@ -45,6 +49,6 @@ class Status extends \Tualo\Office\Basic\RouteWrapper
             }
 
             App::result('success', true);
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
     }
 }

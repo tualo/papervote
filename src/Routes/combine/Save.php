@@ -101,6 +101,6 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        }, ['post'], true);
+        }, ['post'], true, [], self::scope());
     }
 }

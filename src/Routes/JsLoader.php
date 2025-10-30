@@ -9,6 +9,10 @@ use Tualo\Office\Basic\RouteSecurityHelper;
 
 class JsLoader extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'basic';
+    }
     public static function register()
     {
         BasicRoute::add('/jspapervote/(?P<file>[\w.\/\-]+).js', function ($matches) {

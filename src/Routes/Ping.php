@@ -31,6 +31,11 @@ class Ping extends \Tualo\Office\Basic\RouteWrapper
             'maxlength' => 10000
         ]
     ];
+    public static function scope(): string
+    {
+        return 'papervote.sync';
+    }
+
     public static function register()
     {
         BasicRoute::add('/papervote/ping', function ($matches) {
@@ -58,6 +63,6 @@ class Ping extends \Tualo\Office\Basic\RouteWrapper
             'errorOnUnexpected' => false,
             'errorOnInvalid' => false,
             'fields' => self::DefaultExpectedFields
-        ]);
+        ], self::scope());
     }
 }

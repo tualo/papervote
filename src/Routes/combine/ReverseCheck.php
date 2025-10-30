@@ -39,6 +39,6 @@ class ReverseCheck extends \Tualo\Office\Basic\RouteWrapper
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
     }
 }

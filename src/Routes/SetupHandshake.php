@@ -12,7 +12,10 @@ use Tualo\Office\PaperVote\APIRequestHelper;
 
 class SetupHandshake extends \Tualo\Office\Basic\RouteWrapper
 {
-
+    public static function scope(): string
+    {
+        return 'papervote.sync';
+    }
     public static function register()
     {
 
@@ -162,7 +165,8 @@ class SetupHandshake extends \Tualo\Office\Basic\RouteWrapper
 
                 ]
 
-            ]
+            ],
+            self::scope()
         );
     }
 }

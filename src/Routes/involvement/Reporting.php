@@ -19,6 +19,12 @@ use Tualo\Office\Report\Routes\Report;
 
 class Reporting extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.involvement.reporting';
+    }
+
+
     public static function getExcel($name = 'Beteiligungsbericht.xlsx')
     {
         try {
@@ -761,7 +767,27 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                 'post',
                 'get'
             ],
-            true
+            true,
+            [
+                'errorOnUnexpected' => true,
+                'errorOnInvalid' => true,
+                'fields' =>  [
+                    'typ' => [
+                        'required' => true,
+                        'type' => 'int',
+                        'min' => 0,
+                        'max' => 10000000
+                    ],
+                    '_dc' => [
+                        'required' => false,
+                        'type' => 'string',
+                        'minlength' => 0,
+                        'maxlength' => 10000
+                    ]
+                ]
+            ],
+            self::scope()
+
         );
 
         BasicRoute::add(
@@ -847,7 +873,8 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                         'maxlength' => 1000000
                     ]
                 ]
-            ]
+            ],
+            self::scope()
         );
 
         BasicRoute::add('/papervote/involvement/reporting/export', function () {
@@ -860,6 +887,6 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

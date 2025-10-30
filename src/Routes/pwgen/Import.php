@@ -15,6 +15,10 @@ use Ramsey\Uuid\Uuid;
 
 class Import extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.pwgen';
+    }
     public static function register()
     {
         BasicRoute::add('/pwgen/uploadsettings', function () {
@@ -58,7 +62,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
 
 
 
@@ -151,7 +155,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
 
 
 
@@ -271,6 +275,6 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::result('debug_files', $dfiles);
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

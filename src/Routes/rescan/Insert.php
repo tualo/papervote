@@ -18,6 +18,11 @@ use Ramsey\Uuid\Uuid;
 class Insert extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.rescan';
+    }
+
     public static function register()
     {
         BasicRoute::add('/papervote/rescan/insert', function () {
@@ -78,6 +83,6 @@ class Insert extends \Tualo\Office\Basic\RouteWrapper
                     'maxlength' => 1000
                 ]
             ]
-        ]);
+        ], self::scope());
     }
 }

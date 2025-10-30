@@ -32,6 +32,6 @@ class SkipStartBallotPaper extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
     }
 }

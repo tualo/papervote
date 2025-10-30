@@ -15,7 +15,10 @@ use Ramsey\Uuid\Uuid;
 
 class Cancle extends \Tualo\Office\Basic\RouteWrapper
 {
-
+    public static function scope(): string
+    {
+        return 'papervote.stacks';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/stacks/cancle/(?P<id>[\w.\/\-]+)', function ($matches) {
@@ -34,6 +37,6 @@ class Cancle extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

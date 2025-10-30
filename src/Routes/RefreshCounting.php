@@ -10,6 +10,10 @@ use Tualo\Office\PaperVote\APIRequestHelper;
 class RefreshCounting extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.counting.refresh';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/refreshCounting', function ($matches) {
@@ -18,9 +22,9 @@ class RefreshCounting extends \Tualo\Office\Basic\RouteWrapper
                 \Tualo\Office\PaperVote\RefreshCounting::run();
                 App::result('success', true);
             } catch (\Exception $e) {
-                App::result('last_sql', $db->last_sql);
+                //App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
     }
 }

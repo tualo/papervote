@@ -10,6 +10,11 @@ use Tualo\Office\Basic\IRoute;
 class StatusImport extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.involvement.statusimport';
+    }
+
     public static function register()
     {
         BasicRoute::add('/papervote/involvement/wmstatusimport', function () {
@@ -22,6 +27,6 @@ class StatusImport extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

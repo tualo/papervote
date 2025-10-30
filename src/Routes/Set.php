@@ -12,7 +12,10 @@ use Ramsey\Uuid\Uuid;
 
 class Set extends \Tualo\Office\Basic\RouteWrapper
 {
-
+    public static function scope(): string
+    {
+        return 'papervote.sync';
+    }
     public static function register()
     {
 
@@ -117,7 +120,8 @@ class Set extends \Tualo\Office\Basic\RouteWrapper
                     ],
                 ]
 
-            ]
+            ],
+            self::scope()
         );
     }
 }

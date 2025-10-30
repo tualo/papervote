@@ -16,6 +16,10 @@ use Ramsey\Uuid\Uuid;
 class Open extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.blocks';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/blocks/overview', function () {
@@ -48,6 +52,6 @@ class Open extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

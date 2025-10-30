@@ -15,9 +15,15 @@ use Ramsey\Uuid\Uuid;
 
 class SetPW extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.pwgen';
+    }
 
     public static function register()
     {
+
+
         BasicRoute::add('/pwgen/set', function () {
             try {
                 $postdata = file_get_contents("php://input");
@@ -44,7 +50,7 @@ class SetPW extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['post', 'get'], true);
+        }, ['post', 'get'], true, [], self::scope());
 
         BasicRoute::add('/pwgen/setpw', function () {
             $session = App::get('session');
@@ -115,6 +121,6 @@ class SetPW extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['post', 'get'], true);
+        }, ['post', 'get'], true, [], self::scope());
     }
 }

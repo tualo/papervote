@@ -14,6 +14,10 @@ use Ramsey\Uuid\Uuid;
 class ApiUser extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.sync';
+    }
     public static function register()
     {
 
@@ -90,6 +94,6 @@ class ApiUser extends \Tualo\Office\Basic\RouteWrapper
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        }, ['post'], true);
+        }, ['post'], true, [], self::scope());
     }
 }

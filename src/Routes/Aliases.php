@@ -8,6 +8,11 @@ use Tualo\Office\Basic\IRoute;
 
 class Aliases extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.sync';
+    }
+
     public static function register()
     {
         Route::alias('/papervote/(?P<tablename>\w+)/create', '/ds/(?P<tablename>\w+)/create');

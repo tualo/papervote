@@ -13,6 +13,10 @@ use Ramsey\Uuid\Uuid;
 class Check extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.sync';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/check', function () {
@@ -40,6 +44,6 @@ class Check extends \Tualo\Office\Basic\RouteWrapper
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        }, ['post'], true);
+        }, ['post'], true, [], self::scope());
     }
 }

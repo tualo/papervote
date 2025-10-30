@@ -13,6 +13,10 @@ use Ramsey\Uuid\Uuid;
 
 class Reset extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.reset';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/reset/ruecklauf', function ($matches) {
@@ -28,7 +32,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/wahlberechtigte', function ($matches) {
             App::contenttype('application/json');
@@ -51,7 +55,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
 
         BasicRoute::add('/papervote/reset/tan', function ($matches) {
@@ -67,7 +71,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/zaehldaten', function ($matches) {
             App::contenttype('application/json');
@@ -83,7 +87,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/kandidaten', function ($matches) {
             App::contenttype('application/json');
@@ -98,7 +102,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
         BasicRoute::add('/papervote/reset/onlinekandidaten', function ($matches) {
             App::contenttype('application/json');
@@ -115,7 +119,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
 
 
@@ -133,7 +137,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
 
         BasicRoute::add('/papervote/reset/wahlgruppen', function ($matches) {
@@ -150,7 +154,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
 
 
 
@@ -167,6 +171,6 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             } else {
                 App::result('msg', 'Keine Berechtigung');
             }
-        }, ['get'], true);
+        }, ['get'], true, [], self::scope());
     }
 }

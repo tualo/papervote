@@ -17,6 +17,10 @@ use Tualo\Office\DS\DSTable;
 class Tan extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.return';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/return/tan/(?P<id>[\w.\/\-]+)/(?P<tan>[\w.\/\-]+)', function ($matches) {
@@ -57,6 +61,6 @@ class Tan extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

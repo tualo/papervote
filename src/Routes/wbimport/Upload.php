@@ -15,6 +15,10 @@ use Ramsey\Uuid\Uuid;
 
 class Upload extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.wahlberechtigte_anlage';
+    }
 
     public static function register()
     {
@@ -91,6 +95,6 @@ class Upload extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

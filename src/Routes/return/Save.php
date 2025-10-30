@@ -16,7 +16,10 @@ use Tualo\Office\DS\DSTable;
 
 class Save extends \Tualo\Office\Basic\RouteWrapper
 {
-
+    public static function scope(): string
+    {
+        return 'papervote.return';
+    }
     public static function register()
     {
         BasicRoute::add('/papervote/return/save', function () {
@@ -101,6 +104,6 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true);
+        }, array('get', 'post'), true, [], self::scope());
     }
 }

@@ -15,6 +15,10 @@ use Ramsey\Uuid\Uuid;
 
 class CreateColumns extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.pwgen';
+    }
 
     public static function register()
     {
@@ -79,6 +83,6 @@ class CreateColumns extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['get', 'post'], true);
+        }, ['get', 'post'], true, [], self::scope());
     }
 }

@@ -8,6 +8,11 @@ use Tualo\Office\Basic\IRoute;
 
 class Query extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.return';
+    }
+
     public static $querySQL = "
 select
     wahlberechtigte_anlage.*,
@@ -162,6 +167,6 @@ group by
                 App::result('last_sql', $db->last_sql);
                 App::result('msg', $e->getMessage());
             }
-        }, ['get', 'post'], true);
+        }, ['get', 'post'], true, [], self::scope());
     }
 }

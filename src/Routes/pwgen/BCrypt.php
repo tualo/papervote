@@ -15,6 +15,10 @@ use Ramsey\Uuid\Uuid;
 
 class BCrypt extends \Tualo\Office\Basic\RouteWrapper
 {
+    public static function scope(): string
+    {
+        return 'papervote.pwgen';
+    }
 
     public static function register()
     {
@@ -41,6 +45,6 @@ class BCrypt extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['post'], true);
+        }, ['post'], true, [], self::scope());
     }
 }

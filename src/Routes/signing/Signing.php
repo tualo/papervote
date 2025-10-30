@@ -17,6 +17,11 @@ use Tualo\Office\DS\DSTable;
 class Signing extends \Tualo\Office\Basic\RouteWrapper
 {
 
+    public static function scope(): string
+    {
+        return 'papervote.signing';
+    }
+
     public static function register()
     {
         BasicRoute::add('/papervote/signing/save', function () {
@@ -53,6 +58,6 @@ class Signing extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, ['post'], true);
+        }, ['post'], true, [], self::scope());
     }
 }
