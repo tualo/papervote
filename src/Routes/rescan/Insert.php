@@ -54,7 +54,7 @@ class Insert extends \Tualo\Office\Basic\RouteWrapper
                 App::result('msg', $e->getMessage());
             }
             App::contenttype('application/json');
-        }, array('get', 'post'), true, ['get', 'post'], true, [
+        }, ['get', 'post'], true, [
             'errorOnUnexpected' => false,
             'errorOnInvalid' => false,
             'fields' => [
