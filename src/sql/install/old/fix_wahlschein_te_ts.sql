@@ -101,6 +101,8 @@ CREATE TABLE IF NOT EXISTS `wahlschein` (
 );
 
 
+
+
 call setupWahlscheinVersioning();
 
 

@@ -12,7 +12,12 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
 
   reloadChart: async function () {
     console.log('reloadChart');
-    let r = await fetch('./papervote/refreshCounting')
+    let r = await fetch('./papervote/refreshCounting', {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
     this.getViewModel().getStore('view_kandidaten_stimmenanzahl').load();
     //setTimeout(this.reloadChart.bind(this),120000);
     console.log('reloadChart');
@@ -128,7 +133,12 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
       ].join(' ')
 
     );
-    let r = await fetch('./papervote/refreshCounting')
+    let r = await fetch('./papervote/refreshCounting', {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
 
     /*this.getViewModel().getStore('view_kandidaten_stimmenanzahl').sort([
       {

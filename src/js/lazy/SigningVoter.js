@@ -72,7 +72,8 @@ Ext.define('Tualo.PaperVote.lazy.SigningVoter', {
                 let response = await (await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         wahlscheinstatus: 2,
@@ -98,7 +99,8 @@ Ext.define('Tualo.PaperVote.lazy.SigningVoter', {
                 let response = await (await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         wahlscheinstatus: 3,
@@ -124,7 +126,8 @@ Ext.define('Tualo.PaperVote.lazy.SigningVoter', {
                 let response = await (await fetch(url, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Accept": "application/json",
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
                         wahlscheinstatus: 8,

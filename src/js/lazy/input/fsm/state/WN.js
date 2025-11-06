@@ -7,7 +7,12 @@ Ext.define('Tualo.PaperVote.lazy.input.fsm.state.WN', {
 
         let useident = this.getFSM().fireEvent('useident');
         let url = (useident === true) ? ('./papervote/identnummer/' + data) : ('./papervote/wahlschein/' + data);
-        let o = await (await fetch(url)).json()
+        let o = await (await fetch(url, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+        })).json()
 
         if (o && o.success) {
             // teste ob zustand erlaubt ist

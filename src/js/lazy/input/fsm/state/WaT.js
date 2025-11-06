@@ -11,7 +11,12 @@ Ext.define('Tualo.PaperVote.lazy.input.fsm.state.WaT', {
     action: async function (inputCode) {
 
         let url = './papervote/return/tan/' + (this._o.data[0].wahlschein_id || this._o.data[0].id) + '/' + inputCode;
-        let o = await (await fetch(url)).json();
+        let o = await (await fetch(url, {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+        })).json();
         this.getFSM().fireEvent('clear_input');
         if (o.success) {
             this.getFSM().transit('warte_auf_wahlschein_oder_blocknummer');

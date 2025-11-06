@@ -79,7 +79,12 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
                         try {
                             let url = (scope.useident === true) ? ('./papervote/identnummer/' + values._read_barcode) : ('./papervote/wahlschein/' + values._read_barcode);
-                            let o = await (await fetch(url)).json()
+                            let o = await (await fetch(url, {
+                                headers: {
+                                    "Accept": "application/json",
+                                    "Content-Type": "application/json"
+                                },
+                            })).json()
                             if (o.success) {
                                 var _x = JSON.stringify(o), dataindex = 0;
                                 o.data.forEach(function (itm) {
@@ -251,7 +256,12 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
 
                 try {
                     let url = './papervote/return/tan/' + scope.wbliste[0] + '/' + values._read_barcode;
-                    let o = await (await fetch(url)).json();
+                    let o = await (await fetch(url, {
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json"
+                        },
+                    })).json();
                     if (o.success) {
                         scope.transit('warteAufStatus');
                     } else {
@@ -434,6 +444,10 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         try {
             let o = await (await fetch(url, {
                 method: 'POST',
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(params)
             })).json();
 
@@ -471,7 +485,12 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             startingState: this.startingState
         });
 
-        let res = await (await fetch('./papervote/return/setup')).json();
+        let res = await (await fetch('./papervote/return/setup', {
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+        })).json();
         if (res.success === false) {
             scope.fireEvent('message', scope, res.msg + ' Scannen Sie *Leeren*.');
             scope.fireEvent('refocus', scope, '');

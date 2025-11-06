@@ -79,7 +79,12 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       }
     });
 
-    let o = await (await fetch('./pwgen/new_unique')).json();
+    let o = await (await fetch('./pwgen/new_unique', {
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })).json();
     console.log(o);
     progressbar_unique.reset();
     progressbar_unique.updateProgress(1);
@@ -90,43 +95,43 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     me.current = 0;
     me.blocksize = 2000;
     console.log(me.current, range.length);
-    while( (await me.loopPWRange())==false){
+    while ((await me.loopPWRange()) == false) {
 
-    } ;
+    };
 
     me.saveExcel();
-    
+
     return true;
 
   },
-  
+
 
   loopPWRange: async function () {
     let me = this,
-        range = me.records,
-        i=0,
-        progressbar_data = me.getComponent('form').getComponent('progressbar_data');
-      
-        if (me.current < range.length) {
-          range[0].store.suspendEvents() // true);
-          while(i<me.blocksize && me.current < range.length){
-            range[me.current].set('password',me.password[me.current].val);
-            range[me.current].set('wahlscheinnummer',me.wahlschein[me.current].val);
-            range[me.current].set('wahlscheinstatus','1|0');
-            range[me.current].set('username',me.username[me.current].val);
-            // console.log(range[me.current].data);
-            me.current++;
-            i++;
-          }
+      range = me.records,
+      i = 0,
+      progressbar_data = me.getComponent('form').getComponent('progressbar_data');
 
-          range[0].store.resumeEvents();
-          progressbar_data.updateProgress((me.current + 1) / range.length);
+    if (me.current < range.length) {
+      range[0].store.suspendEvents() // true);
+      while (i < me.blocksize && me.current < range.length) {
+        range[me.current].set('password', me.password[me.current].val);
+        range[me.current].set('wahlscheinnummer', me.wahlschein[me.current].val);
+        range[me.current].set('wahlscheinstatus', '1|0');
+        range[me.current].set('username', me.username[me.current].val);
+        // console.log(range[me.current].data);
+        me.current++;
+        i++;
+      }
 
-          await me.loopPWHashRange();
-          return false;
-        } else {
-          return true;
-        }
+      range[0].store.resumeEvents();
+      progressbar_data.updateProgress((me.current + 1) / range.length);
+
+      await me.loopPWHashRange();
+      return false;
+    } else {
+      return true;
+    }
   },
 
   loopPWHashRange: async function () {
@@ -135,38 +140,39 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       ;
     try {
       // while (me.current < me.records.length) {
-        let pw_list = me.store.getModifiedRecords();
-        let pws_list = pw_list.map((item) => {
-          return {
-            id: item.get('__id'),
-            password: item.get('password')
-          }
-        });
+      let pw_list = me.store.getModifiedRecords();
+      let pws_list = pw_list.map((item) => {
+        return {
+          id: item.get('__id'),
+          password: item.get('password')
+        }
+      });
 
-        let r = await (await fetch('./pwgen/bcrypt', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            passwords: pws_list
-          })
-        })).json();
-        
-        me.store.suspendEvents();
-        r.data.forEach((item) => {
-          let rec = me.store.findRecord('__id', item.id);
-          rec.set('pwhash', item.pwhash);
-          rec.set('wahlscheinstatus', '1|0');
+      let r = await (await fetch('./pwgen/bcrypt', {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          passwords: pws_list
+        })
+      })).json();
 
-        });
-        me.store.resumeEvents();
+      me.store.suspendEvents();
+      r.data.forEach((item) => {
+        let rec = me.store.findRecord('__id', item.id);
+        rec.set('pwhash', item.pwhash);
+        rec.set('wahlscheinstatus', '1|0');
 
-        await me.set();
-        pw_list.forEach((item) => {
-          item.commit();
-        });
-        progressbar_save.updateProgress((me.current + 1) / me.records.length);
+      });
+      me.store.resumeEvents();
+
+      await me.set();
+      pw_list.forEach((item) => {
+        item.commit();
+      });
+      progressbar_save.updateProgress((me.current + 1) / me.records.length);
       // }
     } catch (e) {
       console.log(e);
@@ -203,32 +209,33 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
 
   },
 
-  set: async function(){
+  set: async function () {
     let me = this;
-      let pw_list = me.store.getModifiedRecords(),
-          data = pw_list.map((item) => {
-            return {
-              id: item.get('id'),
-              stimmzettel: item.get('stimmzettel'),
+    let pw_list = me.store.getModifiedRecords(),
+      data = pw_list.map((item) => {
+        return {
+          id: item.get('id'),
+          stimmzettel: item.get('stimmzettel'),
 
-              wahlscheinnummer: item.get('wahlscheinnummer'),
-              wahlscheinstatus: item.get('wahlscheinstatus'),
-              username: item.get('username'),
-              pwhash: item.get('pwhash')
-            }
-          });
+          wahlscheinnummer: item.get('wahlscheinnummer'),
+          wahlscheinstatus: item.get('wahlscheinstatus'),
+          username: item.get('username'),
+          pwhash: item.get('pwhash')
+        }
+      });
 
-      let r = await (await fetch('./pwgen/set', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })).json();
+    let r = await (await fetch('./pwgen/set', {
+      method: 'POST',
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })).json();
 
   },
 
-  singleSync: function(){
+  singleSync: function () {
     let me = this;
     return new Promise((resolve) => {
       me.store.sync({
