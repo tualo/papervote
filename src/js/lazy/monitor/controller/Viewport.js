@@ -140,12 +140,12 @@ Ext.define('Tualo.PaperVote.lazy.monitor.controller.Viewport', {
       },
     })
 
-    /*this.getViewModel().getStore('view_kandidaten_stimmenanzahl').sort([
+    this.getViewModel().getStore('view_kandidaten_stimmenanzahl').sort([
       {
-        property: 'gesamtstimmen',
-        direction: 'asc'
+        property: 'use_rang',
+        direction: 'desc'
       }
-    ]);*/
+    ]);
 
 
 
