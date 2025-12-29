@@ -265,6 +265,8 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
       }
     });
 
+    //console.log(this.getViewModel().get('abgabetyp'));
+
     var store = Ext.create('Ext.data.Store', {
       fields: fields,
       pageSize: 500,
@@ -275,7 +277,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
         extraParams: {
           typ: this.getViewModel().get('typ'),
           base: this.getViewModel().get('base'),//request.base,
-          abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
+          //abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
           testdaten: this.getViewModel().get('testdaten'),//request.base,
         },
         reader: {
