@@ -138,7 +138,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
         limit: 10000000,
         typ: this.getViewModel().get('typ'),
         base: this.getViewModel().get('base'),//request.base,
-        abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
+        // abgabetyp: this.getViewModel().get('abgabetyp'),//request.base,
         testdaten: this.getViewModel().get('testdaten'),//request.base,
 
       }
