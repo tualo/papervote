@@ -79,8 +79,6 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
     {
         try {
             $db = App::get('session')->getDB();
-
-
             $use_name_title = DSTable::instance('votemanager_setup')->f('id', 'eq', 'wm_involvement_report_base_title')->getSingleValue('val');
             if ($use_name_title === false) {
                 $use_name_title = DSTable::instance('votemanager_setup')->f('id', 'eq', 'wm_involvement_report_base')->getSingleValue('val');
@@ -100,7 +98,8 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                 $wahlbeteiligung_bericht_formel[$index]['nenner_excel'] = $wb_formel['nenner_excel'];
                 $wahlbeteiligung_bericht_formel[$index]['teiler_excel'] = $wb_formel['teiler_excel'];
             }
-            $zeile = 2;
+
+            $zeile = 1;
             $objPHPExcel = new Spreadsheet();
             $sheet = $objPHPExcel->getActiveSheet();
             $sheet->setTitle('Beteiligungsbericht');
@@ -108,49 +107,111 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
 
             $writer = IOFactory::createWriter($objPHPExcel, 'Xlsx');
 
-            $data = self::getReportData();
-            $headers_unclean = self::getHeaders();
-            $headers = [];
-            foreach ($headers_unclean as $header) {
-                if (isset($data[0]) && isset($data[0][$header['column_name']])) {
-                    $headers[] = $header;
-                }
-            }
-            $start_spalte = 1;
-            foreach ($headers as $header) {
+            $auswertungen = $db->direct('select 0 id,"Allgemein" auswertung_name  
+                union all
+                select id,name auswertung_name  from wm_auswertungen 
+                order by pos,id
+            ');
+            foreach ($auswertungen as $auswertung) {
 
-                if ($header['column_name'] == 'use_name') {
-                    $header['column_title'] = $use_name_title;
-                }
 
-                $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . $zeile, $header['column_title']);
-                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
-                $start_spalte++;
-            }
-            foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
-                $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . $zeile, $wb_formel['name']);
-                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
-                $start_spalte++;
-            }
-            $zeile++;
-            $current_start_zeile = $zeile;
-            foreach ($data as $datensatz) {
-                if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+
+
+
+
+                $data = self::getReportData();
+                $headers_unclean = self::getHeaders();
+                $headers = [];
+                foreach ($headers_unclean as $header) {
+                    if (isset($data[0]) && isset($data[0][$header['column_name']])) {
+                        $headers[] = $header;
+                    }
+                }
                 $start_spalte = 1;
 
-                // $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . '1', $datensatz['use_name']);
-                // $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . '1')->getFont()->setBold(true);
+                $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . $zeile, $auswertung['auswertung_name']);
+                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
+                $zeile++;
 
-                $coordianates = [];
                 foreach ($headers as $header) {
-                    $coordianate = Coordinate::stringFromColumnIndex($start_spalte) . $zeile;
-                    $coordianates[$header['column_name']] = $coordianate;
-                    $sheet->SetCellValue($coordianate, $datensatz[$header['column_name']]);
+
+                    if ($header['column_name'] == 'use_name') {
+                        $header['column_title'] = $use_name_title;
+                    }
+
+                    $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . $zeile, $header['column_title']);
+                    $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
                     $start_spalte++;
                 }
+                foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
+                    $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . $zeile, $wb_formel['name']);
+                    $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
+                    $start_spalte++;
+                }
+                $zeile++;
+                $current_start_zeile = $zeile;
+                foreach ($data as $datensatz) {
+                    if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+                    $start_spalte = 1;
+
+                    // $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . '1', $datensatz['use_name']);
+                    // $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . '1')->getFont()->setBold(true);
+
+                    $coordianates = [];
+                    foreach ($headers as $header) {
+                        $coordianate = Coordinate::stringFromColumnIndex($start_spalte) . $zeile;
+                        $coordianates[$header['column_name']] = $coordianate;
+                        $sheet->SetCellValue($coordianate, $datensatz[$header['column_name']]);
+                        $start_spalte++;
+                    }
 
 
 
+                    foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
+                        $nenner = [];
+                        foreach ($wb_formel['nenner_excel'] as $n) {
+                            $nenner[] = $coordianates[$n];
+                        }
+                        $teiler = [];
+                        foreach ($wb_formel['teiler_excel'] as $t) {
+                            $teiler[] = $coordianates[$t];
+                        }
+
+                        $coordianate = Coordinate::stringFromColumnIndex($start_spalte) . $zeile;
+                        $sheet->SetCellValue($coordianate, '=IF(SUM(' . implode(',', $teiler) . ')=0,0,SUM(' . implode(',', $nenner) . ')/SUM(' . implode(',', $teiler) . '))   ');
+                        $start_spalte++;
+                        $sheet->getStyle($coordianate)->getNumberFormat()->setFormatCode('0.00%');
+                        $sheet->getStyle($coordianate)->getFont()->setBold(true);
+                    }
+                    $zeile++;
+                }
+
+                // Summen einblenden
+                $start_spalte = 1;
+                foreach ($headers as $header) {
+                    /*
+                if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') {
+                    $start_spalte++;
+                    continue;
+                }
+                */
+                    if ($header['id'] == -1) {
+                        $sheet->SetCellValue(
+                            Coordinate::stringFromColumnIndex($start_spalte) . $zeile,
+                            'Gesamt'
+                        );
+                        $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
+                        $start_spalte++;
+                        continue;
+                    }
+                    $sheet->SetCellValue(
+                        Coordinate::stringFromColumnIndex($start_spalte) . $zeile,
+
+                        "=SUM(" . Coordinate::stringFromColumnIndex($start_spalte) . $current_start_zeile . ':' . Coordinate::stringFromColumnIndex($start_spalte) . ($zeile - 1) . ')'
+                    );
+                    $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
+                    $start_spalte++;
+                }
                 foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
                     $nenner = [];
                     foreach ($wb_formel['nenner_excel'] as $n) {
@@ -168,51 +229,9 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                     $sheet->getStyle($coordianate)->getFont()->setBold(true);
                 }
                 $zeile++;
+                $zeile++;
+                $zeile++;
             }
-
-            // Summen einblenden
-            $start_spalte = 1;
-            foreach ($headers as $header) {
-                /*
-                if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') {
-                    $start_spalte++;
-                    continue;
-                }
-                */
-                if ($header['id'] == -1) {
-                    $sheet->SetCellValue(
-                        Coordinate::stringFromColumnIndex($start_spalte) . $zeile,
-                        'Gesamt'
-                    );
-                    $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
-                    $start_spalte++;
-                    continue;
-                }
-                $sheet->SetCellValue(
-                    Coordinate::stringFromColumnIndex($start_spalte) . $zeile,
-
-                    "=SUM(" . Coordinate::stringFromColumnIndex($start_spalte) . $current_start_zeile . ':' . Coordinate::stringFromColumnIndex($start_spalte) . ($zeile - 1) . ')'
-                );
-                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
-                $start_spalte++;
-            }
-            foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
-                $nenner = [];
-                foreach ($wb_formel['nenner_excel'] as $n) {
-                    $nenner[] = $coordianates[$n];
-                }
-                $teiler = [];
-                foreach ($wb_formel['teiler_excel'] as $t) {
-                    $teiler[] = $coordianates[$t];
-                }
-
-                $coordianate = Coordinate::stringFromColumnIndex($start_spalte) . $zeile;
-                $sheet->SetCellValue($coordianate, '=IF(SUM(' . implode(',', $teiler) . ')=0,0,SUM(' . implode(',', $nenner) . ')/SUM(' . implode(',', $teiler) . '))   ');
-                $start_spalte++;
-                $sheet->getStyle($coordianate)->getNumberFormat()->setFormatCode('0.00%');
-                $sheet->getStyle($coordianate)->getFont()->setBold(true);
-            }
-            $zeile++;
 
             // $writer->setPreCalculateFormulas(false);
             $writer->save(App::get('tempPath') . '/' . $name);
