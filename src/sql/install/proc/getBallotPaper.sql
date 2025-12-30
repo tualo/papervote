@@ -1,6 +1,6 @@
 DELIMITER //
 
-CREATE FUNCTION IF NOT EXISTS `getBallotpaper`(in_id integer) RETURNS varchar(255) CHARSET utf8
+CREATE OR REPLACE function  `getBallotpaper`(in_id integer) RETURNS varchar(255) 
     DETERMINISTIC
 BEGIN
 DECLARE `result` varchar(255);
