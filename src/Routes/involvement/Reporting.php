@@ -110,7 +110,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             $auswertungen = $db->direct('select 0 id,"Allgemein" auswertung_name  
                 union all
                 select id,name auswertung_name  from wm_auswertungen 
-                order by pos,id
+                order by id
             ');
             foreach ($auswertungen as $auswertung) {
 
