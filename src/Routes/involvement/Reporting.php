@@ -114,7 +114,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             ');
             foreach ($auswertungen as $auswertung) {
 
-
+                $db->execute('set @involvement_filter_id = ', $auswertung['id']);
 
 
 
