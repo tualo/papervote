@@ -80,18 +80,21 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
         try {
             $db = App::get('session')->getDB();
 
-            $wahlbeteiligung_bericht_formel = DSTable::instance('wahlbeteiligung_bericht')->f('aktiv', 'eq', 1)->g();
-            foreach ($wahlbeteiligung_bericht_formel as &$wb_formel) {
+            $wahlbeteiligung_bericht_formel = DSTable::instance('wahlbeteiligung_bericht_formel')->f('aktiv', 'eq', 1)->g();
+            foreach ($wahlbeteiligung_bericht_formel as $index => $wb_formel) {
                 $wb_formel['nenner_excel'] = [];
                 $wb_formel['teiler_excel'] = [];
+
                 foreach (json_decode($wb_formel['nenner'], true) as $value) {
-                    $wb_formel['nenner_excel'][] = 'wb_' . $wb_formel['id'];
+                    $wb_formel['nenner_excel'][] = 'wb_' . $value['id'];
                 }
                 foreach (json_decode($wb_formel['teiler'], true) as $value) {
-                    $wb_formel['teiler_excel'][] = 'wb_' . $wb_formel['id'];
+                    $wb_formel['teiler_excel'][] = 'wb_' . $value['id'];
                 }
+                $wahlbeteiligung_bericht_formel[$index]['nenner_excel'] = $wb_formel['nenner_excel'];
+                $wahlbeteiligung_bericht_formel[$index]['teiler_excel'] = $wb_formel['teiler_excel'];
             }
-
+            $zeile = 2;
             $objPHPExcel = new Spreadsheet();
             $sheet = $objPHPExcel->getActiveSheet();
             $sheet->setTitle('Beteiligungsbericht');
@@ -110,17 +113,24 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             }
             $start_spalte = 1;
             foreach ($headers as $header) {
-                $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . '2', $header['column_title']);
-                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . '2')->getFont()->setBold(true);
+
+                $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . $zeile, $header['column_title']);
+                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
                 $start_spalte++;
             }
-            $zeile = 3;
+            foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
+                $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . $zeile, $wb_formel['name']);
+                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
+                $start_spalte++;
+            }
+            $zeile++;
             $current_start_zeile = $zeile;
             foreach ($data as $datensatz) {
                 if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
                 $start_spalte = 1;
-                $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . '1', $datensatz['use_name']);
-                $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . '1')->getFont()->setBold(true);
+
+                // $sheet->SetCellValue(Coordinate::stringFromColumnIndex($start_spalte) . '1', $datensatz['use_name']);
+                // $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . '1')->getFont()->setBold(true);
 
                 $coordianates = [];
                 foreach ($headers as $header) {
@@ -154,7 +164,18 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             // Summen einblenden
             $start_spalte = 1;
             foreach ($headers as $header) {
+                /*
                 if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') {
+                    $start_spalte++;
+                    continue;
+                }
+                */
+                if ($header['id'] == -1) {
+                    $sheet->SetCellValue(
+                        Coordinate::stringFromColumnIndex($start_spalte) . $zeile,
+                        'Gesamt'
+                    );
+                    $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
                     $start_spalte++;
                     continue;
                 }
