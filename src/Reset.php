@@ -250,13 +250,10 @@ class Reset
     {
         $db = App::get('session')->getDB();
         $system_settings = $db->direct("select property,system_settings_id FROM system_settings ", [], 'system_settings_id');
-        try {
 
-            $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/ballotboxreset');
-            if ($online_result === false) {
-                throw new Exception("Die Onlinewahl konnte nicht zurückgesetzt werden.");
-            }
-        } catch (\Exception $e) {
+        $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/ballotboxreset');
+        if ($online_result === false) {
+            throw new Exception("Die Onlinewahl konnte nicht zurückgesetzt werden.");
         }
     }
 
