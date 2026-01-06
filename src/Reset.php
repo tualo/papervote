@@ -53,6 +53,8 @@ class Reset
         if (App::configuration('papervote', 'delete_history_on_reset', '0') == '1') {
             $db->execute('DELETE HISTORY FROM wahlschein');
         }
+
+        $db->execute('update briefwahlstimmzettel set anzahl=0,enthaltung=0,ungueltig=0;');
     }
 
     public static function Tan()
@@ -241,6 +243,9 @@ class Reset
             $db->execute($sql);
         } catch (\Exception $e) {
         }
+
+        $sql = 'insert ignore into onlinestimmzettel(stimmzettel) select id from stimmzettel';
+        $db->execute($sql);
     }
 
 
