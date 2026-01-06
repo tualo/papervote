@@ -4,6 +4,7 @@ namespace Tualo\Office\PaperVote;
 
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\DS\DSTable;
+use Tualo\Office\PaperVote\WMTualoRequestHelper;
 use Exception;
 
 use Tualo\Office\Basic\Path;
@@ -238,6 +239,23 @@ class Reset
             $db->execute($sql);
             $sql = 'delete from onlinestimmzettel_docdata  ';
             $db->execute($sql);
+        } catch (\Exception $e) {
+        }
+    }
+
+
+
+
+    public static function Onlinewahl()
+    {
+        $db = App::get('session')->getDB();
+        $system_settings = $db->direct("select property,system_settings_id FROM system_settings ", [], 'system_settings_id');
+        try {
+
+            $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/ballotboxreset');
+            if ($online_result === false) {
+                throw new Exception("Die Onlinewahl konnte nicht zurückgesetzt werden.");
+            }
         } catch (\Exception $e) {
         }
     }

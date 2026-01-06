@@ -5,12 +5,12 @@ Ext.define('Tualo.PaperVote.lazy.Reset', {
     type: 'vbox',
     align: 'stretch'
   },
-  
+
   requires: [
     'Tualo.PaperVote.lazy.models.Reset',
     'Tualo.PaperVote.lazy.controller.Reset'
   ],
-  
+
   alias: 'widget.cmp_wm_reset_viewport',
   controller: 'cmp_wm_reset_viewport',
   viewModel: {
@@ -19,11 +19,11 @@ Ext.define('Tualo.PaperVote.lazy.Reset', {
   listeners: {
     boxReady: 'onBoxReady'
   },
-   
+
   title: 'Datenreset',
   bodyPadding: '25px',
   items: [
-     
+
     {
       xtype: 'button',
       text: 'Tannummern - Reset',
@@ -70,6 +70,12 @@ Ext.define('Tualo.PaperVote.lazy.Reset', {
       xtype: 'button',
       text: 'Onlinekandidaten - Reset',
       handler: 'onOnlinekandidatenReset',
+      margin: '10px'
+    },
+    {
+      xtype: 'button',
+      text: 'Onlinewahl - Reset',
+      handler: 'onOnlinewahlReset',
       margin: '10px'
     }
 

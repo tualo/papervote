@@ -204,6 +204,30 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
         }, ['get'], true, [], self::scope());
 
 
+        BasicRoute::add('/papervote/reset/onlinewahl', function ($matches) {
+            App::contenttype('application/json');
+            $session = App::getSession();
+            if (
+                $session->isMaster()
+            ) {
+                if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
+                    http_response_code(403);
+                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    return;
+                }
+
+                try {
+                    ResetClass::Onlinewahl();
+                    App::result('success', true);
+                    App::result('msg', "Onlinewahl-Daten sind gelöscht");
+                } catch (\Exception $e) {
+                    App::result('msg', $e->getMessage());
+                }
+            } else {
+                App::result('msg', 'Keine Berechtigung');
+            }
+        }, ['get'], true, [], self::scope());
+
         BasicRoute::add('/papervote/reset/wahlgruppen', function ($matches) {
             App::contenttype('application/json');
             $session = App::getSession();
