@@ -52,7 +52,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Wahlberechtigten-Reset erlaubt');
                     return;
                 }
                 try {
@@ -85,7 +85,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein TAN-Reset erlaubt');
                     return;
                 }
                 try {
@@ -109,7 +109,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Zähldaten-Reset erlaubt');
                     return;
                 }
 
@@ -134,7 +134,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Kandidaten-Reset erlaubt');
                     return;
                 }
 
@@ -159,7 +159,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Onlinekandidaten-Reset erlaubt');
                     return;
                 }
 
@@ -187,7 +187,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Onlinestimmzettel-Reset erlaubt');
                     return;
                 }
 
@@ -236,7 +236,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Wahlgruppen-Reset erlaubt');
                     return;
                 }
 
@@ -263,7 +263,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Wahlzeichnungsberechtigten-Reset erlaubt');
                     return;
                 }
                 try {
