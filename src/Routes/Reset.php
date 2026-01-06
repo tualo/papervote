@@ -212,7 +212,7 @@ class Reset extends \Tualo\Office\Basic\RouteWrapper
             ) {
                 if (!Votemanager::isAllowed([VotemanagerPhase::Reset])) {
                     http_response_code(403);
-                    App::result('msg', 'In der aktuellen Phase ist kein Rücklauf-Reset erlaubt');
+                    App::result('msg', 'In der aktuellen Phase ist kein Onlinewahl-Reset erlaubt');
                     return;
                 }
 
