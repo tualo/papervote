@@ -54,7 +54,7 @@ class Reset
             $db->execute('DELETE HISTORY FROM wahlschein');
         }
 
-        $db->execute('update briefwahlstimmzettel set anzahl=0,enthaltung=0,ungueltig=0;');
+        $db->execute('update briefwahlstimmzettel set anzahl=0,erwartet=0,enthaltung=0,ungueltig=0;');
     }
 
     public static function Tan()
