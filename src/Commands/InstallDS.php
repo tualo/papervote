@@ -28,7 +28,7 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/reportfiles.ds'                         => 'setup reportfiles.ds',
 
         'install/ds/ballotbox_decrypted_sum.ds'                        => 'setup ballotbox_decrypted_sum.ds',
-
+        'install/ds/blocked_voters.ds'                => 'setup blocked_voters.ds',
 
 
 
