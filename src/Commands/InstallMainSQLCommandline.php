@@ -280,7 +280,7 @@ class InstallMainSQLCommandline implements ICommandline
             'getBallotPaper' => 'setup getBallotPaper',
 
             'blocked_voters' => 'setup blocked_voters',
-
+            'blocked_voters.ds' => 'setup blocked_voters.ds',
             'reportfiles_typen' => 'setup reportfiles_typen',
             'reportfiles' => 'setup reportfiles',
 
