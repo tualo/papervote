@@ -19,6 +19,10 @@ use \ZipArchive;
 use Tualo\Office\DS\DSReadRoute;
 use Tualo\Office\DS\DSExporterHelper;
 
+use Tualo\Office\DS\DSTable;
+
+use Tualo\Office\DS\DataRenderer;
+
 
 class AllData extends \Tualo\Office\Basic\RouteWrapper
 {
@@ -60,13 +64,17 @@ class AllData extends \Tualo\Office\Basic\RouteWrapper
                 $zip->addFile($temporary_folder . '/' . $fname, 'daten.xlsx');
 
 
+                //$wm_image_export_template = DSTable::instance('votemanager_setup')->f('id', 'eq', 'wm_image_export_include_type')->getSingleValue('val');
 
                 $sql = '
                 select 
                     kandidaten.id,
+                    kandidaten.vorname,
+                    kandidaten.nachname,
                     if(kandidaten.barcode is null or trim(kandidaten.barcode) = "",lpad(kandidaten.id,8,"X") ,kandidaten.barcode) barcode,
                     kandidaten_bilder_typen.name typ_name,
                     SUBSTRING_INDEX(ds_files.name,".",-1) extension,
+                    kandidaten_bilder_typen.export_name_template,
                     ds_files_data.data 
                 from 
                     kandidaten
@@ -74,6 +82,7 @@ class AllData extends \Tualo\Office\Basic\RouteWrapper
                         on kandidaten.id = kandidaten_bilder.kandidat
                     join kandidaten_bilder_typen
                         on kandidaten_bilder.typ = kandidaten_bilder_typen.id
+                        and kandidaten_bilder_typen.include_in_export = 1
                     join ds_files
                         on ds_files.file_id = kandidaten_bilder.file_id 
                     join ds_files_data
@@ -85,6 +94,13 @@ class AllData extends \Tualo\Office\Basic\RouteWrapper
                     $type = $item['typ_name'];
                     $barcode = $item['barcode'];
                     $fname = $type . '_' . $barcode . '.' . $item['extension'];
+
+                    // <NACHNAME:ASCII>_<VORNAME:ASCII>_<KANDIDATEN_ID>
+                    // "{nachname:ansii}_{vorname:ansii}_{id}"
+
+                    $fname = DataRenderer::renderTemplate($item['export_name_template'], $item) . '.' . $item['extension'];
+
+
                     $fpath = App::get("tempPath") . '/' . $fname;
                     file_put_contents($fpath, base64_decode($data));
                     $zip->addFile(App::get("tempPath") . '/' . $fname, basename(App::get("tempPath") . '/' . $fname));
