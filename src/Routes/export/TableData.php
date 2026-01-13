@@ -33,7 +33,7 @@ class AllData extends \Tualo\Office\Basic\RouteWrapper
     public static function register()
     {
 
-        BasicRoute::add('/papervote/export/all', function () {
+        BasicRoute::add('/papervote/export/(?P<tablename>\w+)', function ($matches) {
             $db = App::get('session')->getDB();
             try {
 
@@ -53,7 +53,7 @@ class AllData extends \Tualo\Office\Basic\RouteWrapper
                 $zipName = $temporary_folder . '/' . Uuid::uuid4()->toString() . '.zip';
                 if ($zip->open($zipName, ZipArchive::CREATE | ZipArchive::OVERWRITE) !== TRUE) throw new \Exception('Could not create zip file');
 
-                $tablename = 'kandidaten';
+                $tablename = $matches['tablename'];
 
                 $_REQUEST['start'] = 0;
                 $_REQUEST['limit'] = 1650000;

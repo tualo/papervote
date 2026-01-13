@@ -2,13 +2,13 @@ DELIMITER ;
 CREATE OR REPLACE VIEW `view_beteiligung_stimmzettel` AS (
     select
         cast(`wahlschein`.`row_start` as date) AS `datum_ts`,
-        `wahlschein`.`update_date` AS `datum`,
+       cast(`wahlschein`.`row_start` as date) AS `datum`,
         `wahlschein`.`wahlscheinstatus` AS `wahlscheinstatus`,
         `wahlschein`.`stimmzettel` AS `stimmzettel`,
         `x`.`waehler` AS `ges_SZ`,
         `x`.`name` AS `SZ`,
-        sum(if(`wahlschein`.`abgabetyp` = '1|0', 1, 0)) AS `briefwahl`,
-        sum(if(`wahlschein`.`abgabetyp` = '1|0', 1, 0)) * 1000 / `x`.`waehler` AS `briefwahl_prozent`,
+        sum(if(`wahlschein`.`abgabetyp` = 1, 1, 0)) AS `briefwahl`,
+        sum(if(`wahlschein`.`abgabetyp` = 1, 1, 0)) * 1000 / `x`.`waehler` AS `briefwahl_prozent`,
         0 AS `onlinewahl`,
         0 AS `onlinewahl_prozent`
     from
@@ -17,7 +17,7 @@ CREATE OR REPLACE VIEW `view_beteiligung_stimmzettel` AS (
             join (
                 select
                     `stimmzettel`.`name` AS `name`,
-                    `stimmzettel`.`ridx` AS `ridx`,
+                    `stimmzettel`.`id` AS `id`,
                     count(
                         distinct concat(
                             `wahlschein`.`wahlscheinnummer`,
@@ -28,17 +28,17 @@ CREATE OR REPLACE VIEW `view_beteiligung_stimmzettel` AS (
                     (
                         `stimmzettel`
                         join `wahlschein` on(
-                            `wahlschein`.`stimmzettel` = `stimmzettel`.`ridx`
+                            `wahlschein`.`stimmzettel` = `stimmzettel`.`id`
                         )
                     )
                 group by
-                    `stimmzettel`.`ridx`
-            ) `x` on(`wahlschein`.`stimmzettel` = `x`.`ridx`)
+                    `stimmzettel`.`id`
+            ) `x` on(`wahlschein`.`stimmzettel` = `x`.`id`)
         )
     where
-        `wahlschein`.`wahlscheinstatus` = '2|0'
+        `wahlschein`.`wahlscheinstatus` = 2
     group by
-        `wahlschein`.`update_date`,
+        cast(`wahlschein`.`row_start` as date),
         `wahlschein`.`wahlscheinstatus`,
         `wahlschein`.`stimmzettel`
 );
