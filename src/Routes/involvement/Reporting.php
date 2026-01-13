@@ -74,6 +74,146 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
         }
     }
 
+    public static function getPugTable(int $auswertung_id = 0): array
+    {
+        $result = [
+            'headers' => [],
+            'data' => [],
+            'sums' => [],
+            'title' => 'Beteiligungsbericht'
+        ];
+
+
+        $db = App::get('session')->getDB();
+        $use_name_title = DSTable::instance('votemanager_setup')->f('id', 'eq', 'wm_involvement_report_base_title')->getSingleValue('val');
+        if ($use_name_title === false) {
+            $use_name_title = DSTable::instance('votemanager_setup')->f('id', 'eq', 'wm_involvement_report_base')->getSingleValue('val');
+        }
+
+
+
+        $wahlbeteiligung_bericht_formel = DSTable::instance('wahlbeteiligung_bericht_formel')->f('aktiv', 'eq', 1)->g();
+        foreach ($wahlbeteiligung_bericht_formel as $index => $wb_formel) {
+            $wb_formel['nenner_excel'] = [];
+            $wb_formel['teiler_excel'] = [];
+
+            foreach (json_decode($wb_formel['nenner'], true) as $value) {
+                $wb_formel['nenner_excel'][] = 'wb_' . $value['id'];
+            }
+            foreach (json_decode($wb_formel['teiler'], true) as $value) {
+                $wb_formel['teiler_excel'][] = 'wb_' . $value['id'];
+            }
+            $wahlbeteiligung_bericht_formel[$index]['nenner_excel'] = $wb_formel['nenner_excel'];
+            $wahlbeteiligung_bericht_formel[$index]['teiler_excel'] = $wb_formel['teiler_excel'];
+        }
+
+        $auswertungen = $db->direct('select 0 id,"Allgemein" auswertung_name  
+                union all
+                select id,name auswertung_name  from wm_auswertungen where
+                order by id
+                having id=' . $db->escape($auswertung_id) . '
+            ');
+        foreach ($auswertungen as $auswertung) {
+
+            $db->execute('set @involvement_filter_id = ' . $auswertung['id']);
+
+            $result['title'] = 'Beteiligungsbericht ' . $auswertung['auswertung_name'];
+
+            $data = self::getReportData();
+            $headers_unclean = self::getHeaders();
+            $headers = [];
+            foreach ($headers_unclean as $header) {
+                if (isset($data[0]) && isset($data[0][$header['column_name']])) {
+                    $headers[] = $header;
+                }
+            }
+
+            foreach ($headers as $header) {
+
+                if ($header['column_name'] == 'use_name') {
+                    $header['column_title'] = $use_name_title;
+                }
+                $result['headers'][] = $header['column_title'];
+            }
+
+
+            foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
+                $result['headers'][] = $wb_formel['name'];
+            }
+
+
+
+
+            // Daten einfügen
+            foreach ($data as $datensatz) {
+                if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+                $row = [];
+                foreach ($headers as $header) {
+                    $row[] = $datensatz[$header['column_name']];
+                }
+                foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
+                    $nenner = [];
+                    foreach ($wb_formel['nenner_excel'] as $n) {
+                        $nenner[] = $datensatz[$n];
+                    }
+                    $teiler = [];
+                    foreach ($wb_formel['teiler_excel'] as $t) {
+                        $teiler[] = $datensatz[$t];
+                    }
+
+                    if (array_sum($teiler) == 0) {
+                        $row[] = 0;
+                    } else {
+                        $row[] = array_sum($nenner) / array_sum($teiler);
+                    }
+                }
+                $result['data'][] = $row;
+            }
+            // Summen einfügen
+            $sumrow = [];
+            foreach ($headers as $header) {
+                if ($header['id'] == -1) {
+                    $sumrow[] = 'Gesamt';
+                    continue;
+                }
+                $sum = 0;
+                foreach ($data as $datensatz) {
+                    if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+                    $sum += $datensatz[$header['column_name']];
+                }
+                $sumrow[] = $sum;
+            }
+            foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
+                $nenner = [];
+                foreach ($wb_formel['nenner_excel'] as $n) {
+                    $nenner_sum = 0;
+                    foreach ($data as $datensatz) {
+                        if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+                        $nenner_sum += $datensatz[$n];
+                    }
+                    $nenner[] = $nenner_sum;
+                }
+                $teiler = [];
+                foreach ($wb_formel['teiler_excel'] as $t) {
+                    $teiler_sum = 0;
+                    foreach ($data as $datensatz) {
+                        if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+                        $teiler_sum += $datensatz[$t];
+                    }
+                    $teiler[] = $teiler_sum;
+                }
+
+                if (array_sum($teiler) == 0) {
+                    $sumrow[] = 0;
+                } else {
+                    $sumrow[] = array_sum($nenner) / array_sum($teiler);
+                }
+            }
+            $result['sums'][] = $sumrow;
+        }
+
+        return $result;
+    }
 
     public static function getExcel($name = 'Beteiligungsbericht.xlsx')
     {
