@@ -111,8 +111,8 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                 union all
                 select id,name auswertung_name  from wm_auswertungen where
                 order by id
-                having id=' . $db->escape($auswertung_id) . '
-            ');
+                having id={id}
+            ', ['id' => $auswertung_id]);
         foreach ($auswertungen as $auswertung) {
 
             $db->execute('set @involvement_filter_id = ' . $auswertung['id']);
