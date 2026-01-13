@@ -130,11 +130,13 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
 
             foreach ($headers as $header) {
 
+                $type = 'number';
                 if ($header['column_name'] == 'use_name') {
                     $header['column_title'] = $use_name_title;
+                    $type = 'string';
                 }
                 $result['headers'][] = $header['column_title'];
-                $result['formats'][] = 'number';
+                $result['formats'][] = $type;
             }
 
 
