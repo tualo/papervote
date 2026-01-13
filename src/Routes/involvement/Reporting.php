@@ -78,6 +78,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
     {
         $result = [
             'headers' => [],
+            'formats' => [],
             'data' => [],
             'sums' => [],
             'title' => 'Beteiligungsbericht'
@@ -109,8 +110,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
 
         $auswertungen = $db->direct('select 0 id,"Allgemein" auswertung_name  
                 union all
-                select id,name auswertung_name  from wm_auswertungen where
-                order by id
+                select id,name auswertung_name  from wm_auswertungen 
                 having id={id}
             ', ['id' => $auswertung_id]);
         foreach ($auswertungen as $auswertung) {
@@ -134,11 +134,13 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                     $header['column_title'] = $use_name_title;
                 }
                 $result['headers'][] = $header['column_title'];
+                $result['formats'][] = 'number';
             }
 
 
             foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
                 $result['headers'][] = $wb_formel['name'];
+                $result['formats'][] = 'percent';
             }
 
 

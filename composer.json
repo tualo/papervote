@@ -28,5 +28,5 @@
     "phpseclib/phpseclib": "~3.0.46",
     "tualo/votemanager": "^1.1.21"
   },
-  "version": "2.2.32"
+  "version": "2.2.33"
 }
