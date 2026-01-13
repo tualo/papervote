@@ -24,7 +24,7 @@ use Tualo\Office\DS\DSTable;
 use Tualo\Office\DS\DataRenderer;
 
 
-class AllData extends \Tualo\Office\Basic\RouteWrapper
+class TableData extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function scope(): string
     {
