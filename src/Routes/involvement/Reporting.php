@@ -74,7 +74,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
         }
     }
 
-    public static function getPugTable(int $auswertung_id = 0): array
+    public static function getPugTable(int $auswertung_id = 0, bool $hideZeroColumns = false): array
     {
         $result = [
             'headers' => [],
@@ -127,6 +127,14 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             $headers = [];
             foreach ($headers_unclean as $header) {
                 if (isset($data[0]) && isset($data[0][$header['column_name']])) {
+
+                    $sum = 0;
+                    foreach ($data as $datensatz) {
+                        if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+                        $sum += $datensatz[$header['column_name']];
+                    }
+
+                    if ($hideZeroColumns && $sum == 0) continue;
                     $headers[] = $header;
                 }
             }
