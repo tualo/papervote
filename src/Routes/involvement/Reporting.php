@@ -127,13 +127,13 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             $headers = [];
             foreach ($headers_unclean as $header) {
                 if (isset($data[0]) && isset($data[0][$header['column_name']])) {
+                    if ($header['column_name'] == 'use_name') {
+                        $headers[] = $header;
+                        continue;
+                    }
 
                     $sum = 0;
                     foreach ($data as $datensatz) {
-                        if ($header['column_name'] == 'use_name') {
-                            $headers[] = $header;
-                            continue;
-                        }
                         $sum += $datensatz[$header['column_name']];
                     }
 
