@@ -131,6 +131,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                     $sum = 0;
                     foreach ($data as $datensatz) {
                         if (!isset($datensatz['use_name']) || $datensatz['use_name'] == '') continue;
+                        if ($header['column_name'] == 'use_name') continue;
                         $sum += $datensatz[$header['column_name']];
                     }
 
