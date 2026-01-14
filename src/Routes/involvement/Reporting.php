@@ -108,10 +108,13 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             $wahlbeteiligung_bericht_formel[$index]['teiler_excel'] = $wb_formel['teiler_excel'];
         }
 
-        $auswertungen = $db->direct('select 0 id,"Allgemein" auswertung_name  
+        $auswertungen = $db->direct('
+            select * from (
+                select 0 id,"Allgemein" auswertung_name  
                 union all
                 select id,name auswertung_name  from wm_auswertungen 
-                having id={id}
+            ) as t
+            having id={id}
             ', ['id' => $auswertung_id]);
         foreach ($auswertungen as $auswertung) {
 
