@@ -58,9 +58,9 @@ class Tables  extends PostCheck
             'stapel1' => [],
             'stapel2' => [],
             'kandidaten_bilder' => [],
-            'kandidaten_stimmenanzahl' => [],
+            'view_kandidaten_stimmenanzahl' => [],
             'kandidaten' => [],
-            'ohne_wahlberechtigten' => [],
+            'view_ohne_wahlberechtigten' => [],
             'onlinekandidaten' => [],
             'onlinestimmzettel' => [],
             'ruecklauffelder' => [],
@@ -68,9 +68,8 @@ class Tables  extends PostCheck
             'stimmzettel_fusstexte' => [],
             'stimmzettelgruppen' => [],
             'reportfiles' => [],
-            'view_blocksystem_status' => [],
-            'view_blocksystem_status_blocks' => [],
-            'view_blocksystem_status_blocks_wahlscheine' => [],
+
+
             'view_double_voter' => [],
             'view_beteiligung_stimmzettel' => [],
             'wahlschein_status_import' => [],
