@@ -63,7 +63,10 @@ class SetupHandshake extends \Tualo\Office\Basic\RouteWrapper
                             // $params     =   [], removed because it is not used
                             $force      =   true,
                             $anyclient  =   false,
-                            $path       =   '/papervote/*'
+                            $path       =   '/papervote/*',
+                            $name = 'API Handshake Token',
+                            $device = gethostname()
+
                         );
                         $session->oauthValidDays($token, 365);
 
