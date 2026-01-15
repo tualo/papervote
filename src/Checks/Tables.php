@@ -24,8 +24,8 @@ class Tables  extends PostCheck
                 'columns' => [
                     'id' => 'varchar(36)',
                     // 'file_id'=>'varchar(36)',
-                    'kandidat' => 'varchar(12)',
-                    'typ' => 'varchar(12)',
+                    'kandidat' => 'int(11)',
+                    'typ' => 'int(11)',
                     '__file_name' => 'varchar(255)',
                     'path' => 'varchar(255)',
                     '__file_size' => 'int(11)',
@@ -39,8 +39,8 @@ class Tables  extends PostCheck
             ],
             'wahlscheinstatus_online_erlaubt' => [
                 'columns' => [
-                    'wahlscheinstatus' => 'varchar(12)',
-                    'abgabetyp' => 'varchar(12)'
+                    'wahlscheinstatus' => 'int(11)',
+                    'abgabetyp' => 'int(11)'
                 ]
             ],
             'wahlberechtigte' => [],
