@@ -21,6 +21,9 @@ class Status extends \Tualo\Office\Basic\RouteWrapper
             App::result('basistyp', App::configuration('papervote', 'basistyp', 'stimmzettel'));
             App::result('force_blocknumber', App::configuration('papervote', 'force_blocknumber', '0'));
 
+            App::result('owstate', [
+                'remoteError' => true,
+            ]);
             // /onlinevote/state
             $db = App::get('session')->getDB();
             $o = $db->directMap("
