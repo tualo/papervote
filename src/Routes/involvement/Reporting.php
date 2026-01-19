@@ -66,7 +66,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
     {
         try {
             $db = App::get('session')->getDB();
-            $res = $db->direct('select * from view_wahlbeteiligung_base_pivot');
+            $res = $db->direct('select * from view_wahlbeteiligung_base_pivot order by use_id');
             return $res;
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -460,6 +460,11 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
 
 
                     //App::result('data', Reporting::getData());
+                    $wm_involvement_ui_report_id = DSTable::instance('votemanager_setup')->f('id', 'eq', 'wm_involvement_ui_report_id')->getSingleValue('val');
+                    if ($wm_involvement_ui_report_id === false) {
+                        $wm_involvement_ui_report_id = 0;
+                    }
+                    $db->execute('set @involvement_filter_id = ' . $wm_involvement_ui_report_id);
 
                     App::result('data', self::getReportData());
 
