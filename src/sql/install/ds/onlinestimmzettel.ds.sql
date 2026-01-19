@@ -15,5 +15,6 @@ INSERT IGNORE INTO `ds_column_form_label` (`active`,`allowempty`,`column_name`,`
 INSERT IGNORE INTO `ds_column_form_label` (`active`,`allowempty`,`column_name`,`field_path`,`flex`,`hidden`,`label`,`language`,`position`,`table_name`,`xtype`) VALUES ('1','0','stimmzettel','Allgemein/Angaben','1.00','0','Stimmzettel','DE','0','onlinestimmzettel','displaycombobox_stimmzettel_id') ; 
 INSERT IGNORE INTO `ds_reference_tables` (`active`,`autosync`,`columnsdef`,`constraint_name`,`existsreal`,`path`,`position`,`reference_table_name`,`searchable`,`table_name`,`tabtitle`) VALUES ('0','0','{\"stimmzettel\":\"id\"}','fk_onlinestimmzettel_stimmzettel','1','','999','stimmzettel','0','onlinestimmzettel','') ; 
 INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('0','0','0','_default_','onlinestimmzettel','0') ; 
+INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('1','0','1','wahl_onlinewahl_sync','onlinestimmzettel','1') ; 
 INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('0','0','0','administration','onlinestimmzettel','0') ; 
 SET FOREIGN_KEY_CHECKS=1;

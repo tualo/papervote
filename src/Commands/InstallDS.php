@@ -22,6 +22,7 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
     public static $files = [
 
         'install/ds/ds_class'                               => 'setup ds_class',
+        'add_group'                               => 'setup add_group',
         // 'install/ds/votemanager_setup.ds'                   => 'setup votemanager_setup.ds',
 
         'install/ds/reportfiles_typen.ds'                   => 'setup reportfiles_typen.ds',
@@ -30,7 +31,8 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/ballotbox_decrypted_sum.ds'                        => 'setup ballotbox_decrypted_sum.ds',
         'install/ds/blocked_voters.ds'                => 'setup blocked_voters.ds',
 
-
+        'install/ds/onlinekandidaten.ds'                             => 'setup onlinekandidaten.ds',
+        'install/ds/onlinestimmzettel.ds'                            => 'setup onlinestimmzettel.ds',
 
 
     ];

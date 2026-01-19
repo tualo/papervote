@@ -15,6 +15,8 @@ INSERT IGNORE INTO `ds_column_form_label` (`active`,`allowempty`,`column_name`,`
 INSERT IGNORE INTO `ds_column_form_label` (`active`,`allowempty`,`column_name`,`field_path`,`flex`,`hidden`,`label`,`language`,`position`,`table_name`,`xtype`) VALUES ('1','1','login','Allgemein/Angaben','1.00','0','Login','DE','7','onlinekandidaten','displayfield') ; 
 INSERT IGNORE INTO `ds_reference_tables` (`active`,`autosync`,`columnsdef`,`constraint_name`,`existsreal`,`path`,`position`,`reference_table_name`,`searchable`,`table_name`,`tabtitle`) VALUES ('0','0','{\"id\":\"id\"}','fk_onlinekandidaten_kandidaten_id','1','','999','kandidaten','0','onlinekandidaten','') ; 
 INSERT IGNORE INTO `ds_reference_tables` (`active`,`autosync`,`columnsdef`,`constraint_name`,`existsreal`,`path`,`position`,`reference_table_name`,`searchable`,`table_name`,`tabtitle`) VALUES ('0','0','{\"ridx\":\"ridx\"}','fk_onlinekandidaten_kandidaten_ridx','0','','999','kandidaten','0','onlinekandidaten','') ; 
+
 INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('0','0','0','_default_','onlinekandidaten','0') ; 
-INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('0','0','0','administration','onlinekandidaten','0') ; 
+INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('1','0','1','wahl_onlinewahl_sync','onlinekandidaten','1') ; 
+INSERT IGNORE INTO `ds_access` (`append`,`delete`,`read`,`role`,`table_name`,`write`) VALUES ('0','0','1','administration','onlinekandidaten','0') ; 
 SET FOREIGN_KEY_CHECKS=1;
