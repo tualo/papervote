@@ -10,6 +10,7 @@ select
     min(rn) min_rn,
     max(rn) max_rn,
     use_sitze,
+    
     gesamtstimmen,
 
     if (

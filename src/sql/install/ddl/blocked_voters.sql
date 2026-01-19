@@ -6,11 +6,16 @@ select
     `wahlschein`.`stimmzettel`
 from
     `wahlschein`
+    join voting_state
 where
     (
         `wahlschein`.`wahlscheinstatus` <> 2
         and `wahlschein`.`abgabetyp` = 2
     )
-    or `wahlschein`.`testdaten` = 1
-;
-
+    or 
+    (
+        voting_state.phase in ('production_phase', 'council_phase','setup_phase','reset_phase')
+        and 
+        `wahlschein`.`testdaten` = 1
+    )
+    ;
