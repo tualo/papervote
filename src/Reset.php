@@ -224,6 +224,10 @@ class Reset
             $db->execute($sql);
         } catch (\Exception $e) {
         }
+
+
+        $sql = 'insert ignore into onlinekandidaten(id) select id from kandidaten';
+        $db->execute($sql);
     }
 
     public static function Onlinestimmzettel()
