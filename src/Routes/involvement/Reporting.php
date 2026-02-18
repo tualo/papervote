@@ -370,6 +370,13 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                     $sheet->getStyle(Coordinate::stringFromColumnIndex($start_spalte) . $zeile)->getFont()->setBold(true);
                     $start_spalte++;
                 }
+                $coordianates = [];
+                foreach ($headers as $header) {
+                    $coordianate = Coordinate::stringFromColumnIndex($start_spalte) . $zeile;
+                    $coordianates[$header['column_name']] = $coordianate;
+                    $sheet->SetCellValue($coordianate, $datensatz[$header['column_name']]);
+                    $start_spalte++;
+                }
                 foreach ($wahlbeteiligung_bericht_formel as $wb_formel) {
                     $nenner = [];
                     foreach ($wb_formel['nenner_excel'] as $n) {
