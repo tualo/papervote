@@ -371,6 +371,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                     $start_spalte++;
                 }
                 $coordianates = [];
+                $start_spalte = 1;
                 foreach ($headers as $header) {
                     $coordianate = Coordinate::stringFromColumnIndex($start_spalte) . $zeile;
                     $coordianates[$header['column_name']] = $coordianate;
