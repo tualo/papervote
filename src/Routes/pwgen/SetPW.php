@@ -23,6 +23,33 @@ class SetPW extends \Tualo\Office\Basic\RouteWrapper
     public static function register()
     {
 
+        BasicRoute::add('/pwgen/pwx', function () {
+            try {
+                $postdata = file_get_contents("php://input");
+                $session = App::get('session');
+                $db = $session->getDB();
+
+                $filter = '1=1';
+                if (isset($_REQUEST['filter'])) {
+                    $filter = 'username like "' . $_REQUEST['filter'] . '%"';
+                }
+
+                $list = $db->direct('select id,password from wahlschein_passwords where pwhash is null and ' . $filter . ' limit 100 ', []);
+
+                foreach ($list as $row) {
+                    $hash = password_hash($row['password'], PASSWORD_BCRYPT);
+                    $db->direct('update wahlschein_passwords set pwhash={pwhash} where id={id}', ['pwhash' => $hash, 'id' => $row['id']]);
+                }
+
+                App::result('success', true);
+            } catch (Exception $e) {
+                App::result('msg', $e->getMessage());
+            }
+            App::contenttype('application/json');
+        }, ['post', 'get'], true, [], self::scope());
+
+
+
 
         BasicRoute::add('/pwgen/set', function () {
             try {

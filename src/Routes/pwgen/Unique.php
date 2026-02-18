@@ -49,6 +49,7 @@ class Unique extends \Tualo\Office\Basic\RouteWrapper
                 }
 
                 App::result('wahlschein', $db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r', []));
+                // create table temp_random_list_wahlschein as select * from temp_random_list
                 set_time_limit(120);
 
                 $sum = 0;
@@ -60,6 +61,13 @@ class Unique extends \Tualo\Office\Basic\RouteWrapper
                 }
 
                 App::result('username', $db->direct('select temp_random_list.*,rand() r from temp_random_list order by r', []));
+                // create table temp_random_list_username as select * from temp_random_list
+                /*
+                call appendRandomList(8,"1234567890","wahlscheinnummer");
+                call appendRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789","username");
+                call appendRandomList(8,"ABCDEFGHJKLMNPRSTUVXYZabcdefghijkmpstuvxyz123456789","pw");
+                call cleanRandomTables();
+                */
                 set_time_limit(120);
 
                 $sum = 0;
@@ -72,6 +80,7 @@ class Unique extends \Tualo\Office\Basic\RouteWrapper
 
                 set_time_limit(120);
                 App::result('password', $db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r', []));
+                // create table temp_random_list_password as select * from temp_random_list
                 App::result('success', true);
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
