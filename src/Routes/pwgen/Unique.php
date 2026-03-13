@@ -28,6 +28,29 @@ class Unique extends \Tualo\Office\Basic\RouteWrapper
             App::contenttype('application/json');
             set_time_limit(120);
             try {
+
+                set_time_limit(120);
+
+                App::result('wahlschein', $db->direct('select * from wahlschein_numbers where used = false order by random limit 8535', []));
+                App::result('username', $db->direct('select * from pwgen_precalc where used = false order by seed limit 8535', []));
+
+                $startRand = rand(100, 1000);
+                App::result('password', $db->direct('select * from pwgen_precalc order by seed limit ' . $startRand . ',8535 ', []));
+
+                // App::result('password', $db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r', []));
+                // create table temp_random_list_password as select * from temp_random_list
+                App::result('success', true);
+            } catch (Exception $e) {
+                App::result('msg', $e->getMessage());
+            }
+        }, ['post', 'get'], true);
+
+        BasicRoute::add('/pwgen/v.1/new_unique', function () {
+            $session = App::get('session');
+            $db = $session->getDB();
+            App::contenttype('application/json');
+            set_time_limit(120);
+            try {
                 App::result('wahlschein', []);
                 App::result('username', []);
                 App::result('password', []);

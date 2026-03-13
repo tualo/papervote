@@ -66,6 +66,10 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
     {
         try {
             $db = App::get('session')->getDB();
+            if (App::configuration('papervote', 'use_ich_habe_keinen_namen_mehr', false) !== false) {
+                $res = $db->execute('call fill_ich_habe_keinen_namen_mehr()');
+                $res = $db->moreResults();
+            }
             $res = $db->direct('select * from view_wahlbeteiligung_base_pivot order by use_id');
             return $res;
         } catch (Exception $e) {

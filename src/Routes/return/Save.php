@@ -16,15 +16,31 @@ use Tualo\Office\DS\DSTable;
 
 class Save extends \Tualo\Office\Basic\RouteWrapper
 {
+    private static $time_start = 0;
+    private static $total_time_start = 0;
+    private static $timing_result = [];
     public static function scope(): string
     {
         return 'papervote.return';
+    }
+
+    public static function timing(string $key, $data = null)
+    {
+        if (self::$time_start == 0) self::$time_start = microtime(true);
+        if (self::$total_time_start == 0) self::$total_time_start = microtime(true);
+        $time_end = microtime(true);
+        self::$timing_result[] = array('key' => $key, 'total' => $time_end - self::$total_time_start, 'last' => $time_end - self::$time_start, 'data' => $data);
+        //if (self::configuration('logger-options', 'TualoApplicationTiming', '0') == '1') {
+        App::logger('PaperVoteSave')->info(number_format($time_end - self::$total_time_start, 5) . "s " . number_format($time_end - self::$time_start, 5) . "s (" . $key . ")");
+        //}
+        self::$time_start = $time_end;
     }
     public static function register()
     {
         BasicRoute::add('/papervote/return/save', function () {
             $db = App::get('session')->getDB();
             try {
+                Save::timing('start');
                 $input = json_decode(file_get_contents('php://input'), true);
                 if (is_null($input)) throw new Exception("Error Processing Request", 1);
                 $status = json_decode($input['status'], true);
@@ -46,6 +62,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                 }
 
                 $db->direct("insert into wahlschein_blocknumbers (blocknumber  ,login,lastlogin , createtime ,lastinsert) values ({blocknumber},getSessionUser(),getSessionUser(),now(),now() ) on duplicate key update lastlogin=values(lastlogin),lastinsert=values(lastinsert) ", ['blocknumber' => $blocknumber]);
+                Save::timing('wahlschein_blocknumbers', __LINE__);
 
                 foreach ($liste as $wert) {
 
@@ -54,8 +71,11 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
                     $ws = $ws_read->getSingle();
                     // try load WS
+                    Save::timing('DSTable::instance(wahlschein)', __LINE__);
+
                     $loadWS = Query::get('wahlscheinnummer', $ws['wahlscheinnummer']);
                     if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
+                    Save::timing('Query::get(wahlscheinnummer)', __LINE__);
 
 
                     foreach ($status as $val) {
@@ -77,6 +97,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
 
                         App::logger('SAVE')->debug($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
                         $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
+                        Save::timing('WMTualoRequestHelper::query(wahlscheinnummer)', __LINE__);
                         if ($online_result === false) {
                             throw new Exception("Der Wähler ist derzeit online angemeldet. Bitte warten Sie bis der Wähler sich abgemeldet hat.");
                         }
@@ -87,13 +108,19 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                         */
                     }
 
+
                     $ws['' . 'usedate'] = $usedate; // Datum übernehmen
                     $ws['' . 'abgabetyp'] = 1; // Briefwahltyp setzen
                     $ws['' . 'blocknumber'] = $blocknumber; // blocknumber
 
+
+                    Save::timing('before wahlschein->update(wahlscheinnummer)', __LINE__);
+
                     unset($ws['te']);
                     unset($ws['ts']);
                     $wahlschein->update($ws);
+
+                    Save::timing('wahlschein->update(wahlscheinnummer)', __LINE__);
                     if ($wahlschein->error()) {
                         App::result('msg', $wahlschein->errorMessage());
                     } else {

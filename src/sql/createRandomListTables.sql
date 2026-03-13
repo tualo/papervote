@@ -67,8 +67,8 @@ begin
     update wahlschein w
     join wahlschein_passwords p
     on w.id = p.id
-    and w.wusername=''
-    set w.wahlscheinnummer = p.wahlscheinnummer, w.username = p.username, w.password = p.password
+    and w.username=''
+    set w.wahlscheinnummer = p.wahlscheinnummer, w.username = p.username, w.pwhash = p.pwhash
     limit 10000;
 
 end //
