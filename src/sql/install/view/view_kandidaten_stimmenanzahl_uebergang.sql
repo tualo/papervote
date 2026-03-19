@@ -23,7 +23,7 @@ select
             )
     ) AS `stimmzettelgruppen_rang`,
 
-concat(if(`kandidaten`.`titel` <> '',concat(`kandidaten`.`titel`,' '),''),`kandidaten`.`nachname`,', ',`kandidaten`.`vorname`) AS `anzeige_name`,
+concat(if(ifnull(`kandidaten`.`titel`,'') <> '',concat(ifnull(`kandidaten`.`titel`,'') ,' '),''),ifnull(`kandidaten`.`nachname`,''),', ',ifnull(`kandidaten`.`vorname`,'')) AS `anzeige_name`,
     `kandidaten`.`id` AS `id`,
     
     `kandidaten`.`barcode` AS `barcode`,
