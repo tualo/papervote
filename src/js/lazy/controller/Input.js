@@ -318,25 +318,25 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
     buttonDock.removeAll();
     Ext.util.CSS.createStyleSheet('.mbutton span{ color: #fff; font-weight: bold; text-shadow: 0px 0px 1px #000; }');
     records.forEach(function (item) {
-      if (item.get('wahlscheinstatus__aktiv') == '1') {
-        if (item.get('wahlscheinstatus__barcode') != '') {
+      if (item.get('aktiv') == '1') {
+        if (item.get('barcode') != '') {
           ctrl = Ext.create('Ext.button.Button', {
-            text: item.get('wahlscheinstatus__name'),
-            handler: me.handleFC(item.get('wahlscheinstatus__barcode'), item.get('wahlscheinstatus__ridx')),
+            text: item.get('name'),
+            handler: me.handleFC(item.get('barcode'), item.get('ridx')),
             cls: 'mbutton',
             style: {
               borderRadius: '10px',
               //textShadow: '0px 0px 1px #ffffff',
               //textColor: '#fff',
               //fontWeight: 'bold',
-              backgroundColor: item.get('wahlscheinstatus__farbe')
+              backgroundColor: item.get('farbe')
             }
           });
           buttonDock.add(ctrl);
           me.ctrls.push(ctrl.id);
         }
       }
-      me.logic.wahlscheinstatusHash[item.get('wahlscheinstatus__ridx')] = item.get('wahlscheinstatus__name');
+      me.logic.wahlscheinstatusHash[item.get('id')] = item.get('name');
       if (!me.view.disabled) {
         me.logic.fireEvent('state', me.logic, ''); // initialy send empty state
         me.logic.fireEvent('message', me.logic, 'Bitte scannen Sie einen Wahlberechtigten'); // initialy send empty state
