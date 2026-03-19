@@ -285,6 +285,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
         Ext.getCmp(id).setDisabled(state);
       });
     } else {
+
       me.view.disable();
     }
   },
@@ -336,8 +337,10 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
         }
       }
       me.logic.wahlscheinstatusHash[item.get('wahlscheinstatus__ridx')] = item.get('wahlscheinstatus__name');
-      me.logic.fireEvent('state', me.logic, ''); // initialy send empty state
-      me.logic.fireEvent('message', me.logic, 'Bitte scannen Sie einen Wahlberechtigten'); // initialy send empty state
+      if (!me.view.disabled) {
+        me.logic.fireEvent('state', me.logic, ''); // initialy send empty state
+        me.logic.fireEvent('message', me.logic, 'Bitte scannen Sie einen Wahlberechtigten'); // initialy send empty state
+      }
     });
 
     buttonDock.add(Ext.create('Ext.toolbar.Fill', {}));
