@@ -27,9 +27,9 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
 
     public static function getHeaders(): array
     {
-        try {
-            $db = App::get('session')->getDB();
-            $res = $db->direct('
+        // try {
+        $db = App::get('session')->getDB();
+        $res = $db->direct('
                     select 
                         -1 id,
                         concat("use_name") column_name,
@@ -55,27 +55,27 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                     order by id
                     
                     ');
-            return $res;
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            return [];
-        }
+        return $res;
+        //} catch (Exception $e) {
+        //    echo $e->getMessage();
+        //  return [];
+        //}
     }
 
     public static function getReportData(): array
     {
-        try {
-            $db = App::get('session')->getDB();
-            if (App::configuration('papervote', 'use_ich_habe_keinen_namen_mehr', false) !== false) {
-                $res = $db->execute('call fill_ich_habe_keinen_namen_mehr()');
-                $res = $db->moreResults();
-            }
-            $res = $db->direct('select * from view_wahlbeteiligung_base_pivot order by use_id');
-            return $res;
-        } catch (Exception $e) {
-            echo $e->getMessage();
-            return [];
+        //try {
+        $db = App::get('session')->getDB();
+        if (App::configuration('papervote', 'use_ich_habe_keinen_namen_mehr', false) !== false) {
+            $res = $db->execute('call fill_ich_habe_keinen_namen_mehr()');
+            $res = $db->moreResults();
         }
+        $res = $db->direct('select * from view_wahlbeteiligung_base_pivot order by use_id');
+        return $res;
+        //} catch (Exception $e) {
+
+        ///    return [];
+        // }
     }
 
     public static function getPugTable(int $auswertung_id = 0, bool $hideZeroColumns = false): array
