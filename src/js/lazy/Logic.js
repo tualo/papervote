@@ -484,138 +484,145 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         this.FSM = Ext.create('Tualo.PaperVote.lazy.ReturnFSM', {
             startingState: this.startingState
         });
+        try {
+            let res = await (await fetch('./papervote/return/setup', {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+            })).json();
 
-        let res = await (await fetch('./papervote/return/setup', {
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-        })).json();
-        if (res.success === false) {
-            scope.fireEvent('message', scope, res.msg + ' Scannen Sie *Leeren*.');
-            scope.fireEvent('refocus', scope, '');
-            scope.fireEvent('state', scope, 'error');
-            return;
+            if (res.success === false) {
+                scope.fireEvent('message', scope, res.msg + ' Scannen Sie *Leeren*.');
+                scope.fireEvent('refocus', scope, '');
+                scope.fireEvent('state', scope, 'error');
+                return;
+            }
+            if (!Ext.isEmpty(res.data.FORCEBLOCKCODE)) {
+                if (res.data.FORCEBLOCKCODE.daten == '1') {
+                    me.FORCEBLOCKCODE = true;
+                }
+            }
+
+            this.allowTransit('einlesen => WBFehler', null, function (scope) {
+                return function () {
+                    console.log(scope.last_message);
+                    scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie *Leeren*.');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('state', scope, 'error');
+                    scope.wbliste = [];
+                    scope.wbhash = {};
+
+                }
+            }(this));
+
+
+
+
+
+            this.allowTransit('einlesen => useBlock', null, function (scope) {
+                return function () {
+                    console.log('useBlock', scope.last_message);
+                    scope.blocknumber = scope.last_message;
+                    scope.fireEvent('blockchanged', scope, scope.blocknumber);
+                    scope.fireEvent('refocus', scope, '');
+                    scope.transit('warteAufWB');
+                }
+            }(this));
+            this.fireEvent('blockchanged', this, this.blocknumber);
+
+            this.allowTransit('warteAufStatusOderWB => warteAufStatus', null, () => { });
+            this.allowTransit('warteAufStatusOderWB => warteAufStatusOderWB', null, () => { });
+            this.allowTransit('WBFehler => WBFehler', null, () => { });
+
+
+
+            this.allowTransit('warteAufStatusOderWB => WBFehler', null, function (scope) {
+                return function () {
+                    console.log(scope.last_message);
+                    scope.fireEvent('message', scope, 'Für mindestens einen Wahltyp ist eine Beteiligung verzeichnet, scannen Sie *Leeren*.');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('state', scope, 'error');
+                }
+            }(this))
+
+                ;
+
+            this.allowTransit('warteAufStatus => WBFehler', null, function (scope) {
+                return function () {
+                    console.log(scope.last_message);
+                    scope.fireEvent('message', scope, ' Scannen Sie *Leeren*.');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('state', scope, 'error');
+                }
+            }(this));
+            this.allowTransit('WBFehler =>  einlesen', null, this.leseleeren(this));
+
+            this.allowTransit('warteAufWB => einlesen', null, this.lese(this));
+
+            this.allowTransit('useBlock => warteAufWB', null, function (scope) {
+                return function () {
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
+                }
+            });
+
+            this.allowTransit('warteAufStatus => einlesen', null, this.setze(this));
+            this.allowTransit('warteAufStatusOderWB => einlesen', null, this.liste(this));
+            this.allowTransit('warteAufTAN => einlesen', null, this.tan(this));
+            this.allowTransit('einlesen => warteAufGrund', null, this.grund(this));
+            this.allowTransit('warteAufGrund => warteAufWB', null, function (scope) {
+                return function () {
+                    scope.fireEvent('state', scope, '');
+                    scope.fireEvent('refocus', scope, '');
+                    //scope.fireEvent('reset',scope,'');
+                    scope.fireEvent('saved', scope, '');
+                    scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
+                }
+            }(this));
+
+            this.allowTransit('warteAufGrund => warteAufStatus', null, function (scope) {
+                return function () {
+                    scope.fireEvent('state', scope, 'ok');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('message', scope, 'Scannen Sie den Status f&uuml;r die ' + scope.typen[scope.typen_index].name);
+                }
+            }(this));
+            this.allowTransit('einlesen => warteAufWB', null, function (scope) {
+                return function () {
+                    scope.fireEvent('state', scope, '');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('saved', scope, '');
+                    scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
+                }
+            }(this));
+            this.allowTransit('einlesen => warteAufStatusOderWB', null, function (scope) {
+                return function () {
+                    scope.fireEvent('state', scope, 'ok');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten oder den Status');// f&uuml;r die ' + scope.typen[scope.typen_index].name);
+                }
+            }(this));
+            this.allowTransit('einlesen => warteAufStatus', null, function (scope) {
+                return function () {
+                    scope.fireEvent('state', scope, 'ok');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('message', scope, 'Scannen Sie den Status ');// f&uuml;r die ' + scope.typen[scope.typen_index].name);
+                }
+            }(this));
+            this.allowTransit('einlesen => warteAufTAN', null, function (scope) {
+                return function () {
+                    scope.fireEvent('state', scope, 'yellow');
+                    scope.fireEvent('refocus', scope, '');
+                    scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie eine freie TAN, um mit diesem Berechtigten fortzufahren.');
+                }
+            }(this));
+            this.fireEvent('refocus', this, '');
+        } catch (e) {
+            console.log(e);
+            this.fireEvent('message', this, 'Fehler bei der Initialisierung: ' + e);
+            this.fireEvent('refocus', this, '');
+            this.fireEvent('state', this, 'error');
         }
-        if (!Ext.isEmpty(res.data.FORCEBLOCKCODE)) {
-            if (res.data.FORCEBLOCKCODE.daten == '1') {
-                me.FORCEBLOCKCODE = true;
-            }
-        }
-
-        this.allowTransit('einlesen => WBFehler', null, function (scope) {
-            return function () {
-                console.log(scope.last_message);
-                scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie *Leeren*.');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('state', scope, 'error');
-                scope.wbliste = [];
-                scope.wbhash = {};
-
-            }
-        }(this));
-
-
-
-
-
-        this.allowTransit('einlesen => useBlock', null, function (scope) {
-            return function () {
-                console.log('useBlock', scope.last_message);
-                scope.blocknumber = scope.last_message;
-                scope.fireEvent('blockchanged', scope, scope.blocknumber);
-                scope.fireEvent('refocus', scope, '');
-                scope.transit('warteAufWB');
-            }
-        }(this));
-        this.fireEvent('blockchanged', this, this.blocknumber);
-
-        this.allowTransit('warteAufStatusOderWB => warteAufStatus', null, () => { });
-        this.allowTransit('warteAufStatusOderWB => warteAufStatusOderWB', null, () => { });
-        this.allowTransit('WBFehler => WBFehler', null, () => { });
-
-
-
-        this.allowTransit('warteAufStatusOderWB => WBFehler', null, function (scope) {
-            return function () {
-                console.log(scope.last_message);
-                scope.fireEvent('message', scope, 'Für mindestens einen Wahltyp ist eine Beteiligung verzeichnet, scannen Sie *Leeren*.');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('state', scope, 'error');
-            }
-        }(this))
-
-            ;
-
-        this.allowTransit('warteAufStatus => WBFehler', null, function (scope) {
-            return function () {
-                console.log(scope.last_message);
-                scope.fireEvent('message', scope, ' Scannen Sie *Leeren*.');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('state', scope, 'error');
-            }
-        }(this));
-        this.allowTransit('WBFehler =>  einlesen', null, this.leseleeren(this));
-
-        this.allowTransit('warteAufWB => einlesen', null, this.lese(this));
-
-        this.allowTransit('useBlock => warteAufWB', null, function (scope) {
-            return function () {
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
-            }
-        });
-
-        this.allowTransit('warteAufStatus => einlesen', null, this.setze(this));
-        this.allowTransit('warteAufStatusOderWB => einlesen', null, this.liste(this));
-        this.allowTransit('warteAufTAN => einlesen', null, this.tan(this));
-        this.allowTransit('einlesen => warteAufGrund', null, this.grund(this));
-        this.allowTransit('warteAufGrund => warteAufWB', null, function (scope) {
-            return function () {
-                scope.fireEvent('state', scope, '');
-                scope.fireEvent('refocus', scope, '');
-                //scope.fireEvent('reset',scope,'');
-                scope.fireEvent('saved', scope, '');
-                scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
-            }
-        }(this));
-
-        this.allowTransit('warteAufGrund => warteAufStatus', null, function (scope) {
-            return function () {
-                scope.fireEvent('state', scope, 'ok');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('message', scope, 'Scannen Sie den Status f&uuml;r die ' + scope.typen[scope.typen_index].name);
-            }
-        }(this));
-        this.allowTransit('einlesen => warteAufWB', null, function (scope) {
-            return function () {
-                scope.fireEvent('state', scope, '');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('saved', scope, '');
-                scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten.');
-            }
-        }(this));
-        this.allowTransit('einlesen => warteAufStatusOderWB', null, function (scope) {
-            return function () {
-                scope.fireEvent('state', scope, 'ok');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('message', scope, 'Scannen Sie einen Berechtigten oder den Status');// f&uuml;r die ' + scope.typen[scope.typen_index].name);
-            }
-        }(this));
-        this.allowTransit('einlesen => warteAufStatus', null, function (scope) {
-            return function () {
-                scope.fireEvent('state', scope, 'ok');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('message', scope, 'Scannen Sie den Status ');// f&uuml;r die ' + scope.typen[scope.typen_index].name);
-            }
-        }(this));
-        this.allowTransit('einlesen => warteAufTAN', null, function (scope) {
-            return function () {
-                scope.fireEvent('state', scope, 'yellow');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('message', scope, scope.last_message + ' Scannen Sie eine freie TAN, um mit diesem Berechtigten fortzufahren.');
-            }
-        }(this));
-        this.fireEvent('refocus', this, '');
     }
 });
