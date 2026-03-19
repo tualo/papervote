@@ -94,7 +94,12 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
     this.logic.on('blockchanged', function (o, number) {
       me.getViewModel().set('blocknumber', number);
     });
-    if (me.logic.initLogic(list_length)) {
+    me.asyncInit(list_length);
+  },
+  asyncInit: async function (list_length) {
+    var me = this;
+
+    if (await me.logic.initLogic(list_length)) {
 
 
 
