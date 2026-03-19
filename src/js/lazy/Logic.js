@@ -495,12 +495,8 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             if (request.status !== 200) throw new Error('Fehler bei der Initialisierung: ' + request.statusText);
             let res = await (request).json();
 
-            if (res.success === false) {
-                scope.fireEvent('message', scope, res.msg + ' Scannen Sie *Leeren*.');
-                scope.fireEvent('refocus', scope, '');
-                scope.fireEvent('state', scope, 'error');
-                return;
-            }
+            if (res.success === false) throw new Error('Fehler bei der Initialisierung: ' + res.msg + ' Scannen Sie *Leeren*.');
+
             if (!Ext.isEmpty(res.data.FORCEBLOCKCODE)) {
                 if (res.data.FORCEBLOCKCODE.daten == '1') {
                     me.FORCEBLOCKCODE = true;
