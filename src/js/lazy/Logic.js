@@ -485,12 +485,14 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             startingState: this.startingState
         });
         try {
-            let res = await (await fetch('./papervote/return/setup', {
+            let request = await fetch('./papervote/return/setup', {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json"
                 },
-            })).json();
+            });
+            if (request.status !== 200) throw new Error('Fehler bei der Initialisierung: ' + request.statusText);
+            let res = await (request).json();
 
             if (res.success === false) {
                 scope.fireEvent('message', scope, res.msg + ' Scannen Sie *Leeren*.');

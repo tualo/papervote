@@ -27,7 +27,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
   },
   onBoxReady: function () {
     var me = this;
-    console.log('onBoxReady****',me.getView().up('form'));
+    console.log('onBoxReady****', me.getView().up('form'));
 
     var wahlscheinstatusStore = me.getViewModel().getStore('wahlscheinstatus');
     wahlscheinstatusStore.load();
@@ -266,9 +266,13 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
   },
   disableButtons: function (state) {
     var me = this;
-    me.ctrls.forEach(function (id) {
-      Ext.getCmp(id).setDisabled(state);
-    });
+    if (me.ctrls) {
+      me.ctrls.forEach(function (id) {
+        Ext.getCmp(id).setDisabled(state);
+      });
+    } else {
+      me.view.disable();
+    }
   },
   onKeyup: function (t, e, opt) {
 
