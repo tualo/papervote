@@ -99,21 +99,57 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
   asyncInit: async function (list_length) {
     var me = this;
 
+
+    this.logic.on('refocus', function (o, msg) {
+      var field = me.lookupReference('barcode');
+      field.setValue('');
+      field.focus();
+    }, this);
+
+    this.logic.on('message', function (o, msg) {
+      var field = me.lookupReference('message');
+      field.setHtml(msg);
+    }, this);
+
+
+    this.logic.on('state', function (o, state) {
+      var ampel = false;
+      if (me.view.getHeader()) { ampel = me.view.getHeader().getEl(); }
+
+      var basicColor = '#4C9EDE';// ampel.getStyle("background-color");
+
+      if (state == '') {
+        ampel && ampel.setStyle("background-color", basicColor);
+        me.disableButtons(true);
+      }
+      if (state == 'ok') {
+        ampel && ampel.setStyle("background-color", "green");
+        me.disableButtons(false);
+      }
+      if (state == 'error') {
+        ampel && ampel.setStyle("background-color", "red");
+        me.disableButtons(true);
+        try {
+          var audio = new Audio('./papervote/sounds/sms-alert-2-daniel_simon.mp3');
+          audio.play();
+        } catch (e) { }
+      }
+      if (state == 'yellow') {
+        ampel && ampel.setStyle("background-color", "rgb(255,99,71)");
+        me.disableButtons(true);
+        try {
+          var audio = new Audio('./papervote/sounds/sms-alert-1-daniel_simon.mp3');
+          audio.play();
+        } catch (e) { }
+      }
+    }, this);
+
+
     if (await me.logic.initLogic(list_length)) {
 
 
 
 
-      this.logic.on('refocus', function (o, msg) {
-        var field = me.lookupReference('barcode');
-        field.setValue('');
-        field.focus();
-      }, this);
-
-      this.logic.on('message', function (o, msg) {
-        var field = me.lookupReference('message');
-        field.setHtml(msg);
-      }, this);
 
       this.logic.on('reload', function () {
         me.logic.wbliste = [];
@@ -177,37 +213,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
 
       }, this);
 
-      this.logic.on('state', function (o, state) {
-        var ampel = false;
-        if (me.view.getHeader()) { ampel = me.view.getHeader().getEl(); }
 
-        var basicColor = '#4C9EDE';// ampel.getStyle("background-color");
-
-        if (state == '') {
-          ampel && ampel.setStyle("background-color", basicColor);
-          me.disableButtons(true);
-        }
-        if (state == 'ok') {
-          ampel && ampel.setStyle("background-color", "green");
-          me.disableButtons(false);
-        }
-        if (state == 'error') {
-          ampel && ampel.setStyle("background-color", "red");
-          me.disableButtons(true);
-          try {
-            var audio = new Audio('./papervote/sounds/sms-alert-2-daniel_simon.mp3');
-            audio.play();
-          } catch (e) { }
-        }
-        if (state == 'yellow') {
-          ampel && ampel.setStyle("background-color", "rgb(255,99,71)");
-          me.disableButtons(true);
-          try {
-            var audio = new Audio('./papervote/sounds/sms-alert-1-daniel_simon.mp3');
-            audio.play();
-          } catch (e) { }
-        }
-      }, this);
 
 
       me.logic.wbliste = [];
@@ -215,6 +221,8 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
       var field = me.lookupReference('barcode');
       field.setValue('');
       field.focus();
+    } else {
+
     }
   },
   addContent: function (data) {
