@@ -79,7 +79,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       }
     });
 
-    let o = await (await fetch('./pwgen/new_unique', {
+    let o = await (await fetch('./pwgen/new_unique?size=' + range.length, {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
@@ -115,10 +115,10 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     if (me.current < range.length) {
       range[0].store.suspendEvents() // true);
       while (i < me.blocksize && me.current < range.length) {
-        range[me.current].set('password', me.password[me.current].val);
-        range[me.current].set('wahlscheinnummer', me.wahlschein[me.current].val);
+        range[me.current].set('password', me.password[me.current].random);
+        range[me.current].set('wahlscheinnummer', me.wahlschein[me.current].random);
         range[me.current].set('wahlscheinstatus', '1|0');
-        range[me.current].set('username', me.username[me.current].val);
+        range[me.current].set('username', me.username[me.current].random);
         // console.log(range[me.current].data);
         me.current++;
         i++;

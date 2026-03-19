@@ -71,6 +71,11 @@ class SetPW extends \Tualo\Office\Basic\RouteWrapper
                         and stimmzettel={stimmzettel}
                         and wahlscheinstatus in ("16|0","17|0")';
                     $db->direct($sql, $row);
+
+                    $sql = 'update pwgen_precalc set used=true where random={username} and name="username8"';
+                    $db->direct($sql, $row);
+                    $sql = 'update pwgen_precalc set used=true where random={wahlscheinnummer} and name="wahlschein8"';
+                    $db->direct($sql, $row);
                 }
                 App::result('success', true);
             } catch (Exception $e) {

@@ -30,12 +30,15 @@ class Unique extends \Tualo\Office\Basic\RouteWrapper
             try {
 
                 set_time_limit(120);
+                $size = $_REQUEST['size'] ?? 1000;
 
-                App::result('wahlschein', $db->direct('select * from wahlschein_numbers where used = false order by random limit 8535', []));
-                App::result('username', $db->direct('select * from pwgen_precalc where used = false order by seed limit 8535', []));
+                //App::result('wahlschein', $db->direct('select * from wahlschein_numbers where used = false order by random limit 8535', []));
+                App::result('wahlschein', $db->direct('select * from pwgen_precalc where name = "wahlschein8" and used = false order by seed limit ' . $size, []));
+
+                App::result('username', $db->direct('select * from pwgen_precalc where name = "username8" and used = false order by seed limit ' . $size, []));
 
                 $startRand = rand(100, 1000);
-                App::result('password', $db->direct('select * from pwgen_precalc order by seed limit ' . $startRand . ',8535 ', []));
+                App::result('password', $db->direct('select * from pwgen_precalc where name = "password8" and used = false order by seed limit ' . $startRand . ',' . $size, []));
 
                 // App::result('password', $db->direct('select temp_random_list.*,rand() r from temp_random_list  order by r', []));
                 // create table temp_random_list_password as select * from temp_random_list
