@@ -322,7 +322,7 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
         if (item.get('barcode') != '') {
           ctrl = Ext.create('Ext.button.Button', {
             text: item.get('name'),
-            handler: me.handleFC(item.get('barcode'), item.get('ridx')),
+            handler: me.handleFC(item.get('barcode'), item.get('id')),
             cls: 'mbutton',
             style: {
               borderRadius: '10px',
