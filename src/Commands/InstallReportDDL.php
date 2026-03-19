@@ -24,8 +24,8 @@ class InstallReportDDL extends CommandLineInstallSQL  implements ICommandline
         // 'install/report-ddl/wahlbeteiligung_bericht.ds'                       => 'setup wahlbeteiligung_bericht.ds',
         // 'install/report-ddl/wahlbeteiligung_bericht_status.ds'                       => 'setup wahlbeteiligung_bericht_status.ds',
 
-        // 'install/report-ddl/view_ohne_wahlberechtigten'                    => 'setup view_ohne_wahlberechtigten',
-        // 'install/report-ddl/view_ohne_wahlberechtigten.ds'               => 'setup view_ohne_wahlberechtigten.ds',
+        'install/report-ddl/view_ohne_wahlberechtigten'                    => 'setup view_ohne_wahlberechtigten',
+        'install/report-ddl/view_ohne_wahlberechtigten.ds'               => 'setup view_ohne_wahlberechtigten.ds',
 
 
         // 'install/report-ddl/wahlbeteiligung_bericht_formel'                => 'setup wahlbeteiligung_bericht_formel',
