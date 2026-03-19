@@ -94,122 +94,123 @@ Ext.define('Tualo.PaperVote.lazy.controller.Input', {
     this.logic.on('blockchanged', function (o, number) {
       me.getViewModel().set('blocknumber', number);
     });
-    me.logic.initLogic(list_length);
+    if (me.logic.initLogic(list_length)) {
 
 
 
 
-    this.logic.on('refocus', function (o, msg) {
-      var field = me.lookupReference('barcode');
-      field.setValue('');
-      field.focus();
-    }, this);
+      this.logic.on('refocus', function (o, msg) {
+        var field = me.lookupReference('barcode');
+        field.setValue('');
+        field.focus();
+      }, this);
 
-    this.logic.on('message', function (o, msg) {
-      var field = me.lookupReference('message');
-      field.setHtml(msg);
-    }, this);
+      this.logic.on('message', function (o, msg) {
+        var field = me.lookupReference('message');
+        field.setHtml(msg);
+      }, this);
 
-    this.logic.on('reload', function () {
+      this.logic.on('reload', function () {
+        me.logic.wbliste = [];
+        me.logic.wbhash = {};
+        me.logic.fireEvent('loaded', me.logic, '', {});
+        me.logic.fireEvent('state', me.logic, '');
+        me.logic.fireEvent('message', me.logic, 'Scannen Sie einen Berechtigten.');
+        var field = me.lookupReference('barcode');
+        field.setValue('');
+        field.focus();
+        me.logic.initLogic(list_length);
+
+      }, this);
+
+      this.logic.on('loaded', function (o, msg, object) {
+        console.log('loaded', object);
+
+        me.addContent(object);
+
+        if (me.savedMask) {
+          me.savedMask.hide();
+        }
+
+      }, this);
+
+      this.logic.on('saved', function (o, msg, object) {
+
+        me.savedMask = Ext.toast({
+          html: me.logic.getSaveText().join(', ') + ' ' + ' um ' + (Ext.util.Format.date(new Date(), 'H:i\'s')),
+          title: 'Gespeichert',
+          width: 300,
+          align: 't',
+          autoCloseDelay: 30000
+        });
+        me.savedMask.show();
+
+        me.view.on('destroy', function () {
+          console.log('destroy');
+          try {
+            /*
+            me.Logic.wbliste=[];
+            me.Logic.wbhash={};
+            me.Logic.fireEvent('loaded', scope, '',{});
+            */
+            me.savedMask.hide();
+          } catch (e) {
+          }
+        });
+
+        me.view.on('hide', function () {
+          console.log('hide');
+          try {
+            me.savedMask.hide();
+          } catch (e) {
+          }
+        });
+
+        var field = me.lookupReference('barcode');
+        field.focus();
+
+
+      }, this);
+
+      this.logic.on('state', function (o, state) {
+        var ampel = false;
+        if (me.view.getHeader()) { ampel = me.view.getHeader().getEl(); }
+
+        var basicColor = '#4C9EDE';// ampel.getStyle("background-color");
+
+        if (state == '') {
+          ampel && ampel.setStyle("background-color", basicColor);
+          me.disableButtons(true);
+        }
+        if (state == 'ok') {
+          ampel && ampel.setStyle("background-color", "green");
+          me.disableButtons(false);
+        }
+        if (state == 'error') {
+          ampel && ampel.setStyle("background-color", "red");
+          me.disableButtons(true);
+          try {
+            var audio = new Audio('./papervote/sounds/sms-alert-2-daniel_simon.mp3');
+            audio.play();
+          } catch (e) { }
+        }
+        if (state == 'yellow') {
+          ampel && ampel.setStyle("background-color", "rgb(255,99,71)");
+          me.disableButtons(true);
+          try {
+            var audio = new Audio('./papervote/sounds/sms-alert-1-daniel_simon.mp3');
+            audio.play();
+          } catch (e) { }
+        }
+      }, this);
+
+
       me.logic.wbliste = [];
       me.logic.wbhash = {};
-      me.logic.fireEvent('loaded', me.logic, '', {});
-      me.logic.fireEvent('state', me.logic, '');
-      me.logic.fireEvent('message', me.logic, 'Scannen Sie einen Berechtigten.');
       var field = me.lookupReference('barcode');
       field.setValue('');
       field.focus();
-      me.logic.initLogic(list_length);
-
-    }, this);
-
-    this.logic.on('loaded', function (o, msg, object) {
-      console.log('loaded', object);
-
-      me.addContent(object);
-
-      if (me.savedMask) {
-        me.savedMask.hide();
-      }
-
-    }, this);
-
-    this.logic.on('saved', function (o, msg, object) {
-
-      me.savedMask = Ext.toast({
-        html: me.logic.getSaveText().join(', ') + ' ' + ' um ' + (Ext.util.Format.date(new Date(), 'H:i\'s')),
-        title: 'Gespeichert',
-        width: 300,
-        align: 't',
-        autoCloseDelay: 30000
-      });
-      me.savedMask.show();
-
-      me.view.on('destroy', function () {
-        console.log('destroy');
-        try {
-          /*
-          me.Logic.wbliste=[];
-          me.Logic.wbhash={};
-          me.Logic.fireEvent('loaded', scope, '',{});
-          */
-          me.savedMask.hide();
-        } catch (e) {
-        }
-      });
-
-      me.view.on('hide', function () {
-        console.log('hide');
-        try {
-          me.savedMask.hide();
-        } catch (e) {
-        }
-      });
-
-      var field = me.lookupReference('barcode');
-      field.focus();
-
-
-    }, this);
-
-    this.logic.on('state', function (o, state) {
-      var ampel = false;
-      if (me.view.getHeader()) { ampel = me.view.getHeader().getEl(); }
-
-      var basicColor = '#4C9EDE';// ampel.getStyle("background-color");
-
-      if (state == '') {
-        ampel && ampel.setStyle("background-color", basicColor);
-        me.disableButtons(true);
-      }
-      if (state == 'ok') {
-        ampel && ampel.setStyle("background-color", "green");
-        me.disableButtons(false);
-      }
-      if (state == 'error') {
-        ampel && ampel.setStyle("background-color", "red");
-        me.disableButtons(true);
-        try {
-          var audio = new Audio('./papervote/sounds/sms-alert-2-daniel_simon.mp3');
-          audio.play();
-        } catch (e) { }
-      }
-      if (state == 'yellow') {
-        ampel && ampel.setStyle("background-color", "rgb(255,99,71)");
-        me.disableButtons(true);
-        try {
-          var audio = new Audio('./papervote/sounds/sms-alert-1-daniel_simon.mp3');
-          audio.play();
-        } catch (e) { }
-      }
-    }, this);
-
-
-    me.logic.wbliste = [];
-    me.logic.wbhash = {};
-    var field = me.lookupReference('barcode');
-    field.setValue('');
-    field.focus();
+    }
   },
   addContent: function (data) {
     var me = this;

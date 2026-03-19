@@ -491,6 +491,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                     "Content-Type": "application/json"
                 },
             });
+            if (request.status === 403) throw new Error('Fehler bei der Initialisierung: Zugriff verweigert');
             if (request.status !== 200) throw new Error('Fehler bei der Initialisierung: ' + request.statusText);
             let res = await (request).json();
 
@@ -621,10 +622,11 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
             }(this));
             this.fireEvent('refocus', this, '');
         } catch (e) {
-            console.log(e);
-            this.fireEvent('message', this, 'Fehler bei der Initialisierung: ' + e);
+            this.fireEvent('message', this, e);
             this.fireEvent('refocus', this, '');
             this.fireEvent('state', this, 'error');
+            return false;
         }
+        return true;
     }
 });
