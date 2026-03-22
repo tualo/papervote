@@ -221,7 +221,7 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
         var text = [];
         try {
             typen.forEach(function (rec) {
-                if (!Ext.isEmpty(o[rec.get('stimmzettelfeld')])
+                if (!Ext.isEmpty(o[rec.get('feld')])
                     && (o.wahltyp_id == rec.get('id'))
                 ) {
                     var txt = status.findRecord('id', o[rec.get('feld')], 0, false, false, true);
