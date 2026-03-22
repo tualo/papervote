@@ -135,7 +135,8 @@ Ext.define('Tualo.PaperVote.lazy.Logic', {
                 console.log(record.get('name'), record.get('feld'));
 
 
-                if (!Ext.isEmpty(o.data[record.get('stimmzettelfeld')])) {
+
+                if (!Ext.isEmpty(o.data[record.get('feld')])) {
                     var st = o.data[record.get('feld')];
                     if ((st != '-1') && (st != '1') && (st != '6')) {
                         reset = true;
