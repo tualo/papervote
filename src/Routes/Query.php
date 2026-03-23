@@ -37,7 +37,14 @@ select
     '' `leerzeile2`, -- RLF
     '' `leerzeile3`,  -- RLF
 
-    '' hstr,
+   concat('<br/><h4>Historie</h4><br/>',
+        group_concat(
+            concat(substring(hstr.created_at,1,19),' - ',hstrstatus.name,' - ',hstr.login)
+            order by hstr.created_at
+
+            separator '<br/>'
+        )
+    ) hstr,
 
     concat('<b>Status: ',wahlscheinstatus.name ,'</b>') last_state_text,
 
@@ -66,7 +73,11 @@ from
     join wahlbezirk on wahlbezirk.id = stimmzettel.wahlbezirk
     join wahlscheinstatus 
                 on wahlschein.wahlscheinstatus = wahlscheinstatus.id
-
+    join wahlschein_history hstr 
+        on hstr.id = wahlschein.id
+        and hstr.stimmzettel = wahlschein.stimmzettel
+    join wahlscheinstatus hstrstatus
+                on hstr.wahlscheinstatus = hstrstatus.id
 
 where 
     #search_field={barcode}
