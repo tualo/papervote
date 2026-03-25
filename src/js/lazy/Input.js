@@ -14,7 +14,7 @@ Ext.define('Tualo.PaperVote.lazy.Input', {
     boxReady: 'onBoxReady'
   },
 
-  // layout: 'border',
+  layout: 'border',
   //title: 'Rücklauf',
   bind: {
     title: '{ftitle}'
@@ -44,6 +44,8 @@ Ext.define('Tualo.PaperVote.lazy.Input', {
     },
     {
       xtype: 'grid',
+      scrollable: 'y',
+
       region: 'center',
       store: {
         type: 'array',
