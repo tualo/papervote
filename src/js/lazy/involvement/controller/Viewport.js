@@ -133,7 +133,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
       url: './papervote/involvement/reporting/export',
       scope: this,
       showWait: true,
-      timeout: 300000,
+      timeout: 600000,
       params: {
         limit: 10000000,
         typ: this.getViewModel().get('typ'),

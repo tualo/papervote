@@ -25,6 +25,16 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
         return 'papervote.involvement.reporting';
     }
 
+    public static function setCurrentVoteType(int $votetype): bool
+    {
+        try {
+            $db = App::get('session')->getDB();
+            $db->direct('set @involvement_votetype_filter_id = {involvement_votetype_filter_id} ', ['involvement_votetype_filter_id' => intval($votetype)]);
+        } catch (Exception $e) {
+        }
+        return true;
+    }
+
     public static function getHeaders(): array
     {
         // try {
@@ -78,7 +88,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
         // }
     }
 
-    public static function getPugTable(int $auswertung_id = 0, bool $hideZeroColumns = false): array
+    public static function getPugTable(int $auswertung_id = 0, $votetype = 0, bool $hideZeroColumns = false): array
     {
         $result = [
             'headers' => [],
@@ -111,6 +121,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             $wahlbeteiligung_bericht_formel[$index]['nenner_excel'] = $wb_formel['nenner_excel'];
             $wahlbeteiligung_bericht_formel[$index]['teiler_excel'] = $wb_formel['teiler_excel'];
         }
+
 
         $auswertungen = $db->direct('
             select * from (
@@ -477,6 +488,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
                         $wm_involvement_ui_report_id = 0;
                     }
                     $db->execute('set @involvement_filter_id = ' . $wm_involvement_ui_report_id);
+                    self::setCurrentVoteType(intval($_REQUEST['typ']));
 
                     App::result('data', self::getReportData());
 
