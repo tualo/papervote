@@ -225,13 +225,12 @@ Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
 
         }
     },
-    url: 'papervote/involvement/:typ/:abgabetyp/:testdaten',
+    url: 'papervote/involvement/:typ',
     handler: {
-        action: function (typ, abgabetyp, testdaten) {
+        action: function (typ) {
             let opt = {}
             if (typ != 'x') opt.typ = typ;
-            if (abgabetyp != 'x') opt.abgabetyp = abgabetyp;
-            if (testdaten != 'x') opt.testdaten = testdaten;
+
             Ext.getApplication().addView('Tualo.PaperVote.lazy.involvement.Viewport', opt);
         },
         before: function (typ, abgabetyp, testdaten, action) {
