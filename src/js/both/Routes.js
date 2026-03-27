@@ -233,7 +233,7 @@ Ext.define('Tualo.routes.PaperVoteInvolvementDynamic', {
 
             Ext.getApplication().addView('Tualo.PaperVote.lazy.involvement.Viewport', opt);
         },
-        before: function (typ, abgabetyp, testdaten, action) {
+        before: function (typ, action) {
 
 
             action.resume();
