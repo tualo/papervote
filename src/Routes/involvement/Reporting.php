@@ -571,6 +571,12 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
         BasicRoute::add('/papervote/involvement/reporting/export', function () {
             $db = App::get('session')->getDB();
             try {
+                $wm_involvement_ui_report_id = DSTable::instance('votemanager_setup')->f('id', 'eq', 'wm_involvement_ui_report_id')->getSingleValue('val');
+                if ($wm_involvement_ui_report_id === false) {
+                    $wm_involvement_ui_report_id = 0;
+                }
+                $db->execute('set @involvement_filter_id = ' . $wm_involvement_ui_report_id);
+                self::setCurrentVoteType(intval($_REQUEST['typ']));
                 $fname = Reporting::getExcel();
                 App::result('file', $fname);
                 App::result('success', true);
