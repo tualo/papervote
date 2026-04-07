@@ -118,10 +118,39 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
 
                     unset($ws['te']);
                     unset($ws['ts']);
+
+
+                    //
+                    // check deadlock
                     $wahlschein->update($ws);
 
                     Save::timing('wahlschein->update(wahlscheinnummer)', __LINE__);
                     if ($wahlschein->error()) {
+                        $msg = "Deadlock found when trying to get lock; try restarting transaction";
+                        if (strpos($wahlschein->errorMessage(), $msg) !== false) {
+                            App::logger('SAVE')->warning("Deadlock detected for Wahlschein " . $ws['id'] . ". Retrying...");
+                            // Retry logic: Attempt to update the record again
+                            $retryCount = 0;
+                            $maxRetries = 3;
+                            $success = false;
+
+                            while (!$success && $retryCount < $maxRetries) {
+                                usleep(100000); // Wait for 100ms before retrying
+                                $wahlschein->update($ws);
+                                if (!$wahlschein->error()) {
+                                    $success = true;
+                                } else {
+                                    $retryCount++;
+                                    App::logger('SAVE')->warning("Retry " . $retryCount . " failed for Wahlschein " . $ws['id'] . ": " . $wahlschein->errorMessage());
+                                }
+                            }
+
+                            if (!$success) {
+                                throw new Exception("Failed to update Wahlschein after " . $maxRetries . " retries due to deadlock.");
+                            }
+                        } else {
+                            throw new Exception($wahlschein->errorMessage());
+                        }
                         App::result('msg', $wahlschein->errorMessage());
                     } else {
                         App::result('success', true);
