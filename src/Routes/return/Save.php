@@ -77,7 +77,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                     if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
                     Save::timing('Query::get(wahlscheinnummer)', __LINE__);
 
-
+                    $useStatus = null;
                     foreach ($status as $val) {
                         if (!isset($val['feld'])) $val['feld'] = 'wahlscheinstatus';
 
@@ -89,6 +89,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                             $ws['' . $val['feld']] = $val['status'];
                             $ws['' . $val['feld'] . '_grund'] = isset($val['grund']) ? $val['grund'] : '';
                             // $set_state = $ws[''.$val['feld']];
+                            $useStatus = $val['status'];
                         } else {
                             throw new Exception("Der Wahlschein befindet sich in einem ungültigen Zustand.");
                         }
@@ -122,43 +123,28 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
 
                     //
                     // check deadlock
-                    $wahlschein->update($ws);
+                    // $wahlschein->update($ws);
+                    $db->direct('update wahlschein set 
+                        usedate={usedate},
+                        abgabetyp={abgabetyp},
+                        blocknumber={blocknumber},
+                        wahlscheinstatus={wahlscheinstatus}
+                    
+                    where id={id} and stimmzettel={stimmzettel}', [
+                        'usedate' => $ws['usedate'],
+                        'abgabetyp' => $ws['abgabetyp'],
+                        'blocknumber' => $ws['blocknumber'],
+                        'wahlscheinstatus' => $useStatus,
+                        'id' => $ws['id'],
+                        'stimmzettel' => $ws['stimmzettel']
+                    ]);
 
-                    Save::timing('wahlschein->update(wahlscheinnummer)', __LINE__);
-                    if ($wahlschein->error()) {
-                        $msg = "Deadlock found when trying to get lock; try restarting transaction";
-                        if (strpos($wahlschein->errorMessage(), $msg) !== false) {
-                            App::logger('SAVE')->warning("Deadlock detected for Wahlschein " . $ws['id'] . ". Retrying...");
-                            // Retry logic: Attempt to update the record again
-                            $retryCount = 0;
-                            $maxRetries = 3;
-                            $success = false;
 
-                            while (!$success && $retryCount < $maxRetries) {
-                                usleep(100000); // Wait for 100ms before retrying
-                                $db->direct('start transaction;');
-                                $wahlschein->update($ws);
-                                if (!$wahlschein->error()) {
-                                    $db->direct('commit;');
-                                    $success = true;
-                                } else {
-                                    $db->direct('rollback;');
-                                    $retryCount++;
-                                    App::logger('SAVE')->warning("Retry " . $retryCount . " failed for Wahlschein " . $ws['id'] . ": " . $wahlschein->errorMessage());
-                                }
-                            }
-
-                            if (!$success) {
-                                throw new Exception("Failed to update Wahlschein after " . $maxRetries . " retries due to deadlock.");
-                            }
-                        } else {
-                            throw new Exception($wahlschein->errorMessage());
-                        }
-                    }
                     App::result('success', true);
                 }
             } catch (Exception $e) {
                 App::logger('papervote save')->error($e->getMessage());
+
                 App::result('msg', $e->getMessage());
             }
             Save::timing('wahlschein finished', __LINE__);
