@@ -136,10 +136,13 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
 
                             while (!$success && $retryCount < $maxRetries) {
                                 usleep(100000); // Wait for 100ms before retrying
+                                $db->direct('start transaction;');
                                 $wahlschein->update($ws);
                                 if (!$wahlschein->error()) {
+                                    $db->direct('commit;');
                                     $success = true;
                                 } else {
+                                    $db->direct('rollback;');
                                     $retryCount++;
                                     App::logger('SAVE')->warning("Retry " . $retryCount . " failed for Wahlschein " . $ws['id'] . ": " . $wahlschein->errorMessage());
                                 }
