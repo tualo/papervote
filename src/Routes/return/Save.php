@@ -151,14 +151,14 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                         } else {
                             throw new Exception($wahlschein->errorMessage());
                         }
-                        App::result('msg', $wahlschein->errorMessage());
-                    } else {
-                        App::result('success', true);
                     }
+                    App::result('success', true);
                 }
             } catch (Exception $e) {
+                App::logger('papervote save')->error($e->getMessage());
                 App::result('msg', $e->getMessage());
             }
+            Save::timing('wahlschein finished', __LINE__);
             App::contenttype('application/json');
         }, array('get', 'post'), true, [], self::scope());
     }

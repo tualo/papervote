@@ -94,6 +94,7 @@ class Set extends \Tualo\Office\Basic\RouteWrapper
                         App::result('msg', ($data === false) ? 'Konnte nicht gespeichert werden' : '');
                     }
                 } catch (\Exception $e) {
+                    App::logger('papervote set')->error($e->getMessage());
                     $db->direct('rollback;');
                     App::result('last_sql', $db->last_sql);
                     App::result('msg', $e->getMessage());
