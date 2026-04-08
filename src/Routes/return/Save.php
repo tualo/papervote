@@ -40,6 +40,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
         BasicRoute::add('/papervote/return/save', function () {
             $db = App::get('session')->getDB();
             try {
+
                 Save::timing('start');
                 $input = json_decode(file_get_contents('php://input'), true);
                 if (is_null($input)) throw new Exception("Error Processing Request", 1);

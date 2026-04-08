@@ -138,12 +138,13 @@ class Process extends \Tualo\Office\Basic\RouteWrapper
                 }
 
 
+
                 $sql = 'CREATE OR REPLACE VIEW `wahlschein_flatfile` AS
                 select
                     `wahlberechtigte_anlage`.*,
                     `wahlschein`.`wahlscheinnummer` AS `wahlschein_wahlscheinnummer`,
-                    cast(`wahlschein`.`row_start` as date) AS `wahlschein_insert_date`,
-                    cast(`wahlschein`.`row_start` as date) AS `wahlschein_update_date`,
+                    cast(`wahlschein`.`created_at` as date) AS `wahlschein_insert_date`,
+                    cast(`wahlschein`.`updated_at` as date) AS `wahlschein_update_date`,
                     `wahlscheinstatus`.`name` AS `status_text`,
                     `abgabetyp`.`name` AS `abgabetyp_text`,
                     `stimmzettel`.`name` AS `stimmzettel_name`
