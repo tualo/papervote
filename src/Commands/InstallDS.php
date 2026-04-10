@@ -35,5 +35,9 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
         'install/ds/onlinestimmzettel.ds'                            => 'setup onlinestimmzettel.ds',
 
 
+
+        'install/data/dashboard'                            => 'setup dashboard',
+
+
     ];
 }

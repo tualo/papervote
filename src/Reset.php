@@ -143,6 +143,11 @@ class Reset
         } catch (Exception $e) {
         }
 
+        try {
+            $sql = 'update  briefwahlstimmzettel set erwartet = 0,anzahl = 0, enthaltung = 0, ungueltig = 0';
+            $db->execute($sql);
+        } catch (Exception $e) {
+        }
 
         try {
             $sql = 'update  kandidaten set losnummer=0, losnummer_stimmzettelgruppe=0, kooptiert=0';
