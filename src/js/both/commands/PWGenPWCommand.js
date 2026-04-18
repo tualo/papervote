@@ -113,7 +113,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     me.username = o.username;
     me.password = o.password;
     me.current = 0;
-    me.blocksize = 1000;
+    me.blocksize = 500;
     console.log(me.current, range.length);
     while ((await me.loopPWRange()) == false) {
 
