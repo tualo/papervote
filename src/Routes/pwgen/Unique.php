@@ -22,6 +22,28 @@ class Unique extends \Tualo\Office\Basic\RouteWrapper
     }
     public static function register()
     {
+
+
+        BasicRoute::add('/pwgen/precheck/(?P<tablename>[\w\-\_\d]+)', function ($match) {
+            $session = App::get('session');
+            $db = $session->getDB();
+            App::contenttype('application/json');
+            set_time_limit(120);
+            try {
+                $found_error = false;
+                $total = $db->singleValue('select count(*) c from `' . $match["tablename"] . '`', [], 'c');
+                $list = $db->direct('select name,used,count(*) c from pwgen_precalc group by name, used having used=0');
+                foreach ($list as $row) {
+                    if ($row['c'] < $total) {
+                        $found_error = true;
+                        App::result('msg', 'nicht genug daten für ' . $row['name']);
+                    }
+                }
+                App::result('success', !$found_error);
+            } catch (Exception $e) {
+                App::result('msg', $e->getMessage());
+            }
+        }, ['post', 'get'], true);
         BasicRoute::add('/pwgen/new_unique', function () {
             $session = App::get('session');
             $db = $session->getDB();
