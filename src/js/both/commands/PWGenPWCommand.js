@@ -58,7 +58,25 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     this.store = this.list.getStore();
     this.selectedrecords = selectedrecords;
     let me = this;
+    me.precheck();
 
+  },
+
+  precheck: async function () {
+    let me = this;
+    if (me.records.length > 0) {
+      let tn = me.records[0].get('__table_name');
+      let o = await (await fetch('./pwgen/precheck/' + tn, {
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+      })).json();
+      if (!o.success) {
+        alert(o.msg);
+      }
+
+    }
   },
 
 
@@ -68,6 +86,8 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       progressbar_data = me.getComponent('form').getComponent('progressbar_data'),
       progressbar_save = me.getComponent('form').getComponent('progressbar_save'),
       range = me.records;
+
+
 
     progressbar_unique.wait({
       interval: 500, //bar will move fast!
