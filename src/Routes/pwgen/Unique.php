@@ -30,6 +30,7 @@ class Unique extends \Tualo\Office\Basic\RouteWrapper
             try {
                 set_time_limit(120);
                 $size = $_REQUEST['size'] ?? 1000;
+                $size += 10; // reserve
                 App::result('wahlschein', $db->direct('select * from pwgen_precalc where name = "wahlschein8" and used = false order by seed limit ' . $size, []));
                 App::result('username', $db->direct('select * from pwgen_precalc where name = "username8" and used = false order by seed limit ' . $size, []));
                 $startRand = rand(100, 1000);

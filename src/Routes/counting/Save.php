@@ -178,6 +178,52 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
 
                             $stimmzettel_id = (Uuid::uuid4())->toString();
 
+                            // pagination code
+                            if (isset($stimmzettelliste[0]['pagination'])) {
+                                $stimmzettel_id = $stimmzettelliste[0]['pagination'];
+
+
+                                $sql = '
+                                    select 
+                                        count(*) c
+
+                                    from 
+                                        stimmzettel' . $str_zaehltyp . '  
+                                    where 
+                                        id = {stimmzettel_id} 
+                                        and abgebrochen = 0
+                                ';
+                                $check_pagination = $db->singleValue($sql, ['stimmzettel_id' => $stimmzettel_id], 'c');
+                                if ($check_pagination > 0) {
+
+                                    $sql = '
+                                    select 
+                                        stapel' . $str_zaehltyp . ' stack_id
+
+                                    from 
+                                        stimmzettel' . $str_zaehltyp . '  
+                                    where 
+                                        id = {stimmzettel_id} 
+                                        and abgebrochen = 0
+                                    ';
+                                    $check_pagination_stack_id = $db->singleValue($sql, ['stimmzettel_id' => $stimmzettel_id], 'stack_id');
+
+                                    throw new Exception('Der Stimmzettel ' . $stimmzettel_id . ' befindet sich bereits im Stapel ' . $check_pagination_stack_id . ' und kann nicht erneut erfasst werden');
+                                }
+
+
+                                $sql = '
+                                    delete from 
+                                        stimmzettel' . $str_zaehltyp . '  
+                                    where 
+                                        id = {stimmzettel_id} 
+                                        and abgebrochen = 1
+                                ';
+                                $db->direct($sql, [
+                                    'stimmzettel_id' => $stimmzettel_id
+                                ]);
+                            }
+
                             $sql = 'insert into stimmzettel' . $str_zaehltyp . ' (
                                 id,
                                 login,

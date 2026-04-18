@@ -2,7 +2,7 @@ Ext.define('Tualo.PaperVote.lazy.counting.models.Viewport', {
     extend: 'Ext.app.ViewModel',
     alias: 'viewmodel.papervote_counting',
     data: {
-        
+
     },
     stores: {
         stimmzettel: {
@@ -23,8 +23,8 @@ Ext.define('Tualo.PaperVote.lazy.counting.models.Viewport', {
             pageSize: 10000,
             type: 'kandidaten_store'
         },
-        
-        list:{
+
+        list: {
             type: 'store',
             fields: [
                 'stimmzettel',
@@ -36,6 +36,7 @@ Ext.define('Tualo.PaperVote.lazy.counting.models.Viewport', {
                 'state',
                 'code',
                 'name',
+                'pagination',
                 'kandidatridx'
             ],
             listeners: {
@@ -45,4 +46,3 @@ Ext.define('Tualo.PaperVote.lazy.counting.models.Viewport', {
         }
     }
 });
-  

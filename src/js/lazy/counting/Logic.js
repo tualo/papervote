@@ -342,7 +342,23 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
 
 
 
+  isPaginationCode: function (code) {
+    console.log('isPaginationCode', code);
+    if (code.length == 6) {
+      // nur ziffern
+      if (/^\d+$/.test(code)) {
+        // ersten fünf ziffern mit dem modulo 7 und ziffer 6 vergleichen#
+        var num = parseInt(code.substring(0, 5));
+        var check = parseInt(code.substring(5, 6));
+        if (num % 7 == check) {
+          return true;
+        }
 
+      }
+    }
+    console.log('isPaginationCode', code, 'is not pagination code');
+    return false;
+  },
 
   progressCode: function (code) {
     this.code = code;
@@ -351,7 +367,15 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
 
     console.log("current State: " + this.FSM.getState());
     try {
-      var signal = code;
+      let signal = code,
+        pcode = "";
+
+
+      if (this.isPaginationCode(code)) {
+        pcode = code;
+        code = FC_INIT_SYS_PAPER;
+      }
+
       if (code.length > 3) {
         signal = code.substring(0, 3);
       }
@@ -362,6 +386,9 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
           return;
         }
       }
+
+
+
       switch (signal) {
         case FC_BOX_CODE:
           this.is_zweitzaehlung = true;
@@ -406,22 +433,38 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
               this.scrollToLast();
               var stacklist = new Array();
               var klist = new Array();
+              var pagination = "";
               var r = this.store.getRange();
+              console.log('store range', r);
               for (var i = r.length - 2; i >= 0; i--) {
                 if (r[i].get('typ') == 3) {
-                  klist.push({
+                  let item = {
                     code: r[i].get('code'),
                     stimmzettel: r[i].get('stimmzettel'),
                     stimmzettelgruppe: r[i].get('stimmzettelgruppe'),
                     kandidat: r[i].get('kandidat'),
                     //allowed: this.allowedSZbySZRi dx(r[i].get('stimmzettel'))
-                  });
+                  };
+
+                  if (!Ext.isEmpty(r[i].get('pagination'))) {
+                    item.pagination = r[i].get('pagination');
+                  }
+
+                  console.log('add item to klist', item);
+                  klist.push(item);
 
                 }
 
                 if (r[i].get('typ') == 2) {
                   stacklist.push(klist);
                   klist = new Array();
+                  /*
+                  if (!Ext.isEmpty(r[i].get('pagination'))) {
+                    pagination = r[i].get('pagination');
+                  } else {
+                    pagination = "";
+                  }
+                    */
                 }
                 if (r[i].get('typ') == 1) {
                   break;
@@ -437,7 +480,9 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
           }
           break;
         case FC_INIT_SYS:
-          if (code == FC_INIT_SYS_PAPER) {
+          /*if (code == FC_INIT_SYS_PAPER) { 
+          }*/
+          if ((code == FC_INIT_SYS_PAPER)) { //
             // Prüfen auf der Stimmzettellogic 
             this.checkLastGroupMin('errorBallotPaper');
             this.FSM.transit('ballotPaper');
@@ -445,13 +490,22 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
             while (this.stimmzettelnr < 1) {
               this.stimmzettelnr++;
             }
-            this.store.add({
+            var o = {
               stapel: this.stapel,
+
+
               stimmzettelnr: this.stimmzettelnr,
               kandidat: null,
               typ: 2,
               state: this.FSM.getState()
-            });
+            };
+            if (pcode != "") {
+              o.pagination = pcode;
+              this.currentPagination = pcode;
+            } else {
+              this.currentPagination = null;
+            }
+            this.store.add(o);
             this.scrollToLast();
             this.setGreenLight();
             this.currentBP = null;
@@ -522,7 +576,7 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
             this.checkCurrentBallotPaper(candidateres.get('stimmzettelgruppen'));
             if (this.checkHasCandidate(candidateres.get('id'))) {
               this.FSM.transit('candidate');
-              var itm = this.store.add({
+              let item = {
                 stapel: this.stapel,
                 stimmzettelnr: this.stimmzettelnr,
                 stimmzettel: ballotpaperres.get('stimmzettel'),
@@ -533,7 +587,11 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
                 name: candidateres.get('anzeige_name'),
                 typ: 3,
                 state: this.FSM.getState()
-              });
+              };
+              if (!Ext.isEmpty(this.currentPagination)) {
+                item.pagination = this.currentPagination;
+              }
+              var itm = this.store.add(item);
               this.scrollToLast();
               this.setGreenLight();
             }

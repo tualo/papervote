@@ -55,13 +55,28 @@ Ext.define('Tualo.PaperVote.lazy.counting.Viewport', {
                 renderer: function (v, metaData, record) {
                     metaData.tdAttr = "";
                     if (Ext.isEmpty(record.get('stimmzettelnr'))) {
-                        metaData.tdAttr = "bgcolor=#0DA1FF";
+                        metaData.tdStyle = "background-color:#0DA1FF;";
+                        metaData.tdStyle += "color:#fff;";
+                        metaData.tdStyle += "font-weight:bold;";
+
+                        if (record.get('state') == 'stopStack') {
+                            metaData.tdStyle = "background-color: #0D91EF;";
+                            metaData.tdStyle += "color: #fffd;";
+                            metaData.tdStyle += "font-weight:bold;";
+                        }
                     }
                     if (!Ext.isEmpty(record.get('stimmzettelnr')) && Ext.isEmpty(record.get('kandidat'))) {
-                        metaData.tdAttr = "bgcolor=#FFFEC6";
+                        metaData.tdStyle = "background-color: #FFFEC6;";
+
+                        if (!Ext.isEmpty(record.get('pagination'))) {
+                            metaData.tdStyle = "background-color: #fdec89;";
+                        }
                     }
                     if (!Ext.isEmpty(record.get('stimmzettelnr')) && !Ext.isEmpty(record.get('kandidat'))) {
-                        metaData.tdAttr = "bgcolor=#9DFF99";
+                        metaData.tdStyle = "background-color: #9DFF99;";
+                    }
+                    if (record.get('state') == 'stopStack') {
+                        metaData.tdStyle += "border-bottom: 2px solid #7f7a7a;";
                     }
                     return v;
                 }
@@ -71,11 +86,19 @@ Ext.define('Tualo.PaperVote.lazy.counting.Viewport', {
                 flex: 1,
                 renderer: function (v, metaData, record) {
                     metaData.tdAttr = "";
+                    metaData.tdStyle = "";
                     if (!Ext.isEmpty(record.get('stimmzettelnr')) && Ext.isEmpty(record.get('kandidat'))) {
-                        metaData.tdAttr = "bgcolor=#FFFEC6";
+                        metaData.tdStyle = "background-color: #FFFEC6;";
+                        if (!Ext.isEmpty(record.get('pagination'))) {
+                            metaData.tdStyle = "background-color: #fdec89;";
+                            v = v + " (" + record.get('pagination') + ")";
+                        }
                     }
                     if (!Ext.isEmpty(record.get('stimmzettelnr')) && !Ext.isEmpty(record.get('kandidat'))) {
-                        metaData.tdAttr = "bgcolor=#9DFF99";
+                        metaData.tdStyle = "background-color: #9DFF99;";
+                    }
+                    if (record.get('state') == 'stopStack') {
+                        metaData.tdStyle += "border-bottom: 2px solid #7f7a7a;";
                     }
                     return v;
                 }
@@ -84,9 +107,12 @@ Ext.define('Tualo.PaperVote.lazy.counting.Viewport', {
                 dataIndex: 'code',
                 flex: 1,
                 renderer: function (v, metaData, record) {
-                    metaData.tdAttr = "";
+                    metaData.tdStyle = "";
                     if (!Ext.isEmpty(record.get('stimmzettelnr')) && !Ext.isEmpty(record.get('kandidat'))) {
-                        metaData.tdAttr = "bgcolor=#9DFF99";
+                        metaData.tdStyle = "background-color: #9DFF99;";
+                    }
+                    if (record.get('state') == 'stopStack') {
+                        metaData.tdStyle += "border-bottom: 2px solid #7f7a7a;";
                     }
                     return v;
                 }
@@ -95,12 +121,15 @@ Ext.define('Tualo.PaperVote.lazy.counting.Viewport', {
                 dataIndex: 'name',
                 flex: 4,
                 renderer: function (v, metaData, record) {
-                    metaData.tdAttr = "";
+                    metaData.tdStyle = "";
                     if (!Ext.isEmpty(record.get('stimmzettelnr')) && !Ext.isEmpty(record.get('kandidat'))) {
-                        metaData.tdAttr = "bgcolor=#9DFF99";
+                        metaData.tdStyle = "background-color:#9DFF99";
                     }
                     if (!Ext.isEmpty(v)) {
                         v = "<b>" + v + "<b>";
+                    }
+                    if (record.get('state') == 'stopStack') {
+                        metaData.tdStyle += "border-bottom: 2px solid #7f7a7a;";
                     }
                     return v;
                 }
