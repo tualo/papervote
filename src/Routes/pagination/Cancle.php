@@ -25,6 +25,25 @@ class Cancle extends \Tualo\Office\Basic\RouteWrapper
             $db = App::get('session')->getDB();
             try {
 
+                $sql = "select 
+                    stimmzettel1.*,
+                    stapel1.kisten1
+                    from 
+                    stimmzettel1 
+                    join stapel1 on stimmzettel1.stapel1=stapel1.id
+
+                    left join stimmzettel2 on stimmzettel1.id=stimmzettel2.id 
+                where 
+                    stimmzettel2.id is null 
+                    and stimmzettel1.abgebrochen=0
+                    and stimmzettel1.id={id}";
+                $item = $db->singleRow($sql, [
+                    'id' => $matches['id']
+                ]);
+
+                if (!$item) {
+                    throw new Exception('Stimmzettel nicht gefunden');
+                }
 
                 $sql = "update stimmzettel1 set abgebrochen =1 where id={id}";
                 $db->direct($sql, $matches);

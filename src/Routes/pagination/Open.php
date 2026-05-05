@@ -28,7 +28,7 @@ class Open extends \Tualo\Office\Basic\RouteWrapper
 
                 $sql = "select 
                     stimmzettel1.*,
-                    stapel1.kiste1
+                    stapel1.kisten1
                     from 
                     stimmzettel1 
                     join stapel1 on stimmzettel1.stapel1=stapel1.id
