@@ -374,6 +374,15 @@ Ext.define('Tualo.PaperVote.lazy.counting.Logic', {
       if (this.isPaginationCode(code)) {
         pcode = code;
         code = FC_INIT_SYS_PAPER;
+        async function fn(scope) {
+          let res = await fetch('./papervote/counting/checkpagination/' + scope.stapel + '/' + pcode);
+          let json = await res.json();
+          if (!json.success) {
+            scope.FSM.transit('errorBallotPaper');
+            scope.setMessage(json.msg);
+          }
+        };
+        fn(this);
       }
 
       if (code.length > 3) {

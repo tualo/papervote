@@ -20,6 +20,31 @@ class Upload extends \Tualo\Office\Basic\RouteWrapper
         return 'papervote.wahlberechtigte_anlage';
     }
 
+    public static function  error2txt($error)
+    {
+        switch ($error) {
+            case UPLOAD_ERR_INI_SIZE:
+                return "UPLOAD_ERR_INI_SIZE: Die Datei ist zu gro&szlig";
+                break;
+            case UPLOAD_ERR_FORM_SIZE:
+                return "UPLOAD_ERR_FORM_SIZE: Die Datei ist zu gro&szlig";
+                break;
+            case UPLOAD_ERR_PARTIAL:
+                return "UPLOAD_ERR_PARTIAL: Die Datei wurde nur teilweise hochgeladen";
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                return "UPLOAD_ERR_NO_FILE: Es wurde keine Datei hochgeladen";
+                break;
+            case 0:
+                return " ";
+                break;
+            default:
+                return "Unbekannter Fehler";
+                break;
+        }
+    }
+
+
     public static function register()
     {
         BasicRoute::add('/papervote/wahlberechtigte/upload', function () {
@@ -29,31 +54,8 @@ class Upload extends \Tualo\Office\Basic\RouteWrapper
             try {
 
                 $success = false;
-                if (!function_exists("error2txt")) {
-                    function error2txt($error)
-                    {
-                        switch ($error) {
-                            case UPLOAD_ERR_INI_SIZE:
-                                return "UPLOAD_ERR_INI_SIZE: Die Datei ist zu gro&szlig";
-                                break;
-                            case UPLOAD_ERR_FORM_SIZE:
-                                return "UPLOAD_ERR_FORM_SIZE: Die Datei ist zu gro&szlig";
-                                break;
-                            case UPLOAD_ERR_PARTIAL:
-                                return "UPLOAD_ERR_PARTIAL: Die Datei wurde nur teilweise hochgeladen";
-                                break;
-                            case UPLOAD_ERR_NO_FILE:
-                                return "UPLOAD_ERR_NO_FILE: Es wurde keine Datei hochgeladen";
-                                break;
-                            case 0:
-                                return " ";
-                                break;
-                            default:
-                                return "Unbekannter Fehler";
-                                break;
-                        }
-                    }
-                }
+                // if (!function_exists("error2txt")) {
+                //
                 $error = "";
                 if (isset($_FILES['userfile'])) {
                     $sfile = $_FILES['userfile']['tmp_name'];
@@ -62,16 +64,16 @@ class Upload extends \Tualo\Office\Basic\RouteWrapper
                     $type = $_FILES['userfile']['type'];
                     $error = $_FILES['userfile']['error'];
                     if ($error == UPLOAD_ERR_OK) {
-                        if (file_exists(App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension)) {
-                            unlink(App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
+                        if (file_exists((string)App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension)) {
+                            unlink((string)App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
                         }
-                        if (file_exists(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.')) {
-                            unlink(App::get('tempPath') . '/.ht_wahlberechtigte_sheet.');
+                        if (file_exists((string)App::get('tempPath') . '/.ht_wahlberechtigte_sheet.')) {
+                            unlink((string)App::get('tempPath') . '/.ht_wahlberechtigte_sheet.');
                         }
-                        move_uploaded_file($sfile, App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
+                        move_uploaded_file($sfile, (string)App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension);
 
                         @session_start();
-                        $_SESSION['wahlberechtigte_file'] = App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension;
+                        $_SESSION['wahlberechtigte_file'] = (string)App::get('tempPath') . '/.ht_wahlberechtigte_daten.' . $extension;
                         $spreadsheet = IOFactory::load($_SESSION['wahlberechtigte_file']);
                         $sheets = $spreadsheet->getSheetNames();
                         $index = 0;
@@ -90,7 +92,7 @@ class Upload extends \Tualo\Office\Basic\RouteWrapper
                     }
                 }
                 App::result('success', $success);
-                App::result('msg', error2txt($error));
+                App::result('msg', self::error2txt($error));
             } catch (Exception $e) {
                 App::result('msg', $e->getMessage());
             }

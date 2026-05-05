@@ -5,6 +5,7 @@ namespace Tualo\Office\PaperVote\Routes\pwgen;
 use Exception;
 use Tualo\Office\Basic\TualoApplication as App;
 use Tualo\Office\Basic\Route as BasicRoute;
+use Tualo\Office\PaperVote\Routes\wbimport\Upload;
 use Tualo\Office\Basic\IRoute;
 use Tualo\Office\TualoPGP\TualoApplicationPGP;
 use phpseclib\Net\SFTP;
@@ -21,6 +22,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
     }
     public static function register()
     {
+        /*
         BasicRoute::add('/pwgen/uploadsettings', function () {
 
             function parse_size($size)
@@ -95,7 +97,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
                     }
                     if ($error == UPLOAD_ERR_OK) {
                         $localfname = $db->singleValue('select uuid() u', [], 'u') . '.' . $extension;
-                        $fulllocalfname = App::get('tempPath') . '/' . $localfname;
+                        $fulllocalfname = ((string)App::get('tempPath') . '/' . $localfname);
 
                         if (file_exists($fulllocalfname)) unlink($fulllocalfname);
                         move_uploaded_file($sfile, $fulllocalfname);
@@ -171,9 +173,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
 
 
                 $success = false;
-                if (!function_exists("error2txt")) {
-                    function error2txt($error) {}
-                }
+
                 $error = "";
                 if (isset($_FILES['userfile'])) {
                     $sfile = $_FILES['userfile']['tmp_name'];
@@ -201,7 +201,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
 
                         $extension = pathinfo($name, PATHINFO_EXTENSION);
                         $localfname = $db->singleValue('select uuid() u', [], 'u') . '.' . $extension;
-                        $fulllocalfname = App::get('tempPath') . '/' . $localfname;
+                        $fulllocalfname = (string)App::get('tempPath') . '/' . $localfname;
 
                         if (file_exists($fulllocalfname)) unlink($fulllocalfname);
                         move_uploaded_file($sfile, $fulllocalfname);
@@ -222,6 +222,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
                                 TRUE         // Should the array be indexed by cell row and cell column
                             );
 
+
                             $lcolumns = json_decode(json_encode($columns), true);
                             $index = 0;
                             foreach ($lcolumns as &$column) {
@@ -234,6 +235,7 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
                             }
 
 
+
                             $data = $sheet->rangeToArray(
                                 'A2' . ':' . $columnCount . ($count),     // The worksheet range that we want to retrieve
                                 NULL,        // Value that should be returned for empty cells
@@ -242,15 +244,16 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
                                 FALSE         // Should the array be indexed by cell row and cell column
                             );
 
+
                             $db->commit(false);
                             foreach ($data as $row) {
                                 $updateOnDuplicate = true;
                                 $dataset = [];
-                                $dataset[$tablename . '__filename'] = $fname;
+                                $dataset['filename'] = $name;
                                 foreach ($lcolumns as $col) {
                                     if (isset($col['excelindex'])) {
                                         if (!is_null($row[$col['excelindex']])) {
-                                            $dataset[$tablename . '__' . $col['column_name']] = $row[$col['excelindex']];
+                                            $dataset[$col['column_name']] = $row[$col['excelindex']];
                                         }
                                     }
                                 }
@@ -276,5 +279,6 @@ class Import extends \Tualo\Office\Basic\RouteWrapper
             }
             App::result('debug_files', $dfiles);
         }, array('get', 'post'), true, [], self::scope());
+        */
     }
 }

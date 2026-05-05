@@ -44,6 +44,7 @@ require_once "Routes/signing/Signing.php";
 
 require_once "Routes/counting/SkipStartBallotPaper.php";
 require_once "Routes/counting/Save.php";
+require_once "Routes/counting/CheckPagination.php";
 
 require_once "Routes/combine/Save.php";
 require_once "Routes/combine/ReverseCheck.php";

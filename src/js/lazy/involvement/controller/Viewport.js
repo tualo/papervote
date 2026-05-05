@@ -274,6 +274,7 @@ Ext.define('Tualo.PaperVote.lazy.involvement.controller.Viewport', {
         type: 'ajax',
         url: './papervote/involvement/reporting',
 
+        timeout: 600000,
         extraParams: {
           typ: this.getViewModel().get('typ'),
           base: this.getViewModel().get('base'),//request.base,
