@@ -17,7 +17,7 @@ class Cancle extends \Tualo\Office\Basic\RouteWrapper
 {
     public static function scope(): string
     {
-        return 'papervote.pagination';
+        return 'papervote.stacks';
     }
     public static function register()
     {
