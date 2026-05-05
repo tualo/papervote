@@ -73,6 +73,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                         from 
                             stapel1 
                             join stimmzettel1 on stapel1.id = stimmzettel1.stapel1
+                                and stimmzettel1.abgebrochen = 0
                             join kandidaten1  on stimmzettel1.id = kandidaten1.stimmzettel1 
                             join kandidaten on kandidaten.id = kandidaten1.kandidaten
                         where
@@ -91,6 +92,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                         from 
                             stapel1 
                             join stimmzettel1 on stapel1.id = stimmzettel1.stapel1 
+                                and stimmzettel1.abgebrochen = 0
                         where
                             stapel1.id = {stapel}
                     ';
