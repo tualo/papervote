@@ -1,6 +1,6 @@
 <?php
 
-namespace Tualo\Office\PaperVote\Routes\stacks;
+namespace Tualo\Office\PaperVote\Routes\pagination;
 
 use Exception;
 use Tualo\Office\Basic\TualoApplication as App;
