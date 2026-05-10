@@ -415,7 +415,7 @@ class Reporting extends \Tualo\Office\Basic\RouteWrapper
             }
 
             // $writer->setPreCalculateFormulas(false);
-            $writer->save(App::get('tempPath') . '/' . $name);
+            $writer->save((string)App::get('tempPath') . '/' . $name);
             return $name;
         } catch (Exception $e) {
             echo $e->getMessage();
