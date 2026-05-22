@@ -38,6 +38,8 @@ class InstallDS extends CommandLineInstallSQL  implements ICommandline
 
         'install/data/dashboard'                            => 'setup dashboard',
 
+        'install/data/pwgen.data'                            => 'setup pwgen.data',
+
 
     ];
 }
