@@ -115,6 +115,40 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     me.current = 0;
     me.blocksize = 500;
     console.log(me.current, range.length);
+
+    if (me.blocksize >= me.wahlschein.length) {
+      Ext.toast({
+        html: "Die Blockgröße (wahlschein) ist größer als die Anzahl der zu generierenden Datensätze. Bitte generieren Sie neue Daten vor.",
+        title: 'Fehler',
+        width: 400,
+        align: 't',
+        iconCls: 'fa fa-warning'
+      });
+      return false;
+    }
+
+    if (me.blocksize >= me.username.length) {
+      Ext.toast({
+        html: "Die Blockgröße (username) ist größer als die Anzahl der zu generierenden Datensätze. Bitte generieren Sie neue Daten vor.",
+        title: 'Fehler',
+        width: 400,
+        align: 't',
+        iconCls: 'fa fa-warning'
+      });
+      return false;
+    }
+
+    if (me.blocksize >= me.password.length) {
+      Ext.toast({
+        html: "Die Blockgröße (password) ist größer als die Anzahl der zu generierenden Datensätze. Bitte generieren Sie neue Daten vor.",
+        title: 'Fehler',
+        width: 400,
+        align: 't',
+        iconCls: 'fa fa-warning'
+      });
+      return false;
+    }
+
     while ((await me.loopPWRange()) == false) {
 
     };
@@ -142,6 +176,14 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
           range[me.current].set('username', me.username[me.current].random);
         } catch (e) {
           console.log("me.current", me.current, i, me.blocksize, range.length)
+          Ext.toast({
+            html: "Es ist ein Fehler aufgetreten: " + e.message,
+            title: 'Fehler',
+            width: 400,
+            align: 't',
+            iconCls: 'fa fa-warning'
+          });
+          return true;
         }
         // console.log(range[me.current].data);
         me.current++;
