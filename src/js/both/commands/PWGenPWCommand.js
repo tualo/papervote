@@ -116,7 +116,9 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
     me.blocksize = 500;
     console.log(me.current, range.length);
 
-    if (me.blocksize >= me.wahlschein.length) {
+    // if (me.blocksize>range.length){
+
+    if (range.length >= me.wahlschein.length) {
       Ext.toast({
         html: "Die Blockgröße (wahlschein) ist größer als die Anzahl der zu generierenden Datensätze. Bitte generieren Sie neue Daten vor.",
         title: 'Fehler',
@@ -127,7 +129,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       return false;
     }
 
-    if (me.blocksize >= me.username.length) {
+    if (range.length >= me.username.length) {
       Ext.toast({
         html: "Die Blockgröße (username) ist größer als die Anzahl der zu generierenden Datensätze. Bitte generieren Sie neue Daten vor.",
         title: 'Fehler',
@@ -138,7 +140,7 @@ Ext.define('Tualo.PaperVote.commands.WMPWGenPWCommand', {
       return false;
     }
 
-    if (me.blocksize >= me.password.length) {
+    if (range.length >= me.password.length) {
       Ext.toast({
         html: "Die Blockgröße (password) ist größer als die Anzahl der zu generierenden Datensätze. Bitte generieren Sie neue Daten vor.",
         title: 'Fehler',
