@@ -19,7 +19,7 @@ END //
 
 CREATE OR REPLACE PROCEDURE `firstSetupPWGenRandom`()
 BEGIN
-    if ( (select count(*) from pwgen_precalc where name='wahlschein8')=0) then
+    if ( (select count(*) from pwgen_precalc where preset_name='wahlschein8')=0) then
         call fill_pwgen_precalc('wahlschein8',8,'0123456789',80000) ;
         call fill_pwgen_precalc('username8',8,'ABCDEFGHJKLMNPRSTUVXYZ123456789',80000)  ;
         call fill_pwgen_precalc('password8',8,'AaBbCcDdEeFfGgHhJKLMmNnPpRrSsTtUuVXxYyZ123456789',80000)  ;
