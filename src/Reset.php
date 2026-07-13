@@ -376,7 +376,7 @@ class Reset
 
 
         $sql = '
-        CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
+            CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
         
             select 
                 `wahlberechtigte_anlage`.*
