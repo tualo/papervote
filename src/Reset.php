@@ -375,15 +375,17 @@ class Reset
         $db->execute($sql);
 
 
-        $sql = 'CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
-        select 
-            `wahlberechtigte_anlage`.*
-        from 
-            wahlschein
-            join wahlberechtigte
-                on wahlschein.wahlberechtigte = wahlberechtigte.id
-                and `wahlschein`.`wahlscheinstatus` in (16,17)
-            join wahlberechtigte_anlage
+        $sql = '
+        CREATE OR REPLACE VIEW `view_pwgen_wahlberechtigte_anlage` AS 
+        
+            select 
+                `wahlberechtigte_anlage`.*
+            from 
+                wahlschein
+                join wahlberechtigte
+                    on wahlschein.wahlberechtigte = wahlberechtigte.id
+                    and `wahlschein`.`wahlscheinstatus` in (16,17)
+                join wahlberechtigte_anlage
             on 
                 wahlberechtigte.identnummer = wahlberechtigte_anlage.identnummer
                 and wahlberechtigte_anlage.stimmzettel = wahlschein.stimmzettel 
