@@ -53,6 +53,8 @@ class Tan extends \Tualo\Office\Basic\RouteWrapper
 
                 $wahlschein['wahlscheinstatus'] = '-1';
                 $wahlschein['abgabetyp'] = '0';
+                unset($wahlschein['username']);
+                unset($wahlschein['pwhash']);
 
                 $wahlscheintable->update($wahlschein);
 
