@@ -2,7 +2,7 @@ delimiter ;
 
 
 CREATE TABLE IF NOT EXISTS `wzbruecklauffelder` (
-  `table_name`	varchar(128) default 'wahlberechtigte_anlage',
+  `table_name`	varchar(128) default 'wahlzeichnungsberechtigter',
   `column_name`	varchar(100),
   `aktiv` tinyint(4) DEFAULT 1,
   `reihenfolge` int(11) DEFAULT 0,
