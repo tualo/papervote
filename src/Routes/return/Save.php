@@ -24,14 +24,14 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
         return 'papervote.return';
     }
 
-    public static function timing(string $key, $data = null)
+    public static function timing(string $key, $data = null, ?string $requestId = null)
     {
         if (self::$time_start == 0) self::$time_start = microtime(true);
         if (self::$total_time_start == 0) self::$total_time_start = microtime(true);
         $time_end = microtime(true);
         self::$timing_result[] = array('key' => $key, 'total' => $time_end - self::$total_time_start, 'last' => $time_end - self::$time_start, 'data' => $data);
         //if (self::configuration('logger-options', 'TualoApplicationTiming', '0') == '1') {
-        App::logger('PaperVoteSave')->info(number_format($time_end - self::$total_time_start, 5) . "s " . number_format($time_end - self::$time_start, 5) . "s (" . $key . ")");
+        App::logger('PaperVoteSave')->info('[request_id=' . ($requestId ?? 'unknown') . '] ' . number_format($time_end - self::$total_time_start, 5) . "s " . number_format($time_end - self::$time_start, 5) . "s (" . $key . ")");
         //}
         self::$time_start = $time_end;
     }
@@ -39,15 +39,32 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
     {
         BasicRoute::add('/papervote/return/save', function () {
             $db = App::get('session')->getDB();
+            $requestId = bin2hex(random_bytes(16));
+            $requestStartedAt = microtime(true);
+            $stage = 'request.start';
+            $itemIndex = 0;
+            $processedCount = 0;
+            $requestStatus = 'success';
+            $dbNode = null;
+            App::logger('papervote save')->info('[request_id=' . $requestId . '] started');
             try {
 
-                Save::timing('start');
+                Save::timing('start', null, $requestId);
+                $stage = 'db.identify';
+                try {
+                    $dbNode = $db->getRealHost();
+                    App::logger('papervote save')->info('[request_id=' . $requestId . '] db_backend_hostname=' . $dbNode);
+                } catch (\Throwable $e) {
+                    App::logger('papervote save')->warning('[request_id=' . $requestId . '] unable to identify db backend: ' . $e->getMessage());
+                }
+
                 $input = json_decode(file_get_contents('php://input'), true);
                 if (is_null($input)) throw new Exception("Error Processing Request", 1);
                 $status = json_decode($input['status'], true);
                 $liste = json_decode($input['liste'], true);
                 $USE_TUALO = 0;
                 $USE_TUALO_URL = 0;
+                $stage = 'settings.read';
                 $system_settings = $db->direct("select property,system_settings_id FROM system_settings ", [], 'system_settings_id');
 
                 $usedate = isset($input['use_date']) ? $input['use_date'] : (new DateTime())->format('Y-m-d');
@@ -62,21 +79,27 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                     if ($blocknumber == '0') throw new Exception("Eine Bocknummer wird erwartet.");
                 }
 
-                $db->direct("insert into wahlschein_blocknumbers (blocknumber  ,login,lastlogin , createtime ,lastinsert) values ({blocknumber},getSessionUser(),getSessionUser(),now(),now() ) on duplicate key update lastlogin=values(lastlogin),lastinsert=values(lastinsert) ", ['blocknumber' => $blocknumber]);
-                Save::timing('wahlschein_blocknumbers', __LINE__);
+                if (App::configuration('papervote', 'force_blocknumber', '0') == '0') {
+                    $stage = 'blocknumber.upsert';
+                    $db->direct("insert into wahlschein_blocknumbers (blocknumber  ,login,lastlogin , createtime ,lastinsert) values ({blocknumber},getSessionUser(),getSessionUser(),now(),now() ) on duplicate key update lastlogin=values(lastlogin),lastinsert=values(lastinsert) ", ['blocknumber' => $blocknumber]);
+                    Save::timing('wahlschein_blocknumbers', __LINE__, $requestId);
+                }
 
                 foreach ($liste as $wert) {
+                    $itemIndex++;
+                    $stage = 'wahlschein.read';
 
                     $wahlschein = DSTable::instance('wahlschein');
                     $ws_read = $wahlschein->f('id', 'eq', $wert)->read();
                     if ($ws_read->empty()) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
                     $ws = $ws_read->getSingle();
                     // try load WS
-                    Save::timing('DSTable::instance(wahlschein)', __LINE__);
+                    Save::timing('DSTable::instance(wahlschein)', __LINE__, $requestId);
 
+                    $stage = 'wahlschein.related_lookup';
                     $loadWS = Query::get('wahlscheinnummer', $ws['wahlscheinnummer']);
                     if (count($loadWS) == 0) throw new Exception("Der Wahlschein *" . $wert . "* wurde nicht gefunden");
-                    Save::timing('Query::get(wahlscheinnummer)', __LINE__);
+                    Save::timing('Query::get(wahlscheinnummer)', __LINE__, $requestId);
 
                     $useStatus = null;
                     foreach ($status as $val) {
@@ -97,9 +120,10 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                     }
                     if (isset($system_settings['remote-erp/url'])  && strlen($system_settings['remote-erp/url']['property']) > 6) {
 
-                        App::logger('SAVE')->debug($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
+                        $stage = 'remote.online_check';
+                        App::logger('SAVE')->debug('[request_id=' . $requestId . '] remote.online_check item_index=' . $itemIndex);
                         $online_result = WMTualoRequestHelper::query($system_settings['remote-erp/url']['property'] . '/~/' . $system_settings['remote-erp/token']['property'] . '/onlinevote/get/' . $ws['id']);
-                        Save::timing('WMTualoRequestHelper::query(wahlscheinnummer)', __LINE__);
+                        Save::timing('WMTualoRequestHelper::query(wahlscheinnummer)', __LINE__, $requestId);
                         if ($online_result === false) {
                             throw new Exception("Der Wähler ist derzeit online angemeldet. Bitte warten Sie bis der Wähler sich abgemeldet hat.");
                         }
@@ -116,7 +140,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                     $ws['' . 'blocknumber'] = $blocknumber; // blocknumber
 
 
-                    Save::timing('before wahlschein->update(wahlscheinnummer)', __LINE__);
+                    Save::timing('before wahlschein->update(wahlscheinnummer)', __LINE__, $requestId);
 
                     unset($ws['te']);
                     unset($ws['ts']);
@@ -126,6 +150,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                     //
                     // check deadlock
                     // $wahlschein->update($ws);
+                    $stage = 'wahlschein.update';
                     $db->direct('update wahlschein set 
                         usedate={usedate},
                         abgabetyp={abgabetyp},
@@ -141,15 +166,28 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                         'stimmzettel' => $ws['stimmzettel']
                     ]);
 
+                    $processedCount++;
 
                     App::result('success', true);
                 }
-            } catch (Exception $e) {
-                App::logger('papervote save')->error($e->getMessage());
+            } catch (\Throwable $e) {
+                $requestStatus = 'error';
+                App::logger('papervote save')->error('[request_id=' . $requestId . '] ' . json_encode([
+                    'stage' => $stage,
+                    'item_index' => $itemIndex,
+                    'processed_count' => $processedCount,
+                    'duration_seconds' => round(microtime(true) - $requestStartedAt, 5),
+                    'db_connection_host' => $db->dbhost ?? null,
+                    'db_backend_hostname' => is_string($dbNode) ? $dbNode : null,
+                    'db_error_code' => $db->GetErrorNum(),
+                    'exception_class' => get_class($e),
+                    'message' => $e->getMessage()
+                ], JSON_UNESCAPED_SLASHES));
 
                 App::result('msg', $e->getMessage());
             }
-            Save::timing('wahlschein finished', __LINE__);
+            Save::timing('wahlschein finished', __LINE__, $requestId);
+            App::logger('papervote save')->info('[request_id=' . $requestId . '] finished status=' . $requestStatus . ' processed=' . $processedCount . ' duration_seconds=' . round(microtime(true) - $requestStartedAt, 5));
             App::contenttype('application/json');
         }, array('get', 'post'), true, [], self::scope());
     }
