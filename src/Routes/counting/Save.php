@@ -171,11 +171,13 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
 
 
 
-
-
+                        // TODO: Handle the case where $stapelliste is null or empty to avoid "Trying to access array offset on null" error
+                        // ACHTUNG: Hier wird jeder Stimmzettel im Stapel verarbeitet
+                        // Trying to access array offset on null in /var/www/html/ihk/vendor/tualo/papervote/src/Routes/counting/Save.php on line 179, referer: http://192.168.1.118/ihk/
                         foreach ($stapelliste as $stimmzettelliste) {
 
                             $name = $_REQUEST['stapel'];
+
                             $stimmzettelnr = $stimmzettelliste[0]['stimmzettel'];
 
                             $stimmzettel_id = (Uuid::uuid4())->toString();

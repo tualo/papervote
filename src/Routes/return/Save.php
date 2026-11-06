@@ -182,7 +182,7 @@ class Save extends \Tualo\Office\Basic\RouteWrapper
                     'db_error_code' => $db->GetErrorNum(),
                     'exception_class' => get_class($e),
                     'message' => $e->getMessage()
-                ], JSON_UNESCAPED_SLASHES));
+                ], JSON_UNESCAPED_SLASHES), []);
 
                 App::result('msg', $e->getMessage());
             }
