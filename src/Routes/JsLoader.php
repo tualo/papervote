@@ -13,6 +13,8 @@ class JsLoader extends \Tualo\Office\Basic\RouteWrapper
     {
         return 'basic';
     }
+
+
     public static function register()
     {
         BasicRoute::add('/jspapervote/(?P<file>[\w.\/\-]+).js', function ($matches) {
